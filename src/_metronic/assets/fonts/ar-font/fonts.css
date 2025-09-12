@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'HelveticaNeueLTArabic-Roman_0';
+    /* medium 500*/
+    src: url('HelveticaNeueLTArabic-Roman_0.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HelveticaNeueLTArabic-Light_0';
+    /* Regular 400*/
+    src: url('HelveticaNeueLTArabic-Roman_0.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HelveticaNeueLTArabic-Bold_2';
+    /* Bold 700*/
+    src: url('HelveticaNeueLTArabic-Bold_2.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

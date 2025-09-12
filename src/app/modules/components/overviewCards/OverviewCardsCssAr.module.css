@@ -1,0 +1,264 @@
+.columnTitle {
+  color: var(--text-2, #1f2937);
+  text-align: left;
+  font: var(--text-semibold-2, 600 14px/24px "SF Pro Display", sans-serif);
+  position: relative;
+  }
+  
+  .cellText {
+  color: var(--text-2, #1f2937);
+  text-align: right;
+  font: var(--text-regular-2, 400 14px/24px "SF Pro Display", sans-serif);
+  position: relative;
+  flex: 1;
+  }
+  
+  .urgent {
+      background: var(--system-warning-5, #ef4444);
+  border-radius: 4px;
+  padding: 2px 4px 2px 4px;
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  color: var(--shadow-2, #ffffff);
+  text-align: right;
+  font: var(--small-medium, 500 12px/17px "SF Pro Display", sans-serif);
+  display: flex;
+  }
+  .normal {
+  background: var(--system-success-5, #10b981);
+  border-radius: 4px;
+  padding: 2px 4px 2px 4px;
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  color: var(--shadow-2, #ffffff);
+  text-align: right;
+  font: var(--small-medium, 500 12px/17px "SF Pro Display", sans-serif);
+  align-items: center;
+  }
+  
+  .topurgent {
+    background: #ff8142;
+    border-radius: 4px;
+    padding: 2px 4px 2px 4px;
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    color: var(--shadow-2, #ffffff);
+    text-align: right;
+    font: var(--small-medium, 500 12px/17px "SF Pro Display", sans-serif);
+    align-items: center;
+    }
+
+    .immediate {
+      background: #dc2626;
+      border-radius: 4px;
+      padding: 2px 4px 2px 4px;
+      display: flex;
+      flex-direction: row;
+      gap: 2px;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      color: var(--shadow-2, #ffffff);
+      text-align: right;
+      font: var(--small-medium, 500 12px/17px "SF Pro Display", sans-serif);
+      align-items: center;
+      }    
+    
+  .inProgress {
+  background: var(--system-info-9, #dbeafe);
+  border-radius: 4px;
+  padding: 2px 4px 2px 4px;
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--system-info-4, #2563eb);
+  text-align: right;
+  font: var(--small-medium, 500 12px/17px "SF Pro Display", sans-serif);
+  position: relative;
+  }
+  
+  .onHold {
+  background: var(--system-warning-9, #fee2e2);
+  border-radius: 4px;
+  padding: 2px 4px 2px 4px;
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  color: var(--system-warning-4, #dc2626);
+  text-align: right;
+  font: var(--small-medium, 500 12px/17px "SF Pro Display", sans-serif);
+  }
+  .rejected {
+    background: var(--system-warning-6, #f87171);
+    border-radius: 4px;
+    padding: 2px 4px 2px 4px;
+    flex-direction: row;
+    gap: 2px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--system-info-10, #ffffff);
+    text-align: right;
+    font: var(--small-medium, 500 12px/17px "SF Pro Display", sans-serif);
+    position: relative;
+    display: flex;  
+  }
+  .notStarted {
+  background: var(--text-9, #f3f4f6);
+  border-radius: 4px;
+  padding: 2px 4px 2px 4px;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--text-2, #1f2937);
+  text-align: right;
+  font: var(--small-medium, 500 12px/17px "SF Pro Display", sans-serif);
+  position: relative;
+  display: flex;
+  }
+  
+  .completed {
+  background: var(--system-success-9, #d1fae5);
+  border-radius: 4px;
+  padding: 2px 4px 2px 4px;
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--system-success-4, #059669);
+  text-align: right;
+  font: var(--small-medium, 500 12px/17px "SF Pro Display", sans-serif);
+  position: relative;
+  }
+  .topSecret,
+  .topsecret {
+  background: var(--system-warning-10, #fef2f2);
+  border-radius: 4px;
+  padding: 2px 4px 2px 4px;
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--system-warning-4, #dc2626);
+  text-align: right;
+  font: var(--small-medium, 500 12px/17px "SF Pro Display", sans-serif);
+  position: relative;
+  align-items: center;
+  }
+  
+  .secret {
+  background: var(--primary-100, #fff2ec);
+  border-radius: 4px;
+  padding: 2px 4px 2px 4px;
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  color: var(--primary-base, #ff8142);
+  text-align: right;
+  font: var(--small-medium, 500 12px/17px "SF Pro Display", sans-serif);
+  }
+  
+  .unclassified {
+  background: var(--system-success-9, #d1fae5);
+  border-radius: 4px;
+  padding: 2px 4px 2px 4px;
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--system-success-4, #059669);
+  text-align: right;
+  font: var(--small-medium, 500 12px/17px "SF Pro Display", sans-serif);
+  position: relative;
+  }
+  
+  .confidential {
+  background: var(--system-error-9, #fef3c7);
+  border-radius: 4px;
+  padding: 2px 4px 2px 4px;
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  color: var(--system-error-5, #f59e0b);
+  text-align: right;
+  font: var(--small-medium, 500 12px/17px "SF Pro Display", sans-serif);
+  }
+  .days3minus {
+  background: var(--system-warning-10, #fef2f2);
+  border-radius: 4px;
+  padding: 2px 4px 2px 4px;
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--system-warning-4, #dc2626);
+  text-align: right;
+  font: var(--small-medium, 500 12px/17px "SF Pro Display", sans-serif);
+  position: relative;
+  }
+  .days9minus {
+  background: var(--system-error-9, #fef3c7);
+  border-radius: 4px;
+  padding: 2px 4px 2px 4px;
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--system-error-4, #d97706);
+  text-align: right;
+  font: var(--small-medium, 500 12px/17px "SF Pro Display", sans-serif);
+  position: relative;
+  }
+  
+  .collapseMain {
+    color: var(--text-2, #1f2937);
+    text-align: right;
+    font: var(--heading-semibold-6, 600 19px/28px "SF Pro Display", sans-serif);
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    display: inline;
+    float: right
+  }
+  
+  

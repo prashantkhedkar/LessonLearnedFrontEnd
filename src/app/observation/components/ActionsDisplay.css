@@ -1,0 +1,301 @@
+/* ActionsDisplay Component Styles */
+
+.actions-display-container {
+  width: 100%;
+  direction: rtl;
+}
+
+.actions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* 3 * 8px = 24px */
+}
+
+.action-card {
+  background-color: #F9FAFB !important;
+  overflow: hidden !important;
+  box-shadow: none !important;
+}
+
+.action-card:hover {
+  box-shadow: rgba(99, 99, 99, 0.3) 0px 4px 12px 0px;
+}
+
+.action-card-content {
+  padding: 0;
+}
+
+.action-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #F9FAFB;
+  background-color: #F9FAFB;
+}
+
+.action-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+ 
+  padding: 2px 16px !important;
+  border-radius: 8px !important;
+  min-width: 100px;
+  justify-content: center;
+  height: 28px;
+}
+
+.status-badge.completed {
+  background-color: #28a74515;
+  border: 1px solid #28a74530;
+}
+
+.status-badge.pending {
+  background-color: #ffc10715;
+  border: 1px solid #ffc10730;
+}
+
+.status-badge.cancelled {
+  background-color: #dc354515;
+  border: 1px solid #dc354530;
+}
+
+.status-badge.default {
+  background-color: #6c757d15;
+  border: 1px solid #6c757d30;
+}
+
+.status-text {
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.status-text.completed {
+  color: #28a745;
+}
+
+.status-text.pending {
+  color: #ffc107;
+}
+
+.status-text.cancelled {
+  color: #dc3545;
+}
+
+.status-text.default {
+  color: #6c757d;
+}
+
+.action-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;  
+}
+
+.action-icon-button {
+  color: #6c757d;
+  padding: 6px;
+}
+
+.action-icon-button:hover {
+  color: #007bff;
+  background-color: #007bff15;
+}
+
+.action-icon-button.edit:hover {
+  color: #B8956A;
+  background-color: #B8956A15;
+}
+
+.action-icon-button.delete:hover {
+  color: #dc3545;
+  background-color: #dc354515;
+}
+
+.action-content {
+  padding: 24px;
+}
+
+.action-text {
+  color: #495057;
+  line-height: 1.6;
+  margin-bottom: 24px !important;
+  text-align: right;
+  font-size: 14px !important;
+}
+
+.action-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid #E4E6EF;
+  position: relative;
+  font-family: inherit;
+}
+
+.action-footer-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  font-family: inherit;
+}
+
+.action-footer-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+  margin: 0 16px;
+}
+
+.action-footer-icon {
+  font-size: 20px !important;
+  color: #B8956A !important;
+  min-width: 16px;
+  min-height: 16px;
+}
+
+.action-footer-label {
+  color: #6c757d !important;
+  font-size: 12px !important;
+  margin: 0 4px;
+  font-family: inherit;
+  font-weight: normal;
+}
+
+.action-footer-value {
+  color: #495057 !important;
+  font-size: 12px !important;
+  font-weight: 500;
+  font-family: inherit;
+}
+
+.action-footer-edit-button {
+  color: #B8956A !important;
+  padding: 6px !important;
+  background-color: rgba(184, 149, 106, 0.1) !important;
+  border-radius: 50% !important;
+  transition: all 0.2s ease;
+  min-width: 32px;
+  min-height: 32px;
+}
+
+.action-footer-edit-button:hover {
+  background-color: rgba(184, 149, 106, 0.2) !important;
+  transform: scale(1.05);
+}
+
+.action-footer-edit-icon {
+  font-size: 16px !important;
+  color: inherit !important;
+}
+
+.add-action-container {
+  margin-top: 24px;
+}
+
+.add-action-button {
+  background-color: #B8956A;
+  color: white;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.add-action-button:hover {
+  background-color: #A0825A;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 0;
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+
+.empty-state-text {
+  color: #6c757d;
+  margin-bottom: 16px;
+}
+
+.empty-state-button {
+  border-color: #B8956A;
+  color: #B8956A;
+}
+
+.empty-state-button:hover {
+  border-color: #A0825A;
+  background-color: #B8956A10;
+}
+
+.modal-textarea {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-top: 4px;
+  outline: none;
+  box-sizing: border-box;
+  resize: vertical;
+  text-align: right;
+  direction: rtl;
+}
+
+.modal-save-button {
+  background-color: #B8956A;
+  color: white;
+  border-radius: 8px;
+  padding: 8px 32px;
+}
+
+.modal-save-button:hover {
+  background-color: #A0825A;
+}
+
+.modal-cancel-button {
+  border-color: #ddd;
+  color: #666;
+  border-radius: 8px;
+  padding: 8px 32px;
+}
+
+.modal-cancel-button:hover {
+  border-color: #ccc;
+  background-color: #f9f9f9;
+}
+
+/* Status icon styles */
+.status-icon {
+  font-size: 16px;
+}
+
+.status-icon.completed {
+  color: #28a745;
+}
+
+.status-icon.pending {
+  color: #ffc107;
+}
+
+.status-icon.cancelled {
+  color: #dc3545;
+}
+
+.status-icon.default {
+  color: #6c757d;
+}
+
+.action-icon {
+  font-size: 20px !important;
+}

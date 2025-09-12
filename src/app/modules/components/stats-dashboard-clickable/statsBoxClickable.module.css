@@ -1,0 +1,148 @@
+.icon-container {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  position: relative;
+  background: var(--system-error-9, #fef3c7);
+  border-radius: 8px;
+}
+
+.icon-container>.img {
+  position: relative;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.statInner {
+  width: 100%;
+}
+
+
+
+.icon-text-containerAR {
+  padding-right: 0px !important;
+
+  color: var(--text-5, #6B7280);
+  text-align: right;
+  leading-trim: both;
+  text-edge: cap;
+  /* RTL/Caption/Bold */
+  font: var(--caption-medium);
+  line-height: 20px;
+  /* 142.857% */
+  letter-spacing: 0.56px;
+
+}
+
+.icon-text-containerEn {
+  color: var(--text-5, #6B7280);
+  /* Caption/medium */
+  font: var(--caption-medium);
+  line-height: 20px;
+  /* 142.857% */
+  letter-spacing: 0.56px;
+}
+
+
+[dir="ltr"] && .icon-text-header {
+  text-align: left;
+  top: 0;
+  left: 0;
+  font-family: 'Roborto-medium';
+}
+
+[dir="rtl"] && .icon-text-header {
+  text-align: right;
+}
+
+
+.in-progress {
+  background: var(--system-info-9, #dbeafe);
+}
+
+.completed {
+  background-color: #d1fae5;
+}
+
+.notstarted {
+  background: var(--text-9, #f3f4f6);
+}
+
+.cancelled {
+  background: var(--mod-status-cancelled-lightbackground) !important;
+}
+
+.overdue {
+  background-color: #fee2e2;
+}
+
+.duepadding {
+  display: flex;
+  padding: 10px;
+  gap: 13px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
+}
+
+[dir="rtl"] && .statsbox-img-col-container {
+  text-align: center;
+  display: flex;
+
+  padding-right: 0px;
+}
+
+[dir="ltr"] && .statsbox-img-col-container {
+  text-align: center;
+  display: flex;
+
+
+}
+
+[dir="ltr"] && .statsbox-text-col-container {
+  padding-right: 0px !important;
+
+
+  color: var(--text-5, #6b7280);
+  text-align: right;
+  font-family: "Helvetica Neue LT Arabic";
+  position: relative;
+  align-self: stretch;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+}
+
+[dir="rtl"] && .statsbox-text-col-container {
+  padding-right: 0px !important;
+  color: var(--text-5, #6b7280);
+  text-align: left;
+  font: var(--caption-medium, 500 14px/20px "Roboto-Regular", sans-serif);
+  position: relative;
+}
+
+.statsbox-text-col-container {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.label {
+
+  color: var(--text-2, #1f2937);
+  text-align: left;
+  font: var(--heading-semibold-6);
+  position: relative;
+  align-self: stretch;
+
+}
+
+.label {
+
+  color: var(--text-2, #1f2937);
+  text-align: left;
+  font: var(--heading-semibold-6);
+  position: relative;
+  align-self: stretch;
+
+}

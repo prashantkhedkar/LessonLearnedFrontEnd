@@ -1,0 +1,80 @@
+[
+  
+  {
+    "columnName": "LABEL.FILENAME",
+    "dataColumnName": "fileName",
+    "sortable": false,
+    "type": "string",
+    "className": "cellText",
+    "fontAwesome": "",
+    "isSearchable": false,
+    "width": "20%",
+    "width-ar": "20%",
+    "style": {
+      "padding-right": "7px",
+      "padding-left": "7px"
+    }
+  },
+  {
+    "columnName": "LABEL.TITLE",
+    "dataColumnName": "fileDescription",
+    "sortable": false,
+    "type": "string",
+    "className": "cellText",
+    "fontAwesome": "",
+    "isSearchable": false,
+    "width": "30%",
+    "width-ar": "30%",
+    "style": {
+      "padding-right": "7px",
+      "padding-left": "7px"
+    }
+  },
+  {
+    "columnName": "LABEL.CREATEDBY",
+    "dataColumnName": "createdByUsername",
+    "sortable": false,
+    "type": "string",
+    "className": "cellText",
+    "fontAwesome": "",
+    "isSearchable": false,
+    "width": "30%",
+    "width-ar": "30%",
+    "style": {
+      "padding-right": "7px",
+      "padding-left": "7px"
+    }
+  },
+  {
+    "columnName": "LABEL.CREATEDDATE",
+    "dataColumnName": "createdDate",
+    "sortable": false,
+    "type": "string",
+    "className": "cellText",
+    "fontAwesome": "",
+    "isSearchable": false,
+    "width": "10%",
+    "width-ar": "10%",
+    "style": {
+      "padding-right": "7px",
+      "padding-left": "7px"
+    }
+  },
+  {
+    "columnName": "LABEL.ACTIONS",
+    "dataColumnName": "",
+    "sortable": false,
+    "type": "components",
+    "className": "cellText",
+    "componentsIndexes": "0,1",
+    "showTooltip": "false",
+    "isSearchable": false,
+    "width": "10%",
+    "width-ar": "10%",
+    "style": {
+      "padding-right": "10px",
+      "padding-left": "10px",
+      "color": "grey"
+    }
+  }
+]

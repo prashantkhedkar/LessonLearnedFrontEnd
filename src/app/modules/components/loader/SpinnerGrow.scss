@@ -1,0 +1,36 @@
+/* common */
+.loading {
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    text-align: center;
+
+    span {
+        display: inline-block;
+       
+        margin: 3px !important;
+    }
+}
+
+/* code #1 */
+.loading01 {
+    span {
+        animation: loading01 1.4s infinite alternate;
+
+        @for $i from 0 through 6 {
+            &:nth-child(#{$i+1}) {
+                animation-delay: #{$i*.3}s;
+            }
+        }
+    }
+}
+
+@keyframes loading01 {
+    0% {
+        opacity: 2;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

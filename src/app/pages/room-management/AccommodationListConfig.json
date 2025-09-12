@@ -1,0 +1,78 @@
+[
+    {
+        "columnName": "LABEL.ACCOMODATION.ROOMNAME",
+        "dataColumnName": "roomName",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "showTooltip": "false",
+        "isSearchable": true,
+        "width": "30%",
+        "width-ar": "30%",
+        "style": {
+            "padding-right": "5px",
+            "padding-left": "5px",
+            "color": "grey"
+        }
+    },
+   
+    {
+        "columnName": "LABEL.ACCOMODATION.ACCOMODATIONLOCATION",
+        "dataColumnName": "location",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "20%",
+        "width-ar": "20%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    }, {
+        "columnName": "LABEL.ACCOMODATION.ACCOMODATIONTYPE",
+        "dataColumnName": "accommodationType",
+        "sortable": true,
+        "type": "components",
+        "className": "cellText",
+        "componentsIndexes": "4",
+        "isSearchable": true,
+        "width": "20%",
+        "width-ar": "20%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName": "LABEL.STATUS",
+        "dataColumnName": "availabilityStatus",
+        "sortable": true,
+        "type": "components",
+        "className": "cellText",
+        "componentsIndexes": "5",
+        "isSearchable": true,
+        "width": "20%",
+        "width-ar": "20%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName": "DT.COLUMN.ACTION",
+        "dataColumnName": "",
+        "sortable": false,
+        "type": "components",
+        "className": "cellText",
+        "componentsIndexes": "0,1,2,3",
+        "isSearchable": false,
+        "width": "10%",
+        "width-ar": "10%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    } 
+]

@@ -1,0 +1,162 @@
+export const GetFieldMasterList = createAsyncThunk<
+  any,
+  { pageNumber: number; pageSize: number, sortColumn: string; sortDirection: string ,searchTerm:string}
+>("GetFieldMasterList", async ({ pageNumber, pageSize, sortColumn, sortDirection,searchTerm }, thunkApi) => {
+  try {
+    return await requests.get<responseType>(
+      `/Admin/GetAllFieldMasterData?pageNumber=${pageNumber}&pageSize=${pageSize}&sortColumn=${sortColumn}&sortDirection=${sortDirection}&searchTerm=${searchTerm}`
+    );
+  } catch (error: any) {
+    console.log(error);
+    return thunkApi.rejectWithValue({ error: JSON.stringify(error) });
+  }
+});
+
+==================
+
+API:
+
+
+    public class FieldMasterGridDto
+    {
+        public long FieldId { get; set; }
+
+        public string FieldLabel { get; set; } = null!;
+
+        public string FieldLabelAr { get; set; } = null!;
+
+        public int FieldTypeId { get; set; }
+
+        public bool? IsRequired { get; set; }
+
+        public int? DisplayOrder { get; set; }
+
+        public bool? IsActive { get; set; }
+        public string? FieldStatus { get; set; }
+
+
+        public string? Placeholder { get; set; }
+
+        public string? CreatedBy { get; set; }
+
+        public DateTime? CreatedDate { get; set; }
+
+        public string? UpdatedBy { get; set; }
+
+        public DateTime? UpdatedDate { get; set; }
+
+        public string? FieldTypeName { get; set; } = null!;
+
+
+    }
+    
+    
+    public class FieldMasterListDataDto
+    {
+        public List<FieldMasterGridDto> data { get; set; } = new List<FieldMasterGridDto>();
+        public int CurrentPage { get; set; }
+        public int NumberOfPages { get; set; }
+        public int TotalCount { get; set; }
+    }
+
+}
+=============
+ [HttpGet]
+        public async Task<IActionResult> GetAllFieldMasterData(int pageNumber, int pageSize, string sortColumn, string sortDirection,string? searchTerm="")
+        {
+            var result = await _adminRepository.GetAllFieldMasterData(pageNumber, pageSize, GetUserContextInfo(), sortColumn, sortDirection, searchTerm);
+
+            if (result != null)
+            {
+                return CustomResult("Data loaded successfully", result, System.Net.HttpStatusCode.OK);
+            }
+            return CustomResult("Data load failed", HttpStatusCode.BadRequest);
+        }
+==============
+ public Task<FieldMasterListDataDto> GetAllFieldMasterData(int pageNumber, int pageSize, UserContextModel userContextModel, string sortColumn, string sortDirection, string? searchText);
+=============
+  public async Task<FieldMasterListDataDto> GetAllFieldMasterData(int pageNumber, int pageSize, UserContextModel userContextModel, string sortColumn, string sortDirection, string? searchText)
+        {
+            try
+            {
+            var query = (
+                    from s in _dbContext.FieldMasters
+                    join t in _dbContext.FieldTypeMasters on s.FieldTypeId equals t.FieldTypeId
+                    join createdUser in _dbContext.UserDetails on s.CreatedBy equals (long?)createdUser.UserId into createdUserJoin
+                    from createdUser in createdUserJoin.DefaultIfEmpty()
+                    join updatedUser in _dbContext.UserDetails on s.UpdatedBy equals (long?)updatedUser.UserId into updatedUserJoin
+                    from updatedUser in updatedUserJoin.DefaultIfEmpty()
+                        // join z in _dbContext.LookupMasters on new { LookupId = (int?)(s.IsActive == true ? 1 : 0), LookupType = "ServiceStatus" } equals new { LookupId = (int?)z.LookupId, LookupType = z.LookupType } into lz
+                        // from z in lz.DefaultIfEmpty()
+
+                    select new FieldMasterGridDto
+                    {
+                        FieldId = s.FieldId,
+                        FieldLabel = s.FieldLabel,
+                        FieldLabelAr = s.FieldLabelAr,
+                        IsActive = s.IsActive,
+                        FieldStatus = s.IsActive == true ? (userContextModel.Lang == "ar" ? "نشط" : "Active") : (userContextModel.Lang == "ar" ? "غير نشط" : "Inactive"),
+                        DisplayOrder = s.DisplayOrder,
+                        FieldTypeId = s.FieldTypeId,
+                        FieldTypeName = t.FieldTypeName,
+                        IsRequired = s.IsRequired,
+                        CreatedBy = (userContextModel.Lang == "ar") ? createdUser.DisplayNameAr : createdUser.DisplayName,
+                        CreatedDate = s.CreatedDate,
+                        UpdatedBy = (userContextModel.Lang == "ar") ? updatedUser.DisplayNameAr : updatedUser.DisplayName,
+                        UpdatedDate = s.UpdatedDate
+                    }).AsQueryable();
+
+                // Apply search filter if searchText is provided
+                if (!string.IsNullOrEmpty(searchText))
+                {
+                    Console.WriteLine($"Applying search filter for text: '{searchText}'");
+                    var lowerSearchText = searchText.ToLower();
+
+                    // Try to parse searchText as a date for date filtering
+                    DateTime searchDate;
+                    bool isDateSearch = DateTime.TryParse(searchText, out searchDate);
+
+                    query = query.Where(item =>
+                        (!string.IsNullOrEmpty(item.FieldLabel) && item.FieldLabel.ToLower().Contains(lowerSearchText)) ||
+                        (!string.IsNullOrEmpty(item.FieldLabelAr) && item.FieldLabelAr.ToLower().Contains(lowerSearchText)) ||
+                        (!string.IsNullOrEmpty(item.FieldTypeName) && item.FieldTypeName.ToLower().Contains(lowerSearchText)) ||
+                        (!string.IsNullOrEmpty(item.CreatedBy) && item.CreatedBy.ToLower().Contains(lowerSearchText)) ||
+                        (!string.IsNullOrEmpty(item.UpdatedBy) && item.UpdatedBy.ToLower().Contains(lowerSearchText)) ||
+                        (isDateSearch && item.CreatedDate.HasValue && item.CreatedDate.Value.Date == searchDate.Date) ||
+                        (isDateSearch && item.UpdatedDate.HasValue && item.UpdatedDate.Value.Date == searchDate.Date)
+                    );
+                    Console.WriteLine($"Search filter applied - looking for text in FieldLabel, FieldLabelAr, CreatedBy, UpdatedBy fields and date match in CreatedDate, UpdatedDate containing: '{searchText}' (case-insensitive)");
+                }
+
+                // Dynamic sort using System.Linq.Dynamic.Core
+                //pageNumber=1&pageSize=10&sortColumn=updatedAt&sortDirection=asc
+                if (!string.IsNullOrEmpty(sortColumn))
+                {
+                    var direction = string.IsNullOrEmpty(sortDirection) ? "desc" : sortDirection.ToLower();
+                    query = query.OrderBy($"{sortColumn} {direction}");
+                }
+                else
+                {
+                    query = query.OrderByDescending(o => o.UpdatedDate);
+                }
+
+                FieldMasterListDataDto dto = new FieldMasterListDataDto();
+                var totalCount = query.Count();
+                var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+                var pagedQuery = query.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+                var result = await pagedQuery.ToListAsync();
+
+                // Assign the correct type to dto.data
+                dto.data = result;
+                dto.CurrentPage = pageNumber;
+                dto.NumberOfPages = totalPages;
+                dto.TotalCount = totalCount;
+                return dto;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+================
+

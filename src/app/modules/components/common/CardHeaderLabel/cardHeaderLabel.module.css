@@ -1,0 +1,8 @@
+.cardTitle{
+    font: var(--title-semibold-1);
+  }
+
+  .cardSubTitle{
+    font: var(--text-medium-2);
+    color: var(--text-6, #9CA3AF);
+  }

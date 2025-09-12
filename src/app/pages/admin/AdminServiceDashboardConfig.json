@@ -1,0 +1,81 @@
+[
+    {
+        "columnName": "DT.COLUMN.SERVICENAME",
+        "dataColumnName": "serviceName",
+        "sortable": true,
+        "type": "components",
+        "className": "cellText",
+        "componentsIndexes": "0",
+        "showTooltip": "false",
+        "isSearchable": false,
+        "width": "35%",
+        "width-ar": "35%",
+        "style": {
+            "padding-right": "5px",
+            "padding-left": "5px",
+            "color": "grey"
+        }
+    },
+    {
+        "columnName": "LABEL.SERVICE.ACCESS",
+        "dataColumnName": "lookupName",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "15%",
+        "width-ar": "15%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName": "DT.COLUMN.LASTUPDATEDDATE",
+        "dataColumnName": "updatedAt",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "15%",
+        "width-ar": "15%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName": "DT.COLUMN.UPDATEDBY",
+        "dataColumnName": "lastUpdatedBy",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "25%",
+        "width-ar": "25%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName": "DT.COLUMN.ACTION",
+        "dataColumnName": "",
+        "sortable": false,
+        "type": "components",
+        "className": "cellText",
+        "componentsIndexes": "1,2",
+        "showTooltip": "false",
+        "isSearchable": false,
+        "width": "10%",
+        "width-ar": "10%",
+        "style": {
+            "padding-right": "10px",
+            "padding-left": "10px",
+            "color": "grey"
+        }
+    }
+]

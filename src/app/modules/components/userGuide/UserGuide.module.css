@@ -1,0 +1,130 @@
+.frameDiv {
+    border-radius: 16px;
+    border: 1px solid #9A9A9A;
+    width: 100%;
+    height: calc(90vh - 235px);
+}
+
+.modalParams {
+    min-height: fit-content;
+    border-radius: 16px;
+    border: 1px solid #B7945A;
+    background: var(--Shadow-2, #FFF);
+    box-shadow: 0px 6px 10px -1px rgba(6, 25, 56, 0.07);
+}
+
+.containerModalHeader {
+    margin-block: 2rem;
+    width: 96% !important;
+    max-width: none !important;
+}
+
+.containerModalFooter {
+    margin-block: 1rem;
+    width: 96% !important;
+    max-width: none !important;
+}
+
+.containerFrame {
+    width: 96% !important;
+    max-width: none !important;
+}
+
+.modalCloseButton {
+    cursor: pointer;
+    display: flex;
+    padding-block: 0.75rem;
+    padding-inline: 1rem;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    border: 0.5px solid #B7945A;
+    background: var(--Shadow-2, #FFF);
+    box-shadow: 0px 1px 2px 0px rgba(6, 25, 56, 0.05);
+    float: inline-end;
+}
+
+.closeButtonText {
+    color: var(--Text-2, #1F2937);
+    text-align: center;
+    font-family: "Helvetica Neue LT Arabic";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.theLine {
+    background: #E5E7EB;
+    height: 1px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.theLineNoMargin {
+    background: #E5E7EB;
+    height: 1px;
+}
+
+.titleText {
+    color: var(--Text-2, #1F2937);
+    font-family: "Helvetica Neue LT Arabic";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 22px;
+}
+
+.titleCol {
+    align-items: center;
+    flex-wrap: wrap;
+    display: flex;
+}
+
+.filesListContainer {
+    border-inline-end: 1px solid #E5E7EB;
+}
+
+.fileIconCol {
+    align-items: center;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: end;
+}
+
+.fileNameCol {
+    align-items: center;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: start;
+}
+
+.fileRow {
+    min-height: 3.5rem;
+    cursor: pointer;
+}
+
+.fileRowSelected {
+    background: #EAE5DB;
+}
+
+.fileText {
+    color: var(--Text-2, #1F2937);
+    font-family: "Helvetica Neue LT Arabic";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.dialogClassMulti {
+    width: 83% !important;
+    min-width: 83% !important;
+    height: 90vh !important;
+}
+
+.dialogClassSingle {
+    width: 81% !important;
+    min-width: 81% !important;
+    height: 90vh !important;
+}

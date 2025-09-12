@@ -1,0 +1,116 @@
+.multi-bg{
+    background-image: url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M8.36291 1.15039L8.3999 1.15039H15.5999L15.6369 1.15039C16.7256 1.15038 17.5946 1.15038 18.2963 1.20771C19.0159 1.2665 19.6341 1.38979 20.2018 1.67901C21.1143 2.144 21.8563 2.88595 22.3213 3.79854C22.6105 4.36616 22.7338 4.98441 22.7926 5.70398C22.8499 6.40572 22.8499 7.27469 22.8499 8.36346V8.40039V15.6004V15.6373C22.8499 16.7261 22.8499 17.5951 22.7926 18.2968C22.7338 19.0164 22.6105 19.6346 22.3213 20.2022C21.8563 21.1148 21.1143 21.8568 20.2018 22.3218C19.6341 22.611 19.0159 22.7343 18.2963 22.7931C17.5946 22.8504 16.7256 22.8504 15.6368 22.8504H15.5999H8.3999H8.36297C7.2742 22.8504 6.40523 22.8504 5.70349 22.7931C4.98392 22.7343 4.36567 22.611 3.79805 22.3218C2.88546 21.8568 2.14351 21.1148 1.67852 20.2022C1.3893 19.6346 1.26601 19.0164 1.20722 18.2968C1.14989 17.5951 1.1499 16.7261 1.1499 15.6374L1.1499 15.6004V8.40039L1.1499 8.3634C1.1499 7.27465 1.14989 6.4057 1.20722 5.70398C1.26601 4.98441 1.3893 4.36616 1.67852 3.79854C2.14351 2.88595 2.88546 2.144 3.79805 1.67901C4.36567 1.38979 4.98392 1.2665 5.70349 1.20771C6.40521 1.15038 7.27416 1.15038 8.36291 1.15039ZM5.84193 2.90206C5.22748 2.95227 4.85786 3.04696 4.56983 3.19372C3.97712 3.49572 3.49523 3.97761 3.19323 4.57032C3.04648 4.85835 2.95178 5.22797 2.90158 5.84242C2.85056 6.46678 2.8499 7.26626 2.8499 8.40039V15.6004C2.8499 16.7345 2.85056 17.534 2.90158 18.1584C2.95178 18.7728 3.04648 19.1424 3.19323 19.4305C3.49523 20.0232 3.97712 20.5051 4.56983 20.8071C4.85786 20.9538 5.22748 21.0485 5.84193 21.0987C6.46629 21.1497 7.26577 21.1504 8.3999 21.1504H15.5999C16.734 21.1504 17.5335 21.1497 18.1579 21.0987C18.7723 21.0485 19.1419 20.9538 19.43 20.8071C20.0227 20.5051 20.5046 20.0232 20.8066 19.4305C20.9533 19.1424 21.048 18.7728 21.0982 18.1584C21.1492 17.534 21.1499 16.7345 21.1499 15.6004V8.40039C21.1499 7.26626 21.1492 6.46678 21.0982 5.84242C21.048 5.22797 20.9533 4.85835 20.8066 4.57032C20.5046 3.97761 20.0227 3.49572 19.43 3.19372C19.1419 3.04696 18.7723 2.95227 18.1579 2.90206C17.5335 2.85105 16.734 2.85039 15.5999 2.85039H8.3999C7.26577 2.85039 6.46629 2.85105 5.84193 2.90206ZM9.9999 14.8504C9.36478 14.8504 8.8499 15.3653 8.8499 16.0004C8.8499 16.0832 8.91706 16.1504 8.9999 16.1504H14.9999C15.0827 16.1504 15.1499 16.0832 15.1499 16.0004C15.1499 15.3653 14.635 14.8504 13.9999 14.8504H9.9999ZM7.1499 16.0004C7.1499 14.4264 8.42589 13.1504 9.9999 13.1504H13.9999C15.5739 13.1504 16.8499 14.4264 16.8499 16.0004C16.8499 17.0221 16.0216 17.8504 14.9999 17.8504H8.9999C7.97818 17.8504 7.1499 17.0221 7.1499 16.0004ZM10.8499 9.00039C10.8499 8.36526 11.3648 7.85039 11.9999 7.85039C12.635 7.85039 13.1499 8.36526 13.1499 9.00039C13.1499 9.63552 12.635 10.1504 11.9999 10.1504C11.3648 10.1504 10.8499 9.63552 10.8499 9.00039ZM11.9999 6.15039C10.4259 6.15039 9.1499 7.42638 9.1499 9.00039C9.1499 10.5744 10.4259 11.8504 11.9999 11.8504C13.5739 11.8504 14.8499 10.5744 14.8499 9.00039C14.8499 7.42638 13.5739 6.15039 11.9999 6.15039Z' fill='grey'/%3E%3C/svg%3E" );
+    background-repeat: no-repeat;  
+    background-position: 0 center;
+    padding:0.775rem 2.5rem;  
+  }
+  
+  .btn-submit, .btn-submit:hover, .btn-submit:active, .btn-submit:visited{
+    background: var(--primary-5, #b7945a) !important;
+  }
+  
+  .btn-back{
+    background: var(--shadow-2, #ffffff);
+    border-radius: 8px;
+    border-style: solid;
+    border-color: var(--text-8, #e5e7eb);
+    border-width: 0.5px;
+    padding: 8px 20px 8px 20px !important;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+    box-shadow: var(--shadow-1-box-shadow, 0px 1px 2px 0px rgba(6, 25, 56, 0.05));
+  }
+  
+  .btn-back, .btn-back:hover, .btn-back:active, .btn-back:visited{
+    background: var(--shadow-2, #ffffff) !important;
+  }
+  
+  .error{
+    color:red;
+    font: var(--title-medium-2) !important;
+  }
+  
+  .btn-attachment, .btn-link {
+    background: var(--text-6, #9ca3af) !important;
+    border-radius: 8px;
+    padding: 8px 16px 8px 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+    float:left;
+  }
+  
+  .btn-attachment:hover, .btn-link:hover{
+    background: var(--primary-5, #b7945a) !important;
+  }
+  
+  .link {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .sort-amount-down {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    overflow: hidden;
+  
+  }
+  
+  .sort-amount-down svg{
+    margin : 5px;
+  }
+  
+  .ellipse-132 {
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    transform-origin: 0 0;
+    transform: rotate(0deg) scale(1, 1);
+  }
+  
+  .avatar {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    position: relative;
+  }
+  
+  .ellipse-12 {
+    background: var(--primary-9, #dfcfb6);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    transform-origin: 0 0;
+    transform: rotate(0deg) scale(1, 1);
+  }
+  .jw {
+    color: var(--primary-5, #b7945a);
+    text-align: center;
+    font: var(--heading-medium-6, 500 19px/28px "SF Pro Display", sans-serif);
+    position: absolute;
+    left: 10px;
+    top: 10px;
+  }
+
+  

@@ -1,0 +1,38 @@
+
+.unitename {
+    color: hsl(0, 100%, 99%);
+    
+}
+  
+.unitename {
+    padding: 64px;
+    background: linear-gradient(to right, hsla(0, 50%, 1%, 0.719) 0, hsl(0, 0%, 100%) 10%, hsl(0, 0%, 99%) 20%);;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 10s infinite linear;
+  }
+  
+  @keyframes shine {
+    0% {
+      background-position: 0;
+    }
+    60% {
+      background-position: 600px;
+    }
+    100% {
+      background-position: 600px;
+    }
+  }
+
+// Chart layout styles for dashboard role-based rendering
+.chart-full {
+  direction: rtl;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 7px rgba(0, 0, 0, 0.1);
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+}

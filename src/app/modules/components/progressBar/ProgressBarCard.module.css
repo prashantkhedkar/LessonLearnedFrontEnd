@@ -1,0 +1,57 @@
+.icon-container {
+  height: 45px;
+  background: var(--system-error-9, #fef3c7);
+  width: 80%;
+  float: inherit;
+  background: rgb(254, 243, 199);
+  padding-top: 20%;
+  border-radius: 8px;
+}
+
+.icon-text-container span {
+  font-weight: bold;
+}
+
+[dir="ltr"] && .icon-text-header {
+  text-align: left;
+}
+
+[dir="rtl"] && .icon-text-header {
+  text-align: right;
+}
+
+.in-progress {
+  background: var(--mod-status-inprogress-lightbackground) !important;
+}
+
+.completed {
+  background-color: var(--mod-status-completed-lightbackground) !important;
+}
+
+.notstarted {
+  background: var(--mod-status-notstarted-lightbackground) !important;
+}
+
+.overdue {
+  background-color: var(--mod-status-rejected-lightbackground) !important;
+}
+
+.duepadding {
+  padding: 10px !important;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px !important;
+}
+
+.statsbox-img-col-container {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding-right: 0px;
+}
+
+.statsbox-text-col-container {
+  padding-right: 0px !important;
+}
+
+.statsbox-text-col-container {
+  padding-left: 0px !important;
+}

@@ -1,0 +1,461 @@
+/* Figma Styles of your File */
+/* Figma Styles of your File */
+
+@import '_metronic/assets/fonts/en-font/fonts.css';
+@import '_metronic/assets/fonts/fonts.css';
+@import '_metronic/assets/fontawesome-pro/css/all.min.css';
+
+:root {
+    /* Colors */
+    --bg: #f8f9fa;
+    --sand-bg: #eae7e3;
+    --primary-1: #46361d;
+    --primary-2: #69522b;
+    --primary-3: #8c6d3a;
+    --primary-4: #af8848;
+    --primary-5: #b7945a;
+    --primary-6: #bfa06d;
+    --primary-7: #c7ac7f;
+    --primary-10: #efe7da;
+    --primary-9: #dfcfb6;
+    --primary-8: #cfb891;
+    --shadow-2: #ffffff;
+    --text-8: #e5e7eb;
+    --text-7: #d1d5db;
+    --text-6: #9ca3af;
+    --text-5: #6b7280;
+    --text-4: #4b5563;
+    --text-3: #374151;
+    --text-2: #1f2937;
+    --text-1: #111827;
+    --text-10: #f9fafb;
+    --text-9: #f3f4f6;
+    --accent-pink-10: #fdf2f8;
+    --accent-pink-9: #fce7f3;
+    --accent-pink-8: #facee7;
+    --accent-pink-7: #f9a8d4;
+    --accent-pink-6: #f372b5;
+    --accent-pink-5: #eb4898;
+    --accent-pink-4: #db2777;
+    --accent-pink-3: #be185d;
+    --accent-pink-2: #9c174d;
+    --accent-pink-1: #831843;
+    --accent-purple-10: #f5f3ff;
+    --accent-purple-9: #ede9fe;
+    --accent-purple-8: #ddd6fe;
+    --accent-purple-7: #c4b5fd;
+    --accent-purple-6: #a78bfa;
+    --accent-purple-5: #8b5cf6;
+    --accent-purple-4: #7c3aed;
+    --accent-purple-3: #6d28d9;
+    --accent-purple-2: #5b21b6;
+    --accent-purple-1: #4c1d95;
+    --accent-ceruleanblue-10: #f0fcff;
+    --accent-ceruleanblue-9: #dcf7fe;
+    --accent-ceruleanblue-8: #afedfd;
+    --accent-ceruleanblue-7: #c8f3fe;
+    --accent-ceruleanblue-6: #96e7fd;
+    --accent-ceruleanblue-5: #73dffc;
+    --accent-ceruleanblue-4: #53d8fb;
+    --accent-ceruleanblue-3: #1acbfa;
+    --accent-ceruleanblue-2: #05bbea;
+    --accent-ceruleanblue-1: #05abd6;
+    --accent-sand-5: #909090;
+    --accent-sand-6: #a6a6a6;
+    --accent-sand-7: #b1b1b1;
+    --accent-sand-8: #bcbcbc;
+    --accent-sand-9: #c8c8c8;
+    --accent-sand-10: #e9e9e9;
+    --accent-sand-4: #828282;
+    --accent-sand-3: #737373;
+    --accent-sand-2: #656565;
+    --accent-sand-1: #565656;
+    --accent-dust-5: #beb3a2;
+    --accent-dust-1: #726b61;
+    --accent-dust-2: #857d71;
+    --accent-dust-3: #988f82;
+    --accent-dust-4: #aba192;
+    --accent-dust-6: #c5bbab;
+    --accent-dust-7: #cbc2b5;
+    --accent-dust-8: #d2cabe;
+    --accent-dust-9: #d8d1c7;
+    --accent-dust-10: #e5e1da;
+    --system-success-7: #6ee7b7;
+    --system-success-6: #34d399;
+    --system-success-5: #10b981;
+    --system-success-4: #059669;
+    --system-success-3: #047857;
+    --system-success-2: #065f46;
+    --system-success-1: #064e3b;
+    --system-success-10: #ecfdf5;
+    --system-success-9: #d1fae5;
+    --system-success-8: #a7f3d0;
+    --system-error-7: #fcd34d;
+    --system-error-6: #fbbf24;
+    --system-error-5: #f59e0b;
+    --system-error-4: #d97706;
+    --system-error-3: #b45309;
+    --system-error-2: #92400e;
+    --system-error-1: #78350f;
+    --system-error-10: #fffbeb;
+    --system-error-9: #fef3c7;
+    --system-error-8: #fde68a;
+    --system-info-7: #93c5fd;
+    --system-info-6: #60a5fa;
+    --system-info-5: #3b82f6;
+    --system-info-4: #2563eb;
+    --system-info-3: #1d4ed8;
+    --system-info-2: #1e40af;
+    --system-info-1: #1e3a8a;
+    --system-info-10: #eff6ff;
+    --system-info-9: #dbeafe;
+    --system-info-8: #bfdbfe;
+    --system-warning-7: #fca5a5;
+    --system-warning-6: #f87171;
+    --system-warning-5: #ef4444;
+    --system-warning-4: #dc2626;
+    --system-warning-3: #b91c1c;
+    --system-warning-2: #991b1b;
+    --system-warning-1: #7f1d1d;
+    --system-warning-10: #fef2f2;
+    --system-warning-9: #fee2e2;
+    --system-warning-8: #fecaca;
+    --gradient-8: linear-gradient(103.05deg,
+            rgba(190, 66, 65, 1) 0%,
+            rgba(255, 202, 177, 1) 100%);
+    --gradient-4: linear-gradient(103.05deg,
+            rgba(104, 109, 235, 1) 0%,
+            rgba(196, 198, 251, 1) 100%);
+    --gradient-7: linear-gradient(101.78deg,
+            rgba(170, 48, 161, 1) 0%,
+            rgba(255, 194, 224, 1) 100%);
+    --gradient-3: linear-gradient(101.78deg,
+            rgba(237, 97, 203, 1) 0%,
+            rgba(0, 171, 247, 1) 100%);
+    --gradient-6: linear-gradient(102.73deg,
+            rgba(0, 94, 180, 1) 0%,
+            rgba(171, 234, 131, 1) 100%);
+    --gradient-2: linear-gradient(102.73deg,
+            rgba(49, 55, 168, 1) 0%,
+            rgba(47, 195, 252, 1) 100%);
+    --gradient-5: linear-gradient(102.54deg,
+            rgba(227, 103, 93, 1) 0%,
+            rgba(255, 237, 161, 1) 100%);
+    --gradient-1: linear-gradient(104.11deg,
+            rgba(210, 185, 146, 1) 0%,
+            rgba(199, 170, 125, 1) 100%);
+    --dashboardcolor-8: #fff5df;
+    --dashboardcolor-7: #d1f8ae;
+    --dashboardcolor-6: #c4c6fb;
+    --dashboardcolor-5: #ffc2e0;
+    --dashboardcolor-4: #ffdfcb;
+    --dashboardcolor-3: #97eafd;
+    --dashboardcolor-2: #ffeda1;
+    --dashboardcolor-1: #ffcdb9;
+    --social-behance: #131418;
+    --social-hackernews: #ff6600;
+    --social-producthunt: #da552f;
+    --social-dribbbler: #ea4c89;
+    --social-pinterest: #bd081c;
+    --social-reddit: #ff5700;
+    --social-quora: #b92b27;
+    --social-snapchat: #fffc00;
+    --social-slack: #3aaf85;
+    --social-salesforce: #00a1e0;
+    --social-instagram: #e4405f;
+    --social-linkedin: #0077b5;
+    --social-twitter: #55acee;
+    --social-facebook: #3b5999;
+
+    /* Fonts */
+    --display-semibold-3: 500 57px "Roboto-Medium";
+    --display-semibold-2: 500 69px "Roboto-Medium";
+    --display-semibold-1: 600 83px "Roboto-Bold";
+    --display-medium-3: 500 57px "Roboto-Medium";
+    --display-medium-2: 500 69px "Roboto-Medium";
+    --display-medium-1: 500 83px "Roboto-Medium";
+    --display-regular-3: 400 57px "Roboto-Regular";
+    --display-regular-2: 400 69px "Roboto-Regular";
+    --display-regular-1: 400 83px "Roboto-Regular";
+    --heading-semibold-6: 600 19px/28px "Roboto-Bold";
+    --heading-semibold-5: 600 23px/34px "Roboto-Bold";
+    --heading-semibold-4: 600 28px "Roboto-Bold";
+    --heading-semibold-3: 600 33px "Roboto-Bold";
+    --heading-semibold-2: 600 40px/52px "Roboto-Bold";
+    --heading-semibold-1: 600 48px "Roboto-Bold";
+
+
+    --heading-medium-6: 500 19px/28px "Roboto-Medium";
+    --heading-medium-5: 500 23px/34px "Roboto-Medium";
+    --heading-medium-4: 500 28px "Roboto-Medium";
+    --heading-medium-3: 500 33px "Roboto-Medium";
+    --heading-medium-2: 500 40px/52px "Roboto-Medium";
+    --heading-medium-1: 500 48px "Roboto-Medium";
+    --heading-regular-6: 400 19px/28px "Roboto-Regular";
+    --heading-regular-5: 400 23px/34px "Roboto-Regular";
+    --heading-regular-4: 400 28px "Roboto-Regular";
+    --heading-regular-3: 400 33px "Roboto-Regular";
+    --heading-regular-2: 400 40px/52px "Roboto-Regular";
+    --heading-regular-1: 400 48px "Roboto-Regular";
+    --title-semibold-2: 600 14px/24px "Roboto-Bold";
+    ;
+    --title-semibold-1: 600 16px/28px "Roboto-Bold";
+    ;
+    --title-medium-2: 500 14px/24px "Roboto-Medium";
+    --title-medium-1: 500 16px/28px "Roboto-Medium";
+    --title-regular-2: 400 14px/24px "Roboto-Regular";
+    --title-regular-1: 400 16px/28px "Roboto-Regular";
+    --text-semibold-2: 600 14px/24px "Roboto-Bold";
+    ;
+    --text-semibold-1: 600 16px/24px "Roboto-Bold";
+    --text-medium-2: 500 14px/24px "Roboto-Medium";
+    --text-medium-1: 500 16px/24px "Roboto-Medium";
+    --text-regular-2: 400 14px/24px "Roboto-Regular";
+    --text-regular-1: 400 16px/24px "Roboto-Regular";
+    --code-semibold: 600 14px/20px "Roboto-Bold";
+    --code-medium: 500 14px/20px "Roboto-Medium";
+    --code-regular: 400 14px/20px "Roboto-Regular";
+    --link-semibold: 600 14px/20px "Roboto-Bold";
+    --link-medium: 500 14px/20px "Roboto-Medium";
+    --link-regular: 400 14px/20px "Roboto-Regular";
+    --caption-semibold: 600 14px/20px "Roboto-Bold";
+    --caption-medium: 500 14px/20px "Roboto-Medium";
+    --caption-regular: 400 14px/20px "Roboto-Regular";
+    --small-semibold: 600 12px/17px "Roboto-Bold";
+    --small-medium: 500 12px/17px "Roboto-Medium";
+    --small-regular: 400 12px/17px "Roboto-Regular";
+    --heading-semibold-6-font-family: "mod-roman";
+    --rtl-small-bold: 400 12px/17px "Roboto-Regular";
+    --rtl-caption-bold: 400 14px/20px "Roboto-Regular";
+    --rtl-link-bold: 400 14px/20px "Roboto-Regular";
+    --rtl-code-bold: 600 14px/20px "Roboto-Bold";
+    --rtltext-bold-2: 400 14px/24px "Roboto-Regular";
+    --rtl-display-bold-1: 400 83px "Roboto-Regular";
+    --rtl-display-bold-2: 400 69px "Roboto-Regular";
+    --rtl-display-bold-3: 400 57px "Roboto-Regular";
+    --rtl-display-medium-1: 400 83px "Roboto-Regular";
+    --rtl-display-medium-2: 400 69px "Roboto-Regular";
+    --rtl-display-medium-3: 400 57px "Roboto-Regular";
+    --rtl-heading-bold-1: 400 48px "Roboto-Regular";
+    --rtl-heading-bold-2: 400 40px/52px "Roboto-Regular";
+    --rtl-heading-bold-3: 400 33px "Roboto-Regular";
+    --rtl-heading-bold-4: 400 28px "Roboto-Regular";
+    --rtl-heading-bold-5: 400 23px/34px "Roboto-Regular";
+    --rtl-heading-bold-6: 400 19px/28px "Roboto-Regular";
+    --rtl-heading-medium-1: 400 48px "Roboto-Regular";
+    --rtl-heading-medium-2: 400 40px/52px "Roboto-Regular";
+    --rtl-heading-medium-3: 400 33px "Roboto-Regular";
+    --rtl-heading-medium-4: 400 28px "Roboto-Regular";
+    --rtl-heading-medium-5: 400 23px/34px "Roboto-Regular";
+    --rtl-heading-medium-6: 400 19px/28px "Roboto-Regular";
+    --rtl-title-bold-1: 400 16px/28px "Roboto-Regular";
+    --rtl-title-bold-2: 400 14px/24px "Roboto-Regular";
+    --rtl-title-medium-1: 400 16px/28px "Roboto-Regular";
+    --rtl-title-medium-2: 400 14px/24px "Roboto-Regular";
+    --rtl-text-bold-1: 400 16px/24px "Roboto-Regular";
+    --rtl-text-bold-2: 400 14px/24px "Roboto-Regular";
+    --rtl-text-medium-1: 400 16px/24px "Roboto-Regular";
+    --rtl-text-medium-2: 400 14px/24px "Roboto-Regular";
+    --rtl-code-bold: 400 14px/20px "Roboto-Regular";
+    --rtl-code-medium: 400 14px/20px "Roboto-Regular";
+    --rtl-link-bold: 400 14px/20px "Roboto-Regular";
+    --rtl-link-medium: 400 14px/20px "Roboto-Regular";
+    --rtl-caption-bold: 400 14px/20px "Roboto-Regular";
+    --rtl-caption-medium: 400 14px/20px "Roboto-Regular";
+    --rtl-small-bold: 400 12px/17px "Roboto-Regular";
+    --rtl-small-medium: 400 12px/17px "Roboto-Regular";
+    --title-semibold-1-font-family: "Roboto-Medium";
+    --title-semibold-1-font-weight: 600;
+    --title-semibold-1-font-size: 16px;
+    --title-semibold-1-letter-spacing: 0px;
+    --title-semibold-1-line-height: 28px;
+    --rtl-small-bold: 400 12px/17px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-caption-bold: 400 14px/20px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-link-bold: 400 14px/20px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-code-bold: 600 14px/20px "Source Code Pro", sans-serif;
+    --rtltext-bold-2: 400 14px/24px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-display-bold-1: 400 83px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-display-bold-2: 400 69px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-display-bold-3: 400 57px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-display-medium-1: 400 83px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-display-medium-2: 400 69px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-display-medium-3: 400 57px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-heading-bold-1: 400 48px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-heading-bold-2: 400 40px/52px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-heading-bold-3: 400 33px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-heading-bold-4: 400 28px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-heading-bold-5: 400 23px/34px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-heading-bold-6: 400 19px/28px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-heading-medium-1: 400 48px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-heading-medium-2: 400 40px/52px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-heading-medium-3: 400 33px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-heading-medium-4: 400 28px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-heading-medium-5: 400 23px/34px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-heading-medium-6: 400 19px/28px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-title-bold-1: 400 16px/28px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-title-bold-2: 400 14px/24px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-title-medium-1: 400 16px/28px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-title-medium-2: 400 14px/24px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-text-bold-1: 400 16px/24px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-text-bold-2: 400 14px/24px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-text-medium-1: 400 16px/24px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-text-medium-2: 400 14px/24px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-code-bold: 400 14px/20px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-code-medium: 400 14px/20px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-link-bold: 400 14px/20px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-link-medium: 400 14px/20px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-caption-bold: 400 14px/20px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-caption-medium: 400 14px/20px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-small-bold: 400 12px/17px "Helvetica Neue LT Arabic", sans-serif;
+    --rtl-small-medium: 400 12px/17px "Helvetica Neue LT Arabic", sans-serif;
+
+    /* Effects */
+    --underline-box-shadow: 0px 1px 0px 0px rgba(183, 148, 90, 1);
+    --underlinegrey-box-shadow: 0px 1px 0px 0px rgba(229, 231, 235, 1);
+    --doublelines-box-shadow: 0px -1px 0px 0px rgba(229, 231, 235, 1),
+        0px 1px 0px 0px rgba(229, 231, 235, 1);
+    --upline-box-shadow: 0px -1px 0px 0px rgba(209, 213, 219, 1);
+    --rtlbox-box-shadow: 0px -1px 0px 0px rgba(209, 213, 219, 1),
+        -1px 0px 0px 0px rgba(209, 213, 219, 1),
+        1px 0px 0px 0px rgba(229, 231, 235, 1);
+    --shadow-12-box-shadow: 0px -35px 60px -15px rgba(6, 25, 56, 0.25);
+    --shadow-11-box-shadow: 0px -25px 50px -12px rgba(6, 25, 56, 0.25);
+    --shadow-10-box-shadow: 0px -14px 21px -1px rgba(6, 25, 56, 0.08);
+    --shadow-9-box-shadow: 0px -6px 10px -1px rgba(6, 25, 56, 0.07);
+    --shadow-8-box-shadow: 0px -1px 2px 0px rgba(6, 25, 56, 0.05);
+    --shadow-7-box-shadow: 0px -2px 5px 0px rgba(6, 25, 56, 0.06);
+    --shadow-6-box-shadow: 0px 35px 60px -15px rgba(6, 25, 56, 0.25);
+    --shadow-5-box-shadow: 0px 25px 50px -12px rgba(6, 25, 56, 0.25);
+    --shadow-4-box-shadow: 0px 14px 21px -1px rgba(6, 25, 56, 0.08);
+    --shadow-3-box-shadow: 0px 6px 10px -1px rgba(6, 25, 56, 0.07);
+    --shadow-2-box-shadow: 0px 2px 5px 0px rgba(6, 25, 56, 0.06);
+    --shadow-1-box-shadow: 0px 1px 2px 0px rgba(6, 25, 56, 0.05);
+}
+
+;
+
+/* Custom CSS for Sidebar Logo Start -->*/
+.sidebar_logo_container {
+    align-items: center;
+    justify-content: center;
+}
+
+/*<-- Custom CSS for Sidebar Logo End  */
+
+
+/* Custom CSS for Sidebar User Profile Start -->*/
+.sidebar_userprofile_picframe {
+    border-radius: 50%;
+    border-style: solid;
+    border-color: var(--primary-5, #b7945a);
+}
+
+.sidebar_userprofile_container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.sidebar_userprofile_userdetail_container {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.sidebar_userprofile_userdetail_Name {
+    color: var(--text-2, #1f2937);
+    text-align: center;
+    font: var(--title-semibold-2, 600 14px/24px "SF Pro Display", sans-serif);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*<---- Custom CSS for Sidebar User Profile End*/
+
+
+/* Override style.bundle.rtl.css Start -->*/
+.app-sidebar,
+.menu,
+.menu-item,
+.menu-link,
+.menu-icon {
+    color: var(--text-1) !important;
+}
+
+.menu-link.without-sub.active {
+    color: var(--text-1) !important;
+}
+
+.menu-link:hover {
+    /* color: var(--bs-primary); */
+    /* background-color: var(--bs-app-sidebar-light-menu-link-bg-color-active); */
+    background-color: #FFFF;
+}
+
+.menu-link:active {
+    color: var(--shadow-2) !important;
+    /* background-color: var(--bs-app-sidebar-light-menu-link-bg-color-active); */
+    background: var(--primary-5, #b7945a) !important;
+}
+
+/*<-- Override style.bundle.rtl.css End -->*/
+
+
+/* Custom CSS for Navbar Header BreadCrumb Start -->*/
+.navbar-header-breadcrumb-page {
+    color: var(--text-2, #1f2937);
+    font: var(--heading-semibold-5, 600 23px/34px "SF Pro Display", sans-serif);
+}
+
+.navbar-header-breadcrumb-path {
+    color: var(--text-6, #9CA3AF);
+    /* font-family: SF Pro Display; */
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    font: var(--caption-regular, 400 14px/20px "Roboto-Normal", sans-serif);
+
+
+}
+
+.navbar-header-breadcrumb-container {
+    margin-top: 8px;
+}
+
+/*<---- Custom CSS for Navbar Header BreadCrumb End*/
+
+
+/* Custom CSS for Navbar Header & Content Area Start -->*/
+#kt_app_wrapper,
+#kt_app_header {
+    background-color: #f8f9fa !important;
+}
+
+
+.datepicker-rtl .react-datepicker__navigation--next {
+    left: 10px;
+    right: auto;
+    transform: rotate(180deg);
+}
+
+.datepicker-rtl .react-datepicker__navigation--previous {
+    right: 10px;
+    left: auto;
+    transform: rotate(180deg);
+}
+
+.loginButton{
+    background-color: #af8848 !important;
+}

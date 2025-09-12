@@ -1,0 +1,128 @@
+.dropdown-whitebg {
+  background-color: var(--shadow-2, #ffffff);
+  border-radius: var(--bs-border-radius) !important;
+  min-width: 150px;
+}
+
+._4 {
+  color: var(--primary-4, #af8848);
+  text-align: left;
+  font: var(--caption-semibold, 600 13px/19px "Inter", sans-serif);
+  position: relative;
+  background: var(--primary-10, #efe7da);
+}
+
+.pills {
+  background: var(--primary-10, #efe7da);
+
+}
+
+.bg-light {
+  background: var(--primary-10, #efe7da);
+}
+
+.circle {
+  display: inline-table;
+  vertical-align: middle;
+  width: 20px;
+  height: 20px;
+
+  background: var(--primary-10, #efe7da);
+  border-radius: 50%;
+  color: var(--primary-4, #af8848);
+  text-align: left;
+  font: var(--caption-semibold, 600 13px/19px "Inter", sans-serif);
+  position: relative;
+  background: var(--primary-10, #efe7da);
+}
+
+.circle__content {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.dropdown-menu,
+.dropdown-menu * {
+  box-sizing: border-box;
+}
+
+.dropdown-menu {
+  border-radius: 4px;
+  padding: 6px 16px 6px 16px;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 190px;
+  position: relative;
+}
+
+.dcircle {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  transform-origin: 0 0;
+  transform: rotate(0deg) scale(1, 1);
+  overflow: hidden;
+}
+
+.group {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  overflow: visible;
+}
+
+.time {
+  color: var(--text-2, #1f2937);
+ 
+  font: var(--title-semibold-1);
+  line-height: 28px  !important;
+  
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.dropdown-menu:hover {
+  background: #dfcfb6 !important;
+}
+
+.dropdown-menu {
+  border-radius: 4px;
+  padding: 6px 16px 6px 16px;
+  display: flex !important;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 190px !important;
+  position: relative;
+}
+
+.filter-lookup {
+  padding-bottom: 8px !important;
+}
+
+.filter-lookup-show {
+  color: var(--text-5, #6B7280) !important;
+  font: var(--title-semibold-1);
+  line-height: 28px  !important;
+  padding-left: 7px;
+}
+
+.filter-lookup-ddl-values {
+  color: var(--text-2, #1F2937)  !important;
+  
+  font: var(--title-semibold-1);
+  line-height: 28px  !important;
+  padding-left: 0.5rem;
+  padding-right: 0.7rem;
+}

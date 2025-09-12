@@ -1,0 +1,47 @@
+@font-face {
+    font-family: 'Helvetica Neue LT Arabic'; /* Normal */
+    src: url('mod-light.eot');
+    src: url('mod-light.eot?#iefix') format('embedded-opentype'),
+        url('mod-light.woff2') format('woff2'),
+        url('mod-light.woff') format('woff'),
+        url('mod-light.ttf') format('truetype'),
+        url('mod-light.svg#mod-light') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'mod-roman'; /* Semibold -600 */
+    src: url('mod-roman.eot');
+    src: url('mod-roman.eot?#iefix') format('embedded-opentype'),
+        url('mod-roman.woff2') format('woff2'),
+        url('mod-roman.woff') format('woff'),
+        url('mod-roman.ttf') format('truetype'),
+        url('mod-roman.svg#mod-roman') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'mod-bold'; /* Bold 700 */
+    src: url('mod-bold.eot');
+    src: url('mod-bold.eot?#iefix') format('embedded-opentype'),
+        url('mod-bold.woff2') format('woff2'),
+        url('mod-bold.woff') format('woff'),
+        url('mod-bold.ttf') format('truetype'),
+        url('mod-bold.svg#mod-bold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'mod-black'; /* Thick-Bold */
+    src: url('mod-black.eot');
+    src: url('mod-black.eot?#iefix') format('embedded-opentype'),
+        url('mod-black.woff2') format('woff2'),
+        url('mod-black.woff') format('woff'),
+        url('mod-black.ttf') format('truetype'),
+        url('mod-black.svg#mod-black') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

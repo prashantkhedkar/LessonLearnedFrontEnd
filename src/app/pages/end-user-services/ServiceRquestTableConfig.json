@@ -1,0 +1,96 @@
+[
+    {
+        "columnName": "LABEL.REQUESTID",
+        "dataColumnName": "requestNumber",
+        "sortable": true,
+        "type": "components",
+        "className": "cellText",
+        "componentsIndexes": "0",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "40%",
+        "width-ar": "40%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName": "LABEL.SERVICENAME",
+        "dataColumnName": "serviceName",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "15%",
+        "width-ar": "15%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName": "LABEL.REQUESTDATE",
+        "dataColumnName": "requestDate",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "10%",
+        "width-ar": "10%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName": "LABEL.STATUS",
+        "dataColumnName": "currentStatus",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "10%",
+        "width-ar": "10%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },    
+    {
+        "columnName": "LABEL.CREATEDBY",
+        "dataColumnName": "createdByUserName",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "15%",
+        "width-ar": "15%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    
+    {
+        "columnName": "LABEL.ACTIONS",
+        "dataColumnName": "",
+        "sortable": false,
+        "type": "components",
+        "className": "cellText",
+        "componentsIndexes": "1,2",
+        "showTooltip": "false",
+        "isSearchable": false,
+        "width": "10%",
+        "width-ar": "10%",
+        "style": {
+            "padding-right": "10px",
+            "padding-left": "10px",
+            "color": "grey"
+        }
+    }
+]

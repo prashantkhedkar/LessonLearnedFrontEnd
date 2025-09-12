@@ -1,0 +1,57 @@
+.notification-bell-container {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-bell-container:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.notification-bell-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.bell-icon {
+  transition: color 0.2s ease;
+}
+
+.notification-bell-container:hover .bell-icon {
+  color: #374151 !important;
+}
+
+.notification-bell-container:active .bell-icon {
+  color: #1F2937 !important;
+}
+
+/* Animation for new notifications */
+@keyframes bellShake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(15deg); }
+  75% { transform: rotate(-15deg); }
+}
+
+.notification-bell-container.has-notifications {
+  animation: bellShake 0.5s ease-in-out;
+}
+
+/* Dark theme support */
+[data-bs-theme="dark"] .notification-bell-container:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-bs-theme="dark"] .bell-icon {
+  color: #D1D5DB !important;
+}
+
+[data-bs-theme="dark"] .notification-bell-container:hover .bell-icon {
+  color: #F9FAFB !important;
+}

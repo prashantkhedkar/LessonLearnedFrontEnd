@@ -1,0 +1,12 @@
+.detail-label {
+  font-weight: 500;
+  font-size: 14px;
+  color: #3F4254;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.required-asterisk {
+  color: #F1416C;
+  margin-left: 4px;
+}

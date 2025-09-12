@@ -1,0 +1,223 @@
+/* Updates Timeline Component Styles */
+
+.updates-timeline-container {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e5e5;
+  display: flex;
+  flex-direction: column; 
+  height: 100%;
+  width: 100%;
+}
+
+/* Override styling when w-100 class is applied or within chart containers */
+.updates-timeline-container.w-100,
+.chart-half .updates-timeline-container,
+.chart-half-fit .updates-timeline-container {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* Override card styling when in chart containers */
+.updates-timeline-container.w-100 .card,
+.chart-half .updates-timeline-container .card,
+.chart-half-fit .updates-timeline-container .card {
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure the updates timeline fits well within chart containers */
+.chart-half .updates-timeline-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-half .updates-timeline-container .card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-half .updates-timeline-container .card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+/* Ensure the chart-half-fit works properly */
+.chart-half .chart-half-fit {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+.chart-half .chart-half-fit > div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0;
+}
+ 
+  
+.updates-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Empty state */
+.updates-timeline-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: #a1a5b7;
+  font-size: 0.875rem;
+}
+
+/* Updates list container */
+.updates-timeline-list {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.scrollable-updates {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+  margin-right: -8px;
+  max-height: 100%;
+}
+
+/* Custom scrollbar styling */
+.scrollable-updates::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollable-updates::-webkit-scrollbar-track {
+  background: #f1f1f2;
+  border-radius: 2px;
+}
+
+.scrollable-updates::-webkit-scrollbar-thumb {
+  background: #c4c4c4;
+  border-radius: 2px;
+}
+
+.scrollable-updates::-webkit-scrollbar-thumb:hover {
+  background: #a1a5b7;
+}
+
+/* Individual update item */
+.updates-timeline-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.updates-timeline-item:last-child {
+  border-bottom: none;
+}
+
+.updates-timeline-item:hover {
+  background-color: #f8f9fa;
+  margin: 0 -8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 6px;
+}
+
+/* Update item content */
+.updates-timeline-item-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.updates-service-info {
+  margin-bottom: 4px;
+}
+
+.updates-service-name {  
+  line-height: 1.4;
+  margin-bottom: 2px;
+  word-wrap: break-word;
+  text-align: right;
+}
+
+.updates-service-status {  
+  line-height: 1.3;
+  opacity: 0.8;
+  text-align: right;
+}
+
+.updates-date {  
+  margin-top: 4px;
+  text-align: right;
+  opacity: 0.6;
+}
+
+/* Bullet styling */
+.bullet {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Scrollbar styling */
+.scrollable-updates::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollable-updates::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 2px;
+}
+
+.scrollable-updates::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 2px;
+}
+
+.scrollable-updates::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .updates-timeline-container {
+    max-width: none;
+    width: 100%;
+    padding: 12px;
+  }
+   
+}
+ 

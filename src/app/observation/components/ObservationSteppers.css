@@ -1,0 +1,146 @@
+/* ObservationSteppers Component Styles */
+
+/* Main container */
+.observation-steppers-container {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Stepper component - Reduced spacing */
+.observation-stepper {
+  width: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+
+.observation-stepper .MuiStepLabel-root {
+  padding: 0 0.5rem; /* Reduced padding from 1rem to 0.5rem */
+}
+
+/* Remove CSS connector styles since we're using custom component */
+
+/* Step items */
+.observation-step {
+  cursor: pointer;
+}
+
+.observation-step .MuiStepLabel-root {
+  padding: 0;
+  cursor: pointer;
+}
+
+.observation-step:hover .MuiStepLabel-label {
+  color: var(--bs-app-sidebar-light-menu-link-bg-color-active);
+}
+
+/* RTL support for connector */
+.observation-step .MuiStepConnector-root {
+ right: calc(-95% + 20px);
+    left: calc(0% + 20px);
+}
+
+/* Step label styling */
+.observation-step-label .MuiStepLabel-label {
+  font-family: "FrutigerLTArabic-Bold_2";
+  text-align: center;
+}
+
+.observation-step-label .MuiStepIcon-root.Mui-completed,
+.observation-step-label .MuiStepIcon-root.Mui-active {
+  border: none;
+}
+
+/* Step content containers */
+.step-content {
+  margin-top: 2rem;
+}
+
+.step-placeholder {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+}
+
+/* Navigation buttons container */
+.navigation-buttons {
+  margin-top: 2rem;
+  padding: 0 1rem;
+}
+
+.navigation-buttons-stack {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 1.5rem;
+}
+
+/* Button styles */
+.btn-cancel {
+  min-width: 100px;
+  color: #666;
+  border-color: #ddd;
+}
+
+.btn-cancel:hover {
+  border-color: #999;
+  background-color: #f5f5f5;
+}
+
+.btn-previous {
+  min-width: 100px;
+  color: #B7945A;
+  border-color: #B7945A;
+}
+
+.btn-previous:hover {
+  border-color: #9a7d49;
+  background-color: #f9f7f4;
+}
+
+.btn-save-draft {
+  min-width: 120px;
+  color: #666;
+  border-color: #ddd;
+}
+
+.btn-save-draft:hover {
+  border-color: #999;
+  background-color: #f5f5f5;
+}
+
+.btn-save,
+.btn-next {
+  min-width: 100px;
+  background-color: #B7945A;
+  color: white;
+}
+
+.btn-save:hover,
+.btn-next:hover {
+  background-color: #9a7d49;
+}
+
+/* Step labels */
+.step-label-text {
+  white-space: pre-wrap;
+}
+
+/* Loading and error states */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.error-alert {
+  margin-bottom: 1rem;
+}
+
+/* Recommendation step specific */
+.recommendation-placeholder {
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+}

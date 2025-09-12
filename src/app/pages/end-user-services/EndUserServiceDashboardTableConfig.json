@@ -1,0 +1,62 @@
+[
+    {
+        "columnName": "serviceId",
+        "dataColumnName": "serviceId",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "20%",
+        "width-ar": "20%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName": "serviceName",
+        "dataColumnName": "serviceName",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "20%",
+        "width-ar": "20%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName": "serviceUserType",
+        "dataColumnName": "serviceUserType",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "20%",
+        "width-ar": "20%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName": "Action",
+        "dataColumnName": "",
+        "sortable": false,
+        "type": "link",
+        "className": "cellText",
+        "fontAwesome": "faEdit",
+        "isSearchable": false,
+        "width": "20%",
+        "width-ar": "20%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    }
+]
