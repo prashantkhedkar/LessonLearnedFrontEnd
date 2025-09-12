@@ -1,0 +1,279 @@
+.custom-avt {
+    background-color: #dfcfb6 !important;
+    color: #c1a371 !important;
+    font-weight: 600 !important;
+    border: 1px solid #c1a371 !important;
+    font-size: 15px !important;
+    width: 2rem !important;
+    height: 2rem !important;
+}
+
+.custom-grp-avt .MuiAvatarGroup-avatar {
+    background-color: #dfcfb6 !important;
+    color: #c1a371 !important;
+    font-weight: 600 !important;
+    border: 1px solid #c1a371 !important;
+    font-size: 16px !important;
+    width: 2rem !important;
+    height: 2rem !important;
+}
+
+.custom-grp-avt .custom-avt {
+    background-color: #dfcfb6 !important;
+    color: #c1a371 !important;
+    font-weight: 600 !important;
+    border: 1px solid #c1a371 !important;
+    font-size: 12px !important;
+    width: 2rem !important;
+    height: 2rem !important;
+}
+
+.custom-grp-avt .custom-avt-comments {
+    background-color: #dfcfb6 !important;
+    color: #c1a371 !important;
+    font-weight: 600 !important;
+    border: 1px solid #c1a371 !important;
+    font-size: 20px !important;
+    width: 3rem !important;
+    height: 3rem !important;
+}
+
+.MuiPopper-root .MuiTooltip-tooltip {
+    background-color: #ffffff00 !important;
+   
+}
+
+.domain-title {
+    background-color: #fff;
+    box-shadow: 0px 3px 14px #00000021;
+    border: 1px solid 
+    #70707003;
+    border-radius: 4px;
+    padding: 0.5rem;
+    z-index: 10;
+    cursor: pointer;
+    color: #212529ed;
+}
+
+.display-name-en {
+    width: auto !important;
+    display: block;
+    padding: 5px 0px 5px 0px;
+    white-space:nowrap;
+    cursor: pointer;
+    text-wrap: nowrap !important;
+    text-align: left;
+}
+
+.display-name-ar {
+    width: auto !important;
+    display: block;
+    padding: 5px 0px 5px 0px;
+    white-space:nowrap;
+    cursor: pointer;
+    text-wrap: nowrap !important;
+    text-align: right;
+}
+
+/* .domain-title {
+    width: fit-content;
+    block-size: fit-content;
+    display: block;
+    padding: 5px 0px 5px 0px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-wrap: nowrap;
+    text-align: left;
+} */
+
+.domain-title .display-name-en:hover {
+    /* background: #cccccc54; */
+    border-radius: 4px;
+}
+
+/* .domain-title {
+    width: fit-content;
+    block-size: fit-content;
+    display: block;
+    padding: 0.5rem;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-wrap: nowrap;
+    text-align: right;
+} */
+
+.domain-title .display-name-ar:hover {
+    /* background: #cccccc54; */
+    border-radius: 4px;
+}
+
+.domain-title .contact-line {
+    padding: 2px;
+}
+
+.domain-title .contact-line p {
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.domain-title .contact-line div.detail-botton {
+    font-size: 14px;
+    padding: 0px;
+    border: 1px solid #265ba94a;
+    width: -moz-fit-content;
+    margin: 10px 0 5px 10px;
+    border-radius: 3px;
+    color: #265ba9;
+    width: 93%;
+    text-align: center;
+    font-weight: 600;
+}
+
+.detail-botton>svg {
+    width: 1.5rem !important;
+    height: 1.5em !important;
+    margin-right: 15px;
+}
+
+.domain-title .contact-email .inner-email, .domain-title .contact-email .inner-phone {
+    /* overflow: hidden;
+     */
+    height: 3rem;
+    padding: 8px !important;
+}
+
+.domain-title .contact-email .inner-email .MuiSvgIcon-root, .domain-title .contact-email .inner-email span {
+    color: #2d62edfa;
+    font-weight: normal;
+    font-size: 12px !important;
+}
+
+.domain-title .contact-email {
+    border-top: 1px solid #cccccc54;
+}
+
+.contact-email .inner-email #input-email {
+    color: #2d62edfa;
+}
+
+.domain-title .contact-email p {
+    font-size: 12px;
+    padding: 4px;
+}
+
+.domain-title .contact-email p:hover {
+    background: aliceblue;
+}
+
+.domain-title .contact-email .copy-icon {
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.domain-title .contact-email .copy-icon img {
+    width: 14px !important;
+}
+
+.inner-email .done-icon .MuiSvgIcon-root, .inner-email .MuiSvgIcon-root {
+    font-size: 14px;
+}
+
+.inner-email .number {
+    margin: 3px 0 0 0;
+    position: absolute;
+}
+
+
+.domain-title .avatar-user-box .MuiAvatar-root, .userAvatar, .user-avatar, .list-avatar {
+    border-radius: 50%;
+    box-shadow: 0px 3px 5px #00000087;
+}
+
+.user-list {
+    white-space: pre-line;
+}
+
+#emoji-palette #tab-toolbar ul {
+    list-style: none !important;
+}
+
+.emoji_completions button {
+    border: 1px solid #ccc;
+    padding: 4px;
+    border-radius: 3px;
+    margin-bottom: 2px;
+}
+
+.status-tooltip, .title-b-unit, .cost-tooltip, .quarter-list {
+    padding: 6px;
+    background-color: #fff;
+    box-shadow: 0px 3px 14px #00000087;
+    border: 1px solid #70707003;
+    border-radius: 2px;
+    color: #212529ed;
+    font-size: 12px;
+}
+
+.title-b-unit p.u-name {
+    padding: 5px;
+}
+
+.status-tooltip, .cost-tooltip {
+    padding: 10px !important;
+}
+
+.quarter-list .inner-list {
+    display: flex;
+    padding: 3px 5px 3px 5px;
+}
+
+.quarter-list .inner-list svg {
+    margin-top: 1px;
+}
+
+.quarter-list .quarter {
+    padding: 0px 0px 0px 5px;
+}
+
+.user-list .user-section {
+    display: flex;
+    padding: 2px;
+}
+
+.user-list .user-section>.custom-grp-avt .MuiAvatar-root>svg.MuiSvgIcon-root {
+    width: 1.2em !important;
+    height: 1.2em !important;
+}
+
+.user-list .user-section:hover, .quarter-list .inner-list:hover, .title-b-unit p.u-name:hover {
+    /* background-color: #cccccc54;
+    border-radius: 3px; */
+    cursor: pointer;
+}
+
+.user-list .user-name {
+    padding: 5px 0px 0px 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-wrap: nowrap !important;
+}
+
+.MuiTooltip-arrow {
+    /* width: 2em !important;
+    height: 1.71em !important; */
+    box-sizing: border-box;
+    color: #fff !important;
+}
+
+.members {
+    background: #B7945A;
+    color: #fff;
+    height: 24px;
+    line-height: 21px;
+    width: 24px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 14px;
+  }

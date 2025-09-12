@@ -1,0 +1,963 @@
+{
+  "roles": {
+    "FMS Admin": [
+      {
+        "id": "fms_admin_multirow_01",
+        "type": "single-multirow-layout",
+        "charts": [
+          {
+            "id": "fms_admin_widget_stats",
+            "type": "widgetStats",
+            "title": "LABEL.STATISTICS",
+            "dataSource": "fetchMasterDashboardTileData",
+            "height": 200
+          },
+          {
+            "id": "fulfillment_unit_widget_stats",
+            "type": "widgetStats",
+            "title": "NUMBER.OF.REQUESTS.BY.PRIORITY",
+            "dataSource": "fetchMasterDashboardTilePriorityData",
+            "height": 200
+          }
+        ]
+      },
+      {
+        "id": "fms_admin_row_1",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "countries_scholarship",
+          "type": "bar",
+          "title": "LAST.SIX.MONTHS.TOTAL.REQUESTS",
+          "dataSource": "numberOfRequestCreatedByMonthData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 400,
+          "barColor": {
+            "type": "linear",
+            "x": 1,
+            "y": 0,
+            "x2": 0,
+            "y2": 0,
+            "colorStops": [
+              {
+                "offset": 0,
+                "color": "#F59E0B"
+              },
+              {
+                "offset": 1,
+                "color": "#FCD34D"
+              }
+            ]
+          }
+        },
+        "rightChart": {
+          "id": "top_inProgressRequestData_by_units",
+          "type": "bar",
+          "title": "OPEN.REQUESTS.AGING.BY.MONTH",
+          "dataSource": "inProgressRequestData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 400
+        }
+      },
+      {
+        "id": "fms_admin_row_2",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "top_requests_by_units",
+          "type": "bar",
+          "title": "TOP.FREQUENTLY.REQUESTED.SERVICES",
+          "dataSource": "getTopNthRequestsByServiceCategories",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 400
+        },
+        "rightChart": {
+          "id": "requests_by_priority",
+          "type": "donut",
+          "title": "NUMBER.OF.REQUESTS.BY.PRIORITY",
+          "dataSource": "priorityData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 280
+        }
+      },
+      {
+        "id": "fms_admin_row_3",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "requests_by_service_categories",
+          "type": "bar",
+          "title": "TOP.REQUESTOR.BY.UNIT",
+          "dataSource": "inProgressRequestByUnitData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 300,
+          "barColor": "#FF6B6B"
+        },
+        "rightChart": {
+          "id": "closed_requests_last_six_months",
+          "type": "bar",
+          "title": "TOP.REQUESTS.BY.FULFILLMENT.UNIT",
+          "dataSource": "fulfillmentUnitsRequestsData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 300,
+          "barColor": "#28A745"
+        }
+      },
+      {
+        "id": "fms_admin_row_4",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "average_closure_time",
+          "type": "averageClosureTime",
+          "title": "LABEL.AVERAGECLOSETIME",
+          "dataSource": "averageClosureTimeData",
+          "height": 350
+        },
+        "rightChart": {
+          "id": "service_rating",
+          "type": "rating",
+          "title": "LABEL.FEEDBACK.CHART",
+          "dataSource": "feedbackStatisticsData"
+        }
+      },
+      {
+        "id": "fms_admin_row_0",
+        "type": "single-layout",
+        "chart": {
+          "id": "closed_requests_last_six_months",
+          "type": "bar",
+          "title": "REQUESTS.CLOSED.LAST.SIX.MONTHS.BY.MONTH",
+          "dataSource": "getClosedRequestsData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 300,
+          "barColor": "#28A745"
+        }
+      }
+    ],
+    "Unit Admin": [
+      {
+        "id": "req_admin_multirow_01",
+        "type": "single-multirow-layout",
+        "charts": [
+          {
+            "id": "fms_admin_widget_stats",
+            "type": "widgetStats",
+            "title": "LABEL.STATISTICS",
+            "dataSource": "fetchMasterDashboardTileData",
+            "height": 200
+          },
+          {
+            "id": "fulfillment_unit_widget_stats",
+            "type": "widgetStats",
+            "title": "NUMBER.OF.REQUESTS.BY.PRIORITY",
+            "dataSource": "fetchMasterDashboardTilePriorityData",
+            "height": 200
+          }
+        ]
+      },
+      {
+        "id": "req_unit_row_2",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "admin_notifications",
+          "type": "notificationTimeline",
+          "title": "LABEL.NOTIFICATIONS",
+          "dataSource": "notificationTimelineData",
+          "height": 400
+        },
+        "rightChart": {
+          "id": "action_required_1",
+          "type": "updates",
+          "title": "ACTION.REQUIRED",
+          "dataSource": "actionRequiredData"
+        }
+      },
+      {
+        "id": "req_unit_row_3",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "top_inProgressRequestData_by_units",
+          "type": "bar",
+          "title": "OPEN.REQUESTS.AGING.BY.MONTH",
+          "dataSource": "inProgressRequestData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 400
+        },
+        "rightChart": {
+          "id": "top_requests_by_units",
+          "type": "bar",
+          "title": "PERCENT.COMPLETED.OPEN.REQUEST.BY.SERVICE",
+          "dataSource": "highestRequestedByServiceData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 400
+        }
+      },
+      {
+        "id": "req_unit_row_4",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "countries_scholarship",
+          "type": "bar",
+          "title": "TOTAL.REQUEST.BY.SERVICE",
+          "dataSource": "numberOfRequestCreatedByServiceData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "barColor": {
+            "type": "linear",
+            "x": 1,
+            "y": 0,
+            "x2": 0,
+            "y2": 0,
+            "colorStops": [
+              {
+                "offset": 0,
+                "color": "#F59E0B"
+              },
+              {
+                "offset": 1,
+                "color": "#FCD34D"
+              }
+            ]
+          }
+        },
+        "rightChart": {
+          "id": "requests_by_priority",
+          "type": "donut",
+          "title": "NUMBER.OF.REQUESTS.BY.PRIORITY",
+          "dataSource": "priorityData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 280
+        }
+      }
+    ],
+    "Requesting Unit": [
+      {
+        "id": "req_admin_multirow_01",
+        "type": "single-multirow-layout",
+        "charts": [
+          {
+            "id": "fms_admin_widget_stats",
+            "type": "widgetStats",
+            "title": "LABEL.STATISTICS",
+            "dataSource": "fetchMasterDashboardTileData",
+            "height": 200
+          },
+          {
+            "id": "fulfillment_unit_widget_stats",
+            "type": "widgetStats",
+            "title": "NUMBER.OF.REQUESTS.BY.PRIORITY",
+            "dataSource": "fetchMasterDashboardTilePriorityData",
+            "height": 200
+          }
+        ]
+      },
+      {
+        "id": "req_unit_row_2",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "admin_notifications",
+          "type": "notificationTimeline",
+          "title": "LABEL.NOTIFICATIONS",
+          "dataSource": "notificationTimelineData",
+          "height": 400
+        },
+        "rightChart": {
+          "id": "action_required_1",
+          "type": "updates",
+          "title": "ACTION.REQUIRED",
+          "dataSource": "actionRequiredData"
+        }
+      },
+      {
+        "id": "req_unit_row_3",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "top_inProgressRequestData_by_units",
+          "type": "bar",
+          "title": "OPEN.REQUESTS.AGING.BY.MONTH",
+          "dataSource": "inProgressRequestData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 400
+        },
+        "rightChart": {
+          "id": "top_requests_by_units",
+          "type": "bar",
+          "title": "PERCENT.COMPLETED.OPEN.REQUEST.BY.SERVICE",
+          "dataSource": "highestRequestedByServiceData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",          
+          "height": 400
+        }
+      },
+      {
+        "id": "req_unit_row_4",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "countries_scholarship",
+          "type": "bar",
+          "title": "TOTAL.REQUEST.BY.SERVICE",
+          "dataSource": "numberOfRequestCreatedByServiceData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "barColor": {
+            "type": "linear",
+            "x": 1,
+            "y": 0,
+            "x2": 0,
+            "y2": 0,
+            "colorStops": [
+              {
+                "offset": 0,
+                "color": "#F59E0B"
+              },
+              {
+                "offset": 1,
+                "color": "#FCD34D"
+              }
+            ]
+          }
+        },
+        "rightChart": {
+          "id": "requests_by_priority",
+          "type": "donut",
+          "title": "NUMBER.OF.REQUESTS.BY.PRIORITY",
+          "dataSource": "priorityData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 280
+        }
+      }
+    ],
+    "Security Unit": [
+      {
+        "id": "sec_admin_multirow_01",
+        "type": "single-multirow-layout",
+        "charts": [
+          {
+            "id": "sec_admin_widget_stats",
+            "type": "widgetStats",
+            "title": "LABEL.STATISTICS",
+            "dataSource": "fetchMasterDashboardTileData",
+            "height": 200
+          },
+          {
+            "id": "fulfillment_unit_widget_stats",
+            "type": "widgetStats",
+            "title": "NUMBER.OF.REQUESTS.BY.PRIORITY",
+            "dataSource": "fetchMasterDashboardTilePriorityData",
+            "height": 200
+          }
+        ]
+      },
+      {
+        "id": "sec_unit_row_2",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "admin_notifications",
+          "type": "notificationTimeline",
+          "title": "LABEL.NOTIFICATIONS",
+          "dataSource": "notificationTimelineData",
+          "height": 400
+        },
+        "rightChart": {
+          "id": "sec_action_required_1",
+          "type": "updates",
+          "title": "ACTION.REQUIRED",
+          "dataSource": "actionRequiredData"
+        }
+      },
+      {
+        "id": "sec_unit_row_3",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "sec_top_inProgressRequestData_by_units",
+          "type": "bar",
+          "title": "OPEN.REQUESTS.AGING.BY.MONTH",
+          "dataSource": "inProgressRequestData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 400
+        },
+        "rightChart": {
+          "id": "sec_top_requests_by_units",
+          "type": "bar",
+          "title": "PERCENT.COMPLETED.OPEN.REQUEST.BY.SERVICE",
+          "dataSource": "highestRequestedByServiceData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",          
+          "height": 400
+        }
+      },
+      {
+        "id": "sec_unit_row_4",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "countries_scholarship",
+          "type": "bar",
+          "title": "TOTAL.REQUEST.BY.SERVICE",
+          "dataSource": "numberOfRequestCreatedByServiceData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "barColor": {
+            "type": "linear",
+            "x": 1,
+            "y": 0,
+            "x2": 0,
+            "y2": 0,
+            "colorStops": [
+              {
+                "offset": 0,
+                "color": "#F59E0B"
+              },
+              {
+                "offset": 1,
+                "color": "#FCD34D"
+              }
+            ]
+          }
+        },
+        "rightChart": {
+          "id": "sec_requests_by_priority",
+          "type": "donut",
+          "title": "NUMBER.OF.REQUESTS.BY.PRIORITY",
+          "dataSource": "priorityData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 280
+        }
+      }
+    ],
+    "Supporting Unit": [
+      {
+        "id": "sup_admin_multirow_01",
+        "type": "single-multirow-layout",
+        "charts": [
+          {
+            "id": "sup_admin_widget_stats",
+            "type": "widgetStats",
+            "title": "LABEL.STATISTICS",
+            "dataSource": "fetchMasterDashboardTileData",
+            "height": 200
+          },
+          {
+            "id": "fulfillment_unit_widget_stats",
+            "type": "widgetStats",
+            "title": "NUMBER.OF.REQUESTS.BY.PRIORITY",
+            "dataSource": "fetchMasterDashboardTilePriorityData",
+            "height": 200
+          }
+        ]
+      },
+      {
+        "id": "sup_unit_row_2",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "sup_admin_notifications",
+          "type": "notificationTimeline",
+          "title": "LABEL.NOTIFICATIONS",
+          "dataSource": "notificationTimelineData",
+          "height": 400
+        },
+        "rightChart": {
+          "id": "sup_action_required_1",
+          "type": "updates",
+          "title": "ACTION.REQUIRED",
+          "dataSource": "actionRequiredData"
+        }
+      },
+      {
+        "id": "sup_unit_row_3",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "sup_top_inProgressRequestData_by_units",
+          "type": "bar",
+          "title": "OPEN.REQUESTS.AGING.BY.MONTH",
+          "dataSource": "inProgressRequestData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 400
+        },
+        "rightChart": {
+          "id": "sup_top_requests_by_units",
+          "type": "bar",
+          "title": "PERCENT.COMPLETED.OPEN.REQUEST.BY.SERVICE",
+          "dataSource": "highestRequestedByServiceData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 400
+        }
+      },
+      {
+        "id": "sup_unit_row_4",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "sup_TOTAL.REQUEST.BY.SERVICE",
+          "type": "bar",
+          "title": "TOTAL.REQUEST.BY.SERVICE",
+          "dataSource": "numberOfRequestCreatedByServiceData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "barColor": {
+            "type": "linear",
+            "x": 1,
+            "y": 0,
+            "x2": 0,
+            "y2": 0,
+            "colorStops": [
+              {
+                "offset": 0,
+                "color": "#F59E0B"
+              },
+              {
+                "offset": 1,
+                "color": "#FCD34D"
+              }
+            ]
+          }
+        },
+        "rightChart": {
+          "id": "sup_requests_by_priority",
+          "type": "donut",
+          "title": "NUMBER.OF.REQUESTS.BY.PRIORITY",
+          "dataSource": "priorityData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 280
+        }
+      }
+    ],
+    "Delegation Unit": [
+      {
+        "id": "del_admin_multirow_01",
+        "type": "single-multirow-layout",
+        "charts": [
+          {
+            "id": "del_admin_widget_stats",
+            "type": "widgetStats",
+            "title": "LABEL.STATISTICS",
+            "dataSource": "fetchMasterDashboardTileData",
+            "height": 200
+          },
+          {
+            "id": "del_fulfillment_unit_widget_stats",
+            "type": "widgetStats",
+            "title": "NUMBER.OF.REQUESTS.BY.PRIORITY",
+            "dataSource": "fetchMasterDashboardTilePriorityData",
+            "height": 200
+          }
+        ]
+      },
+      {
+        "id": "del_unit_row_2",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "del_admin_notifications",
+          "type": "notificationTimeline",
+          "title": "LABEL.NOTIFICATIONS",
+          "dataSource": "notificationTimelineData",
+          "height": 400
+        },
+        "rightChart": {
+          "id": "del_action_required_1",
+          "type": "updates",
+          "title": "ACTION.REQUIRED",
+          "dataSource": "actionRequiredData"
+        }
+      },
+      {
+        "id": "del_unit_row_3",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "del_top_inProgressRequestData_by_units",
+          "type": "bar",
+          "title": "OPEN.REQUESTS.AGING.BY.MONTH",
+          "dataSource": "inProgressRequestData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 400
+        },
+        "rightChart": {
+          "id": "del_top_requests_by_units",
+          "type": "bar",
+          "title": "PERCENT.COMPLETED.OPEN.REQUEST.BY.SERVICE",
+          "dataSource": "highestRequestedByServiceData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 400
+        }
+      },
+      {
+        "id": "del_unit_row_4",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "del_TOTAL.REQUEST.BY.SERVICE",
+          "type": "bar",
+          "title": "TOTAL.REQUEST.BY.SERVICE",
+          "dataSource": "numberOfRequestCreatedByServiceData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "barColor": {
+            "type": "linear",
+            "x": 1,
+            "y": 0,
+            "x2": 0,
+            "y2": 0,
+            "colorStops": [
+              {
+                "offset": 0,
+                "color": "#F59E0B"
+              },
+              {
+                "offset": 1,
+                "color": "#FCD34D"
+              }
+            ]
+          }
+        },
+        "rightChart": {
+          "id": "del_requests_by_priority",
+          "type": "donut",
+          "title": "NUMBER.OF.REQUESTS.BY.PRIORITY",
+          "dataSource": "priorityData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 280
+        }
+      }
+    ],
+    "Fulfillment Unit": [
+      {
+        "id": "fms_admin_multirow_01",
+        "type": "single-multirow-layout",
+        "charts": [
+          {
+            "id": "fms_admin_widget_stats",
+            "type": "widgetStats",
+            "title": "LABEL.STATISTICS",
+            "dataSource": "fetchMasterDashboardTileData",
+            "height": 200
+          },
+          {
+            "id": "fulfillment_unit_widget_stats",
+            "type": "widgetStats",
+            "title": "NUMBER.OF.REQUESTS.BY.PRIORITY",
+            "dataSource": "fetchMasterDashboardTilePriorityData",
+            "height": 200
+          }
+        ]
+      },
+      {
+        "id": "fulfillment_unit_row_2",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "admin_notifications",
+          "type": "notificationTimeline",
+          "title": "LABEL.NOTIFICATIONS",
+          "dataSource": "notificationTimelineData",
+          "height": 400
+        },
+        "rightChart": {
+          "id": "action_required_1",
+          "type": "updates",
+          "title": "ACTION.REQUIRED",
+          "dataSource": "actionRequiredData"
+        }
+      },
+      {
+        "id": "fulfillment_unit_row_3",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "top_inProgressRequestData_by_units",
+          "type": "bar",
+          "title": "OPEN.REQUESTS.AGING.BY.MONTH",
+          "dataSource": "inProgressRequestData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 400
+        },
+        "rightChart": {
+          "id": "top_requests_by_units",
+          "type": "bar",
+          "title": "PERCENT.COMPLETED.OPEN.REQUEST.BY.SERVICE",
+          "dataSource": "highestRequestedByServiceData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",          
+          "height": 400
+        }
+      },
+      {
+        "id": "fulfillment_unit_row_4",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "countries_scholarship",
+          "type": "bar",
+          "title": "TOTAL.REQUEST.BY.SERVICE",
+          "dataSource": "numberOfRequestCreatedByServiceData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "barColor": {
+            "type": "linear",
+            "x": 1,
+            "y": 0,
+            "x2": 0,
+            "y2": 0,
+            "colorStops": [
+              {
+                "offset": 0,
+                "color": "#F59E0B"
+              },
+              {
+                "offset": 1,
+                "color": "#FCD34D"
+              }
+            ]
+          }
+        },
+        "rightChart": {
+          "id": "requests_by_priority",
+          "type": "donut",
+          "title": "NUMBER.OF.REQUESTS.BY.PRIORITY",
+          "dataSource": "priorityData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 280
+        }
+      },
+      {
+        "id": "fulfillment_unit_row_5",
+        "type": "single-layout",
+        "chart": {
+          "id": "top_requests_by_units",
+          "type": "bar",
+          "title": "TOP.REQUESTOR.BY.UNIT",
+          "dataSource": "inProgressRequestByUnitData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 400
+        }
+      },
+      {
+        "id": "fulfillment_unit_row_7",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "requests_by_service_categories",
+          "type": "bar",
+          "title": "REQUESTS.RECEIVED.SIX.MONTHS.BY.MONTH",
+          "dataSource": "getReceivedRequestsData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 300,
+          "barColor": "#FF6B6B"
+        },
+        "rightChart": {
+          "id": "closed_requests_last_six_months",
+          "type": "bar",
+          "title": "REQUESTS.CLOSED.SIX.MONTHS.BY.MONTH",
+          "dataSource": "getClosedRequestsData",
+          "drilldowndataSource": "SearchMyRequestsByFilterWithMonth",
+          "height": 300,
+          "barColor": "#28A745"
+        }
+      }
+    ]
+  },
+  "dataSources": {
+    "graduatesData": "majorData",
+    "submittedRequestsData": "majorData",
+    "requestStatusData": "static:requestStatus",
+    "requestDistributionData": "static:requestDistribution",
+    "completedRequestsData": "majorData",
+    "completionRateData": "static:completionRate",
+    "activityStatsData": "static:activityStats",
+    "dailyActivitiesData": "static:dailyActivities",
+    "overviewSpecializationsData": "majorData",
+    "generalStatsData": "majorData",
+    "totalDistributionData": "static:totalDistribution",
+    "prioritiesData": "static:priorities",
+    "riskData": "riskData",
+    "numberOfRequestCreatedByServiceData": "getNumberOfRequestCreatedByServiceData",
+    "numberOfRequestCreatedByMonthData": "getNumberOfRequestCreatedByMonthData",
+    "highestRequestedUnitData": "getHighestRequestedUnitData",
+    "inProgressRequestData": "getInProgressRequestData",
+    "inProgressRequestByUnitData": "inProgressRequestByUnitData",
+    "fulfillmentUnitsRequestsData": "fulfillmentUnitsRequestsData",
+    "getTopNthRequestsByServiceCategories": "getTopNthRequestsByServiceCategories",
+    "priorityData": "getPriorityData",
+    "closedRequestsData": "getClosedRequestsData",
+    "receivedRequestsData": "getReceivedRequestsData",
+    "averageClosureTimeData": "averageClosureTimeData",
+    "feedbackStatisticsData": "feedbackStatisticsData",
+    "notificationTimelineData": "notificationTimelineData",
+    "highestRequestedByServiceData": "fetchPercentCompletionofOpenRequestsByServiceData"
+  },
+  "staticData": {
+    "requestStatus": [
+      {
+        "value": 60,
+        "name": "مقبولة"
+      },
+      {
+        "value": 30,
+        "name": "قيد المراجعة"
+      },
+      {
+        "value": 10,
+        "name": "مرفوضة"
+      }
+    ],
+    "requestDistribution": [
+      {
+        "value": 70,
+        "name": "جديدة"
+      },
+      {
+        "value": 20,
+        "name": "قيد المعالجة"
+      },
+      {
+        "value": 10,
+        "name": "مرفوضة"
+      }
+    ],
+    "completionRate": [
+      {
+        "value": 80,
+        "name": "مُنجز"
+      },
+      {
+        "value": 15,
+        "name": "قيد التنفيذ"
+      },
+      {
+        "value": 5,
+        "name": "متأخر"
+      }
+    ],
+    "activityStats": [
+      {
+        "value": 65,
+        "name": "أنشطة مكتملة"
+      },
+      {
+        "value": 25,
+        "name": "أنشطة قيد التنفيذ"
+      },
+      {
+        "value": 10,
+        "name": "أنشطة معلقة"
+      }
+    ],
+    "dailyActivities": [
+      {
+        "value": 40,
+        "name": "مهام مكتملة"
+      },
+      {
+        "value": 35,
+        "name": "مهام جارية"
+      },
+      {
+        "value": 25,
+        "name": "مهام معلقة"
+      }
+    ],
+    "totalDistribution": [
+      {
+        "value": 45,
+        "name": "مكتمل"
+      },
+      {
+        "value": 25,
+        "name": "قيد التنفيذ"
+      },
+      {
+        "value": 20,
+        "name": "مؤجل"
+      },
+      {
+        "value": 10,
+        "name": "ملغي"
+      }
+    ],
+    "priorities": [
+      {
+        "value": 50,
+        "name": "عالية"
+      },
+      {
+        "value": 30,
+        "name": "متوسطة"
+      },
+      {
+        "value": 20,
+        "name": "منخفضة"
+      }
+    ],
+    "overallRating": [
+      {
+        "stars": 5,
+        "percentage": 58
+      },
+      {
+        "stars": 4,
+        "percentage": 28
+      },
+      {
+        "stars": 3,
+        "percentage": 10
+      },
+      {
+        "stars": 2,
+        "percentage": 3
+      },
+      {
+        "stars": 1,
+        "percentage": 1
+      }
+    ],
+    "averageClosureTime": [
+      {
+        "ageGroup": "10 أيام",
+        "percentage": 35,
+        "days": 10
+      },
+      {
+        "ageGroup": "20 أيام",
+        "percentage": 50,
+        "days": 20
+      },
+      {
+        "ageGroup": "30 أيام",
+        "percentage": 83,
+        "days": 30
+      },
+      {
+        "ageGroup": "40 أيام",
+        "percentage": 29,
+        "days": 40
+      },
+      {
+        "ageGroup": "60+ أيام",
+        "percentage": 66,
+        "days": 60
+      }
+    ],
+    "notificationTimeline": [
+      {
+        "id": "notif_1",
+        "serviceName": "اسم الخدمة",
+        "serviceStatus": "حالة الخدمة",
+        "date": "28/08/2023",
+        "isRead": false,
+        "priority": "high"
+      },
+      {
+        "id": "notif_2",
+        "serviceName": "اسم الخدمة",
+        "serviceStatus": "حالة الخدمة",
+        "date": "11/02/2023",
+        "isRead": false,
+        "priority": "high"
+      },
+      {
+        "id": "notif_3",
+        "serviceName": "اسم الخدمة",
+        "serviceStatus": "حالة الخدمة",
+        "date": "26/12/2022",
+        "isRead": true,
+        "priority": "medium"
+      },
+      {
+        "id": "notif_4",
+        "serviceName": "اسم الخدمة",
+        "serviceStatus": "حالة الخدمة",
+        "date": "15/10/2022",
+        "isRead": true,
+        "priority": "low"
+      },
+      {
+        "id": "notif_5",
+        "serviceName": "خدمة المنح الدراسية",
+        "serviceStatus": "قيد المراجعة",
+        "date": "03/09/2022",
+        "isRead": true,
+        "priority": "medium"
+      }
+    ]
+  }
+}

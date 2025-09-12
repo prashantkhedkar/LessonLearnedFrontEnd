@@ -1,0 +1,36 @@
+.sl-card {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   background: linear-gradient(180deg,#FFF 0%,#EEE 81.25%);
+   border-radius: 12px;
+   margin-bottom: 15px;
+   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+   padding: 12px 24px;
+}
+
+.sl-info{
+    display: flex;
+    align-items: center;
+}
+
+.sl-icon{
+color: rgb(134, 140, 151);
+height: 32.25px;
+    width: 35px;
+    flex-shrink: 0;
+}
+
+.sl-name{
+color: rgb(134, 140, 151);
+    text-align: right;
+}
+
+.sl-request-button{
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+}

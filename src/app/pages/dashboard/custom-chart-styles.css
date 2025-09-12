@@ -1,0 +1,172 @@
+/* Custom Chart Styling Examples */
+
+/* Chart Title Styling */
+.custom-chart-title {
+  color: #2563eb !important;
+  font-size: 20px !important;
+  font-weight: bold !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.custom-chart-title-green {
+  color: #059669 !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.custom-chart-title-red {
+  color: #dc2626 !important;
+  font-size: 19px !important;
+  font-weight: bold !important;
+  border-bottom: 2px solid #dc2626;
+  padding-bottom: 5px;
+}
+
+/* X-Axis Styling */
+.custom-x-axis {
+  color: #374151 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  text-transform: capitalize;
+}
+
+.custom-x-axis-italic {
+  color: #6b7280 !important;
+  font-size: 11px !important;
+  font-style: italic !important;
+  letter-spacing: 0.5px;
+}
+
+.custom-x-axis-bold {
+  color: #1f2937 !important;
+  font-size: 13px !important;
+  font-weight: bold !important;
+  text-decoration: underline;
+}
+
+/* Y-Axis Styling */
+.custom-y-axis {
+  color: #4b5563 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+.custom-y-axis-highlight {
+  color: #7c3aed !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
+  background-color: rgba(124, 58, 237, 0.1);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+/* Dashboard-specific chart styles */
+.dashboard-priority-chart-title {
+  color: #f59e0b !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  text-align: center;
+  background: rgba(245, 158, 11, 0.1);
+  padding: 8px;
+  border-radius: 5px;
+  border-left: 4px solid #f59e0b;
+}
+
+.dashboard-request-chart-x-axis {
+  color: #059669 !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  transform: rotate(-15deg);
+  white-space: nowrap;
+}
+
+.dashboard-service-chart-title {
+  color: #7c2d12 !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #fed7aa, #ea580c);
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* RTL Support */
+[dir="rtl"] .custom-chart-title {
+  text-align: right;
+  direction: rtl;
+}
+
+[dir="rtl"] .custom-x-axis {
+  text-align: right;
+  direction: rtl;
+}
+
+[dir="rtl"] .custom-y-axis {
+  text-align: right;
+  direction: rtl;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .custom-chart-title {
+    font-size: 16px !important;
+  }
+  
+  .custom-x-axis, .custom-y-axis {
+    font-size: 10px !important;
+  }
+}
+
+/* Animation effects */
+.custom-chart-title-animated {
+  animation: fadeInTitle 0.5s ease-in-out;
+}
+
+.custom-x-axis-animated {
+  animation: slideInFromBottom 0.7s ease-out;
+}
+
+.custom-y-axis-animated {
+  animation: slideInFromRight 0.7s ease-out;
+}
+
+@keyframes fadeInTitle {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

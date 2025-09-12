@@ -1,0 +1,125 @@
+[
+    {
+        "columnName": "DT.COLUMN.FIELDTITLE",
+        "dataColumnName": "fieldLabelAr",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "showTooltip": "false",
+        "isSearchable": false,
+        "width": "20%",
+        "width-ar": "20%",
+        "style": {
+            "padding-right": "5px",
+            "padding-left": "5px",
+            "color": "grey"
+        }
+    },
+    {
+        "columnName": "DT.COLUMN.FIELDTYPE",
+        "dataColumnName": "fieldTypeName",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "10%",
+        "width-ar": "10%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName":  "TABLE.COLUMN.CREATEDBY",
+        "dataColumnName": "createdBy",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "15%",
+        "width-ar": "15%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName":"DT.COLUMN.CREATEDDATE",
+        "dataColumnName": "createdDate",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "10%",
+        "width-ar": "10%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName": "DT.COLUMN.UPDATEDBY",
+        "dataColumnName": "updatedBy",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "15%",
+        "width-ar": "15%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName": "DT.COLUMN.UPDATEDDATE",
+        "dataColumnName": "updatedDate",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "10%",
+        "width-ar": "10%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName": "DT.COLUMN.STATUS",
+        "dataColumnName": "fieldStatus",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "10%",
+        "width-ar": "10%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName":  "DT.COLUMN.ACTION",
+        "dataColumnName": "",
+        "sortable": false,
+        "type": "components",
+        "className": "cellText",
+        "componentsIndexes": "0,1",
+        "showTooltip": "false",
+        "isSearchable": false,
+        "width": "10%",
+        "width-ar": "10%",
+        "style": {
+            "padding-right": "10px",
+            "padding-left": "10px",
+            "color": "grey"
+        }
+    }
+]

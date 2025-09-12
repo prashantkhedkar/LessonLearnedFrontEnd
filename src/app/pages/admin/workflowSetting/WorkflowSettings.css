@@ -1,0 +1,205 @@
+.ec-accodion,
+.card-header:first-child {
+  /* border-radius: 8px !important; */
+}
+
+.ec-card-body {
+  border-radius: 0 0 8px 8px !important;
+}
+
+.ec-card-header {
+  border-bottom: 1px solid var(--border-color) !important;
+  flex-direction: column;
+  flex-wrap: unset !important;
+  margin: 0 1rem !important;
+  max-height: 70px;
+  min-height: auto !important;
+  padding: 0 !important;
+  /* border-radius: 8px !important; */
+}
+
+.ec-card-header-custom {
+  /* border-bottom: 1px solid var(--border-color) !important; */
+  flex-direction: column;
+  flex-wrap: unset !important;
+  /* margin: 0 1rem !important; */
+  max-height: 70px;
+  min-height: auto !important;
+  padding: 0 !important;
+  /* border-radius: 8px 8px 0 0 !important; */
+}
+
+.ec-card-body {
+  padding: 4px 1rem 1rem !important;
+  background-color: var(--card-body-bg);
+
+}
+
+.accordion-button {
+  background: transparent !important;
+}
+
+#DocumentTypeRowId button {
+  padding: 16px 24px 24px 24px !important;
+}
+
+.legalItemTypeRow {
+  padding: 4px 1rem 1rem !important;
+  background-color: var(--card-body-bg);
+}
+
+.customModal {
+  .modal-content {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+  }
+
+  .modal-header {
+    background-color: #b7945a;
+    color: white;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .modal-body {
+    padding: 20px;
+  }
+
+  .submitButton {
+    background-color: #b7945a;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-inline-start: 10px;
+    border-radius: 4px;
+  }
+
+  .submitButton:disabled {
+    background-color: #ccc;
+    color: #999;
+    border: none;
+    padding: 8px 16px;
+    cursor: not-allowed;
+    margin-inline-start: 10px;
+    border-radius: 4px;
+  }
+
+
+  .closeButton {
+    float: right;
+  }
+
+  .submitButton {
+    float: left;
+  }
+}
+
+.numberInput {
+  height: 43px !important;
+  padding: 5px !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
+  outline: #b7945a !important;
+  box-shadow: none !important;
+  direction: rtl !important;
+}
+
+.actionButton {
+  cursor: pointer;
+  background: var(--shadow-2, #ffffff);
+  border-radius: 8px;
+  border-style: solid;
+  border-color: var(--text-8, #e5e7eb);
+  border-width: 0.5px;
+  padding: 8px 16px 8px 16px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+  box-shadow: var(--shadow-1-box-shadow, 0px 1px 2px 0px rgba(6, 25, 56, 0.05));
+  width: fit-content;
+
+}
+
+.cancelButton {
+  padding: 8px 16px;
+  margin-right: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: var(--shadow-2, #ffffff);
+  border-style: solid;
+  border-color: var(--text-8, #e5e7eb);
+  border-width: 0.5px;
+  box-shadow: var(--shadow-1-box-shadow, 0px 1px 2px 0px rgba(6, 25, 56, 0.05));
+  width: fit-content;
+}
+
+.image {
+  align-self: stretch;
+  flex-shrink: 0;
+  width: 125px;
+  position: relative;
+  margin-inline-start: 27px;
+  margin-block-start: 9px;
+}
+
+.thumbnail {
+  border-radius: 8px;
+  /* position: absolute; */
+  right: 0%;
+  left: 0%;
+  width: 133px;
+  bottom: 0%;
+  top: 0%;
+  height: 133px;
+}
+
+.accordionHeader {
+  border-radius: 7px !important;
+}
+
+
+.viewType {
+  display: flex;
+  justify-content: end;
+}
+
+.viewType-button {
+  cursor: pointer;
+  display: flex;
+  padding: 9.5px;
+  justify-content: center;
+  border: 1px solid var(--text-8, #E5E7EB);
+  box-shadow: 0px 1px 2px 0px rgba(6, 25, 56, 0.05);
+  background-color: #FFF;
+}
+
+.viewType-button-selected {
+  background-color: #B7945A;
+}
+
+.viewType-button:first-of-type {
+  border-radius: 0 8px 8px 0;
+  
+}
+.viewType-button:last-of-type {
+  border-radius: 8px 0 0 8px;
+}
+
+.btn-add {
+  background: #FFF !important;
+  border-radius: 8px;
+  border: 0.5px solid var(--text-7, #D1D5DB) !important;
+  cursor: pointer !important;
+}
+
+.btn-add:hover {
+  background-color: #B7945A !important;
+  color: #fff !important;
+  border: 0.5px solid #B7945A !important;
+}

@@ -1,0 +1,38 @@
+.advanced-search-row {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.advanced-search-row.show {
+  max-height: 80px; /* or more if you want a larger area */
+}
+.advanced-search-content {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.advanced-search-row.show .advanced-search-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.advanced-search-row {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.advanced-search-row.show {
+    max-height: 80px;
+}
+
+.advanced-search-content {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3, transform 0.3s;
+}
+
+.advanced-search-row.show .advanced-search-content {
+    opacity: 1;
+    transform: translateY(0);
+}

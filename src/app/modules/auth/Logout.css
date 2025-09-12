@@ -1,0 +1,46 @@
+.logout-container {
+    display: flex;
+    width: 768px;
+    padding: 24px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin: auto auto;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: var(--Shadow-2, #FFF);
+    box-shadow: 0px 2px 16px 0px rgba(175, 191, 207, 0.25);
+    font-family: "mod-light";
+}
+.body-title {
+    align-self: stretch;
+    font-size: 21px;
+    line-height: 34px; /* 161.905% */
+}
+.body-text {
+    font-size: 18px;
+    line-height: 30px; /* 166.667% */
+}
+.heading {
+    font-size: 23px;
+    font-family: "FrutigerLTArabic-Bold_2";
+    line-height: 34px; /* 147.826% */
+}
+.hr-line {
+    align-self: stretch;
+    background: var(--Text-8, #E5E7EB);
+    height: 1px;
+    margin: 0px;
+}
+.continue-button {
+    align-self: stretch;
+    background: var(--Primary-5, #B7945A);
+    border-radius: 8px;
+    color: var(--Shadow-2, #FFF);
+    cursor: pointer;
+    display: flex;
+    font: var(--font-1);
+    justify-content: center;
+    padding: 8px 16px;
+}

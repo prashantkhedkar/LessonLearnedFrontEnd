@@ -1,0 +1,16 @@
+/* ObservationPage Styles */
+.observation-page-container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+}
+
+.observation-page-card {
+  width: 100%;
+  margin: 0;
+}
+
+.observation-page-card-body {
+  width: 100%;
+  padding: 1rem;
+}

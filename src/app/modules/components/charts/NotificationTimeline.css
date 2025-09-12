@@ -1,0 +1,448 @@
+/* Notification Timeline Component Styles */
+
+.notification-timeline-container {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e5e5;
+  max-width: 400px;
+  max-height: 350px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Override max-width when w-100 class is applied */
+.notification-timeline-container.w-100 {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+/* Override card styling when w-100 is applied */
+.notification-timeline-container.w-100 .card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure the notification timeline fits well within chart containers */
+.chart-half .notification-timeline-container {
+   
+  max-height: initial ;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-half .notification-timeline-container .card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-half .notification-timeline-container .card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* Ensure the chart-half-fit works properly */
+.chart-half .chart-half-fit {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+.chart-half .chart-half-fit > div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0;
+}
+
+/* Card header styling */
+ 
+.notification-header {
+ 
+  text-align: right;
+  /* display: flex; */
+  align-items: center;
+  justify-content: flex-end;
+ 
+}
+
+.notification-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333333;
+  margin: 0;
+  text-align: right;
+  direction: rtl;
+}
+
+.notification-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.notification-timeline-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+ 
+  display: flex;
+    flex-direction: column;
+    height: 290px;
+}
+
+/* Notification item styling */
+
+.notification-timeline-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 375px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.scrollable-notifications {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+  max-height: 290px;
+  height: 290px;
+  min-height: 0;
+}
+
+.scrollable-notification {
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.scrollable-notification:hover {
+  opacity: 1;
+}
+
+/* Top 10 notifications section - always visible */
+.top-notifications-section {
+  flex-shrink: 0;
+  border-bottom: 1px solid #E5E7EB;
+  padding-bottom: 8px;
+  max-height: 60%; /* Limit to 60% of available height */
+  overflow-y: auto; /* Add scroll if needed for top notifications */
+}
+
+.top-notification {
+  position: relative;
+}
+
+.top-notification::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, #4F341C, #6F4B2B);
+  border-radius: 0 2px 2px 0;
+}
+
+/* Scrollable section for remaining notifications */
+.notification-scrollable-section {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.scroll-indicator {
+  padding: 8px 16px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(243,244,246,0.9));
+  border-top: 1px solid #E5E7EB;
+  border-bottom: 1px solid #E5E7EB;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-6, #9CA3AF);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.scroll-indicator:hover {
+  background: linear-gradient(to bottom, rgba(243,244,246,0.9), rgba(229,231,235,0.9));
+}
+
+.scroll-text {
+  margin-right: 8px;
+}
+
+.scroll-arrow {
+  display: inline-block;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+
+/* Enhanced scrollbar for scrollable section */
+.scrollable-notifications::-webkit-scrollbar {
+  cursor: auto;
+  width: 6px;
+}
+
+/* .scrollable-notifications::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+} */
+
+.scrollable-notifications::-webkit-scrollbar-thumb { 
+  border-radius: 3px;
+  opacity: 0.7;
+}
+
+.scrollable-notifications::-webkit-scrollbar-thumb:hover {
+  cursor: auto;
+  background: var(--Primary-5, #B7945A);
+  opacity: 1;
+}
+
+/* Different styling for scrollable notifications */
+.scrollable-notification { 
+  opacity: 0.9;
+  margin: 0 8px 4px 8px; /* Consistent with main notification items */
+}
+
+.scrollable-notification:hover {
+  opacity: 1;
+}
+
+/* Scrollbar styling for top notifications section */
+/* .top-notifications-section::-webkit-scrollbar {
+  width: 4px;
+}
+
+.top-notifications-section::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 2px;
+}
+
+.top-notifications-section::-webkit-scrollbar-thumb {
+  background: var(--primary-color, #4F341C);
+  border-radius: 2px;
+  opacity: 0.5;
+}
+
+.top-notifications-section::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color-dark, #3A2815);
+} */
+
+.notification-timeline-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--card-border-color, #F3F4F6);
+  background-color: #FFFFFF;
+  margin: 0 8px 6px 8px;
+  border-radius: 8px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  position: relative;
+  border: 1px solid #E5E7EB;
+}
+
+.notification-timeline-item.clickable {
+  cursor: pointer;
+}
+
+.notification-timeline-item.clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.notification-timeline-item:hover {
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.notification-timeline-item.unread {
+  background-color: #FFFFFF;
+}
+
+.notification-timeline-item.read {
+  background-color: var(--notification-read-bg, #F9F9F9);
+  opacity: 0.8;
+}
+
+.notification-timeline-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  margin-top: 2px;
+}
+
+.notification-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
+  background-color: rgb(175, 136, 72);
+  margin-top: 5px;
+}
+
+.notification-timeline-item-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.notification-service-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.notification-service-name {
+  font-family: 'HelveticaNeueLTArabic-Bold_2', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-2, #1F2937);
+  line-height: 20px;
+  text-align: right;
+}
+
+.notification-service-status {
+  font-family: 'HelveticaNeueLTArabic-Regular', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-4, #6B7280);
+  line-height: 18px;
+  text-align: right;
+}
+
+.notification-date {
+  font-family: 'HelveticaNeueLTArabic-Regular', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-6, #9CA3AF);
+  line-height: 16px;
+  text-align: right;
+  margin-top: 4px;
+}
+
+.notification-priority-badge {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+}
+
+.priority-indicator {
+  font-size: 10px;
+  font-weight: 500;
+  color: #FFFFFF;
+  padding: 4px 8px;
+  border-radius: 12px;
+  text-align: center;
+  min-width: 50px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* RTL Support */
+[dir="rtl"] .notification-timeline-indicator {
+  margin-right: 0;
+  margin-left: 12px;
+}
+
+[dir="rtl"] .notification-priority-badge {
+  margin-left: 0;
+  margin-right: 8px;
+}
+
+[dir="rtl"] .notification-timeline-item.unread {
+  border-left: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .notification-timeline-item {
+    padding: 12px 16px;
+    margin: 0 8px;
+  }
+  
+  .notification-timeline-header {
+    padding: 16px 16px 8px 16px;
+  }
+  
+  .notification-service-name {
+    font-size: 13px;
+  }
+  
+  .notification-service-status {
+    font-size: 12px;
+  }
+  
+  .notification-date {
+    font-size: 11px;
+  }
+}
+
+/* Animation for new notifications */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.notification-timeline-item {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Scrollbar styling */
+.notification-timeline-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notification-timeline-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.notification-timeline-content::-webkit-scrollbar-thumb {
+  background: var(--primary-color, #4F341C);
+  border-radius: 3px;
+  opacity: 0.7;
+}
+
+.notification-timeline-content::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color-dark, #3A2815);
+}

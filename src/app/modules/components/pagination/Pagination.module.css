@@ -1,0 +1,33 @@
+.ldmsPagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px !important;
+}
+
+.ldmsPaginationButton {
+    
+    margin: 0 5px;
+    border: 1px solid #B7945A;
+    background-color: #fff;
+    color: #B7945A !important;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    min-width :30px;
+    height: 30px;
+}
+
+.ldmsPagination button:hover {
+    background-color: #B7945A;
+    color: #fff;
+}
+
+.ldmsPagination button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.ldmsPaginationActive {
+    background-color: #B7945A !important;
+    color: #fff !important;
+}

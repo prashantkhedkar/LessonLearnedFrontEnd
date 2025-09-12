@@ -1,0 +1,37 @@
+[
+    {
+        "id": 8425,
+        "name": "م ا و ع 2 Unit 8425",
+        "parentUnitId": 8425,
+        "isMainUnit": true,
+        "leaderId": 101
+    },
+    {
+        "id": 6777,
+        "name": "م ع ع 5 Unit 6777",
+        "parentUnitId": 6777,
+        "isMainUnit": true,
+        "leaderId": 102
+    },
+    {
+        "id": 13551,
+        "name": "القوات الجويةUnit 13551",
+        "parentUnitId": 13551,
+        "isMainUnit": true,
+        "leaderId": 103
+    },
+    {
+        "id": 19925,
+        "name": "م ق م Unit 19925",
+        "parentUnitId": 19925,
+        "isMainUnit": true,
+        "leaderId": 104
+    },
+        {
+        "id": 19370,
+        "name": "م ق م Unit 19370",
+        "parentUnitId": 19370,
+        "isMainUnit": true,
+        "leaderId": 105
+    }
+]

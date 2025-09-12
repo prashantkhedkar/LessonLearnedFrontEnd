@@ -1,0 +1,29 @@
+[
+  {
+    "columnName": "NOTIFICATION.COLUMN.DETAILS",
+    "dataColumnName": "",
+    "type": "components",
+    "sortable": false,
+    "className": "text-start",
+     "width": "90%",
+    "width-ar": "90%",
+    "componentsIndexes": "0"
+     
+  },
+  {
+    "columnName": "DT.COLUMN.ACTION",
+    "dataColumnName": "",
+    "type": "components",
+    "sortable": false,
+    "className": "text-center",
+    "width": "10%",
+    "width-ar": "10%",
+    "componentsIndexes": "1",
+    "style": {
+            "padding-right": "10px",
+            "padding-left": "10px",
+            "color": "grey"
+        }
+    
+  }
+]

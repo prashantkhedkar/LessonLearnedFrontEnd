@@ -1,0 +1,4 @@
+.bg-light
+{
+    background:var(--primary-10, #efe7da) !important;
+}

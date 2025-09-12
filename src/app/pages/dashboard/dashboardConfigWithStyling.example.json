@@ -1,0 +1,146 @@
+{
+  "roles": {
+    "FMS Admin": [
+      {
+        "id": "admin-stats-row",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "priority-donut-styled",
+          "type": "donut",
+          "title": "DASHBOARD.PRIORITY_DISTRIBUTION",
+          "dataSource": "getPriorityData",
+          "height": 350,
+          "titleClassName": "custom-chart-title-green",
+          "customStyles": {
+            "titleStyle": {
+              "textAlign": "center",
+              "marginBottom": "10px"
+            }
+          }
+        },
+        "rightChart": {
+          "id": "monthly-requests-styled",
+          "type": "bar",
+          "title": "DASHBOARD.MONTHLY_REQUESTS",
+          "dataSource": "getNumberOfRequestCreatedByMonthData",
+          "height": 350,
+          "titleClassName": "dashboard-service-chart-title",
+          "xAxisClassName": "custom-x-axis-bold",
+          "yAxisClassName": "custom-y-axis-highlight"
+        }
+      },
+      {
+        "id": "service-analytics-row",
+        "type": "single-layout",
+        "chart": {
+          "id": "service-categories-styled",
+          "type": "bar",
+          "title": "DASHBOARD.TOP_SERVICE_CATEGORIES",
+          "dataSource": "getTopNthRequestsByServiceCategories",
+          "height": 400,
+          "customStyles": {
+            "titleStyle": {
+              "color": "#dc2626",
+              "fontSize": "22px",
+              "fontWeight": "bold",
+              "textAlign": "center",
+              "backgroundColor": "rgba(220, 38, 38, 0.1)",
+              "padding": "12px",
+              "borderRadius": "10px",
+              "marginBottom": "15px",
+              "border": "2px solid #dc2626"
+            },
+            "xAxisStyle": {
+              "color": "#374151",
+              "fontSize": "11px",
+              "fontWeight": "600",
+              "transform": "rotate(-15deg)",
+              "whiteSpace": "nowrap"
+            },
+            "yAxisStyle": {
+              "color": "#7c3aed",
+              "fontSize": "13px",
+              "fontWeight": "bold",
+              "backgroundColor": "rgba(124, 58, 237, 0.15)",
+              "padding": "3px 6px",
+              "borderRadius": "4px"
+            }
+          }
+        }
+      }
+    ],
+    "Unit Admin": [
+      {
+        "id": "unit-overview-row",
+        "type": "dual-layout",
+        "leftChart": {
+          "id": "unit-requests-styled",
+          "type": "bar",
+          "title": "DASHBOARD.UNIT_REQUESTS",
+          "dataSource": "inProgressRequestByUnitData",
+          "height": 350,
+          "titleClassName": "custom-chart-title-animated",
+          "xAxisClassName": "custom-x-axis-animated",
+          "customStyles": {
+            "titleStyle": {
+              "color": "#059669",
+              "textShadow": "2px 2px 4px rgba(0,0,0,0.2)"
+            }
+          }
+        },
+        "rightChart": {
+          "id": "completion-stats-styled",
+          "type": "donut",
+          "title": "DASHBOARD.COMPLETION_STATS",
+          "dataSource": "fetchPercentCompletionofOpenRequestsByServiceData",
+          "height": 350,
+          "titleClassName": "dashboard-priority-chart-title"
+        }
+      }
+    ],
+    "Requesting Unit": [
+      {
+        "id": "request-overview-row",
+        "type": "single-multirow-layout",
+        "charts": [
+          {
+            "id": "my-requests-styled",
+            "type": "bar",
+            "title": "DASHBOARD.MY_REQUESTS_TIMELINE",
+            "dataSource": "getNumberOfRequestCreatedByMonthData",
+            "height": 300,
+            "customStyles": {
+              "titleStyle": {
+                "color": "#1e40af",
+                "fontSize": "18px",
+                "fontWeight": "600",
+                "textAlign": "center",
+                "background": "linear-gradient(90deg, #dbeafe, #bfdbfe)",
+                "padding": "8px 16px",
+                "borderRadius": "6px",
+                "border": "1px solid #3b82f6"
+              },
+              "xAxisStyle": {
+                "color": "#4b5563",
+                "fontSize": "12px",
+                "fontWeight": "500"
+              },
+              "yAxisStyle": {
+                "color": "#6b7280",
+                "fontSize": "12px"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "dataSources": {
+    "getPriorityData": "getPriorityData",
+    "getNumberOfRequestCreatedByMonthData": "getNumberOfRequestCreatedByMonthData",
+    "getTopNthRequestsByServiceCategories": "getTopNthRequestsByServiceCategories",
+    "inProgressRequestByUnitData": "inProgressRequestByUnitData",
+    "fetchPercentCompletionofOpenRequestsByServiceData": "fetchPercentCompletionofOpenRequestsByServiceData"
+  },
+  "staticData": {}
+}

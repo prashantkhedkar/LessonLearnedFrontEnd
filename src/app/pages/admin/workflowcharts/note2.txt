@@ -1,0 +1,639 @@
+const edgeType = 'smoothstep';
+const position = { x: 0, y: 0 };
+
+export const initialNodes = [
+  // Step 1: Requestor → Submit → FulfilmentUnit (Requestor)
+  {
+    id: 'step1_from',
+    type: 'input',
+    data: { label: 'Requestor' },
+    position: { x: 600, y: 150 }
+  },
+  {
+    id: 'step1_action',
+    type: 'default',
+    data: { label: 'Submit' },
+    position: { x: 600, y: 350 }
+  },
+  {
+    id: 'step1_to',
+    type: 'default',
+    data: { label: 'FulfilmentUnit' },
+    position: { x: 600, y: 550 }
+  },
+  
+  // Step 2: FulfilmentUnit → Approve → SecurityUnit (Fulfilment Approval)
+  {
+    id: 'step2_action',
+    type: 'default',
+    data: { label: 'Approve' },
+    position: { x: 600, y: 800 }
+  },
+  {
+    id: 'step2_to',
+    type: 'default',
+    data: { label: 'SecurityUnit' },
+    position: { x: 600, y: 1000 }
+  },
+  
+  // Step 3: FulfilmentUnit → Reject → Requestor (Fulfilment Approval)
+  {
+    id: 'step3_action',
+    type: 'default',
+    data: { label: 'Reject' },
+    position: { x: 150, y: 850 }
+  },
+  {
+    id: 'step3_to',
+    type: 'default',
+    data: { label: 'Requestor' },
+    position: { x: 150, y: 1050 }
+  },
+  
+  // Step 4: FulfilmentUnit → Return → Requestor (Fulfilment Approval)
+  {
+    id: 'step4_action',
+    type: 'default',
+    data: { label: 'Return' },
+    position: { x: 1050, y: 850 }
+  },
+  {
+    id: 'step4_to',
+    type: 'default',
+    data: { label: 'Requestor' },
+    position: { x: 1050, y: 1050 }
+  },
+  
+  // Step 5: SecurityUnit → Approve → FulfilmentUnit (Security Approval)
+  {
+    id: 'step5_action',
+    type: 'default',
+    data: { label: 'Approve' },
+    position: { x: 600, y: 1350 }
+  },
+  {
+    id: 'step5_to',
+    type: 'default',
+    data: { label: 'FulfilmentUnit' },
+    position: { x: 600, y: 1550 }
+  },
+  
+  // Step 6: SecurityUnit → Reject → Requestor (Security Approval)
+  {
+    id: 'step6_action',
+    type: 'default',
+    data: { label: 'Reject' },
+    position: { x: 200, y: 1400 }
+  },
+  {
+    id: 'step6_to',
+    type: 'default',
+    data: { label: 'Requestor' },
+    position: { x: 200, y: 1600 }
+  },
+  
+  // Step 7: SecurityUnit → Return → FulfilmentUnit (Security Approval)
+  {
+    id: 'step7_action',
+    type: 'default',
+    data: { label: 'Return' },
+    position: { x: 1000, y: 1400 }
+  },
+  {
+    id: 'step7_to',
+    type: 'default',
+    data: { label: 'FulfilmentUnit' },
+    position: { x: 1000, y: 1600 }
+  },
+  
+  // Step 8: FulfilmentUnit → Mark as "On Hold" → FulfilmentUnit (Fulfilment Action)
+  {
+    id: 'step8_action',
+    type: 'default',
+    data: { label: 'Mark as "On Hold"' },
+    position: { x: 600, y: 1950 }
+  },
+  {
+    id: 'step8_to',
+    type: 'default',
+    data: { label: 'FulfilmentUnit' },
+    position: { x: 600, y: 2150 }
+  },
+  
+  // Step 9: FulfilmentUnit → Mark as "In Progress" → FulfilmentUnit (Fulfilment Action)
+  {
+    id: 'step9_action',
+    type: 'default',
+    data: { label: 'Mark as "In Progress"' },
+    position: { x: 600, y: 2550 }
+  },
+  {
+    id: 'step9_to',
+    type: 'default',
+    data: { label: 'FulfilmentUnit' },
+    position: { x: 600, y: 2750 }
+  },
+  
+  // Step 10: FulfilmentUnit → Assigned for Quotation → SupportingUnit (Fulfilment Action)
+  {
+    id: 'step10_action',
+    type: 'default',
+    data: { label: 'Assigned for Quotation' },
+    position: { x: 600, y: 3150 }
+  },
+  {
+    id: 'step10_to',
+    type: 'default',
+    data: { label: 'SupportingUnit' },
+    position: { x: 600, y: 3350 }
+  },
+  
+  // Step 11: SupportingUnit → Upload Quotation → Requestor (Quotation Submission)
+  {
+    id: 'step11_action',
+    type: 'default',
+    data: { label: 'Upload Quotation' },
+    position: { x: 600, y: 3750 }
+  },
+  {
+    id: 'step11_to',
+    type: 'default',
+    data: { label: 'Requestor' },
+    position: { x: 600, y: 3950 }
+  },
+  
+  // Step 12: Requestor → Accept → FulfilmentUnit (Quotation Response)
+  {
+    id: 'step12_action',
+    type: 'default',
+    data: { label: 'Accept' },
+    position: { x: 1000, y: 4300 }
+  },
+  {
+    id: 'step12_to',
+    type: 'default',
+    data: { label: 'FulfilmentUnit' },
+    position: { x: 1000, y: 4500 }
+  },
+  
+  // Step 13: Requestor → Return → SupportingUnit (Quotation Response)
+  {
+    id: 'step13_action',
+    type: 'default',
+    data: { label: 'Return' },
+    position: { x: 200, y: 4300 }
+  },
+  {
+    id: 'step13_to',
+    type: 'default',
+    data: { label: 'SupportingUnit' },
+    position: { x: 200, y: 4500 }
+  },
+  
+  // Step 14: FulfilmentUnit → Mark as "In Progress" → FulfilmentUnit (Fulfilment Action)
+  {
+    id: 'step14_action',
+    type: 'default',
+    data: { label: 'Mark as "In Progress"' },
+    position: { x: 1000, y: 4900 }
+  },
+  {
+    id: 'step14_to',
+    type: 'default',
+    data: { label: 'FulfilmentUnit' },
+    position: { x: 1000, y: 5100 }
+  },
+  
+  // Step 15: FulfilmentUnit → Mark as Delivered → Requestor (Service Delivery)
+  {
+    id: 'step15_action',
+    type: 'default',
+    data: { label: 'Mark as Delivered' },
+    position: { x: 600, y: 5500 }
+  },
+  {
+    id: 'step15_to',
+    type: 'default',
+    data: { label: 'Requestor' },
+    position: { x: 600, y: 5700 }
+  },
+  
+  // Step 16: Requestor → Accept → FulfilmentUnit (Delivery Acknowledgement)
+  {
+    id: 'step16_action',
+    type: 'default',
+    data: { label: 'Accept' },
+    position: { x: 600, y: 6100 }
+  },
+  {
+    id: 'step16_to',
+    type: 'default',
+    data: { label: 'FulfilmentUnit' },
+    position: { x: 600, y: 6300 }
+  },
+  
+  // Step 17: FulfilmentUnit → Update → Requestor (Fulfilment Completion)
+  {
+    id: 'step17_action',
+    type: 'default',
+    data: { label: 'Update' },
+    position: { x: 600, y: 6700 }
+  },
+  {
+    id: 'step17_to',
+    type: 'output',
+    data: { label: 'Process Complete' },
+    position: { x: 600, y: 6900 }
+  }
+];
+
+export const initialEdges = [
+  // Step 1: Requestor → Submit → FulfilmentUnit (Requestor)
+  { 
+    id: 'e1a', 
+    source: 'step1_from', 
+    target: 'step1_action', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Submission',
+    style: { strokeWidth: 3, stroke: '#3b82f6' }
+  },
+  { 
+    id: 'e1b', 
+    source: 'step1_action', 
+    target: 'step1_to', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Requestor',
+    style: { strokeWidth: 3, stroke: '#3b82f6' }
+  },
+  
+  // Step 2: FulfilmentUnit → Approve → SecurityUnit (Fulfilment Approval)
+  { 
+    id: 'e2a', 
+    source: 'step1_to', 
+    target: 'step2_action', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Fulfilment Approval',
+    style: { strokeWidth: 3, stroke: '#10b981' }
+  },
+  { 
+    id: 'e2b', 
+    source: 'step2_action', 
+    target: 'step2_to', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Fulfilment Approval',
+    style: { strokeWidth: 3, stroke: '#10b981' }
+  },
+  
+  // Step 3: FulfilmentUnit → Reject → Requestor (Fulfilment Approval)
+  { 
+    id: 'e3a', 
+    source: 'step1_to', 
+    target: 'step3_action', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Fulfilment Approval',
+    style: { strokeWidth: 3, stroke: '#ef4444' }
+  },
+  { 
+    id: 'e3b', 
+    source: 'step3_action', 
+    target: 'step3_to', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Fulfilment Approval',
+    style: { strokeWidth: 3, stroke: '#ef4444' }
+  },
+  
+  // Step 4: FulfilmentUnit → Return → Requestor (Fulfilment Approval)
+  { 
+    id: 'e4a', 
+    source: 'step1_to', 
+    target: 'step4_action', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Fulfilment Approval',
+    style: { strokeWidth: 3, stroke: '#f59e0b' }
+  },
+  { 
+    id: 'e4b', 
+    source: 'step4_action', 
+    target: 'step4_to', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Fulfilment Approval',
+    style: { strokeWidth: 3, stroke: '#f59e0b' }
+  },
+  
+  // Step 5: SecurityUnit → Approve → FulfilmentUnit (Security Approval)
+  { 
+    id: 'e5a', 
+    source: 'step2_to', 
+    target: 'step5_action', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Security Aprroval',
+    style: { strokeWidth: 3, stroke: '#10b981' }
+  },
+  { 
+    id: 'e5b', 
+    source: 'step5_action', 
+    target: 'step5_to', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Security Aprroval',
+    style: { strokeWidth: 3, stroke: '#10b981' }
+  },
+  
+  // Step 6: SecurityUnit → Reject → Requestor (Security Approval)
+  { 
+    id: 'e6a', 
+    source: 'step2_to', 
+    target: 'step6_action', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Security Aprroval',
+    style: { strokeWidth: 3, stroke: '#ef4444' }
+  },
+  { 
+    id: 'e6b', 
+    source: 'step6_action', 
+    target: 'step6_to', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Security Aprroval',
+    style: { strokeWidth: 3, stroke: '#ef4444' }
+  },
+  
+  // Step 7: SecurityUnit → Return → FulfilmentUnit (Security Approval)
+  { 
+    id: 'e7a', 
+    source: 'step2_to', 
+    target: 'step7_action', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Security Aprroval',
+    style: { strokeWidth: 3, stroke: '#f59e0b' }
+  },
+  { 
+    id: 'e7b', 
+    source: 'step7_action', 
+    target: 'step7_to', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Security Aprroval',
+    style: { strokeWidth: 3, stroke: '#f59e0b' }
+  },
+  
+  // Step 8: FulfilmentUnit → Mark as "On Hold" → FulfilmentUnit (Fulfilment Action)
+  { 
+    id: 'e8a', 
+    source: 'step5_to', 
+    target: 'step8_action', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Fulfilment Action',
+    style: { strokeWidth: 3, stroke: '#6366f1' }
+  },
+  { 
+    id: 'e8b', 
+    source: 'step8_action', 
+    target: 'step8_to', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Fulfilment Action',
+    style: { strokeWidth: 3, stroke: '#6366f1' }
+  },
+  
+  // Step 9: FulfilmentUnit → Mark as "In Progress" → FulfilmentUnit (Fulfilment Action)
+  { 
+    id: 'e9a', 
+    source: 'step8_to', 
+    target: 'step9_action', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Fulfilment Action',
+    style: { strokeWidth: 3, stroke: '#8b5cf6' }
+  },
+  { 
+    id: 'e9b', 
+    source: 'step9_action', 
+    target: 'step9_to', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Fulfilment Action',
+    style: { strokeWidth: 3, stroke: '#8b5cf6' }
+  },
+  
+  // Step 10: FulfilmentUnit → Assigned for Quotation → SupportingUnit (Fulfilment Action)
+  { 
+    id: 'e10a', 
+    source: 'step9_to', 
+    target: 'step10_action', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Fulfilment Action',
+    style: { strokeWidth: 3, stroke: '#06b6d4' }
+  },
+  { 
+    id: 'e10b', 
+    source: 'step10_action', 
+    target: 'step10_to', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Fulfilment Action',
+    style: { strokeWidth: 3, stroke: '#06b6d4' }
+  },
+  
+  // Step 11: SupportingUnit → Upload Quotation → Requestor (Quotation Submission)
+  { 
+    id: 'e11a', 
+    source: 'step10_to', 
+    target: 'step11_action', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Quotation Submission',
+    style: { strokeWidth: 3, stroke: '#84cc16' }
+  },
+  { 
+    id: 'e11b', 
+    source: 'step11_action', 
+    target: 'step11_to', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Quotation Submission',
+    style: { strokeWidth: 3, stroke: '#84cc16' }
+  },
+  
+  // Step 12: Requestor → Accept → FulfilmentUnit (Quotation Response)
+  { 
+    id: 'e12a', 
+    source: 'step11_to', 
+    target: 'step12_action', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Quotation Response',
+    style: { strokeWidth: 3, stroke: '#10b981' }
+  },
+  { 
+    id: 'e12b', 
+    source: 'step12_action', 
+    target: 'step12_to', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Quotation Response',
+    style: { strokeWidth: 3, stroke: '#10b981' }
+  },
+  
+  // Step 13: Requestor → Return → SupportingUnit (Quotation Response)
+  { 
+    id: 'e13a', 
+    source: 'step11_to', 
+    target: 'step13_action', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Quotation Response',
+    style: { strokeWidth: 3, stroke: '#f59e0b' }
+  },
+  { 
+    id: 'e13b', 
+    source: 'step13_action', 
+    target: 'step13_to', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Quotation Response',
+    style: { strokeWidth: 3, stroke: '#f59e0b' }
+  },
+  
+  // Step 14: FulfilmentUnit → Mark as "In Progress" → FulfilmentUnit (Fulfilment Action)
+  { 
+    id: 'e14a', 
+    source: 'step12_to', 
+    target: 'step14_action', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Fulfilment Action',
+    style: { strokeWidth: 3, stroke: '#8b5cf6' }
+  },
+  { 
+    id: 'e14b', 
+    source: 'step14_action', 
+    target: 'step14_to', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Fulfilment Action',
+    style: { strokeWidth: 3, stroke: '#8b5cf6' }
+  },
+  
+  // Step 15: FulfilmentUnit → Mark as Delivered → Requestor (Service Delivery)
+  { 
+    id: 'e15a', 
+    source: 'step14_to', 
+    target: 'step15_action', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Service Delivery',
+    style: { strokeWidth: 3, stroke: '#14b8a6' }
+  },
+  { 
+    id: 'e15b', 
+    source: 'step15_action', 
+    target: 'step15_to', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Service Delivery',
+    style: { strokeWidth: 3, stroke: '#14b8a6' }
+  },
+  
+  // Step 16: Requestor → Accept → FulfilmentUnit (Delivery Acknowledgement)
+  { 
+    id: 'e16a', 
+    source: 'step15_to', 
+    target: 'step16_action', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Delivery Acknowledgement',
+    style: { strokeWidth: 3, stroke: '#10b981' }
+  },
+  { 
+    id: 'e16b', 
+    source: 'step16_action', 
+    target: 'step16_to', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Delivery Acknowledgement',
+    style: { strokeWidth: 3, stroke: '#10b981' }
+  },
+  
+  // Step 17: FulfilmentUnit → Update → Requestor (Fulfilment Completion)
+  { 
+    id: 'e17a', 
+    source: 'step16_to', 
+    target: 'step17_action', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Fulfilment Completion',
+    style: { strokeWidth: 3, stroke: '#ec4899' }
+  },
+  { 
+    id: 'e17b', 
+    source: 'step17_action', 
+    target: 'step17_to', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    label: 'Step-Fulfilment Completion',
+    style: { strokeWidth: 3, stroke: '#ec4899' }
+  }
+];
+
+// Default viewport configuration for better initial view
+export const defaultViewport = {
+  x: 0,
+  y: 0,
+  zoom: 1.2
+};
+
+// Fit view options for better layout
+export const fitViewOptions = {
+  padding: 0.2,
+  includeHiddenNodes: false,
+  minZoom: 0.5,
+  maxZoom: 2
+};

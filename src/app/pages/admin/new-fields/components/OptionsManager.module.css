@@ -1,0 +1,113 @@
+.options-manager {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fafafa;
+    margin-bottom: 16px;
+}
+
+.options-manager h6 {
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.options-manager .table {
+    margin-bottom: 0;
+}
+
+.options-manager .table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    font-size: 0.875rem;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.options-manager .table td {
+    vertical-align: middle;
+    font-size: 0.875rem;
+}
+
+.options-manager .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.775rem;
+    border-radius: 4px;
+}
+
+.options-manager .form-control-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.options-manager .bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.options-manager .text-muted {
+    color: #6c757d !important;
+}
+
+.options-manager .form-check-input:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.options-manager .btn-success {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.options-manager .btn-outline-primary {
+    color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.options-manager .btn-outline-primary:hover {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff;
+}
+
+.options-manager .btn-outline-danger {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.options-manager .btn-outline-danger:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+.options-manager .btn-outline-secondary {
+    color: #6c757d;
+    border-color: #6c757d;
+}
+
+.options-manager .btn-outline-secondary:hover {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+}
+
+.options-manager .table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+}
+
+.options-manager .form-label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+.options-manager .is-invalid {
+    border-color: #dc3545;
+}
+
+.options-manager .invalid-feedback {
+    display: block;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+    color: #dc3545;
+}

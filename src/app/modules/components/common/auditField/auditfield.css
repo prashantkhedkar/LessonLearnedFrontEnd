@@ -1,0 +1,11 @@
+.prjuserFormEditorAuditTimeStamp {
+    color: var(--text-5, #6B7280);
+    text-align: right;
+    /* Small/medium */
+    /* font-family: Roboto; */
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 17px;
+    /* 141.667% */
+  }

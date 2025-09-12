@@ -1,0 +1,122 @@
+.page-header-container {
+  background: linear-gradient(180deg, #C2A473 0%, #8D744A 100%);
+ padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+  direction: rtl;
+}
+
+.page-header-content {
+  color: #FFFFFF;
+}
+
+.page-header-text {
+  flex: 1;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.page-header-title {
+  font-size: 1rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: normal;
+  color: #FFFFFF;
+}
+
+.page-header-title .label {
+  opacity: 0.9;
+}
+
+.page-header-title .value {
+  font-weight: 500;
+}
+
+.page-header-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-size: 0.9375rem;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.meta-label {
+  opacity: 0.9;
+  position: relative;
+}
+
+.meta-value {
+  font-weight: 500;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.25rem 1rem;
+  border-radius: 4px;
+  min-width: 120px;
+  display: inline-block;
+}
+
+.back-button {
+  background-color: rgba(255, 255, 255, 0.12);
+    border: 1px solid #fff;
+    color: white;
+    border-radius: 20px;
+    padding: 0.375rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+}
+
+.back-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.back-button i {
+  font-size: 0.75rem;
+  margin-right: 0.25rem;
+}
+
+/* Remove colon from meta labels since they're in the design */
+.meta-label::after {
+  display: none;
+}
+
+/* RTL Support */
+[dir="rtl"] .page-header-container {
+  background: linear-gradient(180deg, #C2A473 0%, #8D744A 100%);
+}
+
+[dir="rtl"] .back-button i {
+  transform: scaleX(-1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page-header-container {
+    padding: 1rem;
+  }
+
+  .page-header-content {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .page-header-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

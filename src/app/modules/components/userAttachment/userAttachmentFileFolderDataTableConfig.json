@@ -1,0 +1,32 @@
+[
+    {
+        "columnName": "File Name",
+        "columnNameAr": "اسم الملف",
+        "dataColumnName": "name",
+        "sortable": true,
+        "type": "filefoldericonwithname",
+        "isSearchable": true,
+        "style": {
+            "padding-right": "5px",
+            "padding-left": "5px"
+        },
+        "width": "90%",
+        "width-ar": "90%"
+    },
+    {
+        "columnName": "Action",
+        "columnNameAr": "الإجراءات",
+        "dataColumnName": "",
+        "sortable": false,
+        "type": "customactionsuserattachment",
+        "style": {
+            "color": "grey",
+            "background-color": "#FFFFFF",
+            "padding-right": "5px",
+            "padding-left": "5px"
+        },
+        "isSearchable": false,
+        "width": "10%",
+        "width-ar": "10%"
+    }
+]

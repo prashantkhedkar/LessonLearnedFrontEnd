@@ -1,0 +1,27 @@
+/* Frutiger LT Arabic 45 Light */
+@font-face {
+  font-family: 'FrutigerLTArabic-Light_0';
+  src: url('FrutigerLTArabic45Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* Frutiger LT Arabic 55 Roman */
+@font-face {
+  font-family: 'FrutigerLTArabic-Roman_0';
+  src: url('FrutigerLTArabic55Roman.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Frutiger LT Arabic 55 Roman */
+@font-face {
+  font-family: 'FrutigerLTArabic-Bold_2';
+  src: url('FrutigerLTArabic65Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

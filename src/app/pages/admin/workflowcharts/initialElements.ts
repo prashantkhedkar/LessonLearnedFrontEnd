@@ -1,0 +1,493 @@
+const edgeType = 'smoothstep';
+
+export const initialNodes = [
+  // Main entities
+  {
+    id: 'requestor',
+    type: 'input',
+    data: { label: 'Requestor' },
+    position: { x: 400, y: 100 }
+  },
+  {
+    id: 'fulfilmentunit',
+    type: 'default',
+    data: { label: 'FulfilmentUnit' },
+    position: { x: 400, y: 300 }
+  },
+  {
+    id: 'securityunit',
+    type: 'default',
+    data: { label: 'SecurityUnit' },
+    position: { x: 400, y: 600 }
+  },
+  {
+    id: 'supportingunit',
+    type: 'default',
+    data: { label: 'SupportingUnit' },
+    position: { x: 700, y: 900 }
+  },
+  
+  // Step 1: Requestor Submit
+  {
+    id: 'action_submit',
+    type: 'default',
+    data: { label: 'Submit' },
+    position: { x: 400, y: 200 }
+  },
+  
+  // Step 2: Fulfilment Approval Actions
+  {
+    id: 'fulfilment_approve',
+    type: 'default',
+    data: { label: 'Approve' },
+    position: { x: 400, y: 400 }
+  },
+  {
+    id: 'fulfilment_reject',
+    type: 'default',
+    data: { label: 'Reject' },
+    position: { x: 200, y: 400 }
+  },
+  {
+    id: 'fulfilment_return',
+    type: 'default',
+    data: { label: 'Return' },
+    position: { x: 600, y: 400 }
+  },
+  
+  // Step 3: Security Approval Actions
+  {
+    id: 'security_approve',
+    type: 'default',
+    data: { label: 'Approve' },
+    position: { x: 400, y: 700 }
+  },
+  {
+    id: 'security_reject',
+    type: 'default',
+    data: { label: 'Reject' },
+    position: { x: 200, y: 700 }
+  },
+  {
+    id: 'security_return',
+    type: 'default',
+    data: { label: 'Return' },
+    position: { x: 600, y: 700 }
+  },
+  
+  // Step 4: Fulfilment Actions
+  {
+    id: 'fulfilment_on_hold',
+    type: 'default',
+    data: { label: 'Mark as "On Hold"' },
+    position: { x: 200, y: 800 }
+  },
+  {
+    id: 'fulfilment_in_progress_1',
+    type: 'default',
+    data: { label: 'Mark as "In Progress"' },
+    position: { x: 400, y: 800 }
+  },
+  {
+    id: 'fulfilment_assign_quotation',
+    type: 'default',
+    data: { label: 'Assigned for Quotation' },
+    position: { x: 600, y: 800 }
+  },
+  
+  // Step 5: Quotation Submission
+  {
+    id: 'quotation_upload',
+    type: 'default',
+    data: { label: 'Upload Quotation' },
+    position: { x: 700, y: 1000 }
+  },
+  
+  // Step 6: Quotation Response Actions
+  {
+    id: 'quotation_accept',
+    type: 'default',
+    data: { label: 'Accept' },
+    position: { x: 400, y: 1100 }
+  },
+  {
+    id: 'quotation_return',
+    type: 'default',
+    data: { label: 'Return' },
+    position: { x: 700, y: 1100 }
+  },
+  
+  // Step 7: Fulfilment Action (2nd In Progress)
+  {
+    id: 'fulfilment_in_progress_2',
+    type: 'default',
+    data: { label: 'Mark as "In Progress"' },
+    position: { x: 400, y: 1200 }
+  },
+  
+  // Step 8: Service Delivery
+  {
+    id: 'service_delivered',
+    type: 'default',
+    data: { label: 'Mark as Delivered' },
+    position: { x: 400, y: 1300 }
+  },
+  
+  // Step 9: Delivery Acknowledgement
+  {
+    id: 'delivery_accept',
+    type: 'default',
+    data: { label: 'Accept' },
+    position: { x: 400, y: 1400 }
+  },
+  
+  // Step 10: Fulfilment Completion
+  {
+    id: 'fulfilment_update',
+    type: 'default',
+    data: { label: 'Update' },
+    position: { x: 400, y: 1500 }
+  },
+];
+
+export const initialEdges = [
+  // Step 1: Requestor -> Submit -> FulfilmentUnit
+  { 
+    id: 'e1', 
+    source: 'requestor', 
+    target: 'action_submit', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#3b82f6' }
+  },
+  { 
+    id: 'e2', 
+    source: 'action_submit', 
+    target: 'fulfilmentunit', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#3b82f6' }
+  },
+  
+  // Step 2: Fulfilment Approval -> Approve -> SecurityUnit
+  { 
+    id: 'e3', 
+    source: 'fulfilmentunit', 
+    target: 'fulfilment_approve', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#10b981' }
+  },
+  { 
+    id: 'e4', 
+    source: 'fulfilment_approve', 
+    target: 'securityunit', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#10b981' }
+  },
+  
+  // Step 2: Fulfilment Approval -> Reject -> Requestor
+  { 
+    id: 'e5', 
+    source: 'fulfilmentunit', 
+    target: 'fulfilment_reject', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#ef4444' }
+  },
+  { 
+    id: 'e6', 
+    source: 'fulfilment_reject', 
+    target: 'requestor', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#ef4444' }
+  },
+  
+  // Step 2: Fulfilment Approval -> Return -> Requestor
+  { 
+    id: 'e7', 
+    source: 'fulfilmentunit', 
+    target: 'fulfilment_return', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#f59e0b' }
+  },
+  { 
+    id: 'e8', 
+    source: 'fulfilment_return', 
+    target: 'requestor', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#f59e0b' }
+  },
+  
+  // Step 3: Security Approval -> Approve -> FulfilmentUnit
+  { 
+    id: 'e9', 
+    source: 'securityunit', 
+    target: 'security_approve', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#10b981' }
+  },
+  { 
+    id: 'e10', 
+    source: 'security_approve', 
+    target: 'fulfilmentunit', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#10b981' }
+  },
+  
+  // Step 3: Security Approval -> Reject -> Requestor
+  { 
+    id: 'e11', 
+    source: 'securityunit', 
+    target: 'security_reject', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#ef4444' }
+  },
+  { 
+    id: 'e12', 
+    source: 'security_reject', 
+    target: 'requestor', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#ef4444' }
+  },
+  
+  // Step 3: Security Approval -> Return -> FulfilmentUnit
+  { 
+    id: 'e13', 
+    source: 'securityunit', 
+    target: 'security_return', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#f59e0b' }
+  },
+  { 
+    id: 'e14', 
+    source: 'security_return', 
+    target: 'fulfilmentunit', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#f59e0b' }
+  },
+  
+  // Step 4: Fulfilment Action -> Mark as "On Hold" -> FulfilmentUnit
+  { 
+    id: 'e15', 
+    source: 'fulfilmentunit', 
+    target: 'fulfilment_on_hold', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#6366f1' }
+  },
+  { 
+    id: 'e16', 
+    source: 'fulfilment_on_hold', 
+    target: 'fulfilmentunit', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#6366f1' }
+  },
+  
+  // Step 4: Fulfilment Action -> Mark as "In Progress" -> FulfilmentUnit
+  { 
+    id: 'e17', 
+    source: 'fulfilmentunit', 
+    target: 'fulfilment_in_progress_1', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#8b5cf6' }
+  },
+  { 
+    id: 'e18', 
+    source: 'fulfilment_in_progress_1', 
+    target: 'fulfilmentunit', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#8b5cf6' }
+  },
+  
+  // Step 4: Fulfilment Action -> Assigned for Quotation -> SupportingUnit
+  { 
+    id: 'e19', 
+    source: 'fulfilmentunit', 
+    target: 'fulfilment_assign_quotation', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#06b6d4' }
+  },
+  { 
+    id: 'e20', 
+    source: 'fulfilment_assign_quotation', 
+    target: 'supportingunit', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#06b6d4' }
+  },
+  
+  // Step 5: Quotation Submission -> Upload Quotation -> Requestor
+  { 
+    id: 'e21', 
+    source: 'supportingunit', 
+    target: 'quotation_upload', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#84cc16' }
+  },
+  { 
+    id: 'e22', 
+    source: 'quotation_upload', 
+    target: 'requestor', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#84cc16' }
+  },
+  
+  // Step 6: Quotation Response -> Accept -> FulfilmentUnit
+  { 
+    id: 'e23', 
+    source: 'requestor', 
+    target: 'quotation_accept', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#10b981' }
+  },
+  { 
+    id: 'e24', 
+    source: 'quotation_accept', 
+    target: 'fulfilmentunit', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#10b981' }
+  },
+  
+  // Step 6: Quotation Response -> Return -> SupportingUnit
+  { 
+    id: 'e25', 
+    source: 'requestor', 
+    target: 'quotation_return', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#f59e0b' }
+  },
+  { 
+    id: 'e26', 
+    source: 'quotation_return', 
+    target: 'supportingunit', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#f59e0b' }
+  },
+  
+  // Step 7: Fulfilment Action -> Mark as "In Progress" -> FulfilmentUnit
+  { 
+    id: 'e27', 
+    source: 'fulfilmentunit', 
+    target: 'fulfilment_in_progress_2', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#8b5cf6' }
+  },
+  { 
+    id: 'e28', 
+    source: 'fulfilment_in_progress_2', 
+    target: 'fulfilmentunit', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#8b5cf6' }
+  },
+  
+  // Step 8: Service Delivery -> Mark as Delivered -> Requestor
+  { 
+    id: 'e29', 
+    source: 'fulfilmentunit', 
+    target: 'service_delivered', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#14b8a6' }
+  },
+  { 
+    id: 'e30', 
+    source: 'service_delivered', 
+    target: 'requestor', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#14b8a6' }
+  },
+  
+  // Step 9: Delivery Acknowledgement -> Accept -> FulfilmentUnit
+  { 
+    id: 'e31', 
+    source: 'requestor', 
+    target: 'delivery_accept', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#10b981' }
+  },
+  { 
+    id: 'e32', 
+    source: 'delivery_accept', 
+    target: 'fulfilmentunit', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#10b981' }
+  },
+  
+  // Step 10: Fulfilment Completion -> Update -> Requestor
+  { 
+    id: 'e33', 
+    source: 'fulfilmentunit', 
+    target: 'fulfilment_update', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#ec4899' }
+  },
+  { 
+    id: 'e34', 
+    source: 'fulfilment_update', 
+    target: 'requestor', 
+    type: edgeType, 
+    animated: true,
+    markerEnd: { type: 'arrowclosed' },
+    style: { strokeWidth: 3, stroke: '#ec4899' }
+  },
+];
