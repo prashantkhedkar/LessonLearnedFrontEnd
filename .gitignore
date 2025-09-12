@@ -1,0 +1,6 @@
+/node_modules
+._*
+.DS_Store
+
+# Large FontAwesome Pro files
+src/_metronic/assets/fontawesome-pro/metadata/icon-families.json
