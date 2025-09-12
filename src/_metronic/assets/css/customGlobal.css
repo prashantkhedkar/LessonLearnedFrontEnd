@@ -1,0 +1,309 @@
+/* PROJECT MANAGMENT START */
+.project-management-filter-lookupDDL-div-container {
+    float: right;
+    position: absolute;
+    margin-left: 6rem;
+}
+
+
+
+/* PROJECT MANAGMENT END */
+
+.error {
+    color: red
+}
+
+.fitnessTest_item {
+
+    border-radius: 15px;
+    background-color: #faf7fa;
+
+    max-width: 300px;
+
+    background-repeat: no-repeat;
+}
+
+.shiftheight {
+    height: 320px;
+}
+
+.ws-lcb-container-start {
+    background: var(--shadow-2, #ffffff) !important;
+    border-radius: 8px 0px 0px 8px !important;
+    border-style: solid !important;
+    border-color: var(--text-8, #e5e7eb) !important;
+    border-width: 1px !important;
+    padding: 8px 16px 8px 16px !important;
+}
+
+.ws-lcb-container-mid {
+    margin: 0 0 0 -1px !important;
+    background: var(--shadow-2, #ffffff) !important;
+    border-style: solid !important;
+    border-color: var(--text-8, #e5e7eb) !important;
+    border-width: 1px !important;
+    padding: 8px 8px 8px 8px !important;
+}
+
+.ws-lcb-container-end {
+    margin: 0 0 0 -1px !important;
+    background: var(--shadow-2, #ffffff) !important;
+    border-radius: 0px 8px 8px 0px !important;
+    border-style: solid !important;
+    border-color: var(--text-8, #e5e7eb) !important;
+    border-width: 1px !important;
+    padding: 8px 16px 8px 16px !important;
+}
+
+
+@media (max-width: 414px) {
+
+    .fitnessTest_item {
+        margin: 0 auto;
+        border-radius: 15px;
+        background-color: #faf7fa;
+
+        max-width: 300px;
+
+        background-repeat: no-repeat;
+    }
+
+    .shiftheight {
+        height: auto;
+        overflow: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    /* .app-default {
+        min-width: 700px !important;
+    } */
+
+    .fitnessTest_item {
+        margin: 0 auto;
+        border-radius: 15px;
+        background-color: #faf7fa;
+        padding-top: 10px;
+        max-width: 300px;
+
+        background-repeat: no-repeat;
+    }
+
+    .shiftheight {
+        height: auto;
+        overflow: auto;
+    }
+}
+
+.project-user-form-details-label {
+    font: var(--title-medium-2) !important;
+    color: var(--text-2, #1f2937) !important;
+    align-items: center;
+}
+
+.project-user-form-details-Ownlabel {
+    font: var(--title-medium-2) !important;
+    color: var(--text-2, #1f2937) !important;
+}
+
+.project-user-form-details-Bdylabel {
+    font: var(--title-medium-1) !important;
+    color: var(--text-2, #1f2937) !important;
+}
+
+.project-user-form-header-variant-2 {
+    padding-bottom: 22px;
+}
+
+.project-user-form-header {
+    color: var(--text-2, #1f2937);
+    text-align: left;
+    font: var(--title-semibold-1);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    line-height: 28px;
+}
+
+.project-user-form-details-content {
+    /* width:240px !important; */
+}
+
+.editorClassName {
+    
+    padding-right: 0.75rem !important;
+    padding-left: 0.75rem !important;
+    height: 10rem;
+}
+
+@media (min-width: 768px) {
+
+    .col-sm-3half,
+    .col-sm-8half {
+        float: left;
+    }
+
+    .col-sm-3half {
+        width: 20.16666667%;
+    }
+
+    .col-sm-8half {
+        width: 79.83333333%;
+    }
+}
+
+.prj-no-record-to-display {
+    /* font-size: 14px; */
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.87);
+    background-color: rgb(255, 255, 255);
+}
+
+.prj-button-create {
+    background: var(--primary-5, #b7945a);
+    border-radius: 8px;
+    padding: 8px 16px 8px 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    width: 233px;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+    box-shadow: var(--shadow-1-box-shadow, 0px 1px 2px 0px rgba(6, 25, 56, 0.05));
+}
+
+.prj-icon-stroke-plus {
+    flex-shrink: 0;
+    position: relative;
+    overflow: visible;
+    width: "24";
+    height: "24";
+}
+
+.prj-label {
+    color: var(--shadow-2, #ffffff);
+    text-align: center;
+    font: var(--text-medium-2);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.prj-card-header {
+    padding: 0 1.25rem !important;
+}
+
+.apexcharts-yaxis-label {
+    text-orientation: upright !important;
+    font: var(--title-semibold-1) !important;
+}
+
+/* bread crumps style */
+
+.cd-breadcrumb,
+.cd-multi-steps {
+
+    color: var(--text-5, #07d);
+
+}
+
+.cd-breadcrumb,
+ol {
+
+    padding: 0;
+    margin-bottom: 0px !important;
+
+}
+
+.cd-breadcrumb::after,
+.cd-multi-steps::after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+.cd-breadcrumb li,
+.cd-multi-steps li {
+    display: inline-block;
+    float: left;
+
+}
+
+.cd-breadcrumb li::after,
+.cd-multi-steps li::after {
+    /* this is the separator between items */
+    display: inline-block;
+    content: '\00bb';
+
+    color: #959fa5;
+}
+
+.cd-breadcrumb li:last-of-type::after,
+.cd-multi-steps li:last-of-type::after {
+    /* hide separator after the last item */
+    display: none;
+}
+
+.cd-breadcrumb li>*,
+.cd-multi-steps li>* {
+    /* single step */
+    display: inline-block;
+
+    color: var(--primary-5, #B7945A);
+    cursor: pointer;
+}
+
+.cd-breadcrumb li.current>*,
+.cd-multi-steps li.current>* {
+    /* selected step */
+    color: #96c03d;
+}
+
+.no-touch .cd-breadcrumb a:hover,
+.no-touch .cd-multi-steps a:hover {
+    /* steps already visited */
+    color: #96c03d;
+}
+
+.cd-breadcrumb.custom-separator li::after,
+.cd-multi-steps.custom-separator li::after {
+    /* replace the default separator with a custom icon */
+    content: '';
+    height: 16px;
+    width: 16px;
+    background: url('../images/arrow-right.svg') no-repeat center center;
+    vertical-align: middle;
+}
+
+
+
+
+.cd-breadcrumb.custom-icons li>*::before,
+.cd-multi-steps.custom-icons li>*::before {
+    /* add a custom icon before each item */
+    content: '';
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    margin-right: .4em;
+    margin-top: -2px;
+    background: url('../images/folder-black.svg') no-repeat 0 0;
+    vertical-align: middle;
+}
+
+.create-wathira .basic-single{
+ 
+  overflow:visible
+}
