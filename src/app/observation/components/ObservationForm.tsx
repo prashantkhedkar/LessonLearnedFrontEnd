@@ -24,12 +24,14 @@ interface ObservationFormProps {
 
 export interface ObservationFormData {
   observationTitle: string;
+  observationSubject?: string;
   discussion?: string;
   conclusion?: string;
   initialRecommendation?: string;
   observationType?: number | null;
   originatingType?: number | null;
   level?: number | null;
+  combatFunction?: number | null;
   currentAssignment?: string;
   status: number;
   attachments?: File[];
@@ -39,6 +41,7 @@ const ObservationForm: React.FC<ObservationFormProps> = ({ onSubmit, initialValu
   const [isLoading, setIsLoading] = useState(false);
   const [typeOptions, setTypeOptions] = useState<ILookup[]>([]);
   const [levelOptions, setLevelOptions] = useState<ILookup[]>([]);
+  const [combatFunctionOptions, setCombatFunctionOptions] = useState<ILookup[]>([]);
   const intl = useIntl();
   const lang = useLang();
   const dispatch = useAppDispatch();
@@ -78,6 +81,19 @@ const ObservationForm: React.FC<ObservationFormProps> = ({ onSubmit, initialValu
         .catch((rejectedValueOrSerializedError) => {
           writeToBrowserConsole(rejectedValueOrSerializedError);
         });
+
+      // Load Combat Function options
+      dispatch(GetLookupValues({ lookupType: "Domain" }))
+        .then(unwrapResult)
+        .then((originalPromiseResult) => {
+          if (originalPromiseResult.statusCode === 200) {
+            const response: ILookup[] = originalPromiseResult.data;
+            setCombatFunctionOptions(response);
+          }
+        })
+        .catch((rejectedValueOrSerializedError) => {
+          writeToBrowserConsole(rejectedValueOrSerializedError);
+        });
     
   }, [dispatch]);
 
@@ -86,36 +102,42 @@ const ObservationForm: React.FC<ObservationFormProps> = ({ onSubmit, initialValu
     observationTitle: Yup.string()
       .required(intl.formatMessage({ id: 'VALIDATION.OBSERVATION.TITLE.REQUIRED' }))
       .max(256, intl.formatMessage({ id: 'VALIDATION.OBSERVATION.TITLE.MAX_LENGTH' })),
+    observationSubject: Yup.string()
+      .max(256, intl.formatMessage({ id: 'VALIDATION.OBSERVATION.SUBJECT.MAX_LENGTH' })),
     discussion: Yup.string()
       .required(intl.formatMessage({ id: 'VALIDATION.DISCUSSION.REQUIRED' }))
-      .max(50, 'Discussion must be less than 50 characters'),
+      .max(50, intl.formatMessage({ id: 'VALIDATION.DISCUSSION.MAX_LENGTH' })),
     conclusion: Yup.string()
       .required(intl.formatMessage({ id: 'VALIDATION.CONCLUSION.REQUIRED' }))
-      .max(50, 'Conclusion must be less than 50 characters'),
+      .max(50, intl.formatMessage({ id: 'VALIDATION.CONCLUSION.MAX_LENGTH' })),
     initialRecommendation: Yup.string()
       .required(intl.formatMessage({ id: 'VALIDATION.INITIAL.RECOMMENDATION.REQUIRED' }))
-      .max(50, 'Initial recommendation must be less than 50 characters'),
+      .max(50, intl.formatMessage({ id: 'VALIDATION.INITIAL.RECOMMENDATION.MAX_LENGTH' })),
     currentAssignment: Yup.string()
-      .max(128, 'Current assignment must be less than 128 characters'),
+      .max(128, intl.formatMessage({ id: 'VALIDATION.CURRENT.ASSIGNMENT.MAX_LENGTH' })),
     observationType: Yup.number()
       .nullable()
-      .required('Please select an observation type')
-      .min(1, 'Please select an observation type'),
+      .required(intl.formatMessage({ id: 'VALIDATION.OBSERVATION.TYPE.REQUIRED' }))
+      .min(1, intl.formatMessage({ id: 'VALIDATION.OBSERVATION.TYPE.REQUIRED' })),
     level: Yup.number()
       .nullable()
-      .required('Please select a level')
-      .min(1, 'Please select a level'),
+      .required(intl.formatMessage({ id: 'VALIDATION.OBSERVATION.LEVEL.REQUIRED' }))
+      .min(1, intl.formatMessage({ id: 'VALIDATION.OBSERVATION.LEVEL.REQUIRED' })),
+    combatFunction: Yup.number()
+      .nullable(),
   });
 
   const formik = useFormik({
     initialValues: initialValues || {
       observationTitle: '',
+      observationSubject: '',
       discussion: '',
       conclusion: '',
       initialRecommendation: '',
       observationType: null,
       originatingType: null,
       level: null,
+      combatFunction: null,
       currentAssignment: '',
       status: 0,
       attachments: [],
@@ -127,6 +149,7 @@ const ObservationForm: React.FC<ObservationFormProps> = ({ onSubmit, initialValu
       console.log('📋 Formik onSubmit called with values:', values);
       setIsLoading(true);
       try {
+        debugger
         console.log('🔄 Calling parent onSubmit handler...');
         await onSubmit(values);
         console.log('✅ Parent onSubmit completed successfully');
@@ -151,7 +174,7 @@ const ObservationForm: React.FC<ObservationFormProps> = ({ onSubmit, initialValu
     <form onSubmit={formik.handleSubmit} className="article-form rtl-form">
       <div className="row">
         <div className="col-12 mb-4">
-          <div className="row align-items-center">
+          <div className="row">
             <div className="col-md-2">
               <InfoLabels
                 style={{}}
@@ -178,7 +201,35 @@ const ObservationForm: React.FC<ObservationFormProps> = ({ onSubmit, initialValu
         </div>
 
         <div className="col-12 mb-4">
-          <div className="row align-items-center">
+          <div className="row">
+            <div className="col-md-2">
+              <InfoLabels
+                style={{}}
+                text={intl.formatMessage({ id: "LABEL.SUBJECT" })}
+                isRequired={false}
+              />
+            </div>
+            <div className="col-md-10">
+              <input
+                type="text"
+                autoComplete='off'
+                className="form-control form-control-solid active input5 lbl-txt-medium-2"
+                placeholder={intl.formatMessage({
+                  id: "PLACEHOLDER.SUBJECT",
+                })}
+                {...formik.getFieldProps('observationSubject')}
+                dir={lang === "ar" ? "rtl" : "ltr"}
+              />
+              {formik.touched.observationSubject && formik.errors.observationSubject && (
+                <div className="error">{formik.errors.observationSubject}</div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="col-12 mb-4">
+          <div className="row">
+            
             <div className="col-md-2">
               <InfoLabels
                 style={{}}
@@ -299,8 +350,8 @@ const ObservationForm: React.FC<ObservationFormProps> = ({ onSubmit, initialValu
             </div>
           </div>
         </div>
-        <div className="col-12 mb-4">
-          <div className="row align-items-center">
+        {/* <div className="col-12 mb-4">
+          <div className="row">
             <div className="col-md-2">
               <InfoLabels
                 style={{}}
@@ -322,6 +373,31 @@ const ObservationForm: React.FC<ObservationFormProps> = ({ onSubmit, initialValu
                 <div className="error">{formik.errors.currentAssignment}</div>
               )}
             </div>
+          </div>
+        </div> */}
+        <div className="col-12 mb-4">
+          <div className="row">
+          <div className="col-md-2">
+              <InfoLabels
+                style={{}}
+                text={intl.formatMessage({ id: "LABEL.COMBOT_FUNCTION" })}
+                isRequired={false}
+              />
+            </div>
+            <div className="col-md-10">
+              <DropdownList
+                dataKey="lookupId"
+                dataValue={lang === "ar" ? "lookupNameAr" : "lookupName"}
+                defaultText={intl.formatMessage({ id: "PLACEHOLDER.SELECT.COMBOT_FUNCTION" })}
+                value={formik.values.combatFunction}
+                data={combatFunctionOptions}
+                setSelectedValue={(value) => formik.setFieldValue('combatFunction', value)}
+              />
+              {formik.touched.combatFunction && formik.errors.combatFunction && (
+                <div className="error">{formik.errors.combatFunction}</div>
+              )}
+            </div>
+
           </div>
         </div>
       </div>

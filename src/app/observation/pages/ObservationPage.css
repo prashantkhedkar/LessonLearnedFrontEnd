@@ -14,3 +14,37 @@
   width: 100%;
   padding: 1rem;
 }
+
+/* Arabic text support */
+.arabic-text {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.bilingual-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.bilingual-text .arabic {
+  direction: rtl;
+  text-align: right;
+}
+
+.bilingual-text .english {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Enhanced card styling for component showcase */
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+}

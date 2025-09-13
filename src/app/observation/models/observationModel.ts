@@ -21,6 +21,7 @@ export interface ObservationModel {
 // Article Create/Update Model (for API requests)
 export interface ArticleCreateUpdateModel {
   observationTitle: string;
+  observationSubject?: string;
   discussion?: string;
   conclusion?: string;
   initialRecommendation?: string;
