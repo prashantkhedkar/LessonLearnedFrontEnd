@@ -109,7 +109,7 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({
         <div className="w-100 d-flex justify-content-between align-items-center">
         
             <LabelTextSemibold2
-              text= {`الجزء ${index}`}
+              text= {`${index} ${text}`}
             />
           <div className="d-flex align-items-center me-3" style={{ gap: '15px', borderLeft: '1px solid #E2E2E2',paddingLeft: '10px' }}>
             <EditOutlinedIcon 

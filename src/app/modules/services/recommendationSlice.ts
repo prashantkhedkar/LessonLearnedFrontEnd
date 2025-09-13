@@ -24,7 +24,7 @@ export const fetchRecommendationsByObservationId = createAsyncThunk<
   async ({ observationId }, thunkApi) => {
     try {
       return await requests.get<responseType>(
-        `/Generic/GetRecommendationsByObservationId?observationId=${observationId}`
+        `/Recommendation/GetRecommendationsByObservationId/${observationId}`
       );
     } catch (error: any) {
       console.log(error);
@@ -36,23 +36,23 @@ export const fetchRecommendationsByObservationId = createAsyncThunk<
 export const saveRecommendationForObservation = createAsyncThunk<
   any,
   { 
-    observationId: number | string,
+    observationId: number,
     recommendationData: {
       id?: number,
-      title: string,
+      observationTitle: string,
       conclusion: string,
-      recommendation: string,
+      recommendationText: string,
       discussion: string,
-      combotFunction: string,
-      level: string
+      combatFunction: number,
+      level: number
     }
   }
 >(
-  'recommendation/saveForObservation',
+  'recommendation/CreateRecommendation',
   async ({ observationId, recommendationData }, thunkApi) => {
     try {
       return await requests.post<responseType>(
-        `/Generic/SaveRecommendationForObservation`,
+        `/recommendation/CreateRecommendation`,
         {
           observationId,
           ...recommendationData
@@ -70,12 +70,13 @@ export const updateRecommendationForObservation = createAsyncThunk<
   { 
     recommendationId: number,
     recommendationData: {
-      title: string,
+       observationId: number,
+      observationTitle: string,
       conclusion: string,
-      recommendation: string,
+      recommendationText: string,
       discussion: string,
-      combotFunction: string,
-      level: string
+      combatFunction: number,
+      level: number
     }
   }
 >(
@@ -83,7 +84,7 @@ export const updateRecommendationForObservation = createAsyncThunk<
   async ({ recommendationId, recommendationData }, thunkApi) => {
     try {
       return await requests.put<responseType>(
-        `/Generic/UpdateRecommendationForObservation/${recommendationId}`,
+        `/recommendation/UpdateRecommendation/${recommendationId}`,
         recommendationData
       );
     } catch (error: any) {
@@ -101,7 +102,7 @@ export const deleteRecommendationForObservation = createAsyncThunk<
   async ({ recommendationId }, thunkApi) => {
     try {
       return await requests.delete<responseType>(
-        `/Generic/DeleteRecommendationForObservation/${recommendationId}`
+        `/recommendation/DeleteRecommendation/${recommendationId}`
       );
     } catch (error: any) {
       console.log(error);

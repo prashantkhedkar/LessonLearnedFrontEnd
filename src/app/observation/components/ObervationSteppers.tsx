@@ -44,21 +44,21 @@ export const ObservationSteppers = () => {
     {
       stepId: 1,
       stepOrder: 1,
-      stepName: "Observation",
+      stepName: intl.formatMessage({ id: "STEP.NAME.THE.DETAILS" }),
       fromEntityId: 1,
       currentStatusId: 1,
     },
     {
       stepId: 2,
       stepOrder: 2,
-      stepName: "Recommendation",
+      stepName: intl.formatMessage({ id: "STEP.NAME.RECOMMENDATIONS.ACTIONS" }),
       fromEntityId: 2,
       currentStatusId: 2,
     },
     {
       stepId: 3,
       stepOrder: 3,
-      stepName: "Attachments",
+      stepName: intl.formatMessage({ id: "STEP.NAME.ATTACHMENTS" }),
       fromEntityId: 3,
       currentStatusId: 3,
     },
@@ -70,8 +70,10 @@ export const ObservationSteppers = () => {
 
   // Common function to convert form values to API model
   const convertToAPIModel = (values: ObservationFormData | any, isDraft: boolean = false): ArticleCreateUpdateModel => {
+    debugger
     return {
       observationTitle: values.observationTitle || '',
+      observationSubject: values.observationSubject || '',
       discussion: values.discussion || '',
       conclusion: values.conclusion || '',
       initialRecommendation: values.initialRecommendation || '',
@@ -105,15 +107,17 @@ export const ObservationSteppers = () => {
           setCreatedObservationId(newArticleId);
           
           // Show appropriate success message
-          const successMessage = isDraft ? 'Draft saved successfully' : 'تم إنشاء المقال بنجاح';
+          const successMessage = isDraft ? 
+            intl.formatMessage({ id: "MESSAGE.DRAFT.SAVED.SUCCESS" }) : 
+            intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATED.SUCCESS" });
           if (isDraft) {
             toast.info(successMessage);
           } else {
             toast.success(successMessage);
           }
           
-          console.log(`✅ ${isDraft ? 'Draft' : 'Article'} created successfully with ID:`, newArticleId);
-          console.log('📄 Complete article data:', response.data);
+        //  console.log(`✅ ${isDraft ? 'Draft' : 'Article'} created successfully with ID:`, newArticleId);
+         // console.log('📄 Complete article data:', response.data);
           
           // Move to next step only if not draft
           if (!isDraft) {
@@ -124,13 +128,17 @@ export const ObservationSteppers = () => {
           
           return newArticleId;
         } else {
-          const errorMessage = isDraft ? 'Failed to save draft' : 'فشل في إنشاء المقال';
+          const errorMessage = isDraft ? 
+            intl.formatMessage({ id: "MESSAGE.DRAFT.SAVE.FAILED" }) : 
+            intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATE.FAILED" });
           toast.error(errorMessage);
-          console.error(`❌ Failed to ${isDraft ? 'save draft' : 'create Observation'}:`, response);
+          // console.error(`❌ Failed to ${isDraft ? 'save draft' : 'create Observation'}:`, response);
           return null;
         }
       } else {
-        const errorMessage = isDraft ? 'Failed to save draft' : 'فشل في إنشاء المقال';
+        const errorMessage = isDraft ? 
+          intl.formatMessage({ id: "MESSAGE.DRAFT.SAVE.FAILED" }) : 
+          intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATE.FAILED" });
         toast.error(errorMessage);
         console.error(`❌ Failed to ${isDraft ? 'save draft' : 'create Observation'}:`, result.error);
         return null;
@@ -170,15 +178,25 @@ export const ObservationSteppers = () => {
 
       console.log(`🔄 Handling ${actionType} action...`);
 
-      // For Save as Draft, bypass validation and save directly
+      // For Save as Draft, only validate observationTitle
       if (actionType === 'saveAsDraft') {
         const currentValues = formikRef.current.values;
         console.log('💾 Saving as draft with values:', currentValues);
         
+        // Check only observationTitle for draft save
+        if (!currentValues.observationTitle || currentValues.observationTitle.trim() === '') {
+          formikRef.current.setTouched({
+            observationTitle: true,
+          });
+          // toast.error('Observation Title is required to save as draft');
+          
+          return;
+        }
+        
         const data = convertToAPIModel(currentValues, true);
         return await createObservationAPI(data, 'Draft', true);
       } 
-      // For Save and Next, validate first then submit
+      // For Save and Next, validate all required fields
       else if (actionType === 'save' || actionType === 'next') {
         console.log('🔍 FormikRef current:', formikRef.current);
         console.log('🔍 Form values:', formikRef.current.values);
@@ -189,6 +207,7 @@ export const ObservationSteppers = () => {
         
         formikRef.current.setTouched({
           observationTitle: true,
+          observationSubject: true,
           discussion: true,
           conclusion: true,
           initialRecommendation: true,
@@ -199,7 +218,9 @@ export const ObservationSteppers = () => {
         
         if (Object.keys(errors).length > 0) {
           // Show validation errors
-          const errorMessage = actionType === 'next' ? 'Please fix form errors before proceeding' : 'Please fix form errors before saving';
+          const errorMessage = actionType === 'next' ? 
+            intl.formatMessage({ id: "MESSAGE.FIX.ERRORS.BEFORE.PROCEEDING" }) : 
+            intl.formatMessage({ id: "MESSAGE.FIX.ERRORS.BEFORE.SAVING" });
           toast.error(errorMessage);
           console.log('❌ Form validation errors:', errors);
           return;
@@ -258,7 +279,7 @@ export const ObservationSteppers = () => {
     if (formikRef.current) {
       formikRef.current.resetForm();
     }
-    toast.info('Operation cancelled');
+  //  toast.info('Operation cancelled');
   };
 
   let labelColor: string | undefined = undefined;
@@ -336,6 +357,7 @@ export const ObservationSteppers = () => {
 
   return (
     <Box className="observation-steppers-container">
+       {/* <Recommendation observationId={42} /> */}
       <Stepper
         activeStep={activeStep}
         alternativeLabel
@@ -396,11 +418,11 @@ export const ObservationSteppers = () => {
           )}
           
           {/* Error State */}
-          {error && (
+          {/* {error && (
             <div className="alert alert-danger mb-4 error-alert" role="alert">
               {error}
             </div>
-          )}
+          )} */}
           
           <ObservationForm 
             onSubmit={handleFormSubmit}
@@ -412,7 +434,8 @@ export const ObservationSteppers = () => {
       
       {currentStepId === 2 && (
         <Box className="step-content mx-5">
-          <h3>Step 2: Execution - Recommendations</h3>
+          
+         
           {createdObservationId ? (
             <Recommendation observationId={createdObservationId} />
           ) : (

@@ -1,0 +1,156 @@
+/* ComponentShowcase Styles */
+.component-showcase-container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+}
+
+/* Arabic text support */
+.arabic-text {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.bilingual-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.bilingual-text .arabic {
+  direction: rtl;
+  text-align: right;
+}
+
+.bilingual-text .english {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Enhanced card styling for component showcase */
+.component-showcase-container .card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.component-showcase-container .card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.component-showcase-container .card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  padding: 1rem 1.25rem;
+  font-weight: 600;
+}
+
+.component-showcase-container .card-body {
+  padding: 1.25rem;
+}
+
+.component-showcase-container .bg-light {
+  background-color: #f8f9fa !important;
+  border: 1px solid #e9ecef;
+}
+
+/* Form control styling */
+.component-showcase-container .form-control {
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.component-showcase-container .form-control:focus {
+  border-color: #3b82f6;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.25);
+}
+
+.component-showcase-container .form-control::placeholder {
+  color: #6b7280;
+  opacity: 1;
+}
+
+/* Icon styling */
+.component-showcase-container .svg-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+/* Gap utilities for flexbox */
+.component-showcase-container .gap-3 {
+  gap: 1rem !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .component-showcase-container .bilingual-text {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .component-showcase-container .card-body {
+    padding: 1rem;
+  }
+  
+  .component-showcase-container .d-flex.gap-3 {
+    flex-direction: column;
+    gap: 0.5rem !important;
+  }
+}
+
+/* RTL support for Arabic content */
+[dir="rtl"] .component-showcase-container,
+.component-showcase-container [dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .component-showcase-container .card-header,
+.component-showcase-container [dir="rtl"] .card-header {
+  text-align: right;
+}
+
+/* Animation for interactive elements */
+.component-showcase-container .card {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom button styling to match the theme */
+.component-showcase-container .btn {
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.component-showcase-container .btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Improve spacing between sections */
+.component-showcase-container .mb-4:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Style for the showcase container spacing */
+.component-showcase-container > .card + .card {
+  margin-top: 1.5rem;
+}

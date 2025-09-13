@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Button, TextField, Box, Typography } from '@mui/material';
 import { Col, Modal, Row } from "react-bootstrap";
 import RecommendationDetails from './RecommendationDetails';
@@ -22,52 +22,58 @@ import { useAppDispatch, useAppSelector } from '../../../store';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useLang } from '../../../_metronic/i18n/Metronici18n';
 import DropdownListInModal from '../../modules/components/dropdown/DropdownListInModal';
+import ConfirmDeleteModal from '../../modules/components/confirmDialog/ConfirmDeleteModal';
 interface RecommendationProps {
     observationId: string | number;
 }
 
 interface RecommendationItem {
-    id: number;
-    observationId: string | number;
-    title: string;
+    recommendationId: number;
+    observationId: number;
+    observationTitle: string;
     conclusion: string;
-    recommendation: string;
+    recommendationText: string;
     discussion: string;
-    combotFunction: string;
-    level: string;
+    combatFunction: number;
+    level: number;
 }
 
 const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
+    // Print the created observationId
+    console.log('🎯 Step 2 Recommendation component - Received observationId:', observationId);
+    
     const [open, setOpen] = useState(false);
-    const [title, setTitle] = useState('');
+    const [observationTitle, setObservationTitle] = useState('');
     const [conclusion, setConclusion] = useState('');
     const [recommendationText, setRecommendationText] = useState('');
     const [discussion, setDiscussion] = useState('');
-    const [combotFunction, setCombotFunction] = useState('');
-    const [level, setLevel] = useState('');
+    const [combatFunction, setCombatFunction] = useState<number>(0);
+    const [level, setLevel] = useState<number>(0);
     const [combotFunctionOptions, setCombotFunctionOptions] = useState<ILookup[]>([]);
     const [levelOptions, setLevelOptions] = useState<ILookup[]>([]);
     const [editingRecommendation, setEditingRecommendation] = useState<RecommendationItem | null>(null);
     const [isEditMode, setIsEditMode] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [currentConfirmFunction, setCurrentConfirmFunction] = useState<(() => Promise<void>) | null>(null);
 
     // Get state from Redux store
     const { recommendations, loading, error } = useAppSelector((state) => state.recommendations);
     
     // Validation states
     const [errors, setErrors] = useState({
-        title: '',
+        observationTitle: '',
         conclusion: '',
         recommendation: '',
         discussion: '',
-        combotFunction: '',
+        combatFunction: '',
         level: ''
     });
     const [touched, setTouched] = useState({
-        title: false,
+        observationTitle: false,
         conclusion: false,
         recommendation: false,
         discussion: false,
-        combotFunction: false,
+        combatFunction: false,
         level: false
     });
 
@@ -77,8 +83,9 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
 
     // Debug logging
     console.log('Recommendation component rendered with recommendations:', recommendations.length, recommendations);
-    console.log('Dropdown options - Combot Function:', combotFunctionOptions.length, 'Level:', levelOptions.length);
-    console.log('Current values - combotFunction:', combotFunction, 'level:', level);
+    console.log('Dropdown options - Combat Function:', combotFunctionOptions.length, 'Level:', levelOptions.length);
+    console.log('Current values - combatFunction:', combatFunction, 'level:', level);
+    console.log('🗑️ Debug Modal State - showDeleteModal:', showDeleteModal);
 
     // Fetch recommendations from API when component mounts or observationId changes
     useEffect(() => {
@@ -87,7 +94,13 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
         }
     }, [observationId]);
 
+    // Debug useEffect to track showDeleteModal changes
+    useEffect(() => {
+        console.log('🗑️ showDeleteModal changed to:', showDeleteModal);
+    }, [showDeleteModal]);
+
     const fetchRecommendationsFromAPI = async () => {
+        debugger
         if (!observationId) return;
 
         dispatch(clearError());
@@ -109,17 +122,18 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
     };
 
     const handleEditRecommendation = (recommendationId: number) => {
+        debugger
         console.log('Edit clicked for recommendation ID:', recommendationId);
-        const recommendation = recommendations.find(rec => rec.id === recommendationId);
+        const recommendation = recommendations.find(rec => rec.recommendationId === recommendationId);
         if (recommendation) {
             console.log('Found recommendation:', recommendation);
             setIsEditMode(true);
             setEditingRecommendation(recommendation);
-            setTitle(recommendation.title);
+            setObservationTitle(recommendation.observationTitle);
             setConclusion(recommendation.conclusion);
-            setRecommendationText(recommendation.recommendation);
+            setRecommendationText(recommendation.recommendationText);
             setDiscussion(recommendation.discussion);
-            setCombotFunction(recommendation.combotFunction);
+            setCombatFunction(recommendation.combatFunction);
             setLevel(recommendation.level);
             setOpen(true);
         }
@@ -129,70 +143,70 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
         setOpen(false);
         setIsEditMode(false);
         setEditingRecommendation(null);
-        setTitle('');
+        setObservationTitle('');
         setConclusion('');
         setRecommendationText('');
         setDiscussion('');
-        setCombotFunction('');
-        setLevel('');
+        setCombatFunction(0);
+        setLevel(0);
         setErrors({
-            title: '',
+            observationTitle: '',
             conclusion: '',
             recommendation: '',
             discussion: '',
-            combotFunction: '',
+            combatFunction: '',
             level: ''
         });
         setTouched({
-            title: false,
+            observationTitle: false,
             conclusion: false,
             recommendation: false,
             discussion: false,
-            combotFunction: false,
+            combatFunction: false,
             level: false
         });
     };
 
     // Validation functions
-    const validateField = (fieldName: string, value: string) => {
+    const validateField = (fieldName: string, value: string | number) => {
         let error = '';
 
         switch (fieldName) {
-            case 'title':
-                if (!value.trim()) {
+            case 'observationTitle':
+                if (!value || (typeof value === 'string' && !value.trim())) {
                     error = intl.formatMessage({ id: 'VALIDATION.TITLE.REQUIRED' });
-                } else if (value.length > 256) {
+                } else if (typeof value === 'string' && value.length > 256) {
                     error = intl.formatMessage({ id: 'VALIDATION.TITLE.MAX_LENGTH' });
                 }
                 break;
             case 'conclusion':
-                if (!value.trim()) {
+                if (!value || (typeof value === 'string' && !value.trim())) {
                     error = intl.formatMessage({ id: 'VALIDATION.CONCLUSION.REQUIRED' });
-                } else if (value.length > 1000) {
+                } else if (typeof value === 'string' && value.length > 1000) {
                     error = 'Conclusion must be less than 1000 characters';
                 }
                 break;
             case 'recommendation':
-                if (!value.trim()) {
+                if (!value || (typeof value === 'string' && !value.trim())) {
                     error = intl.formatMessage({ id: 'VALIDATION.RECOMMENDATION.REQUIRED' });
-                } else if (value.length > 1000) {
+                } else if (typeof value === 'string' && value.length > 1000) {
                     error = 'Recommendation must be less than 1000 characters';
                 }
                 break;
             case 'discussion':
-                if (!value.trim()) {
+                if (!value || (typeof value === 'string' && !value.trim())) {
                     error = intl.formatMessage({ id: 'VALIDATION.DISCUSSION.REQUIRED' });
-                } else if (value.length > 1000) {
+                } else if (typeof value === 'string' && value.length > 1000) {
                     error = 'Discussion must be less than 1000 characters';
                 }
                 break;
-            case 'combotFunction':
-                if (!value) {
+            case 'combatFunction':
+                if (!value || value === 0) {
                     error = intl.formatMessage({ id: 'VALIDATION.COMBOT_FUNCTION.REQUIRED' });
                 }
                 break;
             case 'level':
-                if (!value) {
+                if (!value || value === 0) {
                     error = intl.formatMessage({ id: 'VALIDATION.LEVEL.REQUIRED' });
                 }
                 break;
@@ -202,25 +216,25 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
         return error === '';
     };
 
-    const handleFieldChange = (fieldName: string, value: string) => {
+    const handleFieldChange = (fieldName: string, value: string | number) => {
         switch (fieldName) {
-            case 'title':
-                setTitle(value);
+            case 'observationTitle':
+                setObservationTitle(value as string);
                 break;
             case 'conclusion':
-                setConclusion(value);
+                setConclusion(value as string);
                 break;
             case 'recommendation':
-                setRecommendationText(value);
+                setRecommendationText(value as string);
                 break;
             case 'discussion':
-                setDiscussion(value);
+                setDiscussion(value as string);
                 break;
-            case 'combotFunction':
-                setCombotFunction(value);
+            case 'combatFunction':
+                setCombatFunction(typeof value === 'string' ? parseInt(value) || 0 : value as number);
                 break;
             case 'level':
-                setLevel(value);
+                setLevel(typeof value === 'string' ? parseInt(value) || 0 : value as number);
                 break;
         }
 
@@ -229,20 +243,20 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
         }
     };
 
-    const handleFieldBlur = (fieldName: string, value: string) => {
+    const handleFieldBlur = (fieldName: string, value: string | number) => {
         setTouched(prev => ({ ...prev, [fieldName]: true }));
         validateField(fieldName, value);
     };
 
 
     const validateAllFields = () => {
-        const fields = ['title', 'conclusion', 'recommendation', 'discussion', 'combotFunction', 'level'];
+        const fields = ['observationTitle', 'conclusion', 'recommendation', 'discussion', 'combatFunction', 'level'];
         const values = {
-            title,
+            observationTitle,
             conclusion,
             recommendation: recommendationText,
             discussion,
-            combotFunction,
+            combatFunction,
             level
         };
 
@@ -296,47 +310,52 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
     const handleAddRecommendation = async () => {
         // Mark all fields as touched
         setTouched({
-            title: true,
+            observationTitle: true,
             conclusion: true,
             recommendation: true,
             discussion: true,
-            combotFunction: true,
+            combatFunction: true,
             level: true
         });
 
         // Validate all fields
         if (validateAllFields()) {
             dispatch(clearError());
-            
+            debugger
             try {
                 if (isEditMode && editingRecommendation) {
                     // Update existing recommendation
                     await dispatch(updateRecommendationForObservation({
-                        recommendationId: editingRecommendation.id,
+                       
+                        recommendationId: editingRecommendation.recommendationId,
                         recommendationData: {
-                            title,
+                             observationId: typeof observationId === 'string' ? parseInt(observationId) : observationId,
+                            observationTitle,
                             conclusion,
-                            recommendation: recommendationText,
+                            recommendationText,
                             discussion,
-                            combotFunction,
+                            combatFunction,
                             level,
                         }
                     })).unwrap();
                 } else {
                     // Add new recommendation
+                    debugger
                     await dispatch(saveRecommendationForObservation({
-                        observationId,
+                        observationId: typeof observationId === 'string' ? parseInt(observationId) : observationId,
                         recommendationData: {
-                            title,
+                            observationTitle,
                             conclusion,
-                            recommendation: recommendationText,
+                            recommendationText,
                             discussion,
-                            combotFunction,
+                            combatFunction,
                             level,
                         }
                     })).unwrap();
                 }
                 
+                // Reload recommendations after successful save/update
+                await fetchRecommendationsFromAPI();
                 handleClose();
             } catch (error) {
                 console.error('Error saving recommendation:', error);
@@ -345,33 +364,86 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
         }
     };
 
-    const handleDeleteRecommendation = async (recommendationId: number) => {
-        if (!window.confirm('هل أنت متأكد من حذف هذه التوصية؟')) {
+    const createDeleteFunction = useCallback((id: number) => {
+        return async () => {
+            console.log('🗑️ createDeleteFunction called for ID:', id);
+            console.log('🗑️ ID type:', typeof id, 'ID value:', id);
+            
+            if (!id || typeof id !== 'number') {
+                console.error('🗑️ ERROR: Invalid ID in createDeleteFunction:', id);
+                return;
+            }
+            
+            dispatch(clearError());
+            
+            try {
+                console.log('🗑️ About to dispatch delete with ID:', id);
+                const result = await dispatch(deleteRecommendationForObservation({
+                    recommendationId: id
+                })).unwrap();
+                
+                console.log('🗑️ Delete successful, result:', result);
+                // Reload recommendations after successful delete
+                await fetchRecommendationsFromAPI();
+                
+                // Close modal and reset state
+                setShowDeleteModal(false);
+                setCurrentConfirmFunction(null);
+            } catch (error) {
+                console.error('Error deleting recommendation:', error);
+                writeToBrowserConsole(`Error deleting recommendation ${id}: ${error}`);
+            }
+        };
+    }, [dispatch]);
+
+    const handleDeleteRecommendation = async (recommendationId: number | string) => {
+        // Convert to number if it's a string
+        debugger
+        const numericId = typeof recommendationId === 'string' ? parseInt(recommendationId, 10) : recommendationId;
+        
+        console.log('🗑️ Delete clicked for recommendation ID:', recommendationId);
+        console.log('🗑️ Original type:', typeof recommendationId, 'Original value:', recommendationId);
+        console.log('🗑️ Converted to numericId:', numericId, 'type:', typeof numericId);
+        
+        // Validate recommendationId before proceeding
+        if (!numericId || typeof numericId !== 'number' || isNaN(numericId)) {
+            console.error('🗑️ ERROR: Invalid recommendationId received:', recommendationId, 'converted to:', numericId);
             return;
         }
-
-        dispatch(clearError());
         
-        try {
-            await dispatch(deleteRecommendationForObservation({
-                recommendationId
-            })).unwrap();
-        } catch (error) {
-            console.error('Error deleting recommendation:', error);
-            writeToBrowserConsole(`Error deleting recommendation ${recommendationId}: ${error}`);
+        // Use the createDeleteFunction approach for better reliability
+        const confirmFunction = createDeleteFunction(numericId);
+
+        setCurrentConfirmFunction(() => confirmFunction);
+        setShowDeleteModal(true);
+        console.log('🗑️ Modal opened for numericId:', numericId);
+    };
+
+    const confirmDelete = async () => {
+        console.log('🗑️ confirmDelete wrapper called');
+        if (currentConfirmFunction) {
+            await currentConfirmFunction();
+        } else {
+            console.log('🗑️ ERROR: No confirm function available');
         }
     };
 
     return (
         <>
-            {console.log('Current recommendations array:', recommendations)}
+            {/* Display the observationId on the page */}
+            {/* <Box sx={{ mb: 2, p: 2, backgroundColor: '#f5f5f5', borderRadius: 1 }}>
+                <Typography variant="h6" color="primary">
+                    🎯 Step 2 - Recommendations for Observation ID: {observationId}
+                </Typography>
+            </Box>
+             */}
+            {/* {console.log('Current recommendations array:', recommendations)} */}
             <div className="">
                 <div className="row g-0">
                     <div className="col-md-11">
                     </div>
                     <div className="col-md-1 d-flex justify-content-end align-items-center">
-                        
-                        <button
+                <button
                     id="kt_modal_new_target_create_new"
                     className="btn MOD_btn btn-create w-10 pl-5"
                     onClick={handleOpen}
@@ -387,18 +459,7 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
             </div>
 
             <Box sx={{ mt: 2 }}>
-                 
-
-  <DropdownList
-                                    dataKey="lookupId"
-                                    dataValue={lang === "ar" ? "lookupNameAr" : "lookupName"}
-                                    defaultText={intl.formatMessage({ id: "PLACEHOLDER.SELECT.LEVEL" })}
-                                    value={combotFunction}
-                                    data={levelOptions}
-                                   // setSelectedValue={(value) => formik.setFieldValue('level', value)}
-                                />
                 <Modal
-                     
                    backdrop="static"
                    keyboard={false}
                     centered
@@ -416,19 +477,21 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
                         <Modal.Title>
                             <HeaderLabels
                                 text={
-                                    isEditMode ? "تعديل التوصية" : " إضافة توصية جديدة"
+                                    isEditMode ? 
+                                        intl.formatMessage({ id: "LABEL.EDIT.RECOMMENDATION" }) : 
+                                        intl.formatMessage({ id: "LABEL.ADD.NEW.RECOMMENDATION" })
                                 }
                             />
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body  >
-                        {/* Title Field */}
+                        {/* ObservationTitle Field */}
                         <div className="col-12 mb-4">
-                            <div className="row align-items-center">
+                            <div className="row">
                                 <div className="col-md-2">
                                     <InfoLabels
                                         style={{}}
-                                        text={intl.formatMessage({ id: "LABEL.TITLE" })}
+                                        text={intl.formatMessage({ id: "LABEL.RECOMMENDATION.TEXT" })}
                                         isRequired={true}
                                     />
                                 </div>
@@ -438,21 +501,21 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
                                         autoComplete='off'
                                         className="form-control form-control-solid active input5 lbl-txt-medium-2"
                                         placeholder={intl.formatMessage({ id: "PLACEHOLDER.TITLE" })}
-                                        value={title}
-                                        onChange={(e) => handleFieldChange('title', e.target.value)}
-                                        onBlur={(e) => handleFieldBlur('title', e.target.value)}
+                                        value={observationTitle}
+                                        onChange={(e) => handleFieldChange('observationTitle', e.target.value)}
+                                        onBlur={(e) => handleFieldBlur('observationTitle', e.target.value)}
                                         dir={lang === "ar" ? "rtl" : "ltr"}
                                     />
-                                    {touched.title && errors.title && (
-                                        <div className="invalid-feedback d-block">{errors.title}</div>
+                                    {touched.observationTitle && errors.observationTitle && (
+                                        <div className="invalid-feedback d-block">{errors.observationTitle}</div>
                                     )}
                                 </div>
                             </div>
                         </div>
 
-                        {/* Combot Function and Level Dropdowns */}
+                        {/* Combat Function and Level Dropdowns */}
                         <div className="col-12 mb-4">
-                            <div className="row align-items-center">
+                            <div className="row">
                                 <div className="col-md-2">
                                     <InfoLabels
                                         style={{}}
@@ -466,19 +529,19 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
                                         dataKey="lookupId"
                                         dataValue={lang === "ar" ? "lookupNameAr" : "lookupName"}
                                         defaultText={intl.formatMessage({ id: "PLACEHOLDER.SELECT.COMBOT_FUNCTION" })}
-                                        value={combotFunction}
+                                        value={combatFunction ? combatFunction.toString() : ""}
                                         data={combotFunctionOptions || []}
                                         setSelectedValue={(value) => {
-                                            console.log('Combot Function selected:', value);
-                                            handleFieldChange('combotFunction', value);
-                                            handleFieldBlur('combotFunction', value);
+                                            console.log('Combat Function selected:', value);
+                                            handleFieldChange('combatFunction', value);
+                                            handleFieldBlur('combatFunction', value);
                                         }}
                                         isClearable={true}
                                     />
 
                                    
-                                    {touched.combotFunction && errors.combotFunction && (
-                                        <div className="invalid-feedback d-block">{errors.combotFunction}</div>
+                                    {touched.combatFunction && errors.combatFunction && (
+                                        <div className="invalid-feedback d-block">{errors.combatFunction}</div>
                                     )}
                                 </div>
                                 <div className="col-md-2">
@@ -488,13 +551,13 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
                                         isRequired={true}
                                     />
                                 </div>
-                                <div className="col-md-2">
+                                <div className="col-md-4">
                                     <DropdownListInModal
                                         className="w-100"
                                         dataKey="lookupId"
                                         dataValue={lang === "ar" ? "lookupNameAr" : "lookupName"}
                                         defaultText={intl.formatMessage({ id: "PLACEHOLDER.SELECT.LEVEL" })}
-                                        value={level}
+                                        value={level ? level.toString() : ""}
                                         data={levelOptions || []}
                                         setSelectedValue={(value) => {
                                             console.log('Level selected:', value);
@@ -616,7 +679,6 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
                 </Modal>
 
                 <Box sx={{ mt: 3 }}>
-                    <Typography variant="subtitle1" mb={1}>التوصيات:</Typography>
                     
                     {error && (
                         <Typography variant="body2" color="error" mb={2}>
@@ -627,20 +689,25 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
                     {loading && (
                         <Box display="flex" justifyContent="center" my={2}>
                             <div className="spinner-border" role="status">
-                                <span className="visually-hidden">Loading...</span>
+                                <span className="visually-hidden">{intl.formatMessage({ id: "LABEL.LOADING" })}</span>
                             </div>
                         </Box>
                     )}
                     
                     {!loading && recommendations.length === 0 ? (
-                        <Typography variant="body2" color="text.secondary">لا توجد توصيات بعد.</Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            {intl.formatMessage({ id: "LABEL.NO.RECOMMENDATIONS.YET" })}
+                        </Typography>
                     ) : (
                         recommendations.map((rec, index) => {
                             console.log('Rendering RecommendationDetails for rec:', rec.id, 'with handleEditRecommendation function:', typeof handleEditRecommendation);
+                            console.log('🗑️ Mapping recommendation:', rec);
+                            console.log('🗑️ rec.id:', rec.id, 'type:', typeof rec.id);
+                            
                             return (
                                 <RecommendationDetails
                                     key={rec.id}
-                                    text={`${rec.title}: ${rec.recommendation}`}
+                                    text={`${rec.recommendationText}`}
                                     timestamp={new Date()}
                                     status="read"
                                     direction="rtl"
@@ -648,12 +715,14 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
                                     index={index + 1}
                                     recommendationId={rec.id}
                                     onEditClick={() => {
-                                        console.log('onEditClick called for rec.id:', rec.id);
-                                        handleEditRecommendation(rec.id);
+                                        debugger
+                                        console.log('onEditClick called for rec.id:', rec.recommendationId);
+                                        handleEditRecommendation(rec.recommendationId);
                                     }}
                                     onDeleteClick={() => {
-                                        console.log('onDeleteClick called for rec.id:', rec.id);
-                                        handleDeleteRecommendation(rec.id);
+                                        debugger
+                                        
+                                        handleDeleteRecommendation(rec.recommendationId);
                                     }}
                                 />
                             );
@@ -661,6 +730,31 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
                     )}
                 </Box>
             </Box>
+            
+            {/* Delete Confirmation Modal */}
+            <Modal
+                show={showDeleteModal}
+                onHide={() => {
+                    console.log('🗑️ Modal onHide called - resetting state');
+                    setShowDeleteModal(false);
+                    setCurrentConfirmFunction(null);
+                }}
+                centered
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        <HeaderLabels text={intl.formatMessage({ id: "LABEL.CONFIRM.DELETE" })} />
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <ConfirmDeleteModal
+                        setShow={setShowDeleteModal}
+                        onConfirm={confirmDelete}
+                    />
+                </Modal.Body>
+            </Modal>
         </>
     );
 };

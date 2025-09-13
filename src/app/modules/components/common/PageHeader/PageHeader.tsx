@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './PageHeader.css';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 interface PageHeaderProps {
   title: string;
@@ -40,7 +41,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
             </h2>
             {showBackButton && (
               <button className="back-button" onClick={handleBack}>
-                 <i className="fas fa-chevron-left"></i>
+                 <ArrowForwardIcon fontSize='small' />
                 <span>رجوع</span>
                
               </button>
