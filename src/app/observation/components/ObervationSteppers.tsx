@@ -1,5 +1,5 @@
 import { Box, Step, StepIconProps, StepLabel, Stepper, Button, Stack, Typography, StepConnector, styled } from "@mui/material"; 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { WorkflowStepModel } from "../../models/global/serviceWorkflow";
 import ObservationForm, { ObservationFormData } from "./ObservationForm";
 import { ArticleCreateUpdateModel } from "../models/observationModel";
@@ -11,7 +11,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Recommendation from "./Recommendation";
 import { useAppDispatch, useAppSelector } from "../../../store";
-import { createObservation } from "../../modules/services/observationSlice";
+import { createObservation, fetchObservationById, updateObservation } from "../../modules/services/observationSlice";
 
 // Custom Connector Component
 const CustomConnector = styled(StepConnector)(({ theme }) => ({
@@ -38,6 +38,7 @@ export const ObservationSteppers = () => {
   const formikRef = useRef<any>(null); // Reference to formik instance
   const [createdObservationId, setCreatedObservationId] = useState<string | number | null>(null); // Store created observation ID
   const [createdObservation, setCreatedObservation] = useState<any>(null); // Store the complete created observation
+  const [fetchedObservationData, setFetchedObservationData] = useState<ObservationFormData | null>(null); // Store fetched observation data for form
   
   // Default steps - no props needed
   const steps: WorkflowStepModel[] = [
@@ -68,10 +69,17 @@ export const ObservationSteppers = () => {
   const [activeStep, setActiveStep] = useState<number>(0); // MUI Stepper is 0-indexed
   const [isActive, setIsActive] = useState<boolean>(false);
 
+  // Clear fetched observation data when moving to a new observation (step 1 without an existing observation)
+  useEffect(() => {
+    if (currentStepId === 1 && !createdObservationId) {
+      setFetchedObservationData(null);
+    }
+  }, [currentStepId, createdObservationId]);
+
   // Common function to convert form values to API model
-  const convertToAPIModel = (values: ObservationFormData | any, isDraft: boolean = false): ArticleCreateUpdateModel => {
+  const convertToAPIModel = (values: ObservationFormData | any, isDraft: boolean = false, isUpdate: boolean = false): ArticleCreateUpdateModel => {
     debugger
-    return {
+    const apiModel: ArticleCreateUpdateModel = {
       observationTitle: values.observationTitle || '',
       observationSubject: values.observationSubject || '',
       discussion: values.discussion || '',
@@ -83,41 +91,76 @@ export const ObservationSteppers = () => {
       currentAssignment: values.currentAssignment || '',
       status: isDraft ? 12 : (values.status || 1), // 12 for draft, otherwise use form status or default to 1
     };
+
+    // Include id for update operations
+    if (isUpdate && createdObservationId) {
+      apiModel.id = Number(createdObservationId);
+    }
+
+    return apiModel;
   };
 
-  // Common function to handle API call for creating observation
-  const createObservationAPI = async (data: ArticleCreateUpdateModel, submissionStatus: string, isDraft: boolean = false) => {
+  // Common function to handle API call for creating or updating observation
+  const saveObservationAPI = async (data: ArticleCreateUpdateModel, submissionStatus: string, isDraft: boolean = false) => {
     try {
       console.log('⏳ Saving observation to API...');
       
-      // Call the Redux action to create observation
-      const result = await dispatch(createObservation({ 
-        observationData: data,
-        submissionStatus
-      }));
+      let result;
+      let isUpdateOperation = false;
       
-      if (createObservation.fulfilled.match(result)) {
+      // Determine whether to create or update based on observationId
+      if (createdObservationId) {
+        // Update existing observation
+        console.log('🔄 Updating existing observation with ID:', createdObservationId);
+        result = await dispatch(updateObservation({ 
+          articleId: Number(createdObservationId),
+          observationData: data
+        }));
+        isUpdateOperation = true;
+      } else {
+        // Create new observation
+        console.log('🆕 Creating new observation');
+        result = await dispatch(createObservation({ 
+          observationData: data,
+          submissionStatus
+        }));
+        isUpdateOperation = false;
+      }
+      
+      // Handle success for both create and update
+      if ((isUpdateOperation && updateObservation.fulfilled.match(result)) || 
+          (!isUpdateOperation && createObservation.fulfilled.match(result))) {
         const response = result.payload;
         
         if (response?.statusCode === 200 && response.data) {
-          const newArticleId = response.data;
+          let observationId;
           
-          // Save the complete response and ID in states
+          if (isUpdateOperation) {
+            // For update, use existing ID
+            observationId = createdObservationId;
+          } else {
+            // For create, get new ID from response
+            observationId = response.data;
+            setCreatedObservationId(observationId);
+          }
+          
+          // Update the complete observation data
           setCreatedObservation(response.data);
-          setCreatedObservationId(newArticleId);
           
           // Show appropriate success message
           const successMessage = isDraft ? 
             intl.formatMessage({ id: "MESSAGE.DRAFT.SAVED.SUCCESS" }) : 
-            intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATED.SUCCESS" });
+            (isUpdateOperation ? 
+              intl.formatMessage({ id: "MESSAGE.OBSERVATION.UPDATED.SUCCESS" }) :
+              intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATED.SUCCESS" }));
+          
           if (isDraft) {
             toast.info(successMessage);
           } else {
             toast.success(successMessage);
           }
           
-        //  console.log(`✅ ${isDraft ? 'Draft' : 'Article'} created successfully with ID:`, newArticleId);
-         // console.log('📄 Complete article data:', response.data);
+          console.log(`✅ ${isDraft ? 'Draft' : (isUpdateOperation ? 'Update' : 'Create')} completed successfully with ID:`, observationId);
           
           // Move to next step only if not draft
           if (!isDraft) {
@@ -126,26 +169,30 @@ export const ObservationSteppers = () => {
             console.log('➡️ Moved to step 2 - Execution phase');
           }
           
-          return newArticleId;
+          return observationId;
         } else {
           const errorMessage = isDraft ? 
             intl.formatMessage({ id: "MESSAGE.DRAFT.SAVE.FAILED" }) : 
-            intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATE.FAILED" });
+            (isUpdateOperation ? 
+              intl.formatMessage({ id: "MESSAGE.OBSERVATION.UPDATE.FAILED" }) :
+              intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATE.FAILED" }));
           toast.error(errorMessage);
-          // console.error(`❌ Failed to ${isDraft ? 'save draft' : 'create Observation'}:`, response);
+          console.error(`❌ Failed to ${isDraft ? 'save draft' : (isUpdateOperation ? 'update' : 'create')} observation:`, response);
           return null;
         }
       } else {
         const errorMessage = isDraft ? 
           intl.formatMessage({ id: "MESSAGE.DRAFT.SAVE.FAILED" }) : 
-          intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATE.FAILED" });
+          (isUpdateOperation ? 
+            intl.formatMessage({ id: "MESSAGE.OBSERVATION.UPDATE.FAILED" }) :
+            intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATE.FAILED" }));
         toast.error(errorMessage);
-        console.error(`❌ Failed to ${isDraft ? 'save draft' : 'create Observation'}:`, result.error);
+        console.error(`❌ Failed to ${isDraft ? 'save draft' : (isUpdateOperation ? 'update' : 'create')} observation:`, result.error);
         return null;
       }
     } catch (error) {
       console.error(`❌ Error ${isDraft ? 'saving draft' : 'submitting form'}:`, error);
-      const errorMessage = isDraft ? 'Error saving draft' : 'حدث خطأ أثناء إنشاء المقال';
+      const errorMessage = isDraft ? 'Error saving draft' : 'حدث خطأ أثناء حفظ الملاحظة';
       toast.error(errorMessage);
       return null;
     }
@@ -156,8 +203,9 @@ export const ObservationSteppers = () => {
     console.log('🚀 Form submission started');
     console.log('📝 Form values:', JSON.stringify(values, null, 2));
     
-    const data = convertToAPIModel(values, false);
-    return await createObservationAPI(data, 'Draft', false);
+    const isUpdate = !!createdObservationId;
+    const data = convertToAPIModel(values, false, isUpdate);
+    return await saveObservationAPI(data, 'Draft', false);
   };
 
   // Handler for step click navigation
@@ -193,8 +241,9 @@ export const ObservationSteppers = () => {
           return;
         }
         
-        const data = convertToAPIModel(currentValues, true);
-        return await createObservationAPI(data, 'Draft', true);
+        const isUpdate = !!createdObservationId;
+        const data = convertToAPIModel(currentValues, true, isUpdate);
+        return await saveObservationAPI(data, 'Draft', true);
       } 
       // For Save and Next, validate all required fields
       else if (actionType === 'save' || actionType === 'next') {
@@ -264,12 +313,68 @@ export const ObservationSteppers = () => {
     await handleFormAction('save');
   };
 
+  // Function to fetch observation data by ID
+  const fetchObservationData = async (observationId: string | number) => {
+    try {
+      console.log('🔄 Fetching observation data for ID:', observationId);
+      
+      const result = await dispatch(fetchObservationById({ articleId: Number(observationId) }));
+      debugger
+      if (fetchObservationById.fulfilled.match(result)) {
+        const response = result.payload;
+        
+        if (response?.statusCode === 200 && response.data) {
+          const observationData = response.data;
+          console.log('✅ Observation data fetched successfully:', observationData);
+          
+          // Convert API response to form data format
+          const formData: ObservationFormData = {
+            observationTitle: observationData.observationTitle || '',
+            observationSubject: observationData.observationSubject || '',
+            discussion: observationData.discussion || '',
+            conclusion: observationData.conclusion || '',
+            initialRecommendation: observationData.initialRecommendation || '',
+            observationType: observationData.observationType || null,
+            originatingType: observationData.originatingType || null,
+            level: observationData.level || null,
+            combatFunction: observationData.combatFunction || null,
+            currentAssignment: observationData.currentAssignment || '',
+            status: observationData.status || 0,
+            attachments: [],
+          };
+          
+          setFetchedObservationData(formData);
+          toast.info(intl.formatMessage({ id: "MESSAGE.OBSERVATION.DATA.LOADED" }) || 'Observation data loaded successfully');
+          return formData;
+        } else {
+          console.error('❌ Failed to fetch observation data:', response);
+          toast.error(intl.formatMessage({ id: "MESSAGE.OBSERVATION.FETCH.FAILED" }) || 'Failed to fetch observation data');
+          return null;
+        }
+      } else {
+        console.error('❌ Failed to fetch observation data:', result.error);
+        toast.error(intl.formatMessage({ id: "MESSAGE.OBSERVATION.FETCH.FAILED" }) || 'Failed to fetch observation data');
+        return null;
+      }
+    } catch (error) {
+      console.error('❌ Error fetching observation data:', error);
+      toast.error('Error fetching observation data');
+      return null;
+    }
+  };
+
   const handleSaveAsDraft = async () => {
     await handleFormAction('saveAsDraft');
   };
 
-  const handlePrevious = () => {
+  const handlePrevious = async () => {
     if (currentStepId > 1) {
+      // If going back to step 1 and we have an observation ID, fetch the data
+      if (currentStepId === 2 && createdObservationId) {
+        console.log('⬅️ Going back to step 1, fetching observation data...');
+        await fetchObservationData(createdObservationId);
+      }
+      
       setCurrentStepId(currentStepId - 1);
       setActiveStep(activeStep - 1);
     }
@@ -425,9 +530,11 @@ export const ObservationSteppers = () => {
           )} */}
           
           <ObservationForm 
+            key={fetchedObservationData ? `observation-${createdObservationId}` : 'new-observation'}
             onSubmit={handleFormSubmit}
-            mode="add"
+            mode={createdObservationId ? "edit" : "add"}
             formikRef={formikRef}
+            initialValues={fetchedObservationData || undefined}
           />
         </Box>
       )}

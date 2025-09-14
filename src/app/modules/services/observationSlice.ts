@@ -72,7 +72,7 @@ export const fetchObservationById = createAsyncThunk<
   async ({ articleId }, thunkApi) => {
     try {
       return await requests.get<responseType>(
-        `/Observation/GetArticleById/${articleId}`
+        `/Observation/Get/${articleId}`
       );
     } catch (error: any) {
       console.log(error);
@@ -113,7 +113,7 @@ export const updateObservation = createAsyncThunk<
   async ({ articleId, observationData }, thunkApi) => {
     try {
       return await requests.put<responseType>(
-        `/Observation/${articleId}/UpdateArticle`,
+        `/Observation/Update`,
         observationData
       );
     } catch (error: any) {
