@@ -20,6 +20,7 @@ export interface ObservationModel {
 
 // Article Create/Update Model (for API requests)
 export interface ArticleCreateUpdateModel {
+  id?: number; // For update operations
   observationTitle: string;
   observationSubject?: string;
   discussion?: string;
@@ -29,7 +30,7 @@ export interface ArticleCreateUpdateModel {
   originatingType?: number;
   level?: number;
   currentAssignment?: string;
-  status: number;
+  status?: number;
 }
 
 // Article List Model (for paginated responses)

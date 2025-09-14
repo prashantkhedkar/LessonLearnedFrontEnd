@@ -695,9 +695,10 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
                     )}
                     
                     {!loading && recommendations.length === 0 ? (
-                        <Typography variant="body2" color="text.secondary">
-                            {intl.formatMessage({ id: "LABEL.NO.RECOMMENDATIONS.YET" })}
-                        </Typography>
+                        
+                         <Box className="step-placeholder">
+          <p> {intl.formatMessage({ id: "LABEL.NO.RECOMMENDATIONS.YET" })}</p>
+        </Box>
                     ) : (
                         recommendations.map((rec, index) => {
                             console.log('Rendering RecommendationDetails for rec:', rec.id, 'with handleEditRecommendation function:', typeof handleEditRecommendation);

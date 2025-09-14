@@ -103,6 +103,7 @@ const ObservationForm: React.FC<ObservationFormProps> = ({ onSubmit, initialValu
       .required(intl.formatMessage({ id: 'VALIDATION.OBSERVATION.TITLE.REQUIRED' }))
       .max(256, intl.formatMessage({ id: 'VALIDATION.OBSERVATION.TITLE.MAX_LENGTH' })),
     observationSubject: Yup.string()
+      .required(intl.formatMessage({ id: 'VALIDATION.OBSERVATION.SUBJECT.REQUIRED' }))
       .max(256, intl.formatMessage({ id: 'VALIDATION.OBSERVATION.SUBJECT.MAX_LENGTH' })),
     discussion: Yup.string()
       .required(intl.formatMessage({ id: 'VALIDATION.DISCUSSION.REQUIRED' }))
@@ -172,6 +173,7 @@ const ObservationForm: React.FC<ObservationFormProps> = ({ onSubmit, initialValu
 
   return (
     <form onSubmit={formik.handleSubmit} className="article-form rtl-form">
+      {JSON.stringify(formik.values)}
       <div className="row">
         <div className="col-12 mb-4">
           <div className="row">
