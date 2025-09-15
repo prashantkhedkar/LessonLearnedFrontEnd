@@ -200,11 +200,11 @@
 
 .lbl-Title-semibold-1white-en {
   color: var(--shadow-2, #FFF);
-  /* font: var(--title-semibold-1) !important; */
+  font: var(--title-semibold-1) !important;
 }
 
 .lbl-Title-semibold-1white-ar {
-  /* font: var(--title-semibold-1) !important; */
+  font: var(--title-semibold-1) !important;
   color: var(--shadow-2, #FFF) !important;
 }
 
@@ -222,4 +222,14 @@
   
   letter-spacing: 0.5px;
   text-wrap: nowrap !important;
+}
+
+.detail-lbl-white-en {
+  font: var(--title-medium-2) !important;
+  color: var(--shadow-2, #FFF);
+}
+
+.detail-lbl-white-ar {
+  font: var(--rtl-title-bold-2);
+  color: var(--shadow-2, #FFF);
 }

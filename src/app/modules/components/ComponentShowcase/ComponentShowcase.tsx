@@ -2,7 +2,8 @@ import React from 'react';
 import './ComponentShowcase.css';
 
 // Import all common components
-import PageHeader from '../common/PageHeader/PageHeader';
+import ObservationDetailWidget from '../common/PageHeader/ObservationDetailWidget';
+import { ObservationFormData } from '../../../observation/components/ObservationForm';
 import CardHeaderLabel from '../common/CardHeaderLabel/cardHeaderLabel';
 import CardHeaderSubLabel from '../common/CardHeaderLabel/cardHeaderSubLabel';
 import ContentSection from '../common/ContentSection/ContentSection';
@@ -48,14 +49,48 @@ const ComponentShowcase: React.FC<ComponentShowcaseProps> = ({
     }
   };
 
+  // Sample observation data for demonstration
+  const sampleObservationData: ObservationFormData = {
+    observationTitle: "عنوان المراقبة النموذجية",
+    observationSubject: "عمليات الأمان",
+    discussion: "هذه مناقشة نموذجية حول المراقبة",
+    conclusion: "خلاصة نموذجية تم التوصل إليها",
+    initialRecommendation: "نص التوصية الأولية",
+    observationType: 1,
+    originatingType: 2,
+    level: 3,
+    combatFunction: 1,
+    currentAssignment: "قسم التكليف الحالي",
+    status: 1,
+    attachments: []
+  };
+
   return (
     <div className="component-showcase-container">
       {/* Page Header Component */}
-      {showPageHeader && (
-        <div className="mb-4">
-          <PageHeader title={title} />
+      
+      
+      {/* Alternative Page Header without observationData */}
+      <div className="card mb-4">
+        <div className="card-header">
+          <CardHeaderLabel text="Page Header Variations | تنويعات رأس الصفحة" />
         </div>
-      )}
+        <div className="card-body">
+          <div className="mb-3">
+            <h6>Without ObservationData | بدون بيانات المراقبة</h6>
+            <ObservationDetailWidget 
+              showBackButton={false}
+            />
+          </div>
+          <div>
+            <h6>With ObservationFormData | مع بيانات نموذج المراقبة</h6>
+            <ObservationDetailWidget 
+              observationData={sampleObservationData}
+              showBackButton={true}
+            />
+          </div>
+        </div>
+      </div>
       
       {/* Section 1: Header and Title Components */}
       <div className="card mb-4">
@@ -63,7 +98,7 @@ const ComponentShowcase: React.FC<ComponentShowcaseProps> = ({
           <CardHeaderLabel text="Header Components | مكونات الرأس" />
           <CardHeaderSubLabel 
             text="demonstrations | عروض توضيحية" 
-            numericVal="5" 
+            numericVal="4" 
             style={{ marginLeft: '10px' }} 
           />
         </div>

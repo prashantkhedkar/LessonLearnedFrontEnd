@@ -779,6 +779,8 @@
   "VALIDATION.CURRENT.ASSIGNMENT.MAX_LENGTH": "التكليف الحالي يجب أن يكون أقل من 128 حرف",
   "LABEL.OBSERVATION.TITLE": "العنوان",
   "LABEL.OBSERVATION.SUBJECT": "الموضوع",
+  "LABEL.OBSERVATION.TYPE": "النوع",
+  "LABEL.OBSERVATION.LEVEL": "المستوى",
   "LABEL.DISCUSSION": "المناقشة",
   "LABEL.CONCLUSION": "الخاتمة",
   "LABEL.INITIAL.RECOMMENDATION": "التوصية الأولية",
