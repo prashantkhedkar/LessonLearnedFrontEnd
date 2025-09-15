@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { requests } from "../../helper/axiosInterceptor";
 import { responseType } from "../../models/global/responseResult";
+import { IRecommendation, ICreateRecommendation, IUpdateRecommendation } from "../../models/recommendation/recommendation.model";
 
 // Initial state for recommendation slice
 interface RecommendationState {
-  recommendations: any[];
+  recommendations: IRecommendation[];
   loading: boolean;
   error: string | null;
 }
@@ -37,15 +38,7 @@ export const saveRecommendationForObservation = createAsyncThunk<
   any,
   { 
     observationId: number,
-    recommendationData: {
-      id?: number,
-      observationTitle: string,
-      conclusion: string,
-      recommendationText: string,
-      discussion: string,
-      combatFunction: number,
-      level: number
-    }
+    recommendationData: ICreateRecommendation
   }
 >(
   'recommendation/CreateRecommendation',
@@ -54,8 +47,8 @@ export const saveRecommendationForObservation = createAsyncThunk<
       return await requests.post<responseType>(
         `/recommendation/CreateRecommendation`,
         {
-          observationId,
-          ...recommendationData
+          ...recommendationData,
+          observationId
         }
       );
     } catch (error: any) {
@@ -69,15 +62,7 @@ export const updateRecommendationForObservation = createAsyncThunk<
   any,
   { 
     recommendationId: number,
-    recommendationData: {
-       observationId: number,
-      observationTitle: string,
-      conclusion: string,
-      recommendationText: string,
-      discussion: string,
-      combatFunction: number,
-      level: number
-    }
+    recommendationData: IUpdateRecommendation
   }
 >(
   'recommendation/updateForObservation',
@@ -126,13 +111,13 @@ export const recommendationSlice = createSlice({
       state.recommendations.push(action.payload);
     },
     updateRecommendation: (state, action) => {
-      const index = state.recommendations.findIndex(rec => rec.id === action.payload.id);
+      const index = state.recommendations.findIndex(rec => rec.recommendationId === action.payload.recommendationId);
       if (index !== -1) {
         state.recommendations[index] = { ...state.recommendations[index], ...action.payload };
       }
     },
     removeRecommendation: (state, action) => {
-      state.recommendations = state.recommendations.filter(rec => rec.id !== action.payload);
+      state.recommendations = state.recommendations.filter(rec => rec.recommendationId !== action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -188,7 +173,7 @@ export const recommendationSlice = createSlice({
         if (action.payload?.statusCode === 200) {
           const updatedRecommendation = action.payload.data;
           if (updatedRecommendation) {
-            const index = state.recommendations.findIndex(rec => rec.id === updatedRecommendation.id);
+            const index = state.recommendations.findIndex(rec => rec.recommendationId === updatedRecommendation.recommendationId);
             if (index !== -1) {
               state.recommendations[index] = { ...state.recommendations[index], ...updatedRecommendation };
             }
@@ -213,7 +198,7 @@ export const recommendationSlice = createSlice({
         if (action.payload?.statusCode === 200) {
           // Extract recommendationId from the original action
           const recommendationId = action.meta.arg.recommendationId;
-          state.recommendations = state.recommendations.filter(rec => rec.id !== recommendationId);
+          state.recommendations = state.recommendations.filter(rec => rec.recommendationId !== recommendationId);
         } else {
           state.error = 'Failed to delete recommendation';
         }

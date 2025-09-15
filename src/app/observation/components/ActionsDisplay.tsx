@@ -68,9 +68,9 @@ const ActionsDisplay: React.FC<ActionsDisplayProps> = ({
 
     // Fetch actions based on recommendationId when component mounts or recommendationId changes
     useEffect(() => {
-        if (recommendationId) {
-            fetchActionsFromAPI()
-        } else {
+        // if (recommendationId) {
+        //     fetchActionsFromAPI()
+        // } else {
             // Default sample data if no recommendationId provided
             setActionsList([
                 {
@@ -80,7 +80,7 @@ const ActionsDisplay: React.FC<ActionsDisplayProps> = ({
                     status: "completed"
                 }
             ])
-        }
+       // }
     }, [recommendationId])
 
     const fetchActionsFromAPI = async () => {

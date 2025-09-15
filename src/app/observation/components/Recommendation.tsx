@@ -3,6 +3,7 @@ import { Button, TextField, Box, Typography } from '@mui/material';
 import { Col, Modal, Row } from "react-bootstrap";
 import RecommendationDetails from './RecommendationDetails';
 import { generateUUID, writeToBrowserConsole } from '../../modules/utils/common';
+import { IRecommendation, Recommendation as RecommendationModel } from '../../models/recommendation/recommendation.model';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -11,9 +12,9 @@ import { useIntl } from 'react-intl';
 import DropdownList from '../../modules/components/dropdown/DropdownList';
 import { ILookup } from '../../models/global/globalGeneric';
 import { GetLookupValues } from '../../modules/services/adminSlice';
-import { 
-    fetchRecommendationsByObservationId, 
-    saveRecommendationForObservation, 
+import {
+    fetchRecommendationsByObservationId,
+    saveRecommendationForObservation,
     updateRecommendationForObservation,
     deleteRecommendationForObservation,
     clearError
@@ -27,21 +28,13 @@ interface RecommendationProps {
     observationId: string | number;
 }
 
-interface RecommendationItem {
-    recommendationId: number;
-    observationId: number;
-    observationTitle: string;
-    conclusion: string;
-    recommendationText: string;
-    discussion: string;
-    combatFunction: number;
-    level: number;
-}
+// Using the new comprehensive recommendation model
+// The old RecommendationItem interface is replaced by IRecommendation from models
 
 const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
     // Print the created observationId
     console.log('🎯 Step 2 Recommendation component - Received observationId:', observationId);
-    
+
     const [open, setOpen] = useState(false);
     const [observationTitle, setObservationTitle] = useState('');
     const [conclusion, setConclusion] = useState('');
@@ -51,14 +44,14 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
     const [level, setLevel] = useState<number>(0);
     const [combotFunctionOptions, setCombotFunctionOptions] = useState<ILookup[]>([]);
     const [levelOptions, setLevelOptions] = useState<ILookup[]>([]);
-    const [editingRecommendation, setEditingRecommendation] = useState<RecommendationItem | null>(null);
+    const [editingRecommendation, setEditingRecommendation] = useState<IRecommendation | null>(null);
     const [isEditMode, setIsEditMode] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [currentConfirmFunction, setCurrentConfirmFunction] = useState<(() => Promise<void>) | null>(null);
 
     // Get state from Redux store
     const { recommendations, loading, error } = useAppSelector((state) => state.recommendations);
-    
+
     // Validation states
     const [errors, setErrors] = useState({
         observationTitle: '',
@@ -106,8 +99,8 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
         dispatch(clearError());
 
         try {
-            await dispatch(fetchRecommendationsByObservationId({ 
-                observationId 
+            await dispatch(fetchRecommendationsByObservationId({
+                observationId
             })).unwrap();
         } catch (error) {
             console.error('Error fetching recommendations:', error);
@@ -326,10 +319,11 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
                 if (isEditMode && editingRecommendation) {
                     // Update existing recommendation
                     await dispatch(updateRecommendationForObservation({
-                       
+
                         recommendationId: editingRecommendation.recommendationId,
                         recommendationData: {
-                             observationId: typeof observationId === 'string' ? parseInt(observationId) : observationId,
+                            recommendationId: editingRecommendation.recommendationId,
+                            observationId: typeof observationId === 'string' ? parseInt(observationId) : observationId,
                             observationTitle,
                             conclusion,
                             recommendationText,
@@ -344,6 +338,7 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
                     await dispatch(saveRecommendationForObservation({
                         observationId: typeof observationId === 'string' ? parseInt(observationId) : observationId,
                         recommendationData: {
+                            observationId: typeof observationId === 'string' ? parseInt(observationId) : observationId,
                             observationTitle,
                             conclusion,
                             recommendationText,
@@ -353,7 +348,7 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
                         }
                     })).unwrap();
                 }
-                
+
                 // Reload recommendations after successful save/update
                 await fetchRecommendationsFromAPI();
                 handleClose();
@@ -368,24 +363,24 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
         return async () => {
             console.log('🗑️ createDeleteFunction called for ID:', id);
             console.log('🗑️ ID type:', typeof id, 'ID value:', id);
-            
+
             if (!id || typeof id !== 'number') {
                 console.error('🗑️ ERROR: Invalid ID in createDeleteFunction:', id);
                 return;
             }
-            
+
             dispatch(clearError());
-            
+
             try {
                 console.log('🗑️ About to dispatch delete with ID:', id);
                 const result = await dispatch(deleteRecommendationForObservation({
                     recommendationId: id
                 })).unwrap();
-                
+
                 console.log('🗑️ Delete successful, result:', result);
                 // Reload recommendations after successful delete
                 await fetchRecommendationsFromAPI();
-                
+
                 // Close modal and reset state
                 setShowDeleteModal(false);
                 setCurrentConfirmFunction(null);
@@ -400,17 +395,17 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
         // Convert to number if it's a string
         debugger
         const numericId = typeof recommendationId === 'string' ? parseInt(recommendationId, 10) : recommendationId;
-        
+
         console.log('🗑️ Delete clicked for recommendation ID:', recommendationId);
         console.log('🗑️ Original type:', typeof recommendationId, 'Original value:', recommendationId);
         console.log('🗑️ Converted to numericId:', numericId, 'type:', typeof numericId);
-        
+
         // Validate recommendationId before proceeding
         if (!numericId || typeof numericId !== 'number' || isNaN(numericId)) {
             console.error('🗑️ ERROR: Invalid recommendationId received:', recommendationId, 'converted to:', numericId);
             return;
         }
-        
+
         // Use the createDeleteFunction approach for better reliability
         const confirmFunction = createDeleteFunction(numericId);
 
@@ -443,42 +438,42 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
                     <div className="col-md-11">
                     </div>
                     <div className="col-md-1 d-flex justify-content-end align-items-center">
-                <button
-                    id="kt_modal_new_target_create_new"
-                    className="btn MOD_btn btn-create w-10 pl-5"
-                    onClick={handleOpen}
-                  >
-                    <FontAwesomeIcon color={""} size="1x" icon={faPlus} />
-                    <BtnLabeltxtMedium2
-                      text={"BUTTON.LABEL.NEWSERVICE"}
-                      isI18nKey={true}
-                    />{" "}
-                  </button>
+                        <button
+                            id="kt_modal_new_target_create_new"
+                            className="btn MOD_btn btn-create w-10 pl-5"
+                            onClick={handleOpen}
+                        >
+                            <FontAwesomeIcon color={""} size="1x" icon={faPlus} />
+                            <BtnLabeltxtMedium2
+                                text={"BUTTON.LABEL.NEWSERVICE"}
+                                isI18nKey={true}
+                            />{" "}
+                        </button>
                     </div>
                 </div>
             </div>
 
             <Box sx={{ mt: 2 }}>
                 <Modal
-                   backdrop="static"
-                   keyboard={false}
+                    backdrop="static"
+                    keyboard={false}
                     centered
                     size="lg"
                     animation={false}
-                   enforceFocus={false}
-                   restoreFocus={false}
+                    enforceFocus={false}
+                    restoreFocus={false}
                     dialogClassName="modal-dialog-scrollable"
                     aria-labelledby="contained-modal-title-vcenter"
                     show={open}
                     onHide={handleClose}
-                 
+
                 >
                     <Modal.Header closeButton>
                         <Modal.Title>
                             <HeaderLabels
                                 text={
-                                    isEditMode ? 
-                                        intl.formatMessage({ id: "LABEL.EDIT.RECOMMENDATION" }) : 
+                                    isEditMode ?
+                                        intl.formatMessage({ id: "LABEL.EDIT.RECOMMENDATION" }) :
                                         intl.formatMessage({ id: "LABEL.ADD.NEW.RECOMMENDATION" })
                                 }
                             />
@@ -539,7 +534,7 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
                                         isClearable={true}
                                     />
 
-                                   
+
                                     {touched.combatFunction && errors.combatFunction && (
                                         <div className="invalid-feedback d-block">{errors.combatFunction}</div>
                                     )}
@@ -655,8 +650,8 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
                         </div>
 
 
-                    </Modal.Body> 
-                     <Modal.Footer className="py-5 pt-4">
+                    </Modal.Body>
+                    <Modal.Footer className="py-5 pt-4">
                         <button
                             type="button"
                             className="btn MOD_btn btn-create w-10 pl-5 mx-3"
@@ -679,13 +674,13 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
                 </Modal>
 
                 <Box sx={{ mt: 3 }}>
-                    
+
                     {error && (
                         <Typography variant="body2" color="error" mb={2}>
                             {error}
                         </Typography>
                     )}
-                    
+
                     {loading && (
                         <Box display="flex" justifyContent="center" my={2}>
                             <div className="spinner-border" role="status">
@@ -693,36 +688,35 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
                             </div>
                         </Box>
                     )}
-                    
+
                     {!loading && recommendations.length === 0 ? (
-                        
-                         <Box className="step-placeholder">
-          <p> {intl.formatMessage({ id: "LABEL.NO.RECOMMENDATIONS.YET" })}</p>
-        </Box>
+
+                        <Box className="step-placeholder">
+                            <p> {intl.formatMessage({ id: "LABEL.NO.RECOMMENDATIONS.YET" })}</p>
+                        </Box>
                     ) : (
                         recommendations.map((rec, index) => {
-                            console.log('Rendering RecommendationDetails for rec:', rec.id, 'with handleEditRecommendation function:', typeof handleEditRecommendation);
-                            console.log('🗑️ Mapping recommendation:', rec);
-                            console.log('🗑️ rec.id:', rec.id, 'type:', typeof rec.id);
-                            
+                            // console.log('Rendering RecommendationDetails for rec:', rec.id, 'with handleEditRecommendation function:', typeof handleEditRecommendation);
+                            // console.log('🗑️ Mapping recommendation:', rec);
+                            // console.log('🗑️ rec.id:', rec.id, 'type:', typeof rec.id);
+
                             return (
                                 <RecommendationDetails
-                                    key={rec.id}
+                                    key={rec.recommendationId}
+                                    recommendation={rec}
                                     text={`${rec.recommendationText}`}
-                                    timestamp={new Date()}
+                                    timestamp={new Date(rec.createdDate)}
                                     status="read"
                                     direction="rtl"
                                     observationId={rec.observationId}
                                     index={index + 1}
-                                    recommendationId={rec.id}
+                                    recommendationId={rec.recommendationId}
                                     onEditClick={() => {
-                                        debugger
-                                        console.log('onEditClick called for rec.id:', rec.recommendationId);
+
+                                        console.log('onEditClick called for rec.recommendationId:', rec.recommendationId);
                                         handleEditRecommendation(rec.recommendationId);
                                     }}
                                     onDeleteClick={() => {
-                                        debugger
-                                        
                                         handleDeleteRecommendation(rec.recommendationId);
                                     }}
                                 />
@@ -731,7 +725,7 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
                     )}
                 </Box>
             </Box>
-            
+
             {/* Delete Confirmation Modal */}
             <Modal
                 show={showDeleteModal}

@@ -189,7 +189,7 @@ export const ObservationSteppers = () => {
             intl.formatMessage({ id: "MESSAGE.OBSERVATION.UPDATE.FAILED" }) :
             intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATE.FAILED" }));
         toast.error(errorMessage);
-        console.error(`❌ Failed to ${isDraft ? 'save draft' : (isUpdateOperation ? 'update' : 'create')} observation:`, result.error);
+       // console.error(`❌ Failed to ${isDraft ? 'save draft' : (isUpdateOperation ? 'update' : 'create')} observation:`, result.error);
         return null;
       }
     } catch (error) {
@@ -346,7 +346,7 @@ export const ObservationSteppers = () => {
           };
           
           setFetchedObservationData(formData);
-          toast.info(intl.formatMessage({ id: "MESSAGE.OBSERVATION.DATA.LOADED" }) || 'Observation data loaded successfully');
+       //   toast.info(intl.formatMessage({ id: "MESSAGE.OBSERVATION.DATA.LOADED" }) || 'Observation data loaded successfully');
           return formData;
         } else {
           console.error('❌ Failed to fetch observation data:', response);

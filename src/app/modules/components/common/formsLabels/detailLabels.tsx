@@ -472,3 +472,18 @@ export const ErrorLabel = ({ style, text, customClassName, isI18nKey = true }: p
         </React.Fragment>
     );
 };
+
+
+export const DetailLabelsWhite = ({ style, text, isRequired, isI18nKey = true, customClassName }: props) => {
+    const intl = useIntl();
+    const lang = useLang();
+    useEffect(() => {
+    }, []);
+    return (
+        <React.Fragment>
+            <label className={isRequired ? `${csslbl["detail-lbl-white-" + lang]} ${"required"} ${customClassName} ` : `${csslbl["detail-lbl-white-" + lang]} ${customClassName} `} style={style} aria-labelledby={isI18nKey ? text : ""}>
+               {text && text != "" ? ((isI18nKey) ? intl.formatMessage({ id: text }) : text) : ""}
+            </label>
+        </React.Fragment>
+    );
+};
