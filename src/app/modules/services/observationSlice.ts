@@ -40,7 +40,7 @@ export const fetchObservations = createAsyncThunk<
   async (searchParams, thunkApi) => {
     try {
       return await requests.post<responseType>(
-        `/Observation/search`,
+        `/Observation/GetObservationsList`,
         searchParams
       );
     } catch (error: any) {

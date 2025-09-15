@@ -1,0 +1,18 @@
+[
+    {
+        "columnName": "LABEL.OBSERVATION.TITLE",
+        "dataColumnName": "observationTitle",
+        "sortable": true,
+        "type": "components",
+        "className": "cellText",
+        "componentsIndexes": "0",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "40%",
+        "width-ar": "40%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    }
+]

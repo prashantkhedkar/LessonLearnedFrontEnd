@@ -22,6 +22,7 @@ import ServiceRequestList from "../pages/end-user-services/ServiceRequestList";
 import Dashboard from "../modules/components/Dashboard";
 import ArticlePage from "../observation/pages/ObservationPage";
 import ObservationPage from "../observation/pages/ObservationPage";
+import ObservationList from "../observation/pages/ObservationList";
 
 const PrivateRoutes = () => {
   const dispatch = useAppDispatch();
@@ -161,120 +162,7 @@ const PrivateRoutes = () => {
                 </SuspensedView>
               }
             />
-            <Route
-              path="fms-dashboard/drill-down"
-              element={
-                <SuspensedView>
-                  <ChartDrillDownPage />
-                </SuspensedView>
-              }
-            />
-            <Route
-              path=""
-              element={
-                <SuspensedView>
-                  <Sample />
-                </SuspensedView>
-              }
-            />
-            <Route
-              path="admin-dashboard"
-              element={
-                <SuspensedView>
-                  <AdminServiceDashboard />
-                </SuspensedView>
-              }
-            />
-            <Route
-              path="admin-dashboard/new-services"
-              element={
-                <SuspensedView>
-                  <NewServices />
-                </SuspensedView>
-              }
-            />
-            <Route
-              path="admin-dashboard/services-details"
-              element={
-                <SuspensedView>
-                  <EditServices />
-                </SuspensedView>
-              }
-            />
-            <Route
-              path="end-user-dashboard"
-              element={
-                <SuspensedView>
-                  <EndUserServiceDashboard />
-                </SuspensedView>
-              }
-            />
-            <Route
-              path="manage-workflow"
-              element={
-                <SuspensedView>
-                  <ManageWorkflow serviceId={0} />
-                </SuspensedView>
-              }
-            />
-            <Route
-              path="service-request-dashboard"
-              element={
-                <SuspensedView>
-                  <ServiceCategoryDashboard />
-                </SuspensedView>
-              }
-            />
-            <Route
-              path="service-category-list"
-              element={
-                <SuspensedView>
-                  <ServiceCategoryList />
-                </SuspensedView>
-              }
-            />
-            <Route
-              path="end-user/service-request-form"
-              element={
-                <SuspensedView>
-                  <ServiceRequestEndUserForm />
-                </SuspensedView>
-              }
-            />
 
-            <Route
-              path="end-user/service-request-list"
-              element={
-                <SuspensedView>
-                  <ServiceRequestList />
-                </SuspensedView>
-              }
-            />
-
-            <Route
-              path="setting-managecategory"
-              element={
-                <SuspensedView>
-                  <ManageCategory />
-                </SuspensedView>
-              }
-            />
-            <Route
-              path="setting-managefields"
-              element={
-                <SuspensedView>
-                  <ManageCustomFields />
-                </SuspensedView>
-              }
-            />
-            <Route
-              path="room-management"
-              element={
-                <SuspensedView>
-                  <RoomManagementPage />
-                </SuspensedView>
-              }
-            />
             <Route
               path="notifications"
               element={
@@ -288,6 +176,14 @@ const PrivateRoutes = () => {
               element={
                 <SuspensedView>
                   <ObservationPage />
+                </SuspensedView>
+              }
+            />
+            <Route
+              path="/observation/observation-list"
+              element={
+                <SuspensedView>
+                  <ObservationList />
                 </SuspensedView>
               }
             />
