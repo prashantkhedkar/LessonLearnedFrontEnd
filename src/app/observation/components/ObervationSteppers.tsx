@@ -12,7 +12,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Recommendation from "./Recommendation";
 import { useAppDispatch, useAppSelector } from "../../../store";
 import { createObservation, fetchObservationById, updateObservation } from "../../modules/services/observationSlice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // Custom Connector Component
 const CustomConnector = styled(StepConnector)(({ theme }) => ({
@@ -36,6 +36,7 @@ export const ObservationSteppers = () => {
   const intl = useIntl();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const { loading, error } = useAppSelector(state => state.observations);
   const formikRef = useRef<any>(null); // Reference to formik instance
   const [createdObservationId, setCreatedObservationId] = useState<string | number | null>(null); // Store created observation ID
@@ -75,6 +76,15 @@ export const ObservationSteppers = () => {
   useEffect(() => {
     if (currentStepId === 1 && !createdObservationId) {
       setFetchedObservationData(null);
+    }
+
+    if(location.state)
+    {
+       var observationId = location.state
+        ? JSON.parse(JSON.stringify(location.state)).observationId
+        : 0;
+        setCreatedObservationId(observationId);
+        fetchObservationData(observationId);
     }
   }, [currentStepId, createdObservationId]);
 

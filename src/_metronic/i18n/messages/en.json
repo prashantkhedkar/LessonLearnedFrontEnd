@@ -786,5 +786,6 @@
   "VALIDATION.RECOMMENDATION.REQUIRED": "Recommendation is required",
   "VALIDATION.TITLE.REQUIRED": "Title is required",
   "VALIDATION.TITLE.MAX_LENGTH": "Title must be less than 256 characters",
-  "PLACEHOLDER.TITLE": "Enter title..."
+  "PLACEHOLDER.TITLE": "Enter title...",
+  "LABEL.MANAGE.OBSERVATIONS": "Manage Observations"
 }

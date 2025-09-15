@@ -3,9 +3,8 @@
         "columnName": "LABEL.OBSERVATION.TITLE",
         "dataColumnName": "observationTitle",
         "sortable": true,
-        "type": "components",
+        "type": "",
         "className": "cellText",
-        "componentsIndexes": "0",
         "fontAwesome": "",
         "isSearchable": true,
         "width": "40%",
@@ -13,6 +12,38 @@
         "style": {
             "padding-right": "7px",
             "padding-left": "7px"
+        }
+    },
+    {
+        "columnName": "LABEL.REQUESTDATE",
+        "dataColumnName": "createdDate",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "30%",
+        "width-ar": "30%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName": "LABEL.ACTIONS",
+        "dataColumnName": "",
+        "sortable": false,
+        "type": "components",
+        "className": "cellText",
+        "componentsIndexes": "1,2",
+        "showTooltip": "false",
+        "isSearchable": false,
+        "width": "20%",
+        "width-ar": "20%",
+        "style": {
+            "padding-right": "10px",
+            "padding-left": "10px",
+            "color": "grey"
         }
     }
 ]
