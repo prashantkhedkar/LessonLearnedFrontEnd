@@ -63,7 +63,7 @@ const ComponentShowcase: React.FC<ComponentShowcaseProps> = ({
           <CardHeaderLabel text="Header Components | مكونات الرأس" />
           <CardHeaderSubLabel 
             text="demonstrations | عروض توضيحية" 
-            numericVal="5" 
+            numericVal="4" 
             style={{ marginLeft: '10px' }} 
           />
         </div>
