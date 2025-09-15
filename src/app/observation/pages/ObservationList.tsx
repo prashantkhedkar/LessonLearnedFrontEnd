@@ -58,10 +58,7 @@ export default function ObservationList() {
       },
       {
         component: DeleteItem,
-      },
-      {
-        component: FeedBackView,
-      },
+      }
     ]);
 
     setComponentsList([
@@ -109,9 +106,10 @@ export default function ObservationList() {
       .then(unwrapResult)
       .then((orginalPromiseResult) => {
         if (orginalPromiseResult.statusCode === 200) {
+          debugger;
           if (tableRef.current) {
-            if (orginalPromiseResult.data.data) {
-              const formattedData = orginalPromiseResult.data.data;
+            if (orginalPromiseResult.data.items.length > 0) {
+              const formattedData = orginalPromiseResult.data.items;
               tableRef.current.setData(formattedData);
               tableRef.current.setTotalRows(
                 orginalPromiseResult.data.totalCount
@@ -174,13 +172,9 @@ export default function ObservationList() {
                     <div
                       style={{ cursor: "pointer" }}
                       onClick={() =>
-                        navigate("/end-user/service-request-form", {
+                        navigate("/observation/new", {
                           state: {
-                            serviceId: props.row.serviceId,
-                            requestId: props.row.requestId,
-                            isReadOnly: false,
-                            statusId: props.row.statusId,
-                            currentStepId: props.row.currentStepId,
+                            observationId: props.row.id
                           },
                         })
                       }
@@ -206,7 +200,7 @@ export default function ObservationList() {
           <>
             {
               <>
-                {Number(props.row.statusId) == 1 && (
+                {Number(props.row.status) == 1 && (
                   <div className="col col-auto">
                     <OverlayTrigger
                       placement="top"
@@ -221,15 +215,6 @@ export default function ObservationList() {
                       <div
                         style={{ cursor: "pointer" }}
                         onClick={() =>
-                          // navigate("/end-user/service-request-form", {
-                          //   state: {
-                          //     serviceId: props.row.serviceId,
-                          //     requestId: props.row.requestId,
-                          //     isReadOnly: false,
-                          //     statusId: props.row.statusId,
-                          //     currentStepId: props.row.currentStepId,
-                          //   },
-                          // })
                           handleDeleteRequest(props.row)
                         }
                       >
@@ -292,49 +277,7 @@ export default function ObservationList() {
     );
   }
 
-  function FeedBackView(props: { row }) {
-    const navigate = useNavigate();
-    const intl = useIntl();
-
-    return (
-      <>
-        {
-          <>
-            {
-              <>
-                {String(props.row.currentStatus).toLocaleLowerCase() ==
-                  "completed" && (
-                  <div className="col col-auto">
-                    <OverlayTrigger
-                      placement="top"
-                      overlay={
-                        <Tooltip id="tooltip">
-                          <div className="tooltip-text">
-                            {intl.formatMessage({ id: "LABEL.FEEDBACK" })}
-                          </div>
-                        </Tooltip>
-                      }
-                    >
-                      <div
-                        style={{ cursor: "pointer" }}
-                        onClick={() => //handleOpenModal(props.row)
-                            []}
-                      >
-                        {/* {String(props.row.currentStatus).toLocaleLowerCase()} */}
-                        {/* {String(props.row.feedbackStatus).toLocaleLowerCase()} */}
-                        <i className="fa-light fa-comment-dots fa-xl" />
-                      </div>
-                    </OverlayTrigger>
-                  </div>
-                )}
-              </>
-            }
-          </>
-        }
-      </>
-    );
-  }
-
+  
   const TabStyle = {
     display: "inline-block",
     padding: "12px 24px",
@@ -372,7 +315,7 @@ export default function ObservationList() {
     setShowModalDelete(true);
   };
 
-  const handleDeleteRequestItem = () => {
+  const handleDeleteItem = () => {
 
   };
 
@@ -543,12 +486,12 @@ export default function ObservationList() {
             paginationServer
             getData={fetchObservationList}
             ref={tableRef}
-            componentsList={componentsListMyRequest}
+            componentsList={componentsList}
           />
         )}
       </div>
       <div style={{ display: tabInit === 1 ? "block" : "none" }}>
-        {tabInit === 1 && (
+        {/* {tabInit === 1 && (
           <DataTableMain2
             displaySearchBar={false}
             lang={lang}
@@ -559,7 +502,7 @@ export default function ObservationList() {
             ref={tableRef}
             componentsList={componentsList}
           />
-        )}
+        )} */}
       </div>
 
       
@@ -589,7 +532,7 @@ export default function ObservationList() {
           <div className="row pt-2" id="controlPanelProjectSubmission">
             <div className="col-12 d-flex justify-content-center">
               <button
-                onClick={() => handleDeleteRequestItem()}
+                onClick={() => handleDeleteItem()}
                 className={
                   1 != 1
                     ? "btn MOD_btn w-10 pl-5 mx-3 float-start btn-notAllowed"

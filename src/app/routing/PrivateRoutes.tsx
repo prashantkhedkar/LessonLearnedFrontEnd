@@ -180,7 +180,7 @@ const PrivateRoutes = () => {
               }
             />
             <Route
-              path="/observation/observation-list"
+              path="observation/observation-list"
               element={
                 <SuspensedView>
                   <ObservationList />

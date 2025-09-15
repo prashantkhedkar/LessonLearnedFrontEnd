@@ -845,5 +845,6 @@
   "VALIDATION.RECOMMENDATION.REQUIRED": "التوصية مطلوبة",
   "VALIDATION.TITLE.REQUIRED": "العنوان مطلوب",
   "VALIDATION.TITLE.MAX_LENGTH": "يجب أن يكون العنوان أقل من 256 حرف",
-  "PLACEHOLDER.TITLE": "أدخل العنوان..."
+  "PLACEHOLDER.TITLE": "أدخل العنوان...",
+  "LABEL.MANAGE.OBSERVATIONS": "قائمة رئيسية"
 }
