@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 import { useLang } from '../../../_metronic/i18n/Metronici18n';
 import { InfoLabels } from '../../modules/components/common/formsLabels/detailLabels';
 import DropdownList from '../../modules/components/dropdown/DropdownList';
-import PageHeader from '../../modules/components/common/PageHeader/PageHeader';
+import PageHeader from '../../modules/components/common/PageHeader/ObservationDetailWidget';
 import ContentSection from '../../modules/components/common/ContentSection/ContentSection';
 import { BtnLabeltxtMedium2, BtnLabelCanceltxtMedium2 } from '../../modules/components/common/formsLabels/detailLabels';
 import { writeToBrowserConsole } from '../../modules/utils/common';
@@ -235,7 +235,7 @@ const ObservationForm: React.FC<ObservationFormProps> = ({ onSubmit, initialValu
             <div className="col-md-2">
               <InfoLabels
                 style={{}}
-                text={intl.formatMessage({ id: "LABEL.TYPE" })}
+                text={intl.formatMessage({ id: "LABEL.OBSERVATION.TYPE" })}
                 isRequired={true}
               />
             </div>
@@ -255,7 +255,7 @@ const ObservationForm: React.FC<ObservationFormProps> = ({ onSubmit, initialValu
             <div className="col-md-2">
               <InfoLabels
                 style={{}}
-                text={intl.formatMessage({ id: "LABEL.LEVEL" })}
+                text={intl.formatMessage({ id: "LABEL.OBSERVATION.LEVEL" })}
                 isRequired={true}
               />
             </div>
