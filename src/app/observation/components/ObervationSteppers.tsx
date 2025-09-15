@@ -12,6 +12,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Recommendation from "./Recommendation";
 import { useAppDispatch, useAppSelector } from "../../../store";
 import { createObservation, fetchObservationById, updateObservation } from "../../modules/services/observationSlice";
+import { useNavigate } from "react-router-dom";
 
 // Custom Connector Component
 const CustomConnector = styled(StepConnector)(({ theme }) => ({
@@ -34,6 +35,7 @@ const CustomConnector = styled(StepConnector)(({ theme }) => ({
 export const ObservationSteppers = () => {
   const intl = useIntl();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { loading, error } = useAppSelector(state => state.observations);
   const formikRef = useRef<any>(null); // Reference to formik instance
   const [createdObservationId, setCreatedObservationId] = useState<string | number | null>(null); // Store created observation ID
@@ -384,6 +386,7 @@ export const ObservationSteppers = () => {
     if (formikRef.current) {
       formikRef.current.resetForm();
     }
+    navigate("/observation/observation-list")
   //  toast.info('Operation cancelled');
   };
 

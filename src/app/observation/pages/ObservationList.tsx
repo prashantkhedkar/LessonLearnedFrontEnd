@@ -1,0 +1,616 @@
+import { useIntl } from "react-intl";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useLang } from "../../../_metronic/i18n/Metronici18n";
+import { useAppDispatch } from "../../../store";
+import DataTableMain2, {ComponentAndProps} from "../../modules/components/dataTable2/DataTableMain";
+import columns from "./ObservationsTableConfig.json";
+import { useEffect, useRef, useState } from "react";
+import { Row as DTRow } from "../../models/row";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
+import CountWidgetList from "../../modules/components/CountWidget/CountWidgetList";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import {
+  BtnLabelCanceltxtMedium2,
+  BtnLabeltxtMedium2,
+  DetailLabels,
+} from "../../modules/components/common/formsLabels/detailLabels";
+import { AdminMetSearch } from "../../modules/components/metSearch/AdminMetSearch";
+import { ApiCallType } from "../../helper/_constant/apiCallType.constant";
+import {
+  generateUUID,
+} from "../../modules/utils/common";
+import DropdownList from "../../modules/components/dropdown/DropdownList";
+import dayjs from "dayjs";
+import { MUIDatePicker } from "../../modules/components/datePicker/MUIDatePicker";
+import { toast } from "react-toastify";
+import { ArticleSearchModel } from "../models/observationModel";
+import { fetchObservations } from "../../modules/services/observationSlice";
+
+export default function ObservationList() {
+  const intl = useIntl();
+  const lang = useLang();
+  const dispatch = useAppDispatch();
+  const finalTableConfig = JSON.stringify(columns);  
+  const tableRef = useRef<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [showAdvanced, setShowAdvanced] = useState<boolean>(false);
+  const [componentsList, setComponentsList] = useState<ComponentAndProps[]>([]);
+  const [componentsListMyRequest, setComponentsListMyRequest] = useState<ComponentAndProps[]>([]); 
+
+  const location = useLocation();
+  const state = location.state as {
+    tab: number;
+  };
+  const [tabInit, setTabInit] = useState(0);
+  const [showModalDelete, setShowModalDelete] = useState(false);
+  const [filters, setFilters] = useState<ArticleSearchModel>();
+
+  useEffect(() => {
+    setComponentsListMyRequest([
+      {
+        component: ServiceName,
+      },
+      {
+        component: EditItem,
+      },
+      {
+        component: DeleteItem,
+      },
+      {
+        component: FeedBackView,
+      },
+    ]);
+
+    setComponentsList([
+      {
+        component: ServiceName,
+      },
+      {
+        component: EditItem,
+      },
+      {
+        component: DeleteItem,
+      },
+    ]);
+  }, []);
+
+  // Default sort column and direction for draft list
+  const draftDefaultSortColumn = "updatedAt"; // Change as needed
+  const draftDefaultSortDirection = "asc"; // or "desc"
+
+  const fetchObservationList = (
+    pageNumber?: number,
+    pageSize?: number,
+    sortColumn?: string,
+    sortDirection?: string,
+    searchText?: string,
+    useSpinner?: boolean,
+    clearSearch?: boolean
+  ) => {
+    if (useSpinner && tableRef.current) tableRef.current.setIsLoading(true);
+
+    setLoading(true);
+
+    let formDataObject: ArticleSearchModel = {
+      pageNumber: pageNumber ? pageNumber : 1,
+      pageSize: pageSize ? pageSize : 10,
+    };
+    const hasFilters = filters != undefined || filters != null;
+
+    dispatch(
+      fetchObservations({
+        pageNumber: pageNumber ? pageNumber : 1,
+        pageSize: pageSize ? pageSize : 10,              
+      })
+    )
+      .then(unwrapResult)
+      .then((orginalPromiseResult) => {
+        if (orginalPromiseResult.statusCode === 200) {
+          if (tableRef.current) {
+            if (orginalPromiseResult.data.data) {
+              const formattedData = orginalPromiseResult.data.data;
+              tableRef.current.setData(formattedData);
+              tableRef.current.setTotalRows(
+                orginalPromiseResult.data.totalCount
+              );
+            } else {
+              tableRef.current.setData([]);
+              tableRef.current.setTotalRows(0);
+            }
+          }
+
+          if (useSpinner && tableRef.current)
+            tableRef.current.setIsLoading(false);
+        } else {
+          console.error("fetching data error");
+        }
+        setLoading(false);
+      })
+      .catch(() => {
+        console.error("fetching data error");
+        setLoading(false);
+      });
+  };
+
+  
+  const handleSearch = () => {
+   
+  };
+
+  const onCellClick = () => {};
+
+  const handleClear = () => {
+    
+  };
+
+  const handleChange = (e: any, fieldName: string) => {
+    
+  };
+
+  function EditItem(props: { row: DTRow }) {
+    const navigate = useNavigate();
+    const intl = useIntl();
+
+    return (
+      <>
+        {
+          <>
+            {
+              <>
+                <div className="col col-auto">
+                  <OverlayTrigger
+                    placement="top"
+                    overlay={
+                      <Tooltip id="tooltip">
+                        <div className="tooltip-text">
+                          {intl.formatMessage({ id: "LABEL.EDIT" })}
+                        </div>
+                      </Tooltip>
+                    }
+                  >
+                    <div
+                      style={{ cursor: "pointer" }}
+                      onClick={() =>
+                        navigate("/end-user/service-request-form", {
+                          state: {
+                            serviceId: props.row.serviceId,
+                            requestId: props.row.requestId,
+                            isReadOnly: false,
+                            statusId: props.row.statusId,
+                            currentStepId: props.row.currentStepId,
+                          },
+                        })
+                      }
+                    >
+                      <i className="2xl fa fa-light fa-edit fa-xl" />
+                    </div>
+                  </OverlayTrigger>
+                </div>
+              </>
+            }
+          </>
+        }
+      </>
+    );
+  }
+
+  function DeleteItem(props: { row }) {
+    const intl = useIntl();
+
+    return (
+      <>
+        {
+          <>
+            {
+              <>
+                {Number(props.row.statusId) == 1 && (
+                  <div className="col col-auto">
+                    <OverlayTrigger
+                      placement="top"
+                      overlay={
+                        <Tooltip id="tooltip">
+                          <div className="tooltip-text">
+                            {intl.formatMessage({ id: "LABEL.DELETE" })}
+                          </div>
+                        </Tooltip>
+                      }
+                    >
+                      <div
+                        style={{ cursor: "pointer" }}
+                        onClick={() =>
+                          // navigate("/end-user/service-request-form", {
+                          //   state: {
+                          //     serviceId: props.row.serviceId,
+                          //     requestId: props.row.requestId,
+                          //     isReadOnly: false,
+                          //     statusId: props.row.statusId,
+                          //     currentStepId: props.row.currentStepId,
+                          //   },
+                          // })
+                          handleDeleteRequest(props.row)
+                        }
+                      >
+                        <i className="2xl fa fa-light fa-trash fa-xl" />
+                      </div>
+                    </OverlayTrigger>
+                  </div>
+                )}
+              </>
+            }
+          </>
+        }
+      </>
+    );
+  }
+
+  function ServiceName(props: { row: DTRow; editStatus: string }) {
+    const navigate = useNavigate();
+    const intl = useIntl();
+    let cssPropName = "";
+    if (props.row.priority == "عالي" || props.row.priority == "High") {
+      cssPropName = "High";
+    } else if (
+      props.row.priority == "متوسط" ||
+      props.row.priority == "Medium"
+    ) {
+      cssPropName = "Medium";
+    } else if (props.row.priority == "منخفض" || props.row.priority == "Low") {
+      cssPropName = "Low";
+    }
+    return (
+      <>
+        {
+          <div className="col col-auto">
+            {
+              <>
+                <DetailLabels
+                  text={props.row.priority!}
+                  customClassName={`${cssPropName.toLowerCase()}-priority-ar`}
+                  style={{ width: "60px", margin: "0 10px" }}
+                />
+
+                <DetailLabels text={props.row.requestNumber!} />
+
+                <div
+                  style={{
+                    borderLeft: "1px solid #ccc",
+                    height: "20px",
+                    margin: "0 10px",
+                    display: "inline-block",
+                  }}
+                ></div>
+
+                <DetailLabels text={props.row.requestTitle!} />
+              </>
+            }
+          </div>
+        }
+      </>
+    );
+  }
+
+  function FeedBackView(props: { row }) {
+    const navigate = useNavigate();
+    const intl = useIntl();
+
+    return (
+      <>
+        {
+          <>
+            {
+              <>
+                {String(props.row.currentStatus).toLocaleLowerCase() ==
+                  "completed" && (
+                  <div className="col col-auto">
+                    <OverlayTrigger
+                      placement="top"
+                      overlay={
+                        <Tooltip id="tooltip">
+                          <div className="tooltip-text">
+                            {intl.formatMessage({ id: "LABEL.FEEDBACK" })}
+                          </div>
+                        </Tooltip>
+                      }
+                    >
+                      <div
+                        style={{ cursor: "pointer" }}
+                        onClick={() => //handleOpenModal(props.row)
+                            []}
+                      >
+                        {/* {String(props.row.currentStatus).toLocaleLowerCase()} */}
+                        {/* {String(props.row.feedbackStatus).toLocaleLowerCase()} */}
+                        <i className="fa-light fa-comment-dots fa-xl" />
+                      </div>
+                    </OverlayTrigger>
+                  </div>
+                )}
+              </>
+            }
+          </>
+        }
+      </>
+    );
+  }
+
+  const TabStyle = {
+    display: "inline-block",
+    padding: "12px 24px",
+    cursor: "pointer",
+    border: "none",
+    outline: "none",
+    background: "none",
+
+    color: "#555",
+    transition: "color 0.2s",
+    fontFamily: "FrutigerLTArabic-Roman_0",
+    backgroundColor: "transparent",
+
+    fontSize: " 0.875rem",
+    fontWeight: "bold",
+    borderBottom: "none",
+  };
+
+  const activeTabStyle = {
+    ...TabStyle,
+    color: "rgb(107, 114, 128)",
+    borderBottom: "solid #ccc 1px",
+    fontWeight: 600,
+    boxShadow: "0px 2px 0px 0px #B7945A",
+  };
+
+  const tabListStyle = {
+    display: "flex",
+    bordorBottom: "1px solid #e0e0e0",
+    gap: 2,
+    marginBottom: "2rem",
+  };
+
+  const handleDeleteRequest = (row) => {
+    setShowModalDelete(true);
+  };
+
+  const handleDeleteRequestItem = () => {
+
+  };
+
+  return (
+    <>
+      <Row className="mb-4">
+        <Col>
+          <CountWidgetList
+            widgets={[]}
+            scrollable={false}
+            //filterByStatusId={handleFilterByStatusId}
+          ></CountWidgetList>
+        </Col>
+      </Row>
+      <div className="search-container p-4">
+        <Row>
+          <Col className="col-11">
+            <AdminMetSearch
+            //   statusId={filters?.statusId?.toString()}
+            //   categoryId={filters?.categoryId}
+            //   date={
+            //     filters?.requestDateFrom
+            //       ? dayjs(filters?.requestDateFrom).format("YYYY-MM-DD")
+            //       : undefined
+            //   }
+               apiCallType={ApiCallType.ServiceListDashboard}
+            ></AdminMetSearch>
+          </Col>
+          <Col className="col-md-1 ps-14">
+            <button
+              type="button"
+              className="btn-add-icon mt-2"
+              onClick={() => setShowAdvanced((prev) => !prev)}
+              aria-label="Show Advanced Search"
+            >
+              {/* <FontAwesomeIcon color={"rgb(134, 140, 151)"} size="lg" icon={faFilter} /> */}
+              <FontAwesomeIcon
+                icon={faFilter}
+                size="lg"
+                color="#B7945A"
+                className="fs-3 px-0 filter-icon-cus"
+              />
+            </button>
+          </Col>
+        </Row>
+        <Row className="row search-container1 py-4" hidden={!showAdvanced}>
+          <Col>
+            <DropdownList
+              dataKey="categoryId"
+              dataValue={lang === "ar" ? "categoryNameAr" : "categoryNameEn"}
+              defaultText={intl.formatMessage({
+                id: "LABEL.SERVICECATEGORY",
+              })}
+              value={0}
+              rtl={true}
+              data={[]}
+              key={generateUUID()}
+              setSelectedValue={(e) => handleChange(e, "categoryId")}
+            />
+          </Col>
+          <Col>
+            <DropdownList
+              key={"statusId"}
+              dataKey="statusId"
+              dataValue={lang === "ar" ? "statusNameAr" : "statusNameEn"}
+              defaultText={intl.formatMessage({ id: "LABEL.NEXTSTATUS" })}
+              value={0}
+              //data={statuses}
+              data={[]}
+              setSelectedValue={(e) => handleChange(e, "statusId")}
+            />
+          </Col>
+        </Row>
+        <Row className="row search-container1 py-4" hidden={!showAdvanced}>
+          <Col>
+            <MUIDatePicker
+              placeholder={intl.formatMessage({
+                id: "LABEL.FROM",
+              })}
+              value={new Date()}
+              onDateChange={(newDate) =>
+                handleChange(newDate, "requestDateFrom")
+              }
+              key={generateUUID()}
+              id={""}
+            />
+          </Col>
+          <Col>
+            <MUIDatePicker
+              placeholder={intl.formatMessage({
+                id: "LABEL.TO",
+              })}
+              value={new Date()}
+              onDateChange={(newDate) => handleChange(newDate, "requestDateTo")}
+              key={generateUUID()}
+              minDate={new Date()}
+              id={""}
+            />
+          </Col>
+        </Row>
+        <Row className="row search-container1 py-4" hidden={!showAdvanced}>
+          <Col>
+            <DropdownList
+              dataKey="serviceId"
+              dataValue={"serviceName"}
+              defaultText={intl.formatMessage({
+                id: "LABEL.SERVICENAME",
+              })}
+              value={0}
+              rtl={true}
+              data={[]}
+              key={generateUUID()}
+              setSelectedValue={(e) => handleChange(e, "serviceId")}
+            />
+          </Col>
+          <Col></Col>
+        </Row>
+        <Row className="row search-container1 py-4" hidden={!showAdvanced}>
+          <Col className="d-flex gap-2 justify-content-end">
+            <button
+              type="button"
+              id="kt_modal_new_target_Search"
+              className="btn MOD_btn btn-create"
+              style={{ minWidth: 120 }}
+              onClick={handleSearch}
+            >
+              <BtnLabeltxtMedium2
+                text={intl.formatMessage({ id: "LABEL.SEARCH" })}
+                isI18nKey={false}
+              />
+            </button>
+            <button
+              type="button"
+              id="kt_modal_new_target_clear"
+              className="btn MOD_btn btn-cancel"
+              style={{ minWidth: 120 }}
+              onClick={handleClear}
+            >
+              <BtnLabelCanceltxtMedium2
+                text={intl.formatMessage({ id: "LABEL.CLEAR" })}
+              />
+            </button>
+          </Col>
+        </Row>{" "}
+      </div>
+
+      <div style={tabListStyle} className="mb-3 mt-5">
+        <button
+          onClick={() => setTabInit(0)}
+          style={tabInit == 0 ? activeTabStyle : TabStyle}
+        >
+          {intl.formatMessage({ id: "LABEL.MYREQUESTS" })}
+        </button>
+        <button
+          onClick={() => setTabInit(1)}
+          style={tabInit == 1 ? activeTabStyle : TabStyle}
+        >
+          {intl.formatMessage({ id: "LABEL.MYACTIONS" })}
+        </button>
+      </div>
+      <div style={{ display: tabInit === 0 ? "block" : "none" }}>
+        {tabInit === 0 && (
+          <DataTableMain2
+            displaySearchBar={false}
+            lang={lang}
+            tableConfig={finalTableConfig}
+            onCellClick={onCellClick}
+            paginationServer
+            getData={fetchObservationList}
+            ref={tableRef}
+            componentsList={componentsListMyRequest}
+          />
+        )}
+      </div>
+      <div style={{ display: tabInit === 1 ? "block" : "none" }}>
+        {tabInit === 1 && (
+          <DataTableMain2
+            displaySearchBar={false}
+            lang={lang}
+            tableConfig={finalTableConfig}
+            onCellClick={onCellClick}
+            paginationServer
+            getData={fetchObservationList}
+            ref={tableRef}
+            componentsList={componentsList}
+          />
+        )}
+      </div>
+
+      
+      <Modal
+        show={showModalDelete}
+        onHide={() => setShowModalDelete(false)}
+        dialogClassName={"customModal"}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {intl.formatMessage({ id: "LABEL.DELETE" })}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="row">
+            <Col className="col-1" />
+
+            <Col className="col-11">
+              {intl.formatMessage({ id: "VALIDATION.DELETE.CONFIRM" })}
+              {/* :{" "} */}
+              {/* <b>{requestTitle}</b> */}
+            </Col>
+          </div>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <div className="row pt-2" id="controlPanelProjectSubmission">
+            <div className="col-12 d-flex justify-content-center">
+              <button
+                onClick={() => handleDeleteRequestItem()}
+                className={
+                  1 != 1
+                    ? "btn MOD_btn w-10 pl-5 mx-3 float-start btn-notAllowed"
+                    : "btn MOD_btn w-10 pl-5 mx-3 float-start btn-create"
+                }
+              >
+                {intl.formatMessage({ id: "LABEL.YES" })}
+              </button>
+
+              <button
+                className="btn btn-cancel p-2"
+                onClick={() => {
+                  setShowModalDelete(false);
+                }}
+              >
+                {intl.formatMessage({ id: "LABEL.NO" })}
+              </button>
+            </div>
+          </div>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
