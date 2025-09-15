@@ -3,6 +3,7 @@ import Recommendation from './Recommendation'
 import ActionsDisplay from './ActionsDisplay'
 import dayjs from 'dayjs'
 import {KTSVG} from '../../../_metronic/helpers'
+import { IRecommendation } from '../../models/recommendation/recommendation.model'
 import { 
   Accordion, 
   AccordionSummary, 
@@ -21,10 +22,12 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import CloseIcon from '@mui/icons-material/Close'
 import { HeaderLabels, LabelTextSemibold2 } from '../../modules/components/common/formsLabels/detailLabels'
+import CardHeaderSubLabel from '../../modules/components/common/CardHeaderLabel/cardHeaderSubLabel';
 
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import ClearIcon from '@mui/icons-material/Clear';
 interface RecommendationDetailsProps {
+  recommendation?: IRecommendation // New prop for the full recommendation object
   text: string
   timestamp?: string | Date
   status?: 'sent' | 'delivered' | 'read'
@@ -38,6 +41,7 @@ interface RecommendationDetailsProps {
 }
 
 const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({
+  recommendation,
   text,
   timestamp,
   status = 'sent',
@@ -55,6 +59,7 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({
 
   // Debug logging
   console.log('RecommendationDetails rendered with:', { 
+    recommendation,
     recommendationId, 
     onEditClick: !!onEditClick,
     onDeleteClick: !!onDeleteClick,
@@ -107,10 +112,17 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({
         }}
       >
         <div className="w-100 d-flex justify-content-between align-items-center">
-        
+          <div className="d-flex flex-column">
             <LabelTextSemibold2
-              text= {`${index} ${text}`}
+              text= {`${index} ${recommendation?.recommendationText || text}`}
             />
+              {isExpanded && (
+                <CardHeaderSubLabel
+                  text={`${recommendation?.level}  |  ${recommendation?.combatFunction}`}
+                  numericVal="4"
+                  style={{ marginTop: '8px' }}
+                />)}
+          </div>
           <div className="d-flex align-items-center me-3" style={{ gap: '15px', borderLeft: '1px solid #E2E2E2',paddingLeft: '10px' }}>
             <EditOutlinedIcon 
               onClick={(e) => {

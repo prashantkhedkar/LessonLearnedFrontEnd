@@ -5,6 +5,7 @@ import './ObservationPage.css';
 
 // Import the new ComponentShowcase component
 import ComponentShowcase from '../../modules/components/ComponentShowcase/ComponentShowcase';
+import Recommendation from '../components/Recommendation';
 
 const ObservationPage: React.FC = () => {
   const intl = useIntl();
@@ -13,13 +14,13 @@ const ObservationPage: React.FC = () => {
     <div className="container-fluid observation-page-container">
       <div className="card observation-page-card">
         <div className="card-body observation-page-card-body">
-          
+          <Recommendation observationId={2}></Recommendation>
           {/* Component Showcase Section */}
-          {/* <ComponentShowcase 
+          <ComponentShowcase 
             title={intl.formatMessage({ id: "PAGE.TITLE.OBSERVATION" })}
             showPageHeader={true}
             enableInteractivity={true}
-          /> */}
+          />
 
           {/* Original Observation Steppers */}
           {/* <div className="card mt-4">
