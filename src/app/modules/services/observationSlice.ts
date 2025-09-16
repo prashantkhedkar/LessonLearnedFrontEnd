@@ -131,7 +131,7 @@ export const deleteObservation = createAsyncThunk<
   async ({ articleId }, thunkApi) => {
     try {
       return await requests.delete<responseType>(
-        `/Observation/DeleteArticle/${articleId}`
+        `/Observation/Delete/${articleId}`
       );
     } catch (error: any) {
       console.log(error);

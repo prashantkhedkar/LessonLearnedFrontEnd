@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useLang } from "../../../_metronic/i18n/Metronici18n";
 import { useAppDispatch } from "../../../store";
-import DataTableMain2, {ComponentAndProps} from "../../modules/components/dataTable2/DataTableMain";
+import DataTableMain2, { ComponentAndProps } from "../../modules/components/dataTable2/DataTableMain";
 import columns from "./ObservationsTableConfig.json";
 import { useEffect, useRef, useState } from "react";
 import { Row as DTRow } from "../../models/row";
@@ -28,17 +28,19 @@ import { MUIDatePicker } from "../../modules/components/datePicker/MUIDatePicker
 import { toast } from "react-toastify";
 import { ArticleSearchModel } from "../models/observationModel";
 import { deleteObservation, fetchObservations } from "../../modules/services/observationSlice";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function ObservationList() {
   const intl = useIntl();
-  const lang = useLang();
+  const lang = useLang();    
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const finalTableConfig = JSON.stringify(columns);  
+  const finalTableConfig = JSON.stringify(columns);
   const tableRef = useRef<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [showAdvanced, setShowAdvanced] = useState<boolean>(false);
   const [componentsList, setComponentsList] = useState<ComponentAndProps[]>([]);
-  const [componentsListMyRequest, setComponentsListMyRequest] = useState<ComponentAndProps[]>([]); 
+  const [componentsListMyRequest, setComponentsListMyRequest] = useState<ComponentAndProps[]>([]);
   const [observationId, setObservationId] = useState<number>(0);
 
   const location = useLocation();
@@ -101,7 +103,7 @@ export default function ObservationList() {
     dispatch(
       fetchObservations({
         pageNumber: pageNumber ? pageNumber : 1,
-        pageSize: pageSize ? pageSize : 10,              
+        pageSize: pageSize ? pageSize : 10,
       })
     )
       .then(unwrapResult)
@@ -134,19 +136,27 @@ export default function ObservationList() {
       });
   };
 
-  
+
   const handleSearch = () => {
-   
+
   };
 
-  const onCellClick = () => {};
+  const onCellClick = () => { };
 
   const handleClear = () => {
-    
+    fetchObservationList(
+      1,
+      10,
+      draftDefaultSortColumn,
+      draftDefaultSortDirection,
+      "",
+      true,
+      true
+    );
   };
 
   const handleChange = (e: any, fieldName: string) => {
-    
+
   };
 
   function EditItem(props: { row: DTRow }) {
@@ -278,7 +288,7 @@ export default function ObservationList() {
     );
   }
 
-  
+
   const TabStyle = {
     display: "inline-block",
     padding: "12px 24px",
@@ -318,6 +328,7 @@ export default function ObservationList() {
   };
 
   const handleDeleteItem = () => {
+    debugger;
     if (observationId === null) return;
 
     dispatch(deleteObservation({ articleId: Number(observationId) }))
@@ -326,14 +337,14 @@ export default function ObservationList() {
         const { statusCode, data, message } = originalPromiseResult;
 
         if (statusCode === 200) {
-          if (message === "Success") {
+          if (message === "Deleted") {
             setShowModalDelete(false);
             handleClear();
 
             toast.success(
               intl.formatMessage({ id: "MESSAGE.REQUEST.DELETED.SUCCESS" })
             );
-          } else if (message === "Failed") {
+          } else {
             toast.success(intl.formatMessage({ id: "MESSAGE.ERROR.MESSAGE" }));
           }
         }
@@ -346,6 +357,10 @@ export default function ObservationList() {
       });
   };
 
+  const handleAddNewObservation = () => {
+    navigate("/observation/new");
+  }
+
   return (
     <>
       <Row className="mb-4">
@@ -353,7 +368,7 @@ export default function ObservationList() {
           <CountWidgetList
             widgets={[]}
             scrollable={false}
-            //filterByStatusId={handleFilterByStatusId}
+          //filterByStatusId={handleFilterByStatusId}
           ></CountWidgetList>
         </Col>
       </Row>
@@ -361,14 +376,14 @@ export default function ObservationList() {
         <Row>
           <Col className="col-11">
             <AdminMetSearch
-            //   statusId={filters?.statusId?.toString()}
-            //   categoryId={filters?.categoryId}
-            //   date={
-            //     filters?.requestDateFrom
-            //       ? dayjs(filters?.requestDateFrom).format("YYYY-MM-DD")
-            //       : undefined
-            //   }
-               apiCallType={ApiCallType.ServiceListDashboard}
+              //   statusId={filters?.statusId?.toString()}
+              //   categoryId={filters?.categoryId}
+              //   date={
+              //     filters?.requestDateFrom
+              //       ? dayjs(filters?.requestDateFrom).format("YYYY-MM-DD")
+              //       : undefined
+              //   }
+              apiCallType={ApiCallType.ServiceListDashboard}
             ></AdminMetSearch>
           </Col>
           <Col className="col-md-1 ps-14">
@@ -488,21 +503,32 @@ export default function ObservationList() {
           </Col>
         </Row>{" "}
       </div>
-
-      <div style={tabListStyle} className="mb-3 mt-5">
-        <button
-          onClick={() => setTabInit(0)}
-          style={tabInit == 0 ? activeTabStyle : TabStyle}
-        >
-          {intl.formatMessage({ id: "LABEL.MYREQUESTS" })}
-        </button>
-        <button
-          onClick={() => setTabInit(1)}
-          style={tabInit == 1 ? activeTabStyle : TabStyle}
-        >
-          {intl.formatMessage({ id: "LABEL.MYACTIONS" })}
-        </button>
+      <div className="d-flex justify-content-between align-items-center">
+        <div style={tabListStyle} className="mb-3 mt-5">
+          <button
+            onClick={() => setTabInit(0)}
+            style={tabInit == 0 ? activeTabStyle : TabStyle}
+          >
+            {intl.formatMessage({ id: "LABEL.MYREQUESTS" })}
+          </button>
+          <button
+            onClick={() => setTabInit(1)}
+            style={tabInit == 1 ? activeTabStyle : TabStyle}
+          >
+            {intl.formatMessage({ id: "LABEL.MYACTIONS" })}
+          </button>
+        </div>
+        <div>
+          <button
+            onClick={handleAddNewObservation}
+            className="btn MOD_btn btn-create min-w-75px w-100 align-self-end"
+          >
+            <FontAwesomeIcon color={""} size="1x" icon={faPlus} />
+            {intl.formatMessage({ id: "BUTTON.LABEL.ADD" })}
+          </button>
+        </div>
       </div>
+
       <div style={{ display: tabInit === 0 ? "block" : "none" }}>
         {tabInit === 0 && (
           <DataTableMain2
@@ -532,7 +558,7 @@ export default function ObservationList() {
         )} */}
       </div>
 
-      
+
       <Modal
         show={showModalDelete}
         onHide={() => setShowModalDelete(false)}
