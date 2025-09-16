@@ -13,6 +13,7 @@ import Recommendation from "./Recommendation";
 import { useAppDispatch, useAppSelector } from "../../../store";
 import { createObservation, fetchObservationById, updateObservation } from "../../modules/services/observationSlice";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ObservationStatus } from "../../helper/_constant/status.constant";
 
 // Custom Connector Component
 const CustomConnector = styled(StepConnector)(({ theme }) => ({
@@ -101,7 +102,7 @@ export const ObservationSteppers = () => {
       originatingType: values.originatingType || undefined,
       level: values.level || undefined,
       currentAssignment: values.currentAssignment || '',
-      status: isDraft ? 12 : (values.status || 1), // 12 for draft, otherwise use form status or default to 1
+      status: isDraft ? ObservationStatus.Draft : values.status, // 1 for draft, otherwise use form status or default to 1
     };
 
     // Include id for update operations

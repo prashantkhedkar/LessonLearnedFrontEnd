@@ -241,8 +241,8 @@ const ObservationForm: React.FC<ObservationFormProps> = ({ onSubmit, initialValu
             </div>
             <div className="col-md-4">
               <DropdownList
-                dataKey="lookupId"
-                dataValue={lang === "ar" ? "lookupNameAr" : "lookupName"}
+                dataKey="id"
+                dataValue={lang === "ar" ? "label" : "labelEn"}
                 defaultText={intl.formatMessage({ id: "PLACEHOLDER.SELECT.TYPE" })}
                 value={formik.values.observationType}
                 data={typeOptions}
@@ -261,8 +261,8 @@ const ObservationForm: React.FC<ObservationFormProps> = ({ onSubmit, initialValu
             </div>
             <div className="col-md-4">
               <DropdownList
-                dataKey="lookupId"
-                dataValue={lang === "ar" ? "lookupNameAr" : "lookupName"}
+                dataKey="id"
+                dataValue={lang === "ar" ? "label" : "labelEn"}
                 defaultText={intl.formatMessage({ id: "PLACEHOLDER.SELECT.LEVEL" })}
                 value={formik.values.level}
                 data={levelOptions}
@@ -388,8 +388,8 @@ const ObservationForm: React.FC<ObservationFormProps> = ({ onSubmit, initialValu
             </div>
             <div className="col-md-10">
               <DropdownList
-                dataKey="lookupId"
-                dataValue={lang === "ar" ? "lookupNameAr" : "lookupName"}
+                dataKey="id"
+                dataValue={lang === "ar" ? "label" : "labelEn"}
                 defaultText={intl.formatMessage({ id: "PLACEHOLDER.SELECT.COMBOT_FUNCTION" })}
                 value={formik.values.combatFunction}
                 data={combatFunctionOptions}
