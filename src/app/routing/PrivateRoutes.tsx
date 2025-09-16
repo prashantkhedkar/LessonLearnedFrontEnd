@@ -23,6 +23,7 @@ import Dashboard from "../modules/components/Dashboard";
 import ArticlePage from "../observation/pages/ObservationPage";
 import ObservationPage from "../observation/pages/ObservationPage";
 import ObservationList from "../observation/pages/ObservationList";
+import AttachmentForm from "../observation/pages/AttachmentForm"; // adjust path if needed
 
 const PrivateRoutes = () => {
   const dispatch = useAppDispatch();
@@ -187,6 +188,14 @@ const PrivateRoutes = () => {
                 </SuspensedView>
               }
             />
+            <Route
+                path="observation/attachments-sandbox"
+                element={
+                  <SuspensedView>
+                    <AttachmentForm observationID={2} />
+                  </SuspensedView>
+                }
+              />
             <Route
               path="*"
               element={
