@@ -27,7 +27,7 @@ import dayjs from "dayjs";
 import { MUIDatePicker } from "../../modules/components/datePicker/MUIDatePicker";
 import { toast } from "react-toastify";
 import { ArticleSearchModel } from "../models/observationModel";
-import { fetchObservations } from "../../modules/services/observationSlice";
+import { deleteObservation, fetchObservations } from "../../modules/services/observationSlice";
 
 export default function ObservationList() {
   const intl = useIntl();
@@ -39,6 +39,7 @@ export default function ObservationList() {
   const [showAdvanced, setShowAdvanced] = useState<boolean>(false);
   const [componentsList, setComponentsList] = useState<ComponentAndProps[]>([]);
   const [componentsListMyRequest, setComponentsListMyRequest] = useState<ComponentAndProps[]>([]); 
+  const [observationId, setObservationId] = useState<number>(0);
 
   const location = useLocation();
   const state = location.state as {
@@ -215,7 +216,7 @@ export default function ObservationList() {
                       <div
                         style={{ cursor: "pointer" }}
                         onClick={() =>
-                          handleDeleteRequest(props.row)
+                          handleDelete(props.row)
                         }
                       >
                         <i className="2xl fa fa-light fa-trash fa-xl" />
@@ -311,12 +312,38 @@ export default function ObservationList() {
     marginBottom: "2rem",
   };
 
-  const handleDeleteRequest = (row) => {
+  const handleDelete = (row) => {
     setShowModalDelete(true);
+    setObservationId(row.id);
   };
 
   const handleDeleteItem = () => {
+    if (observationId === null) return;
 
+    dispatch(deleteObservation({ articleId: Number(observationId) }))
+      .then(unwrapResult)
+      .then((originalPromiseResult) => {
+        const { statusCode, data, message } = originalPromiseResult;
+
+        if (statusCode === 200) {
+          if (message === "Success") {
+            setShowModalDelete(false);
+            handleClear();
+
+            toast.success(
+              intl.formatMessage({ id: "MESSAGE.REQUEST.DELETED.SUCCESS" })
+            );
+          } else if (message === "Failed") {
+            toast.success(intl.formatMessage({ id: "MESSAGE.ERROR.MESSAGE" }));
+          }
+        }
+      })
+      .catch((error) => {
+        const errMsg =
+          error?.message || "Something went wrong while updating the activity.";
+        toast.error(errMsg);
+        console.error("Update error:", error);
+      });
   };
 
   return (
