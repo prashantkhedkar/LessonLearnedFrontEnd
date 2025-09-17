@@ -1,3 +1,5 @@
+import { RoleModel } from './_rbacModels';
+
 export interface AuthModel {
   atkn: string;  
   displayNameEn: string;
@@ -18,6 +20,7 @@ export interface AuthModel {
   pId: number;
   militaryType:string;
   gender:string;
+  roles?: RoleModel[]; // Add user roles to auth model
 }
 
 export interface AuthRefreshTokenModel {

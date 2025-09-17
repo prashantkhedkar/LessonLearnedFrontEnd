@@ -90,20 +90,34 @@ export function Login() {
 
         if (auth && auth.userName) {
           localStorage.setItem("oidc:tkn", userDetails.data.jwtToken);
-          saveAuth(auth);
-          const { data: user } = await getUserByToken(
-            auth.jwtToken,
-            auth.userName
-          );
-          setCurrentUser(user);
+          
+          // Extract and save user roles from userDetails
+          const authWithRoles = {
+            ...auth,
+            roles: userDetails.data.roles || []  // Save roles from userDetails response
+          };
+          debugger
+          saveAuth(authWithRoles);
+          // const { data: user } = await getUserByToken(
+          //   auth.jwtToken,
+          //   auth.userName
+          // );
+          
+          // Also add roles to user object if not present
+          // const userWithRoles = {
+          //   ...user,
+          //   roles: userDetails.data.roles || user.roles || []
+          // };
+          
+          setCurrentUser(authWithRoles);
           setIsValidLogin(true);
 
-          let formDataObject: IPageLog;
-          formDataObject = {
-            pageName: "Login",
-            username: "",
-          };
-          dispatch(insertPageLog({ formDataObject }));
+          // let formDataObject: IPageLog;
+          // formDataObject = {
+          //   pageName: "Login",
+          //   username: "",
+          // };
+          // dispatch(insertPageLog({ formDataObject }));
 
         } else {
           setIsValidLogin(false);
@@ -137,18 +151,31 @@ export function Login() {
       setLoading(true);
 
       try {
-        const { data: auth } = await login(
+        const userDetails = await login(
           values.username,
           "ssss"
         );
 
-        if (auth && auth.userName) {
-          saveAuth(auth);
-          const { data: user } = await getUserByToken(
-            auth.jwtToken,
-            auth.userName
-          );
-          setCurrentUser(user);
+        if (userDetails && userDetails.data && userDetails.data.userName) {
+          // Extract roles from userDetails response
+          const authWithRoles = {
+            ...userDetails.data,
+            roles: userDetails.data.roles || []
+          };
+          
+          saveAuth(authWithRoles);
+          // const { data: user } = await getUserByToken(
+          //   userDetails.data.jwtToken,
+          //   userDetails.data.userName
+          // );
+          
+          // Add roles to user object
+          const userWithRoles = {
+            ...userDetails.data,
+            roles: userDetails.data.roles || []
+          };
+          
+          setCurrentUser(userWithRoles);
           setStatus("");
           setIsValidLogin(true);
 
@@ -157,7 +184,7 @@ export function Login() {
             username: "",
           };
 
-          await dispatch(insertPageLog({ formDataObject }));
+       //   await dispatch(insertPageLog({ formDataObject }));
         } else {
           saveAuth(undefined);
           setSubmitting(false);
