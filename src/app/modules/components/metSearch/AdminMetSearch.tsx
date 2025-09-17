@@ -11,11 +11,7 @@ import { SearchByWildCardText } from "../../services/globalSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { ServiceStatus } from "../../../helper/_constant/serviceStatus";
 import { ApiCallType } from "../../../helper/_constant/apiCallType.constant";
-import {
-  FilterServiceCategoryDashboard,
-  FilterServiceCategoryList,
-  FilterServiceListDashboard,
-} from "../../services/serviceRequestSlice";
+import { fetchObservations } from "../../services/observationSlice";
 
 export interface SearchResultModel {
   id: number;
@@ -112,38 +108,25 @@ const AdminMetSearch: FC<AdminMetSearchProps> = ({
 
   function SeachApi(text, pageNumber) {
     if (text && text.length >= 3) {
-      if (apiCallType === ApiCallType.AdminServiceDashboard) {
-        filterAdminServiceDashboard(text, pageNumber);
+      if (apiCallType === ApiCallType.ObservationList) {
+        fetchObservationList(text, pageNumber);
       }
 
-      if (apiCallType === ApiCallType.ServiceRequestDashboard) {
-        filterServiceCategoryDashboard(text, pageNumber);
-      }
-
-      if (apiCallType === ApiCallType.ServiceListDashboard) {
-        filterServiceListDashboard(text, pageNumber);
-      }
-      //for Filter Service from all CategoryDashboard filter
-      if (apiCallType === ApiCallType.FilterServiceCategoryDashboard) {
-        filterServiceCategoryDashboard(text, pageNumber);
-      }
-      //for Filter Service by CategoryDashboard filter
-      if (apiCallType === ApiCallType.FilterServiceByCategoryDashboard) {
-        filterServiceCategoryList(text, pageNumber);
-      }
+      
     }
   }
 
-  const filterAdminServiceDashboard = (text, pageNumber) => {
+  const fetchObservationList = (text, pageNumber) => {
     dispatch(
-      SearchByWildCardText({
-        searchText: text,
-        page: pageNumber,
-        pageSize: pageSize,
-        statusId: statusId || undefined,
-        dateFilter: date || undefined,
-        serviceCategoryId: categoryId || undefined,
-      })
+        fetchObservations({
+            pageNumber: pageNumber ? pageNumber : 1,
+            pageSize: pageSize ? pageSize : 10,
+            observationType: undefined,
+            status: undefined,
+            dateFrom:undefined,
+            dateTo: undefined,
+            searchTerm: text ? text : "",
+          })
     )
       .then(unwrapResult)
       .then((originalPromiseResult) => {
@@ -187,155 +170,7 @@ const AdminMetSearch: FC<AdminMetSearchProps> = ({
       });
   };
 
-  const filterServiceCategoryDashboard = (text, pageNumber) => {
-    dispatch(
-      FilterServiceCategoryDashboard({
-        searchText: text,
-        page: pageNumber,
-        pageSize: pageSize,
-      })
-    )
-      .then(unwrapResult)
-      .then((originalPromiseResult) => {
-        if (originalPromiseResult.statusCode === 200) {
-          if (
-            originalPromiseResult.data &&
-            originalPromiseResult.data.wildCardSearchTextDto.length > 0
-          ) {
-            resultsElement.current!.classList.remove("d-none");
-            emptyElement.current!.classList.add("d-none");
-            searchIconElement.current!.classList.add("d-none");
-
-            setSearchResult(originalPromiseResult.data.wildCardSearchTextDto);
-            if (originalPromiseResult.data) {
-              let totalCount = originalPromiseResult.data.totalCount;
-              setNumberOfPages(Math.ceil(totalCount / pageSize));
-              setRefreshData(false);
-            }
-          } else {
-            resultsElement.current!.classList.add("d-none");
-            // Show empty message
-            emptyElement.current!.classList.remove("d-none");
-            searchIconElement.current!.classList.add("d-none");
-          }
-        } else {
-          resultsElement.current!.classList.add("d-none");
-          emptyElement.current!.classList.remove("d-none");
-          searchIconElement.current!.classList.add("d-none");
-        }
-        if (originalPromiseResult.statusCode === 401) {
-          console.log("Selected Role Api call Failed");
-          resultsElement.current!.classList.add("d-none");
-          emptyElement.current!.classList.remove("d-none");
-          searchIconElement.current!.classList.add("d-none");
-        }
-      })
-      .catch((rejectedValueOrSerializedError) => {
-        console.log(rejectedValueOrSerializedError);
-        resultsElement.current!.classList.add("d-none");
-        emptyElement.current!.classList.remove("d-none");
-        searchIconElement.current!.classList.add("d-none");
-      });
-  };
-
-  const filterServiceListDashboard = (text, pageNumber) => {
-    dispatch(
-      FilterServiceListDashboard({
-        searchText: text,
-        page: pageNumber,
-        pageSize: pageSize,
-      })
-    )
-      .then(unwrapResult)
-      .then((originalPromiseResult) => {
-        if (originalPromiseResult.statusCode === 200) {
-          if (
-            originalPromiseResult.data &&
-            originalPromiseResult.data.wildCardSearchTextDto.length > 0
-          ) {
-            resultsElement.current!.classList.remove("d-none");
-            emptyElement.current!.classList.add("d-none");
-
-            searchIconElement.current!.classList.add("d-none");
-            setSearchResult(originalPromiseResult.data.wildCardSearchTextDto);
-            if (originalPromiseResult.data) {
-              let totalCount = originalPromiseResult.data.totalCount;
-              setNumberOfPages(Math.ceil(totalCount / pageSize));
-              setRefreshData(false);
-            }
-          } else {
-            resultsElement.current!.classList.add("d-none");
-            // Show empty message
-            emptyElement.current!.classList.remove("d-none");
-
-            searchIconElement.current!.classList.add("d-none");
-          }
-        } else {
-          resultsElement.current!.classList.add("d-none");
-          emptyElement.current!.classList.remove("d-none");
-        }
-        if (originalPromiseResult.statusCode === 401) {
-          console.log("Selected Role Api call Failed");
-          resultsElement.current!.classList.add("d-none");
-          emptyElement.current!.classList.remove("d-none");
-        }
-      })
-      .catch((rejectedValueOrSerializedError) => {
-        console.log(rejectedValueOrSerializedError);
-        resultsElement.current!.classList.add("d-none");
-        emptyElement.current!.classList.remove("d-none");
-      });
-  };
-
-  const filterServiceCategoryList = (text, pageNumber) => {
-    dispatch(
-      FilterServiceCategoryList({
-        searchText: text,
-        page: pageNumber,
-        pageSize: pageSize,
-        serviceCategoryId: categoryId || undefined,
-      })
-    )
-      .then(unwrapResult)
-      .then((originalPromiseResult) => {
-        if (originalPromiseResult.statusCode === 200) {
-          if (
-            originalPromiseResult.data &&
-            originalPromiseResult.data.wildCardSearchTextDto.length > 0
-          ) {
-            resultsElement.current!.classList.remove("d-none");
-            emptyElement.current!.classList.add("d-none");
-
-            searchIconElement.current!.classList.add("d-none");
-            setSearchResult(originalPromiseResult.data.wildCardSearchTextDto);
-            if (originalPromiseResult.data) {
-              let totalCount = originalPromiseResult.data.totalCount;
-              setNumberOfPages(Math.ceil(totalCount / pageSize));
-              setRefreshData(false);
-            }
-          } else {
-            resultsElement.current!.classList.add("d-none");
-            // Show empty message
-            emptyElement.current!.classList.remove("d-none");
-
-            searchIconElement.current!.classList.add("d-none");
-          }
-        } else {
-          resultsElement.current!.classList.add("d-none");
-          emptyElement.current!.classList.remove("d-none");
-        }
-        if (originalPromiseResult.statusCode === 401) {
-          console.log("Selected Role Api call Failed");
-          resultsElement.current!.classList.add("d-none");
-          emptyElement.current!.classList.remove("d-none");
-        }
-      })
-      .catch((rejectedValueOrSerializedError) => {
-        console.log(rejectedValueOrSerializedError);
-        resultsElement.current!.classList.add("d-none");
-        emptyElement.current!.classList.remove("d-none");
-      });
-  };
+  
 
   const highLightBold = (text, searchT) => {
     if (searchT == "") return text;
@@ -362,31 +197,9 @@ const AdminMetSearch: FC<AdminMetSearchProps> = ({
 
   const getNavigationLink = () => {
     
-    if (apiCallType === ApiCallType.AdminServiceDashboard) {
-      return "edit-services";
+    if (apiCallType === ApiCallType.ObservationList) {
+      return "/observation/new";
     }
-
-    if (apiCallType === ApiCallType.ServiceRequestDashboard) {
-      return "/service-request-form";
-    }
-
-    if (apiCallType === ApiCallType.ServiceListDashboard) {
-      return "/end-user/service-request-form";
-    }
-    //for Filter Service list
-    if (apiCallType === ApiCallType.FilterServiceCategoryDashboard) {
-      return "/end-user/service-request-form";
-    }
-
-    //for Filter Service list by Category
-    if (apiCallType === ApiCallType.FilterServiceByCategoryDashboard) {
-      return "/end-user/service-request-form";
-    }
-
-    if (apiCallType === ApiCallType.ServiceCategoryList) {
-      return "/service-request-form";
-    }
-
     return "";
   };
 
@@ -470,20 +283,7 @@ const AdminMetSearch: FC<AdminMetSearchProps> = ({
                   <NavLink
                     to={getNavigationLink()}
                     state={{
-                      serviceId: item.id,
-                      isReadOnly: false,
-                      isPublish:
-                        item.statusId == ServiceStatus.Active ||
-                        item.statusId == ServiceStatus.Inactive,
-                      statusId: item.statusId,
-                      currentTabView:
-                        apiCallType == ApiCallType.AdminServiceDashboard
-                          ? item.statusId == ServiceStatus.Active ||
-                            item.statusId == ServiceStatus.Inactive
-                            ? "submitted-view"
-                            : "draft-view"
-                          : "",
-                      requestId: item.requestId,
+                      observationId: item.id,
                     }}
                     className="d-flex text-dark text-hover-primary align-items-center pb-5 border-bottom pt-2 "
                   >

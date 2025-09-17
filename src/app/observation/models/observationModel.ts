@@ -31,6 +31,7 @@ export interface ArticleCreateUpdateModel {
   level?: number;
   currentAssignment?: string;
   status?: number;
+  combatFunction?: number;
 }
 
 // Article List Model (for paginated responses)
@@ -46,7 +47,7 @@ export interface ArticleListModel {
 export interface ArticleSearchModel {
   searchTerm?: string;
   observationType?: number;
-  status?: string;
+  status?: number;
   currentAssignment?: string;
   level?: number;
   dateFrom?: Date;
@@ -61,7 +62,7 @@ export interface ArticleSearchModel {
 export const DEFAULT_ARTICLE_SEARCH: ArticleSearchModel = {
   searchTerm: '',
   observationType: undefined,
-  status: '',
+  status: undefined,
   currentAssignment: '',
   level: undefined,
   pageNumber: 1,
@@ -81,6 +82,7 @@ export const DEFAULT_ARTICLE_FORM: ArticleCreateUpdateModel = {
   level: 0,
   currentAssignment: '',
   status: 12,
+  combatFunction: 0,
 };
 
 // Article History Model

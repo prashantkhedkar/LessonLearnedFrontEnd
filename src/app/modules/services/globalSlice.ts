@@ -26,7 +26,7 @@ import {
   IUnitSearchModel,
   UnitModel,
 } from "../../models/global/unitModel";
-import { DynamicFormSubmitPayload } from "../components/dynamicFields/utils/types";
+
 // Redux Thunk Action
 //Get User Access
 export const fetchUserAccessAsync = createAsyncThunk<any, { moduleId: any }>(
@@ -54,14 +54,15 @@ export const fetchUserRolesAccessAsync = createAsyncThunk<any>(
 );
 
 // Redux Thunk Action
-export const fetchLookupAsync = createAsyncThunk<any>(
-  "fetchLookupAsync",
-  async (servicetype, thunkApi) => {
+export const GetLookupValues = createAsyncThunk<any, { lookupType?: string }>(
+  "GetLookupValues",
+  async ({ lookupType }, thunkApi) => {
     try {
       return await requests.get<responseType>(
-        `/admin/GetLookupValues`
+        `/MasterData/GetMasterLookups?lookupType=${lookupType}`
       );
     } catch (error: any) {
+      console.log(error);
       return thunkApi.rejectWithValue({ error: JSON.stringify(error) });
     }
   }
@@ -223,7 +224,7 @@ export const deleteAttachmentAsync = createAsyncThunk<
   }
 });
 
-export const fetchAttachmentListAsync = createAsyncThunk<any, { recordId: string, moduleTypeId: any, draftId: string}>(
+export const fetchAttachmentListAsync = createAsyncThunk<any, { recordId: string, moduleTypeId: any, draftId: string }>(
   "fetchAttachmentListAsync",
   async ({ recordId, moduleTypeId, draftId }, thunkApi) => {
 
@@ -822,7 +823,7 @@ export const fetchActionsByRecommendationId = createAsyncThunk<
 
 export const saveActionForRecommendation = createAsyncThunk<
   any,
-  { 
+  {
     recommendationId: number | string,
     actionData: {
       id?: number,
@@ -848,6 +849,17 @@ export const saveActionForRecommendation = createAsyncThunk<
     }
   }
 );
+
+export const fetchStatuses = createAsyncThunk<any>
+  (`/MasterData/GetStatusMaster`,
+    async (_, thunkApi) => {
+      try {
+        return await requests.get<responseType>(`/MasterData/GetStatusMaster`);
+      } catch (error: any) {
+        console.log(error);
+        return thunkApi.rejectWithValue({ error: JSON.stringify(error) });
+      }
+    });
 
 
 
@@ -969,7 +981,7 @@ export const globalSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchLookupAsync.fulfilled, (state, action) => {
+    builder.addCase(GetLookupValues.fulfilled, (state, action) => {
       state.viewLookups = action.payload.data;
     });
     builder.addCase(addUserCommentsAsync.fulfilled, (state) => {

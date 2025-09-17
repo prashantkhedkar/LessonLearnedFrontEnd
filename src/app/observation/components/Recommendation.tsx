@@ -11,7 +11,7 @@ import { BtnLabelCanceltxtMedium2, BtnLabeltxtMedium2, HeaderLabels, InfoLabels 
 import { useIntl } from 'react-intl';
 import DropdownList from '../../modules/components/dropdown/DropdownList';
 import { ILookup } from '../../models/global/globalGeneric';
-import { GetLookupValues } from '../../modules/services/adminSlice';
+
 import {
     fetchRecommendationsByObservationId,
     saveRecommendationForObservation,
@@ -24,6 +24,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { useLang } from '../../../_metronic/i18n/Metronici18n';
 import DropdownListInModal from '../../modules/components/dropdown/DropdownListInModal';
 import ConfirmDeleteModal from '../../modules/components/confirmDialog/ConfirmDeleteModal';
+import { GetLookupValues } from '../../modules/services/globalSlice';
 interface RecommendationProps {
     observationId: string | number;
 }

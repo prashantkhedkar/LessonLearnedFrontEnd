@@ -11,9 +11,10 @@ import { BtnLabeltxtMedium2, BtnLabelCanceltxtMedium2 } from '../../modules/comp
 import { writeToBrowserConsole } from '../../modules/utils/common';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { ILookup } from '../../models/global/globalGeneric';
-import { GetLookupValues } from '../../modules/services/adminSlice';
+
 import { useAppDispatch } from '../../../store';
 import { useAuth } from '../../modules/auth';
+import { GetLookupValues } from '../../modules/services/globalSlice';
 
 interface ObservationFormProps {
   onSubmit: (values: ObservationFormData) => void;

@@ -21,6 +21,7 @@ import { AdminMetSearch } from "../../modules/components/metSearch/AdminMetSearc
 import { ApiCallType } from "../../helper/_constant/apiCallType.constant";
 import {
   generateUUID,
+  writeToBrowserConsole,
 } from "../../modules/utils/common";
 import DropdownList from "../../modules/components/dropdown/DropdownList";
 import dayjs from "dayjs";
@@ -30,9 +31,13 @@ import { ArticleSearchModel } from "../models/observationModel";
 import { deleteObservation, fetchObservations } from "../../modules/services/observationSlice";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
+import { ILookup } from "../../models/global/globalGeneric";
+import { StatusModel } from "../../models/global/statusModel";
+import { GetLookupValues, fetchStatuses } from "../../modules/services/globalSlice";
+
 export default function ObservationList() {
   const intl = useIntl();
-  const lang = useLang();    
+  const lang = useLang();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const finalTableConfig = JSON.stringify(columns);
@@ -42,6 +47,8 @@ export default function ObservationList() {
   const [componentsList, setComponentsList] = useState<ComponentAndProps[]>([]);
   const [componentsListMyRequest, setComponentsListMyRequest] = useState<ComponentAndProps[]>([]);
   const [observationId, setObservationId] = useState<number>(0);
+  const [typeOptions, setTypeOptions] = useState<ILookup[]>([]);
+  const [statuses, setStatuses] = useState<StatusModel[]>([]);
 
   const location = useLocation();
   const state = location.state as {
@@ -75,6 +82,32 @@ export default function ObservationList() {
         component: DeleteItem,
       },
     ]);
+
+
+    dispatch(GetLookupValues({ lookupType: "ObservationType" }))
+      .then(unwrapResult)
+      .then((originalPromiseResult) => {
+        if (originalPromiseResult.statusCode === 200) {
+          const response: ILookup[] = originalPromiseResult.data;
+          setTypeOptions(response);
+        }
+      })
+      .catch((rejectedValueOrSerializedError) => {
+        writeToBrowserConsole(rejectedValueOrSerializedError);
+      });
+
+    // Load Observation Level options
+    dispatch(fetchStatuses())
+      .then(unwrapResult)
+      .then((originalPromiseResult) => {
+        if (originalPromiseResult.statusCode === 200) {
+          const response: StatusModel[] = originalPromiseResult.data;
+          setStatuses(response);
+        }
+      })
+      .catch((rejectedValueOrSerializedError) => {
+        writeToBrowserConsole(rejectedValueOrSerializedError);
+      });
   }, []);
 
   // Default sort column and direction for draft list
@@ -104,12 +137,27 @@ export default function ObservationList() {
       fetchObservations({
         pageNumber: pageNumber ? pageNumber : 1,
         pageSize: pageSize ? pageSize : 10,
+        observationType:
+          hasFilters && filters.observationType
+            ? filters.observationType
+            : undefined,
+        status:
+          hasFilters && filters.status
+            ? filters.status
+            : undefined,
+        dateFrom:
+          hasFilters && filters.dateFrom
+            ? filters.dateFrom
+            : undefined,
+        dateTo:
+          hasFilters && filters.dateTo
+            ? filters.dateTo
+            : undefined,
       })
     )
       .then(unwrapResult)
       .then((orginalPromiseResult) => {
         if (orginalPromiseResult.statusCode === 200) {
-          debugger;
           if (tableRef.current) {
             if (orginalPromiseResult.data.items.length > 0) {
               const formattedData = orginalPromiseResult.data.items;
@@ -156,6 +204,16 @@ export default function ObservationList() {
   };
 
   const handleChange = (e: any, fieldName: string) => {
+
+    const updatedItem: ArticleSearchModel = { ...filters! };
+    if (fieldName == "observationType") updatedItem!.observationType = e;
+    if (fieldName == "status") updatedItem!.status = e;
+    if (fieldName == "dateFrom") {
+      updatedItem!.dateFrom = e;
+      updatedItem!.dateTo = undefined;
+    }
+    if (fieldName == "dateTo") updatedItem!.dateTo = e;
+    setFilters(updatedItem);
 
   };
 
@@ -328,7 +386,6 @@ export default function ObservationList() {
   };
 
   const handleDeleteItem = () => {
-    debugger;
     if (observationId === null) return;
 
     dispatch(deleteObservation({ articleId: Number(observationId) }))
@@ -383,7 +440,7 @@ export default function ObservationList() {
               //       ? dayjs(filters?.requestDateFrom).format("YYYY-MM-DD")
               //       : undefined
               //   }
-              apiCallType={ApiCallType.ServiceListDashboard}
+              apiCallType={ApiCallType.ObservationList}
             ></AdminMetSearch>
           </Col>
           <Col className="col-md-1 ps-14">
@@ -406,16 +463,14 @@ export default function ObservationList() {
         <Row className="row search-container1 py-4" hidden={!showAdvanced}>
           <Col>
             <DropdownList
-              dataKey="categoryId"
-              dataValue={lang === "ar" ? "categoryNameAr" : "categoryNameEn"}
-              defaultText={intl.formatMessage({
-                id: "LABEL.SERVICECATEGORY",
-              })}
-              value={0}
+              dataKey="id"
+              dataValue={lang === "ar" ? "label" : "labelEn"}
+              defaultText={intl.formatMessage({ id: "PLACEHOLDER.SELECT.TYPE" })}
+              value={filters?.observationType ? filters?.observationType : 0}
               rtl={true}
-              data={[]}
+              data={typeOptions}
               key={generateUUID()}
-              setSelectedValue={(e) => handleChange(e, "categoryId")}
+              setSelectedValue={(e) => handleChange(e, "observationType")}
             />
           </Col>
           <Col>
@@ -424,10 +479,9 @@ export default function ObservationList() {
               dataKey="statusId"
               dataValue={lang === "ar" ? "statusNameAr" : "statusNameEn"}
               defaultText={intl.formatMessage({ id: "LABEL.NEXTSTATUS" })}
-              value={0}
-              //data={statuses}
-              data={[]}
-              setSelectedValue={(e) => handleChange(e, "statusId")}
+              value={filters?.status ? filters?.status : 0}
+              data={statuses}
+              setSelectedValue={(e) => handleChange(e, "status")}
             />
           </Col>
         </Row>
@@ -437,9 +491,9 @@ export default function ObservationList() {
               placeholder={intl.formatMessage({
                 id: "LABEL.FROM",
               })}
-              value={new Date()}
+              value={filters?.dateFrom}
               onDateChange={(newDate) =>
-                handleChange(newDate, "requestDateFrom")
+                handleChange(newDate, "dateFrom")
               }
               key={generateUUID()}
               id={""}
@@ -450,31 +504,14 @@ export default function ObservationList() {
               placeholder={intl.formatMessage({
                 id: "LABEL.TO",
               })}
-              value={new Date()}
-              onDateChange={(newDate) => handleChange(newDate, "requestDateTo")}
+              value={filters?.dateTo}
+              onDateChange={(newDate) => handleChange(newDate, "dateTo")}
               key={generateUUID()}
-              minDate={new Date()}
+              minDate={filters?.dateFrom}
               id={""}
             />
           </Col>
-        </Row>
-        <Row className="row search-container1 py-4" hidden={!showAdvanced}>
-          <Col>
-            <DropdownList
-              dataKey="serviceId"
-              dataValue={"serviceName"}
-              defaultText={intl.formatMessage({
-                id: "LABEL.SERVICENAME",
-              })}
-              value={0}
-              rtl={true}
-              data={[]}
-              key={generateUUID()}
-              setSelectedValue={(e) => handleChange(e, "serviceId")}
-            />
-          </Col>
-          <Col></Col>
-        </Row>
+        </Row>        
         <Row className="row search-container1 py-4" hidden={!showAdvanced}>
           <Col className="d-flex gap-2 justify-content-end">
             <button
@@ -509,11 +546,17 @@ export default function ObservationList() {
             onClick={() => setTabInit(0)}
             style={tabInit == 0 ? activeTabStyle : TabStyle}
           >
-            {intl.formatMessage({ id: "LABEL.MYREQUESTS" })}
+            {intl.formatMessage({ id: "LABEL.DRAFT" })}
           </button>
           <button
             onClick={() => setTabInit(1)}
             style={tabInit == 1 ? activeTabStyle : TabStyle}
+          >
+            {intl.formatMessage({ id: "LABEL.INPROGRESS" })}
+          </button>
+          <button
+            onClick={() => setTabInit(2)}
+            style={tabInit == 2 ? activeTabStyle : TabStyle}
           >
             {intl.formatMessage({ id: "LABEL.MYACTIONS" })}
           </button>
@@ -557,7 +600,20 @@ export default function ObservationList() {
           />
         )} */}
       </div>
-
+      <div style={{ display: tabInit === 2 ? "block" : "none" }}>
+        {/* {tabInit === 1 && (
+          <DataTableMain2
+            displaySearchBar={false}
+            lang={lang}
+            tableConfig={finalTableConfig}
+            onCellClick={onCellClick}
+            paginationServer
+            getData={fetchObservationList}
+            ref={tableRef}
+            componentsList={componentsList}
+          />
+        )} */}
+      </div>
 
       <Modal
         show={showModalDelete}
