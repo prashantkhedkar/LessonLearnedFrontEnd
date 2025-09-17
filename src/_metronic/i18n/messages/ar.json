@@ -370,7 +370,6 @@
   "LABEL.YEARLY": "سنوي",
   "LABEL.YEARLYTASKS": "المهام السنوية",
   "LABEL.YES": "نعم",
-  "MENU.HEADER.FMSDASHBOARD": "لوحة المؤشرات",
   "MESSAGE.CONFIRMCONTINUE": "هل أنت متأكد من الاستمرار؟",
   "MESSAGE.CREATEGROUPMEMBER": "تحديد مستخدم واحد على الأقل",
   "MESSAGE.CREATEMEETINGERROR": "حدث خطأ خلال المعالجة، يرجى إعادة المحاولة مرة أخرى.",
@@ -847,5 +846,7 @@
   "VALIDATION.TITLE.MAX_LENGTH": "يجب أن يكون العنوان أقل من 256 حرف",
   "PLACEHOLDER.TITLE": "أدخل العنوان...",
   "LABEL.MANAGE.OBSERVATIONS": "قائمة رئيسية",
-  "LABEL.INPROGRESS": "In Progress"
+  "LABEL.INPROGRESS": "In Progress",
+  "MENU.HEADER.OBSERVATION": "Observation",
+  "MENU.HEADER.OBSERVATION.NEW": "Observation Detail"
 }
