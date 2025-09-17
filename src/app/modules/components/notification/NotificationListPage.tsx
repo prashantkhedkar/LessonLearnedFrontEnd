@@ -269,11 +269,7 @@ const NotificationListPage: React.FC = () => {
                   onClick={() =>
                     navigate("/end-user/service-request-form", {
                       state: {
-                        serviceId: props.row.serviceId,
-                        requestId: props.row.serviceRequestId,
-                        isReadOnly: true,
-                        statusId: props.row.serviceRequestStatusId,
-                        currentStepId: props.row.serviceRequestCurrentStepId,
+                        is: props.row.id,
                       },
                     })
                   }
