@@ -19,25 +19,36 @@ export const  AttachmentDownloader = (props: {
             var response;
             setIsLoading(true);
 
-            if (props.attchmentType === 'Fatwa') {
-                response = await axios.get(process.env.REACT_APP_API_URL + `/Attachment/GetFatwaAttachmentById?attachmentID=${requestAttachmentId}`, {
-                    responseType: 'blob',
-                });
+            if (props.attchmentType === "Fatwa") {
+              response = await axios.get(
+                process.env.REACT_APP_API_URL +
+                  `/Attachment/DownloadAttachment/${requestAttachmentId}`,
+                {
+                  responseType: "blob",
+                }
+              );
             }
 
-            if (props.attchmentType === 'Comments') {
-                response = await axios.get(process.env.REACT_APP_API_URL + `/Attachment/GetCommentAttachment?requestAttachmentId=${requestAttachmentId}`, {
-                    responseType: 'blob',
-                });
+            if (props.attchmentType === "Comments") {
+              response = await axios.get(
+                process.env.REACT_APP_API_URL +
+                  `/Attachment/DownloadAttachment/${requestAttachmentId}`,
+                {
+                  responseType: "blob",
+                }
+              );
             }
 
-
-            if (props.attchmentType === 'Law') {
-                response = await axios.get(process.env.REACT_APP_API_URL + `/Attachment/GetRequestAttachment?requestAttachmentId=${requestAttachmentId}`, {
-                    responseType: 'blob',
-                })
+            if (props.attchmentType === "Law") {
+              response = await axios.get(
+                process.env.REACT_APP_API_URL +
+                  `/Attachment/DownloadAttachment/${requestAttachmentId}`,
+                {
+                  responseType: "blob",
+                }
+              );
             }
-if(!response) return ;
+            if (!response) return;
             const disposition = response.headers['Content-Disposition'];
             let fileName = 'download-file';
             if (disposition && disposition.includes('filename=')) {

@@ -790,5 +790,7 @@
   "LABEL.MANAGE.OBSERVATIONS": "Manage Observations",
   "LABEL.INPROGRESS": "In Progress",
   "MENU.HEADER.OBSERVATION": "Observation",
-  "MENU.HEADER.OBSERVATION.NEW": "Observation Detail"
+  "MENU.HEADER.OBSERVATION.NEW": "Observation Detail",
+  "LABEL.ATTACHMENTS.TOOLTIP.VIEW": "View Attachment",
+  "LABEL.ATTACHMENTS.TOOLTIP.DELETE": "Delete Attachment"
 }

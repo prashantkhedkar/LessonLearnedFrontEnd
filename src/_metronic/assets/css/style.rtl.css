@@ -66747,3 +66747,12 @@ h5.card-title.flex-column {
   font: var(--caption-regular, 400 14px/20px "Roboto-Normal", sans-serif)  !important;
   color: var(--text-6, #9CA3AF) !important;
 }
+.attachment-table-header {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  background: var(--text-8, #e5e7eb);
+}
+
+.attachment-table-border-row {
+  border-bottom: 1px solid #e5e7eb;
+}

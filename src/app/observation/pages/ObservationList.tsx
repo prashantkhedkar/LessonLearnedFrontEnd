@@ -149,11 +149,11 @@ export default function ObservationList() {
             : undefined,
         dateFrom:
           hasFilters && filters.dateFrom
-            ? filters.dateFrom
+            ? dayjs(filters.dateFrom).format("YYYY-MM-DD")
             : undefined,
         dateTo:
           hasFilters && filters.dateTo
-            ? filters.dateTo
+            ? dayjs(filters.dateTo).format("YYYY-MM-DD")
             : undefined,
       })
     )
@@ -188,12 +188,21 @@ export default function ObservationList() {
 
 
   const handleSearch = () => {
-
+    fetchObservationList(
+      1,
+      10,
+      draftDefaultSortColumn,
+      draftDefaultSortDirection,
+      "",
+      true,
+      false
+    );
   };
 
   const onCellClick = () => { };
 
   const handleClear = () => {
+    setFilters(undefined);
     fetchObservationList(
       1,
       10,
@@ -307,31 +316,14 @@ export default function ObservationList() {
   function ServiceName(props: { row: DTRow; editStatus: string }) {
     const navigate = useNavigate();
     const intl = useIntl();
-    let cssPropName = "";
-    if (props.row.priority == "عالي" || props.row.priority == "High") {
-      cssPropName = "High";
-    } else if (
-      props.row.priority == "متوسط" ||
-      props.row.priority == "Medium"
-    ) {
-      cssPropName = "Medium";
-    } else if (props.row.priority == "منخفض" || props.row.priority == "Low") {
-      cssPropName = "Low";
-    }
+    
     return (
       <>
         {
           <div className="col col-auto">
             {
-              <>
-                <DetailLabels
-                  text={props.row.priority!}
-                  customClassName={`${cssPropName.toLowerCase()}-priority-ar`}
-                  style={{ width: "60px", margin: "0 10px" }}
-                />
-
-                <DetailLabels text={props.row.requestNumber!} />
-
+              <>            
+                <DetailLabels text={props.row.observationNumber!} />
                 <div
                   style={{
                     borderLeft: "1px solid #ccc",
@@ -340,8 +332,7 @@ export default function ObservationList() {
                     display: "inline-block",
                   }}
                 ></div>
-
-                <DetailLabels text={props.row.requestTitle!} />
+                <DetailLabels text={props.row.observationTitle!} />
               </>
             }
           </div>
@@ -422,6 +413,14 @@ export default function ObservationList() {
     navigate("/observation/new");
   }
 
+  const handleTabChange = (tabIndex: number) => {
+    setTabInit(tabIndex);
+    const updatedItem: ArticleSearchModel = { ...filters! };
+    if(tabIndex==0) updatedItem.status = 1;
+    if(tabIndex==1) updatedItem.status = 0;
+    if(tabIndex==2) updatedItem.status = 0;
+    setFilters(updatedItem);
+  }
   return (
     <>
       <Row className="mb-4">
@@ -437,13 +436,6 @@ export default function ObservationList() {
         <Row>
           <Col className="col-11">
             <AdminMetSearch
-              //   statusId={filters?.statusId?.toString()}
-              //   categoryId={filters?.categoryId}
-              //   date={
-              //     filters?.requestDateFrom
-              //       ? dayjs(filters?.requestDateFrom).format("YYYY-MM-DD")
-              //       : undefined
-              //   }
               apiCallType={ApiCallType.ObservationList}
             ></AdminMetSearch>
           </Col>
@@ -496,7 +488,7 @@ export default function ObservationList() {
               placeholder={intl.formatMessage({
                 id: "LABEL.FROM",
               })}
-              value={filters?.dateFrom}
+              value={filters?.dateFrom ? new Date(filters?.dateFrom!) : undefined}
               onDateChange={(newDate) =>
                 handleChange(newDate, "dateFrom")
               }
@@ -509,14 +501,14 @@ export default function ObservationList() {
               placeholder={intl.formatMessage({
                 id: "LABEL.TO",
               })}
-              value={filters?.dateTo}
+              value={filters?.dateTo ? new Date(filters?.dateTo!) : undefined}
               onDateChange={(newDate) => handleChange(newDate, "dateTo")}
               key={generateUUID()}
-              minDate={filters?.dateFrom}
+              minDate={filters?.dateFrom!? new Date(filters?.dateFrom!) : undefined}
               id={""}
             />
           </Col>
-        </Row>        
+        </Row>
         <Row className="row search-container1 py-4" hidden={!showAdvanced}>
           <Col className="d-flex gap-2 justify-content-end">
             <button
@@ -548,19 +540,19 @@ export default function ObservationList() {
       <div className="d-flex justify-content-between align-items-center">
         <div style={tabListStyle} className="mb-3 mt-5">
           <button
-            onClick={() => setTabInit(0)}
+            onClick={() => handleTabChange(0)}
             style={tabInit == 0 ? activeTabStyle : TabStyle}
           >
             {intl.formatMessage({ id: "LABEL.DRAFT" })}
           </button>
           <button
-            onClick={() => setTabInit(1)}
+            onClick={() => handleTabChange(1)}
             style={tabInit == 1 ? activeTabStyle : TabStyle}
           >
             {intl.formatMessage({ id: "LABEL.INPROGRESS" })}
           </button>
           <button
-            onClick={() => setTabInit(2)}
+            onClick={() => handleTabChange(2)}
             style={tabInit == 2 ? activeTabStyle : TabStyle}
           >
             {intl.formatMessage({ id: "LABEL.MYACTIONS" })}
@@ -581,6 +573,7 @@ export default function ObservationList() {
       </div>
 
       <div style={{ display: tabInit === 0 ? "block" : "none" }}>
+        {JSON.stringify(fetchObservationList)}
         {tabInit === 0 && (
           <DataTableMain2
             displaySearchBar={false}
@@ -591,11 +584,12 @@ export default function ObservationList() {
             getData={fetchObservationList}
             ref={tableRef}
             componentsList={componentsList}
+            key={"table0"}
           />
         )}
       </div>
       <div style={{ display: tabInit === 1 ? "block" : "none" }}>
-        {/* {tabInit === 1 && (
+        {tabInit === 1 && (
           <DataTableMain2
             displaySearchBar={false}
             lang={lang}
@@ -605,11 +599,12 @@ export default function ObservationList() {
             getData={fetchObservationList}
             ref={tableRef}
             componentsList={componentsList}
+            key={"table1"}
           />
-        )} */}
+        )}
       </div>
       <div style={{ display: tabInit === 2 ? "block" : "none" }}>
-        {/* {tabInit === 1 && (
+        {tabInit === 2 && (
           <DataTableMain2
             displaySearchBar={false}
             lang={lang}
@@ -619,8 +614,9 @@ export default function ObservationList() {
             getData={fetchObservationList}
             ref={tableRef}
             componentsList={componentsList}
+            key={"table2"}
           />
-        )} */}
+        )}
       </div>
 
       <Modal
