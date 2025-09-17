@@ -312,31 +312,14 @@ export default function ObservationList() {
   function ServiceName(props: { row: DTRow; editStatus: string }) {
     const navigate = useNavigate();
     const intl = useIntl();
-    let cssPropName = "";
-    if (props.row.priority == "عالي" || props.row.priority == "High") {
-      cssPropName = "High";
-    } else if (
-      props.row.priority == "متوسط" ||
-      props.row.priority == "Medium"
-    ) {
-      cssPropName = "Medium";
-    } else if (props.row.priority == "منخفض" || props.row.priority == "Low") {
-      cssPropName = "Low";
-    }
+    
     return (
       <>
         {
           <div className="col col-auto">
             {
-              <>
-                <DetailLabels
-                  text={props.row.priority!}
-                  customClassName={`${cssPropName.toLowerCase()}-priority-ar`}
-                  style={{ width: "60px", margin: "0 10px" }}
-                />
-
-                <DetailLabels text={props.row.requestNumber!} />
-
+              <>            
+                <DetailLabels text={props.row.observationNumber!} />
                 <div
                   style={{
                     borderLeft: "1px solid #ccc",
@@ -345,8 +328,7 @@ export default function ObservationList() {
                     display: "inline-block",
                   }}
                 ></div>
-
-                <DetailLabels text={props.row.requestTitle!} />
+                <DetailLabels text={props.row.observationTitle!} />
               </>
             }
           </div>
