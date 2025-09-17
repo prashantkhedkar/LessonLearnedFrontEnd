@@ -1,6 +1,6 @@
 import { Box, Step, StepIconProps, StepLabel, Stepper, Button, Stack, Typography, StepConnector, styled } from "@mui/material"; 
 import { useState, useRef, useEffect } from "react";
-import { WorkflowStepModel } from "../../models/global/serviceWorkflow";
+
 import ObservationForm, { ObservationFormData } from "./ObservationForm";
 import { ArticleCreateUpdateModel } from "../models/observationModel";
 import { toast } from 'react-toastify';
@@ -14,6 +14,7 @@ import { useAppDispatch, useAppSelector } from "../../../store";
 import { createObservation, fetchObservationById, updateObservation } from "../../modules/services/observationSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ObservationStatus } from "../../helper/_constant/status.constant";
+import { StepperModel } from "../../models/global/globalGeneric";
 
 // Custom Connector Component
 const CustomConnector = styled(StepConnector)(({ theme }) => ({
@@ -45,27 +46,21 @@ export const ObservationSteppers = () => {
   const [fetchedObservationData, setFetchedObservationData] = useState<ObservationFormData | null>(null); // Store fetched observation data for form
   
   // Default steps - no props needed
-  const steps: WorkflowStepModel[] = [
+  const steps: StepperModel[] = [
     {
       stepId: 1,
       stepOrder: 1,
       stepName: intl.formatMessage({ id: "STEP.NAME.THE.DETAILS" }),
-      fromEntityId: 1,
-      currentStatusId: 1,
     },
     {
       stepId: 2,
       stepOrder: 2,
       stepName: intl.formatMessage({ id: "STEP.NAME.RECOMMENDATIONS.ACTIONS" }),
-      fromEntityId: 2,
-      currentStatusId: 2,
     },
     {
       stepId: 3,
       stepOrder: 3,
       stepName: intl.formatMessage({ id: "STEP.NAME.ATTACHMENTS" }),
-      fromEntityId: 3,
-      currentStatusId: 3,
     },
   ];
 
