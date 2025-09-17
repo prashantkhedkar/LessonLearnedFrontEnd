@@ -1,10 +1,10 @@
-import { Box, Step, StepIconProps, StepLabel, Stepper, Button, Stack, Typography, StepConnector, styled } from "@mui/material"; 
+import { Box, Step, StepIconProps, StepLabel, Stepper, Button, Stack, Typography, StepConnector, styled } from "@mui/material";
 import { useState, useRef, useEffect } from "react";
 
 import ObservationForm, { ObservationFormData } from "./ObservationForm";
 import { ArticleCreateUpdateModel } from "../models/observationModel";
 import { toast } from 'react-toastify';
-import { useIntl } from 'react-intl'; 
+import { useIntl } from 'react-intl';
 import './ObservationSteppers.css';
 import { BtnLabeltxtMedium2 } from "../../modules/components/common/formsLabels/detailLabels";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
@@ -15,6 +15,8 @@ import { createObservation, fetchObservationById, updateObservation } from "../.
 import { useLocation, useNavigate } from "react-router-dom";
 import { ObservationStatus } from "../../helper/_constant/status.constant";
 import { StepperModel } from "../../models/global/globalGeneric";
+import { fadeInUpInnerDiv } from "../../variantes";
+import { motion } from "framer-motion";
 
 // Custom Connector Component
 const CustomConnector = styled(StepConnector)(({ theme }) => ({
@@ -44,7 +46,7 @@ export const ObservationSteppers = () => {
   const [createdObservationId, setCreatedObservationId] = useState<string | number | null>(null); // Store created observation ID
   const [createdObservation, setCreatedObservation] = useState<any>(null); // Store the complete created observation
   const [fetchedObservationData, setFetchedObservationData] = useState<ObservationFormData | null>(null); // Store fetched observation data for form
-  
+
   // Default steps - no props needed
   const steps: StepperModel[] = [
     {
@@ -74,13 +76,12 @@ export const ObservationSteppers = () => {
       setFetchedObservationData(null);
     }
 
-    if(location.state)
-    {
-       var observationId = location.state
+    if (location.state) {
+      var observationId = location.state
         ? JSON.parse(JSON.stringify(location.state)).observationId
         : 0;
-        setCreatedObservationId(observationId);
-        fetchObservationData(observationId);
+      setCreatedObservationId(observationId);
+      fetchObservationData(observationId);
     }
   }, [currentStepId, createdObservationId]);
 
@@ -113,15 +114,15 @@ export const ObservationSteppers = () => {
   const saveObservationAPI = async (data: ArticleCreateUpdateModel, submissionStatus: string, isDraft: boolean = false) => {
     try {
       console.log('⏳ Saving observation to API...');
-      
+
       let result;
       let isUpdateOperation = false;
-      
+
       // Determine whether to create or update based on observationId
       if (createdObservationId) {
         // Update existing observation
         console.log('🔄 Updating existing observation with ID:', createdObservationId);
-        result = await dispatch(updateObservation({ 
+        result = await dispatch(updateObservation({
           articleId: Number(createdObservationId),
           observationData: data
         }));
@@ -129,21 +130,21 @@ export const ObservationSteppers = () => {
       } else {
         // Create new observation
         console.log('🆕 Creating new observation');
-        result = await dispatch(createObservation({ 
+        result = await dispatch(createObservation({
           observationData: data,
           submissionStatus
         }));
         isUpdateOperation = false;
       }
-      
+
       // Handle success for both create and update
-      if ((isUpdateOperation && updateObservation.fulfilled.match(result)) || 
-          (!isUpdateOperation && createObservation.fulfilled.match(result))) {
+      if ((isUpdateOperation && updateObservation.fulfilled.match(result)) ||
+        (!isUpdateOperation && createObservation.fulfilled.match(result))) {
         const response = result.payload;
-        
+
         if (response?.statusCode === 200 && response.data) {
           let observationId;
-          
+
           if (isUpdateOperation) {
             // For update, use existing ID
             observationId = createdObservationId;
@@ -152,37 +153,37 @@ export const ObservationSteppers = () => {
             observationId = response.data;
             setCreatedObservationId(observationId);
           }
-          
+
           // Update the complete observation data
           setCreatedObservation(response.data);
-          
+
           // Show appropriate success message
-          const successMessage = isDraft ? 
-            intl.formatMessage({ id: "MESSAGE.DRAFT.SAVED.SUCCESS" }) : 
-            (isUpdateOperation ? 
+          const successMessage = isDraft ?
+            intl.formatMessage({ id: "MESSAGE.DRAFT.SAVED.SUCCESS" }) :
+            (isUpdateOperation ?
               intl.formatMessage({ id: "MESSAGE.OBSERVATION.UPDATED.SUCCESS" }) :
               intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATED.SUCCESS" }));
-          
+
           if (isDraft) {
             toast.info(successMessage);
           } else {
             toast.success(successMessage);
           }
-          
+
           console.log(`✅ ${isDraft ? 'Draft' : (isUpdateOperation ? 'Update' : 'Create')} completed successfully with ID:`, observationId);
-          
+
           // Move to next step only if not draft
           if (!isDraft) {
             setCurrentStepId(2);
             setActiveStep(1);
             console.log('➡️ Moved to step 2 - Execution phase');
           }
-          
+
           return observationId;
         } else {
-          const errorMessage = isDraft ? 
-            intl.formatMessage({ id: "MESSAGE.DRAFT.SAVE.FAILED" }) : 
-            (isUpdateOperation ? 
+          const errorMessage = isDraft ?
+            intl.formatMessage({ id: "MESSAGE.DRAFT.SAVE.FAILED" }) :
+            (isUpdateOperation ?
               intl.formatMessage({ id: "MESSAGE.OBSERVATION.UPDATE.FAILED" }) :
               intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATE.FAILED" }));
           toast.error(errorMessage);
@@ -190,13 +191,13 @@ export const ObservationSteppers = () => {
           return null;
         }
       } else {
-        const errorMessage = isDraft ? 
-          intl.formatMessage({ id: "MESSAGE.DRAFT.SAVE.FAILED" }) : 
-          (isUpdateOperation ? 
+        const errorMessage = isDraft ?
+          intl.formatMessage({ id: "MESSAGE.DRAFT.SAVE.FAILED" }) :
+          (isUpdateOperation ?
             intl.formatMessage({ id: "MESSAGE.OBSERVATION.UPDATE.FAILED" }) :
             intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATE.FAILED" }));
         toast.error(errorMessage);
-       // console.error(`❌ Failed to ${isDraft ? 'save draft' : (isUpdateOperation ? 'update' : 'create')} observation:`, result.error);
+        // console.error(`❌ Failed to ${isDraft ? 'save draft' : (isUpdateOperation ? 'update' : 'create')} observation:`, result.error);
         return null;
       }
     } catch (error) {
@@ -211,7 +212,7 @@ export const ObservationSteppers = () => {
   const handleFormSubmit = async (values: ObservationFormData) => {
     console.log('🚀 Form submission started');
     console.log('📝 Form values:', JSON.stringify(values, null, 2));
-    
+
     const isUpdate = !!createdObservationId;
     const data = convertToAPIModel(values, false, isUpdate);
     return await saveObservationAPI(data, 'Draft', false);
@@ -239,30 +240,30 @@ export const ObservationSteppers = () => {
       if (actionType === 'saveAsDraft') {
         const currentValues = formikRef.current.values;
         console.log('💾 Saving as draft with values:', currentValues);
-        
+
         // Check only observationTitle for draft save
         if (!currentValues.observationTitle || currentValues.observationTitle.trim() === '') {
           formikRef.current.setTouched({
             observationTitle: true,
           });
           // toast.error('Observation Title is required to save as draft');
-          
+
           return;
         }
-        
+
         const isUpdate = !!createdObservationId;
         const data = convertToAPIModel(currentValues, true, isUpdate);
         return await saveObservationAPI(data, 'Draft', true);
-      } 
+      }
       // For Save and Next, validate all required fields
       else if (actionType === 'save' || actionType === 'next') {
         console.log('🔍 FormikRef current:', formikRef.current);
         console.log('🔍 Form values:', formikRef.current.values);
-        
+
         // Validate form for both Save and Next actions
         const errors = await formikRef.current.validateForm();
         console.log('🔍 Validation errors:', errors);
-        
+
         formikRef.current.setTouched({
           observationTitle: true,
           observationSubject: true,
@@ -273,19 +274,19 @@ export const ObservationSteppers = () => {
           level: true,
           currentAssignment: true,
         });
-        
+
         if (Object.keys(errors).length > 0) {
           // Show validation errors
-          const errorMessage = actionType === 'next' ? 
-            intl.formatMessage({ id: "MESSAGE.FIX.ERRORS.BEFORE.PROCEEDING" }) : 
+          const errorMessage = actionType === 'next' ?
+            intl.formatMessage({ id: "MESSAGE.FIX.ERRORS.BEFORE.PROCEEDING" }) :
             intl.formatMessage({ id: "MESSAGE.FIX.ERRORS.BEFORE.SAVING" });
           toast.error(errorMessage);
           console.log('❌ Form validation errors:', errors);
           return;
         }
-        
+
         console.log('✅ Form is valid, submitting...');
-        
+
         // Submit form for both Save and Next
         try {
           await formikRef.current.submitForm();
@@ -297,7 +298,7 @@ export const ObservationSteppers = () => {
           toast.error(errorMessage);
         }
       }
-    } 
+    }
     // Handle actions for other steps
     else if (actionType === 'next' && currentStepId < steps.length) {
       setCurrentStepId(currentStepId + 1);
@@ -326,16 +327,16 @@ export const ObservationSteppers = () => {
   const fetchObservationData = async (observationId: string | number) => {
     try {
       console.log('🔄 Fetching observation data for ID:', observationId);
-      
+
       const result = await dispatch(fetchObservationById({ articleId: Number(observationId) }));
       debugger
       if (fetchObservationById.fulfilled.match(result)) {
         const response = result.payload;
-        
+
         if (response?.statusCode === 200 && response.data) {
           const observationData = response.data;
           console.log('✅ Observation data fetched successfully:', observationData);
-          
+
           // Convert API response to form data format
           const formData: ObservationFormData = {
             observationTitle: observationData.observationTitle || '',
@@ -351,9 +352,9 @@ export const ObservationSteppers = () => {
             status: observationData.status || 0,
             attachments: [],
           };
-          
+
           setFetchedObservationData(formData);
-       //   toast.info(intl.formatMessage({ id: "MESSAGE.OBSERVATION.DATA.LOADED" }) || 'Observation data loaded successfully');
+          //   toast.info(intl.formatMessage({ id: "MESSAGE.OBSERVATION.DATA.LOADED" }) || 'Observation data loaded successfully');
           return formData;
         } else {
           console.error('❌ Failed to fetch observation data:', response);
@@ -383,7 +384,7 @@ export const ObservationSteppers = () => {
         console.log('⬅️ Going back to step 1, fetching observation data...');
         await fetchObservationData(createdObservationId);
       }
-      
+
       setCurrentStepId(currentStepId - 1);
       setActiveStep(activeStep - 1);
     }
@@ -394,7 +395,7 @@ export const ObservationSteppers = () => {
       formikRef.current.resetForm();
     }
     navigate("/observation/observation-list")
-  //  toast.info('Operation cancelled');
+    //  toast.info('Operation cancelled');
   };
 
   let labelColor: string | undefined = undefined;
@@ -472,7 +473,7 @@ export const ObservationSteppers = () => {
 
   return (
     <Box className="observation-steppers-container">
-       {/* <Recommendation observationId={42} /> */}
+      {/* <Recommendation observationId={42} /> */}
       <Stepper
         activeStep={activeStep}
         alternativeLabel
@@ -517,12 +518,12 @@ export const ObservationSteppers = () => {
             </Step>
           ))}
       </Stepper>
-      
+
       {/* Render step content based on currentStepId */}
       {currentStepId === 1 && (
         <Box className="step-content mx-5">
-         
-          
+
+
           {/* Loading State */}
           {loading && (
             <div className="d-flex justify-content-center mb-4 loading-container">
@@ -531,77 +532,87 @@ export const ObservationSteppers = () => {
               </div>
             </div>
           )}
-          
+
           {/* Error State */}
           {/* {error && (
             <div className="alert alert-danger mb-4 error-alert" role="alert">
               {error}
             </div>
           )} */}
-          
-          <ObservationForm 
-            key={fetchedObservationData ? `observation-${createdObservationId}` : 'new-observation'}
-            onSubmit={handleFormSubmit}
-            mode={createdObservationId ? "edit" : "add"}
-            formikRef={formikRef}
-            initialValues={fetchedObservationData || undefined}
-          />
+          <motion.div
+            variants={fadeInUpInnerDiv}
+            initial="initial"
+            animate="animate" className="">
+            <ObservationForm
+              key={fetchedObservationData ? `observation-${createdObservationId}` : 'new-observation'}
+              onSubmit={handleFormSubmit}
+              mode={createdObservationId ? "edit" : "add"}
+              formikRef={formikRef}
+              initialValues={fetchedObservationData || undefined}
+            /></motion.div>
         </Box>
       )}
-      
+
       {currentStepId === 2 && (
         <Box className="step-content mx-5">
-          
-         
-          {createdObservationId ? (
-            <Recommendation observationId={createdObservationId} />
-          ) : (
-            <Box className="recommendation-placeholder">
-              <Typography variant="body1" color="text.secondary">
-                Please complete Step 1 first to create an observation before adding recommendations.
-              </Typography>
-            </Box>
-          )}
+
+          <motion.div
+            variants={fadeInUpInnerDiv}
+            initial="initial"
+            animate="animate" className="">
+            {createdObservationId ? (
+              <Recommendation observationId={createdObservationId} />
+            ) : (
+              <Box className="recommendation-placeholder">
+                <Typography variant="body1" color="text.secondary">
+                  Please complete Step 1 first to create an observation before adding recommendations.
+                </Typography>
+              </Box>
+            )}</motion.div>
         </Box>
       )}
-      
+
       {currentStepId === 3 && (
         <Box className="step-placeholder">
-          <p>Review Step Content - Coming Soon</p>
+          <motion.div
+            variants={fadeInUpInnerDiv}
+            initial="initial"
+            animate="animate" className="">
+            <p>Coming Soon...</p></motion.div>
         </Box>
       )}
 
       {/* Navigation Buttons */}
       <Box className="navigation-buttons">
-        <Stack 
-          direction="row" 
-          justifyContent="space-between" 
+        <Stack
+          direction="row"
+          justifyContent="space-between"
           alignItems="center"
           className="navigation-buttons-stack"
         >
           {/* Left side buttons */}
           <Stack direction="row" spacing={2}>
-         <></>
+            <></>
           </Stack>
 
           {/* Right side buttons */}
           <Stack direction="row" spacing={2} className="gap-8">
-             <button
-                type="button"
-                className="btn MOD_btn2 btn-cancel stepper-bottom-btn m-0"
-                style={{ minWidth: 120 }}
-                onClick={handleCancel}
-              >
-                <BtnLabeltxtMedium2
-                  customClassName="MOD_btn2_Label"
-                  isI18nKey={true}
-                  text={"BUTTON.LABEL.CANCEL"}
-                />
-                
-              </button>
+            <button
+              type="button"
+              className="btn MOD_btn2 btn-cancel stepper-bottom-btn m-0"
+              style={{ minWidth: 120 }}
+              onClick={handleCancel}
+            >
+              <BtnLabeltxtMedium2
+                customClassName="MOD_btn2_Label"
+                isI18nKey={true}
+                text={"BUTTON.LABEL.CANCEL"}
+              />
+
+            </button>
             {currentStepId > 1 && (
-               
-               <button
+
+              <button
                 type="button"
                 className="btn MOD_btn2 btn-cancel stepper-bottom-btn m-0"
                 style={{ minWidth: 120 }}
@@ -617,10 +628,10 @@ export const ObservationSteppers = () => {
                 ></ArrowForwardIosIcon>
               </button>
             )}
-            
+
             {currentStepId === 1 && (
-              
-               <button
+
+              <button
                 type="button"
                 className="btn MOD_btn2 btn-cancel stepper-bottom-btn m-0"
                 style={{ minWidth: 120 }}
@@ -631,13 +642,13 @@ export const ObservationSteppers = () => {
                   isI18nKey={true}
                   text={"Save as Draft"}
                 />
-                
+
               </button>
             )}
-            
+
             {currentStepId === 1 && (
-              
-               <button
+
+              <button
                 type="button"
                 className="btn MOD_btn2 btn-cancel stepper-bottom-btn m-0"
                 style={{ minWidth: 120 }}
@@ -648,12 +659,12 @@ export const ObservationSteppers = () => {
                   isI18nKey={true}
                   text={"BUTTON.LABEL.SAVE"}
                 />
-                
+
               </button>
             )}
-            
+
             {currentStepId < steps.length && (
-             
+
               <button
                 type="button"
                 className="btn MOD_btn2 btn-cancel stepper-bottom-btn m-0"
