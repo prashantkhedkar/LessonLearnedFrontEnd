@@ -15,6 +15,21 @@
         }
     },
     {
+        "columnName": "LABEL.OBSERVATION.TYPE",
+        "dataColumnName": "observationType",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "20%",
+        "width-ar": "20%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
         "columnName": "LABEL.REQUESTDATE",
         "dataColumnName": "createdDate",
         "sortable": true,
@@ -22,8 +37,8 @@
         "className": "cellText",
         "fontAwesome": "",
         "isSearchable": true,
-        "width": "30%",
-        "width-ar": "30%",
+        "width": "20%",
+        "width-ar": "20%",
         "style": {
             "padding-right": "7px",
             "padding-left": "7px"

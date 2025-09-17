@@ -7,7 +7,6 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import { useAppDispatch } from "../../../../store";
 import NoRecordsAvailable from "../noRecordsAvailable/NoRecordsAvailable";
 import SquarLoader from "../../../../app/modules/components/animation/SquarLoader";
-import { getTimelineActivityByRequestId, saveTimelineActivity } from "../../services/serviceRequestSlice";
 import DOMPurify from "dompurify";
 import { useLang } from "../../../../_metronic/i18n/Metronici18n";
 
@@ -24,25 +23,25 @@ const TimelineActivityLogChartWithDetails = ({ isShowAddComments, requestId, cur
   const regex = /(<([^>]+)>)/gi;
   
   useEffect(() => {
-    fetchTimelineData();
+    //fetchTimelineData();
   }, [requestId]);
 
-  const fetchTimelineData = async () => {
-    if (requestId) {
-      setLoading(true);
-      try {
-        const result = await dispatch(getTimelineActivityByRequestId({ requestId }));
-        const response = unwrapResult(result);
-        if (response.statusCode === 200) {
-          setActivityData(response.data || []);
-        }
-      } catch (error) {
-        console.log('Error fetching timeline data: ', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-  };
+  // const fetchTimelineData = async () => {
+  //   if (requestId) {
+  //     setLoading(true);
+  //     try {
+  //       const result = await dispatch(getTimelineActivityByRequestId({ requestId }));
+  //       const response = unwrapResult(result);
+  //       if (response.statusCode === 200) {
+  //         setActivityData(response.data || []);
+  //       }
+  //     } catch (error) {
+  //       console.log('Error fetching timeline data: ', error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  // };
 
   const handleSubmitComments = async (comment: string) => {
     const timelineData = {
@@ -55,11 +54,11 @@ const TimelineActivityLogChartWithDetails = ({ isShowAddComments, requestId, cur
 
     try {
       setLoading(true);
-      const result = await dispatch(saveTimelineActivity({ formDataObject: timelineData }));
-      const response = unwrapResult(result);
-      if (response.statusCode === 200) {
-        await fetchTimelineData();
-      }
+      // const result = await dispatch(saveTimelineActivity({ formDataObject: timelineData }));
+      // const response = unwrapResult(result);
+      // if (response.statusCode === 200) {
+      //   await fetchTimelineData();
+      // }
     } catch (error) {
       console.error('Saving error ', error);
     } finally {

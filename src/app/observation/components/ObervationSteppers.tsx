@@ -103,6 +103,7 @@ export const ObservationSteppers = () => {
       level: values.level || undefined,
       currentAssignment: values.currentAssignment || '',
       status: isDraft ? ObservationStatus.Draft : values.status, // 1 for draft, otherwise use form status or default to 1
+      combatFunction: values.combatFunction || 0,
     };
 
     // Include id for update operations

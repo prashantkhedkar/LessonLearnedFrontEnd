@@ -787,5 +787,6 @@
   "VALIDATION.TITLE.REQUIRED": "Title is required",
   "VALIDATION.TITLE.MAX_LENGTH": "Title must be less than 256 characters",
   "PLACEHOLDER.TITLE": "Enter title...",
-  "LABEL.MANAGE.OBSERVATIONS": "Manage Observations"
+  "LABEL.MANAGE.OBSERVATIONS": "Manage Observations",
+  "LABEL.INPROGRESS": "In Progress"
 }
