@@ -751,7 +751,7 @@
   "SELECTROOMS.LOADING_ROOMS": "تحميل الغرف...",
   "SELECTROOMS.ROOM_PLACEHOLDER": "اختر غرفة",
   "SELECTROOMS.START_DATE_PLACEHOLDER": "اختر تاريخ بداية",
-  "LABEL.ACCOMODATION.NORECORDFOUND" :"لا توجد سجلات",
+  "LABEL.ACCOMODATION.NORECORDFOUND": "لا توجد سجلات",
   "ATLEAST.ONE.DRAGGABLE.ITEM.REQUIRED": "يرجى سحب حقل واحد على الأقل من قائمة الحقول الى الحقول المختارة",
   "FORM.FILEMANAGEMENT.UPLOADFILE": "اختر الملف",
   "MENU.HEADER.FMSDASHBOARD.DRILLDOWN": "قائمة الطلبات",
@@ -800,7 +800,7 @@
   "PLACEHOLDER.CONCLUSION": "أدخل الخلاصة...",
   "PLACEHOLDER.INITIAL.RECOMMENDATION": "أدخل التوصية الأولية...",
   "PLACEHOLDER.ORIGINATING.MAIN.UNIT": "أدخل الوحدة الرئيسية المنشئة...",
-    "PLACEHOLDER.SELECT.TYPE": "اختر النوع...",
+  "PLACEHOLDER.SELECT.TYPE": "اختر النوع...",
   "PLACEHOLDER.SELECT.LEVEL": "اختر المستوى...",
   "LABEL.ACTION.NUMBER": "الإجراء {number}",
   "LABEL.NEW.ACTION": "إجراء جديد...",
@@ -846,5 +846,14 @@
   "VALIDATION.TITLE.REQUIRED": "العنوان مطلوب",
   "VALIDATION.TITLE.MAX_LENGTH": "يجب أن يكون العنوان أقل من 256 حرف",
   "PLACEHOLDER.TITLE": "أدخل العنوان...",
-  "LABEL.MANAGE.OBSERVATIONS": "قائمة رئيسية"
+  "LABEL.MANAGE.OBSERVATIONS": "قائمة رئيسية",
+  "LABEL.FORM.ATTACHMENT.TAB.ATTACHMENT.TITLE": "الوصف",
+  "LABEL.FORM.ATTACHMENT.TAB.FILENAME": "اسم الملف",
+  "LABEL.FORM.ATTACHMENT.TAB.ACTION": "الأدوات",
+  "ATTACHMENT.NAME": "وصف المرفق",
+  "LABEL.POPUP.ATTACHMENTS": "المرفقات",
+  "LABEL.UPLOAD": "تحميل",
+  "LABEL.POPUP.ATTACHMENTS.SIZE.HIGHER": "الحجم الأقسى المسموح به هو 10 ميجابايت",
+  "LABEL.ATTACHMENTS.TOOLTIP.VIEW": "عرض المرفق",
+  "LABEL.ATTACHMENTS.TOOLTIP.DELETE": "حذف المرفق"
 }

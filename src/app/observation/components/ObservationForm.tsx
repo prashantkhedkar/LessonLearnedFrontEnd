@@ -35,6 +35,12 @@ export interface ObservationFormData {
   currentAssignment?: string;
   status: number;
   attachments?: File[];
+
+  observationTypeLookupNameAr?: string;
+  originatingTypeLookupNameAr?: string;
+  combatFunctionLookupNameAr?: string;
+  levelLookupNameAr?: string;
+  statusNameAr?: string;
 }
 
 const ObservationForm: React.FC<ObservationFormProps> = ({ onSubmit, initialValues, mode = 'add', formikRef }) => {

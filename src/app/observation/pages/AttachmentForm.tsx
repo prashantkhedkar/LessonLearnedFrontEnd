@@ -57,7 +57,7 @@ const AttachmentForm: React.FC<AttachmentFormProps> = ({ observationID }) => {
 
   useEffect(() => {
     handleRefresh();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [observationID]);
 
   return (
