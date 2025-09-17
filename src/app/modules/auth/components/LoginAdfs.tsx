@@ -48,8 +48,8 @@ export function LoginAdfs() {
         writeToBrowserConsole("fetchData from db");
 
         saveAuth(auth);
-        const { data: user } = await getUserByToken(auth.jwtToken, auth.userName);
-        setCurrentUser(user);
+       // const { data: user } = await getUserByToken(auth.jwtToken, auth.userName);
+        setCurrentUser(auth);
         setStatus('');
         setIsValidLogin(true);
       } else {

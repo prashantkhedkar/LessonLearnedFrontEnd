@@ -128,11 +128,14 @@ const AuthProvider: FC<WithChildren> = ({ children }) => {
       // const { data: auth } = await login(upnEmailaddress, "U00002", getAdfsToken());
       if (auth && auth.userName) {
         saveAuth(auth);
-        const { data: user } = await getUserByToken(
-          auth.jwtToken,
-          auth.userName
-        );
-        setCurrentUser(user);
+        // const { data: user } = await getUserByToken(
+        //   auth.jwtToken,
+        //   auth.userName
+        // );
+          if (auth && auth.userName) {
+            setCurrentUser(auth);
+          }
+        //setCurrentUser(user);
       } else {
         saveAuth(undefined);
       }
@@ -169,9 +172,9 @@ const AuthInit: FC<WithChildren> = ({ children }) => {
     const requestUser = async (apiToken: string, email: string) => {
       try {
         if (!didRequest.current) {
-          const { data } = await getUserByToken(apiToken, email);
-          if (data) {
-            setCurrentUser(data);
+        //  const { data } = await getUserByToken(apiToken, email);
+          if (auth && auth.userName) {
+            setCurrentUser(auth);
           }
         }
       } catch (error: any) {

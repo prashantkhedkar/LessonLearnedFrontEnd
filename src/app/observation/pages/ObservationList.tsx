@@ -34,6 +34,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { ILookup } from "../../models/global/globalGeneric";
 import { StatusModel } from "../../models/global/statusModel";
 import { GetLookupValues, fetchStatuses } from "../../modules/services/globalSlice";
+import { ActionType } from "../../modules/auth/core/_rbacModels";
+import { useRBAC } from "../../modules/auth/core/rbac";
 
 export default function ObservationList() {
   const intl = useIntl();
@@ -49,7 +51,7 @@ export default function ObservationList() {
   const [observationId, setObservationId] = useState<number>(0);
   const [typeOptions, setTypeOptions] = useState<ILookup[]>([]);
   const [statuses, setStatuses] = useState<StatusModel[]>([]);
-
+  const rbac = useRBAC();
   const location = useLocation();
   const state = location.state as {
     tab: number;
@@ -270,6 +272,7 @@ export default function ObservationList() {
             {
               <>
                 {Number(props.row.status) == 1 && (
+              //  rbac.hasAction(ActionType.DELETE) && (
                   <div className="col col-auto">
                     <OverlayTrigger
                       placement="top"
@@ -291,6 +294,7 @@ export default function ObservationList() {
                       </div>
                     </OverlayTrigger>
                   </div>
+                 // )
                 )}
               </>
             }
@@ -444,13 +448,13 @@ export default function ObservationList() {
             ></AdminMetSearch>
           </Col>
           <Col className="col-md-1 ps-14">
+        
             <button
               type="button"
               className="btn-add-icon mt-2"
               onClick={() => setShowAdvanced((prev) => !prev)}
               aria-label="Show Advanced Search"
             >
-              {/* <FontAwesomeIcon color={"rgb(134, 140, 151)"} size="lg" icon={faFilter} /> */}
               <FontAwesomeIcon
                 icon={faFilter}
                 size="lg"
@@ -458,6 +462,7 @@ export default function ObservationList() {
                 className="fs-3 px-0 filter-icon-cus"
               />
             </button>
+          
           </Col>
         </Row>
         <Row className="row search-container1 py-4" hidden={!showAdvanced}>
@@ -562,6 +567,8 @@ export default function ObservationList() {
           </button>
         </div>
         <div>
+          
+          {rbac.hasAction(ActionType.ADD) && (
           <button
             onClick={handleAddNewObservation}
             className="btn MOD_btn btn-create min-w-75px w-100 align-self-end"
@@ -569,6 +576,7 @@ export default function ObservationList() {
             <FontAwesomeIcon color={""} size="1x" icon={faPlus} />
             {intl.formatMessage({ id: "BUTTON.LABEL.ADD" })}
           </button>
+          )}
         </div>
       </div>
 
@@ -666,3 +674,4 @@ export default function ObservationList() {
     </>
   );
 }
+ 
