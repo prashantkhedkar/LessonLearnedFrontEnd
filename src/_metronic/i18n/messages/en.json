@@ -788,6 +788,9 @@
   "VALIDATION.TITLE.MAX_LENGTH": "Title must be less than 256 characters",
   "PLACEHOLDER.TITLE": "Enter title...",
   "LABEL.MANAGE.OBSERVATIONS": "Manage Observations",
+  "LABEL.INPROGRESS": "In Progress",
+  "MENU.HEADER.OBSERVATION": "Observation",
+  "MENU.HEADER.OBSERVATION.NEW": "Observation Detail",
   "LABEL.ATTACHMENTS.TOOLTIP.VIEW": "View Attachment",
   "LABEL.ATTACHMENTS.TOOLTIP.DELETE": "Delete Attachment"
 }

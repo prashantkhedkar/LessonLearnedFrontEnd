@@ -21,6 +21,7 @@ import { AdminMetSearch } from "../../modules/components/metSearch/AdminMetSearc
 import { ApiCallType } from "../../helper/_constant/apiCallType.constant";
 import {
   generateUUID,
+  writeToBrowserConsole,
 } from "../../modules/utils/common";
 import DropdownList from "../../modules/components/dropdown/DropdownList";
 import dayjs from "dayjs";
@@ -30,9 +31,13 @@ import { ArticleSearchModel } from "../models/observationModel";
 import { deleteObservation, fetchObservations } from "../../modules/services/observationSlice";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
+import { ILookup } from "../../models/global/globalGeneric";
+import { StatusModel } from "../../models/global/statusModel";
+import { GetLookupValues, fetchStatuses } from "../../modules/services/globalSlice";
+
 export default function ObservationList() {
   const intl = useIntl();
-  const lang = useLang();    
+  const lang = useLang();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const finalTableConfig = JSON.stringify(columns);
@@ -42,6 +47,8 @@ export default function ObservationList() {
   const [componentsList, setComponentsList] = useState<ComponentAndProps[]>([]);
   const [componentsListMyRequest, setComponentsListMyRequest] = useState<ComponentAndProps[]>([]);
   const [observationId, setObservationId] = useState<number>(0);
+  const [typeOptions, setTypeOptions] = useState<ILookup[]>([]);
+  const [statuses, setStatuses] = useState<StatusModel[]>([]);
 
   const location = useLocation();
   const state = location.state as {
@@ -75,6 +82,32 @@ export default function ObservationList() {
         component: DeleteItem,
       },
     ]);
+
+
+    dispatch(GetLookupValues({ lookupType: "ObservationType" }))
+      .then(unwrapResult)
+      .then((originalPromiseResult) => {
+        if (originalPromiseResult.statusCode === 200) {
+          const response: ILookup[] = originalPromiseResult.data;
+          setTypeOptions(response);
+        }
+      })
+      .catch((rejectedValueOrSerializedError) => {
+        writeToBrowserConsole(rejectedValueOrSerializedError);
+      });
+
+    // Load Observation Level options
+    dispatch(fetchStatuses())
+      .then(unwrapResult)
+      .then((originalPromiseResult) => {
+        if (originalPromiseResult.statusCode === 200) {
+          const response: StatusModel[] = originalPromiseResult.data;
+          setStatuses(response);
+        }
+      })
+      .catch((rejectedValueOrSerializedError) => {
+        writeToBrowserConsole(rejectedValueOrSerializedError);
+      });
   }, []);
 
   // Default sort column and direction for draft list
@@ -104,12 +137,27 @@ export default function ObservationList() {
       fetchObservations({
         pageNumber: pageNumber ? pageNumber : 1,
         pageSize: pageSize ? pageSize : 10,
+        observationType:
+          hasFilters && filters.observationType
+            ? filters.observationType
+            : undefined,
+        status:
+          hasFilters && filters.status
+            ? filters.status
+            : undefined,
+        dateFrom:
+          hasFilters && filters.dateFrom
+            ? dayjs(filters.dateFrom).format("YYYY-MM-DD")
+            : undefined,
+        dateTo:
+          hasFilters && filters.dateTo
+            ? dayjs(filters.dateTo).format("YYYY-MM-DD")
+            : undefined,
       })
     )
       .then(unwrapResult)
       .then((orginalPromiseResult) => {
         if (orginalPromiseResult.statusCode === 200) {
-          debugger;
           if (tableRef.current) {
             if (orginalPromiseResult.data.items.length > 0) {
               const formattedData = orginalPromiseResult.data.items;
@@ -138,12 +186,21 @@ export default function ObservationList() {
 
 
   const handleSearch = () => {
-
+    fetchObservationList(
+      1,
+      10,
+      draftDefaultSortColumn,
+      draftDefaultSortDirection,
+      "",
+      true,
+      false
+    );
   };
 
   const onCellClick = () => { };
 
   const handleClear = () => {
+    setFilters(undefined);
     fetchObservationList(
       1,
       10,
@@ -156,6 +213,16 @@ export default function ObservationList() {
   };
 
   const handleChange = (e: any, fieldName: string) => {
+
+    const updatedItem: ArticleSearchModel = { ...filters! };
+    if (fieldName == "observationType") updatedItem!.observationType = e;
+    if (fieldName == "status") updatedItem!.status = e;
+    if (fieldName == "dateFrom") {
+      updatedItem!.dateFrom = e;
+      updatedItem!.dateTo = undefined;
+    }
+    if (fieldName == "dateTo") updatedItem!.dateTo = e;
+    setFilters(updatedItem);
 
   };
 
@@ -245,31 +312,14 @@ export default function ObservationList() {
   function ServiceName(props: { row: DTRow; editStatus: string }) {
     const navigate = useNavigate();
     const intl = useIntl();
-    let cssPropName = "";
-    if (props.row.priority == "عالي" || props.row.priority == "High") {
-      cssPropName = "High";
-    } else if (
-      props.row.priority == "متوسط" ||
-      props.row.priority == "Medium"
-    ) {
-      cssPropName = "Medium";
-    } else if (props.row.priority == "منخفض" || props.row.priority == "Low") {
-      cssPropName = "Low";
-    }
+    
     return (
       <>
         {
           <div className="col col-auto">
             {
-              <>
-                <DetailLabels
-                  text={props.row.priority!}
-                  customClassName={`${cssPropName.toLowerCase()}-priority-ar`}
-                  style={{ width: "60px", margin: "0 10px" }}
-                />
-
-                <DetailLabels text={props.row.requestNumber!} />
-
+              <>            
+                <DetailLabels text={props.row.observationNumber!} />
                 <div
                   style={{
                     borderLeft: "1px solid #ccc",
@@ -278,8 +328,7 @@ export default function ObservationList() {
                     display: "inline-block",
                   }}
                 ></div>
-
-                <DetailLabels text={props.row.requestTitle!} />
+                <DetailLabels text={props.row.observationTitle!} />
               </>
             }
           </div>
@@ -328,7 +377,6 @@ export default function ObservationList() {
   };
 
   const handleDeleteItem = () => {
-    debugger;
     if (observationId === null) return;
 
     dispatch(deleteObservation({ articleId: Number(observationId) }))
@@ -361,6 +409,14 @@ export default function ObservationList() {
     navigate("/observation/new");
   }
 
+  const handleTabChange = (tabIndex: number) => {
+    setTabInit(tabIndex);
+    const updatedItem: ArticleSearchModel = { ...filters! };
+    if(tabIndex==0) updatedItem.status = 1;
+    if(tabIndex==1) updatedItem.status = 0;
+    if(tabIndex==2) updatedItem.status = 0;
+    setFilters(updatedItem);
+  }
   return (
     <>
       <Row className="mb-4">
@@ -376,14 +432,7 @@ export default function ObservationList() {
         <Row>
           <Col className="col-11">
             <AdminMetSearch
-              //   statusId={filters?.statusId?.toString()}
-              //   categoryId={filters?.categoryId}
-              //   date={
-              //     filters?.requestDateFrom
-              //       ? dayjs(filters?.requestDateFrom).format("YYYY-MM-DD")
-              //       : undefined
-              //   }
-              apiCallType={ApiCallType.ServiceListDashboard}
+              apiCallType={ApiCallType.ObservationList}
             ></AdminMetSearch>
           </Col>
           <Col className="col-md-1 ps-14">
@@ -393,7 +442,6 @@ export default function ObservationList() {
               onClick={() => setShowAdvanced((prev) => !prev)}
               aria-label="Show Advanced Search"
             >
-              {/* <FontAwesomeIcon color={"rgb(134, 140, 151)"} size="lg" icon={faFilter} /> */}
               <FontAwesomeIcon
                 icon={faFilter}
                 size="lg"
@@ -406,16 +454,14 @@ export default function ObservationList() {
         <Row className="row search-container1 py-4" hidden={!showAdvanced}>
           <Col>
             <DropdownList
-              dataKey="categoryId"
-              dataValue={lang === "ar" ? "categoryNameAr" : "categoryNameEn"}
-              defaultText={intl.formatMessage({
-                id: "LABEL.SERVICECATEGORY",
-              })}
-              value={0}
+              dataKey="id"
+              dataValue={lang === "ar" ? "label" : "labelEn"}
+              defaultText={intl.formatMessage({ id: "PLACEHOLDER.SELECT.TYPE" })}
+              value={filters?.observationType ? filters?.observationType : 0}
               rtl={true}
-              data={[]}
+              data={typeOptions}
               key={generateUUID()}
-              setSelectedValue={(e) => handleChange(e, "categoryId")}
+              setSelectedValue={(e) => handleChange(e, "observationType")}
             />
           </Col>
           <Col>
@@ -424,10 +470,9 @@ export default function ObservationList() {
               dataKey="statusId"
               dataValue={lang === "ar" ? "statusNameAr" : "statusNameEn"}
               defaultText={intl.formatMessage({ id: "LABEL.NEXTSTATUS" })}
-              value={0}
-              //data={statuses}
-              data={[]}
-              setSelectedValue={(e) => handleChange(e, "statusId")}
+              value={filters?.status ? filters?.status : 0}
+              data={statuses}
+              setSelectedValue={(e) => handleChange(e, "status")}
             />
           </Col>
         </Row>
@@ -437,9 +482,9 @@ export default function ObservationList() {
               placeholder={intl.formatMessage({
                 id: "LABEL.FROM",
               })}
-              value={new Date()}
+              value={filters?.dateFrom ? new Date(filters?.dateFrom!) : undefined}
               onDateChange={(newDate) =>
-                handleChange(newDate, "requestDateFrom")
+                handleChange(newDate, "dateFrom")
               }
               key={generateUUID()}
               id={""}
@@ -450,30 +495,13 @@ export default function ObservationList() {
               placeholder={intl.formatMessage({
                 id: "LABEL.TO",
               })}
-              value={new Date()}
-              onDateChange={(newDate) => handleChange(newDate, "requestDateTo")}
+              value={filters?.dateTo ? new Date(filters?.dateTo!) : undefined}
+              onDateChange={(newDate) => handleChange(newDate, "dateTo")}
               key={generateUUID()}
-              minDate={new Date()}
+              minDate={filters?.dateFrom!? new Date(filters?.dateFrom!) : undefined}
               id={""}
             />
           </Col>
-        </Row>
-        <Row className="row search-container1 py-4" hidden={!showAdvanced}>
-          <Col>
-            <DropdownList
-              dataKey="serviceId"
-              dataValue={"serviceName"}
-              defaultText={intl.formatMessage({
-                id: "LABEL.SERVICENAME",
-              })}
-              value={0}
-              rtl={true}
-              data={[]}
-              key={generateUUID()}
-              setSelectedValue={(e) => handleChange(e, "serviceId")}
-            />
-          </Col>
-          <Col></Col>
         </Row>
         <Row className="row search-container1 py-4" hidden={!showAdvanced}>
           <Col className="d-flex gap-2 justify-content-end">
@@ -506,14 +534,20 @@ export default function ObservationList() {
       <div className="d-flex justify-content-between align-items-center">
         <div style={tabListStyle} className="mb-3 mt-5">
           <button
-            onClick={() => setTabInit(0)}
+            onClick={() => handleTabChange(0)}
             style={tabInit == 0 ? activeTabStyle : TabStyle}
           >
-            {intl.formatMessage({ id: "LABEL.MYREQUESTS" })}
+            {intl.formatMessage({ id: "LABEL.DRAFT" })}
           </button>
           <button
-            onClick={() => setTabInit(1)}
+            onClick={() => handleTabChange(1)}
             style={tabInit == 1 ? activeTabStyle : TabStyle}
+          >
+            {intl.formatMessage({ id: "LABEL.INPROGRESS" })}
+          </button>
+          <button
+            onClick={() => handleTabChange(2)}
+            style={tabInit == 2 ? activeTabStyle : TabStyle}
           >
             {intl.formatMessage({ id: "LABEL.MYACTIONS" })}
           </button>
@@ -530,6 +564,7 @@ export default function ObservationList() {
       </div>
 
       <div style={{ display: tabInit === 0 ? "block" : "none" }}>
+        {JSON.stringify(fetchObservationList)}
         {tabInit === 0 && (
           <DataTableMain2
             displaySearchBar={false}
@@ -540,11 +575,12 @@ export default function ObservationList() {
             getData={fetchObservationList}
             ref={tableRef}
             componentsList={componentsList}
+            key={"table0"}
           />
         )}
       </div>
       <div style={{ display: tabInit === 1 ? "block" : "none" }}>
-        {/* {tabInit === 1 && (
+        {tabInit === 1 && (
           <DataTableMain2
             displaySearchBar={false}
             lang={lang}
@@ -554,10 +590,25 @@ export default function ObservationList() {
             getData={fetchObservationList}
             ref={tableRef}
             componentsList={componentsList}
+            key={"table1"}
           />
-        )} */}
+        )}
       </div>
-
+      <div style={{ display: tabInit === 2 ? "block" : "none" }}>
+        {tabInit === 2 && (
+          <DataTableMain2
+            displaySearchBar={false}
+            lang={lang}
+            tableConfig={finalTableConfig}
+            onCellClick={onCellClick}
+            paginationServer
+            getData={fetchObservationList}
+            ref={tableRef}
+            componentsList={componentsList}
+            key={"table2"}
+          />
+        )}
+      </div>
 
       <Modal
         show={showModalDelete}

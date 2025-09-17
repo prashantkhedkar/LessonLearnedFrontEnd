@@ -10,15 +10,6 @@ import { IPageLog } from "../models/global/globalGeneric";
 import { insertPageLog } from "../modules/services/globalSlice";
 import { writeToBrowserConsole } from "../modules/utils/common";
 import { getUserToken } from "../modules/auth/core/_requests";
-import { ServiceRequestForm } from "../pages/admin/new-services/service-components/ServiceRequestForm";
-import { ManageFields } from "../pages/admin/new-fields/ManageFields";
-import { ManageWorkflow } from "../pages/admin/workflowSetting/ManageWorkflow";
-import EndUserServiceDashboard from "../pages/end-user-services/EndUserServiceDashboard";
-import { EditServices } from "../pages/admin/new-services/EditServices";
-import { NewServices } from "../pages/admin/new-services/NewServices";
-import AdminServiceDashboard from "../pages/admin/AdminServiceDashboard";
-import { ServiceRequestEndUserForm } from "../pages/end-user-services/forms/ServiceRequestEndUserForm";
-import ServiceRequestList from "../pages/end-user-services/ServiceRequestList";
 import Dashboard from "../modules/components/Dashboard";
 import ArticlePage from "../observation/pages/ObservationPage";
 import ObservationPage from "../observation/pages/ObservationPage";
@@ -55,59 +46,7 @@ const PrivateRoutes = () => {
     return () => clearInterval(intervalId);
   }, []); // Empty dependency array, only runs once when component mounts
 
-  const FmsLandingDashboard = lazy(() =>
-    import("../pages/dashboard/DashboardPage").then((module) => {
-      return { default: module.DashboardPage };
-    })
-  );
 
-  const ChartDrillDownPage = lazy(() =>
-    import("../pages/dashboard/ChartDrillDownPage").then((module) => {
-      return { default: module.default };
-    })
-  );
-
-  const Sample = lazy(() =>
-    import("../pages/admin/new-services/NewServices").then((module) => {
-      return { default: module.NewServices };
-    })
-  );
-
-  const ServiceCategoryDashboard = lazy(() =>
-    import(
-      "../pages/end-user-services/serviceCategory/ServiceCategoryDashboard"
-    ).then((module) => {
-      return { default: module.ServiceCategoryDashboard };
-    })
-  );
-
-  const ServiceCategoryList = lazy(() =>
-    import("../pages/end-user-services/serviceCategory/ServiceList").then(
-      (module) => {
-        return { default: module.ServiceList };
-      }
-    )
-  );
-
-  const ManageCategory = lazy(() =>
-    import("../pages/admin/settings/manageCatgory/ManageCategory").then(
-      (module) => {
-        return { default: module.ManageCategory };
-      }
-    )
-  );
-  const ManageCustomFields = lazy(() =>
-    import("../pages/admin/settings/manageFields/ManageCustomFields").then(
-      (module) => {
-        return { default: module.ManageCustomFields };
-      }
-    )
-  );
-  const RoomManagementPage = lazy(() =>
-    import("../pages/room-management/RoomManagementPage").then((module) => {
-      return { default: module.default };
-    })
-  );
   const NotificationListPage = lazy(() =>
     import("../modules/components/notification/NotificationListPage").then(
       (module) => {
@@ -156,15 +95,7 @@ const PrivateRoutes = () => {
                 </SuspensedView>
               }
             />
-            <Route
-              path="fms-dashboard"
-              element={
-                <SuspensedView>
-                  <FmsLandingDashboard />
-                </SuspensedView>
-              }
-            />
-
+           
             <Route
               path="notifications"
               element={
