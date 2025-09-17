@@ -200,6 +200,7 @@ export default function ObservationList() {
   const onCellClick = () => { };
 
   const handleClear = () => {
+    setFilters(undefined);
     fetchObservationList(
       1,
       10,
@@ -426,6 +427,14 @@ export default function ObservationList() {
     navigate("/observation/new");
   }
 
+  const handleTabChange = (tabIndex: number) => {
+    setTabInit(tabIndex);
+    const updatedItem: ArticleSearchModel = { ...filters! };
+    if(tabIndex==0) updatedItem.status = 1;
+    if(tabIndex==1) updatedItem.status = 0;
+    if(tabIndex==2) updatedItem.status = 0;
+    setFilters(updatedItem);
+  }
   return (
     <>
       <Row className="mb-4">
@@ -441,13 +450,6 @@ export default function ObservationList() {
         <Row>
           <Col className="col-11">
             <AdminMetSearch
-              //   statusId={filters?.statusId?.toString()}
-              //   categoryId={filters?.categoryId}
-              //   date={
-              //     filters?.requestDateFrom
-              //       ? dayjs(filters?.requestDateFrom).format("YYYY-MM-DD")
-              //       : undefined
-              //   }
               apiCallType={ApiCallType.ObservationList}
             ></AdminMetSearch>
           </Col>
@@ -458,7 +460,6 @@ export default function ObservationList() {
               onClick={() => setShowAdvanced((prev) => !prev)}
               aria-label="Show Advanced Search"
             >
-              {/* <FontAwesomeIcon color={"rgb(134, 140, 151)"} size="lg" icon={faFilter} /> */}
               <FontAwesomeIcon
                 icon={faFilter}
                 size="lg"
@@ -551,19 +552,19 @@ export default function ObservationList() {
       <div className="d-flex justify-content-between align-items-center">
         <div style={tabListStyle} className="mb-3 mt-5">
           <button
-            onClick={() => setTabInit(0)}
+            onClick={() => handleTabChange(0)}
             style={tabInit == 0 ? activeTabStyle : TabStyle}
           >
             {intl.formatMessage({ id: "LABEL.DRAFT" })}
           </button>
           <button
-            onClick={() => setTabInit(1)}
+            onClick={() => handleTabChange(1)}
             style={tabInit == 1 ? activeTabStyle : TabStyle}
           >
             {intl.formatMessage({ id: "LABEL.INPROGRESS" })}
           </button>
           <button
-            onClick={() => setTabInit(2)}
+            onClick={() => handleTabChange(2)}
             style={tabInit == 2 ? activeTabStyle : TabStyle}
           >
             {intl.formatMessage({ id: "LABEL.MYACTIONS" })}
@@ -581,6 +582,7 @@ export default function ObservationList() {
       </div>
 
       <div style={{ display: tabInit === 0 ? "block" : "none" }}>
+        {JSON.stringify(fetchObservationList)}
         {tabInit === 0 && (
           <DataTableMain2
             displaySearchBar={false}
@@ -591,11 +593,12 @@ export default function ObservationList() {
             getData={fetchObservationList}
             ref={tableRef}
             componentsList={componentsList}
+            key={"table0"}
           />
         )}
       </div>
       <div style={{ display: tabInit === 1 ? "block" : "none" }}>
-        {/* {tabInit === 1 && (
+        {tabInit === 1 && (
           <DataTableMain2
             displaySearchBar={false}
             lang={lang}
@@ -605,11 +608,12 @@ export default function ObservationList() {
             getData={fetchObservationList}
             ref={tableRef}
             componentsList={componentsList}
+            key={"table1"}
           />
-        )} */}
+        )}
       </div>
       <div style={{ display: tabInit === 2 ? "block" : "none" }}>
-        {/* {tabInit === 1 && (
+        {tabInit === 2 && (
           <DataTableMain2
             displaySearchBar={false}
             lang={lang}
@@ -619,8 +623,9 @@ export default function ObservationList() {
             getData={fetchObservationList}
             ref={tableRef}
             componentsList={componentsList}
+            key={"table2"}
           />
-        )} */}
+        )}
       </div>
 
       <Modal
