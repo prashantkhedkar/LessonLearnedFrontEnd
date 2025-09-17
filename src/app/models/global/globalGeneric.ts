@@ -446,3 +446,9 @@ export interface ITimelineActivityRetrieveModel {
   entityId: number;
   serviceId: number;
 }
+
+export interface StepperModel {
+    stepId? : number;
+    stepOrder : number;  
+    stepName : string;  
+}
