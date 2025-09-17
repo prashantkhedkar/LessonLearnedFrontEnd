@@ -15,14 +15,9 @@ import { fetchObservations } from "../../services/observationSlice";
 
 export interface SearchResultModel {
   id: number;
-  title: string;
-  description: string;
-  sortOrder: number;
-  lookupName: string;
-  serviceCode: string;
-  statusId: number;
-  categoryName: string;
-  requestId?: number;
+  observationTitle: string;
+  observationTypeName: string;
+  observationCode: string;
 }
 
 interface AdminMetSearchProps {
@@ -125,7 +120,7 @@ const AdminMetSearch: FC<AdminMetSearchProps> = ({
             status: undefined,
             dateFrom:undefined,
             dateTo: undefined,
-            searchTerm: text ? text : "",
+            searchText: text ? text : "",
           })
     )
       .then(unwrapResult)
@@ -133,12 +128,12 @@ const AdminMetSearch: FC<AdminMetSearchProps> = ({
         if (originalPromiseResult.statusCode === 200) {
           if (
             originalPromiseResult.data &&
-            originalPromiseResult.data.wildCardSearchTextDto.length > 0
+            originalPromiseResult.data.items.length > 0
           ) {
             resultsElement.current!.classList.remove("d-none");
             emptyElement.current!.classList.add("d-none");
             searchIconElement.current!.classList.add("d-none");
-            setSearchResult(originalPromiseResult.data.wildCardSearchTextDto);
+            setSearchResult(originalPromiseResult.data.items);
             if (originalPromiseResult.data) {
               let totalCount = originalPromiseResult.data.totalCount;
               setNumberOfPages(Math.ceil(totalCount / pageSize));
@@ -274,8 +269,8 @@ const AdminMetSearch: FC<AdminMetSearchProps> = ({
           <div
             ref={resultsElement}
             data-kt-search-element="results"
-            className="d-none position-absolute bg-white z-3 w-100 golder-border-1 pb-4"
-            style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.08)", color: "#222" }}
+            className="d-none position-absolute bg-white w-100 golder-border-1 pb-4"
+            style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.08)", color: "#222", zIndex: 1000 }}
           >
             <div className="scroll-y mh-200px mh-lg-350px">
               <div className="px-4">
@@ -288,7 +283,7 @@ const AdminMetSearch: FC<AdminMetSearchProps> = ({
                     className="d-flex text-dark text-hover-primary align-items-center pb-5 border-bottom pt-2 "
                   >
                     <div className="symbol symbol-40px me-4 h-100 ">
-                      {item.serviceCode}
+                      {item.observationCode}
                     </div>
 
                     <div className="d-flex flex-column justify-content-start fw-bold border-start ps-2">
@@ -296,7 +291,7 @@ const AdminMetSearch: FC<AdminMetSearchProps> = ({
                         className="fs-6 searchResultTitle"
                         dangerouslySetInnerHTML={{
                           __html: highLightBold(
-                            item.categoryName,
+                            item.observationTitle,
                             searchTerm.toString()
                           ),
                         }}
@@ -306,7 +301,7 @@ const AdminMetSearch: FC<AdminMetSearchProps> = ({
                         className="fs-7 fw-bold text-muted"
                         dangerouslySetInnerHTML={{
                           __html: highLightBold(
-                            item.title,
+                            item.observationTypeName,
                             searchTerm.toString()
                           ),
                         }}
@@ -324,8 +319,8 @@ const AdminMetSearch: FC<AdminMetSearchProps> = ({
           </div>
           <div
             ref={emptyElement}
-            className="d-none position-absolute bg-white z-3 w-100 golder-border-1 pb-4"
-            style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.08)", color: "#222" }}
+            className="d-none position-absolute bg-white w-100 golder-border-1 pb-4"
+            style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.08)", color: "#222", zIndex: 1000 }}
           >
             <NoSearchResultsFound />
           </div>

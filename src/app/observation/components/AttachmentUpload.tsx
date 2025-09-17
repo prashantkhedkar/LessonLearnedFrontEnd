@@ -73,7 +73,9 @@ const AttachmentUpload: React.FC<Props> = ({
 
   const isGreaterThan = (bytes: number) => bytes / (1024 * 1024) > perFileMaxAllowedSizeInMb;
 
-  const handleOnSelectFileForUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOnSelectFileForUpload = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const files = event.target.files;
     const file = files?.[0];
 
@@ -89,7 +91,9 @@ const AttachmentUpload: React.FC<Props> = ({
     if (isGreaterThan(file.size)) {
       isAttachmentSizeError?.(true);
       toast.warning(
-        `${intl.formatMessage({ id: "LEGAL.POPUP.ATTACHMENTS.SIZE.HIGHER" })} ${perFileMaxAllowedSizeInMb} MB`
+        `${intl.formatMessage({
+          id: "LABEL.POPUP.ATTACHMENTS.SIZE.HIGHER",
+        })} ${perFileMaxAllowedSizeInMb} MB`
       );
       return;
     } else {
@@ -101,7 +105,9 @@ const AttachmentUpload: React.FC<Props> = ({
       const allowed = getAllowedMimeTypes(
         true,
         fileTypes,
-        intl.formatMessage({ id: "MOD.GLOBAL.FILEUPLOAD.FILESIZE.INFOMESSAGE" }),
+        intl.formatMessage({
+          id: "MOD.GLOBAL.FILEUPLOAD.FILESIZE.INFOMESSAGE",
+        }),
         perFileMaxAllowedSizeInMb
       ).extension;
       const msg = intl
@@ -118,7 +124,7 @@ const AttachmentUpload: React.FC<Props> = ({
   return (
     <>
       {/* DO NOT wrap title like {{title}}; that would create an object */}
-      {!showType && title}
+      {/* {!showType && title} */}
 
       <div className="file-upload">
         <div className="single-fileUpload">
@@ -129,7 +135,9 @@ const AttachmentUpload: React.FC<Props> = ({
             multiple={false}
             {...register(tempguid, {
               required: required
-                ? `${intl.formatMessage({ id: title })} ${intl.formatMessage({ id: "FORM.LABEL.REQUIRED" })}`
+                ? `${intl.formatMessage({ id: title })} ${intl.formatMessage({
+                    id: "FORM.LABEL.REQUIRED",
+                  })}`
                 : false,
             })}
             onChange={handleOnSelectFileForUpload}

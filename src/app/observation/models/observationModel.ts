@@ -45,13 +45,13 @@ export interface ArticleListModel {
 
 // Article Search Model
 export interface ArticleSearchModel {
-  searchTerm?: string;
+  searchText?: string;
   observationType?: number;
   status?: number;
   currentAssignment?: string;
   level?: number;
-  dateFrom?: Date;
-  dateTo?: Date;
+  dateFrom?: string;
+  dateTo?: string;
   pageNumber?: number;
   pageSize?: number;
   sortBy?: string;
@@ -60,7 +60,7 @@ export interface ArticleSearchModel {
 
 // Default search parameters
 export const DEFAULT_ARTICLE_SEARCH: ArticleSearchModel = {
-  searchTerm: '',
+  searchText: '',
   observationType: undefined,
   status: undefined,
   currentAssignment: '',

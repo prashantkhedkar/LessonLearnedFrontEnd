@@ -5,29 +5,13 @@ import { Name, Unit } from "./global/personModel";
 export interface Row {
   id: number;
   createdDate: string;
-  unitNameAR?: string;
-  [key: number]: string;
-  progress: string;
-  serviceId: number;
-  serviceName?: string;
-  serviceUserType?: string;
-  serviceCode?: string;
-  serviceStatus?: string;
   statusId?: number;
-
-  requestId?: number;
-  requestNumber?: string;
+  observationNumber?: string;
   docUrl?: string;
   attachmentId: number;
-  categoryId: number;
-  currentStepId?: number;
-  requestTitle?: string;
-  priority?: string;
   createdBy?: number;
-  serviceRequestCurrentStepId?: number;
-  serviceRequestStatusId?: number;
-  serviceRequestId?: number;
-  actionBy?: string;
+  observationTitle?: string;
+  progress: string;
 }
 
 export interface MyObject {
@@ -89,12 +73,9 @@ export function createEmptyRow(): Row {
 
   const emptyRow: Row = {
     id: 0,
-    serviceId: 0,
     createdDate: "",
-    progress: "",
-    requestId: 0,
     attachmentId: 0,
-    categoryId: 0,
+    progress: "",
   };
 
   return emptyRow;

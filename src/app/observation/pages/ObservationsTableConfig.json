@@ -3,12 +3,13 @@
         "columnName": "LABEL.OBSERVATION.TITLE",
         "dataColumnName": "observationTitle",
         "sortable": true,
-        "type": "",
+         "type": "components",
         "className": "cellText",
+        "componentsIndexes": "0",
         "fontAwesome": "",
         "isSearchable": true,
-        "width": "40%",
-        "width-ar": "40%",
+        "width": "30%",
+        "width-ar": "30%",
         "style": {
             "padding-right": "7px",
             "padding-left": "7px"
@@ -16,14 +17,14 @@
     },
     {
         "columnName": "LABEL.OBSERVATION.TYPE",
-        "dataColumnName": "observationType",
+        "dataColumnName": "observationTypeName",
         "sortable": true,
         "type": "",
         "className": "cellText",
         "fontAwesome": "",
         "isSearchable": true,
-        "width": "20%",
-        "width-ar": "20%",
+        "width": "15%",
+        "width-ar": "15%",
         "style": {
             "padding-right": "7px",
             "padding-left": "7px"
@@ -31,14 +32,29 @@
     },
     {
         "columnName": "LABEL.REQUESTDATE",
-        "dataColumnName": "createdDate",
+        "dataColumnName": "createdDateString",
         "sortable": true,
         "type": "",
         "className": "cellText",
         "fontAwesome": "",
         "isSearchable": true,
-        "width": "20%",
-        "width-ar": "20%",
+        "width": "15%",
+        "width-ar": "15%",
+        "style": {
+            "padding-right": "7px",
+            "padding-left": "7px"
+        }
+    },
+    {
+        "columnName": "LABEL.STATUS",
+        "dataColumnName": "statusName",
+        "sortable": true,
+        "type": "",
+        "className": "cellText",
+        "fontAwesome": "",
+        "isSearchable": true,
+        "width": "25%",
+        "width-ar": "25%",
         "style": {
             "padding-right": "7px",
             "padding-left": "7px"
@@ -53,11 +69,11 @@
         "componentsIndexes": "1,2",
         "showTooltip": "false",
         "isSearchable": false,
-        "width": "20%",
-        "width-ar": "20%",
+        "width": "15%",
+        "width-ar": "15%",
         "style": {
-            "padding-right": "10px",
-            "padding-left": "10px",
+            "padding-right": "7px",
+            "padding-left": "7px",
             "color": "grey"
         }
     }

@@ -487,3 +487,4 @@ export const DetailLabelsWhite = ({ style, text, isRequired, isI18nKey = true, c
         </React.Fragment>
     );
 };
+

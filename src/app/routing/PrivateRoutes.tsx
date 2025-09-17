@@ -15,6 +15,7 @@ import ArticlePage from "../observation/pages/ObservationPage";
 import ObservationPage from "../observation/pages/ObservationPage";
 import ObservationList from "../observation/pages/ObservationList";
 import AttachmentForm from "../observation/pages/AttachmentForm"; // adjust path if needed
+import ObservationDetailsPage from "../observation/pages/ObservationDetailsPage";
 
 const PrivateRoutes = () => {
   const dispatch = useAppDispatch();
@@ -120,13 +121,22 @@ const PrivateRoutes = () => {
               }
             />
             <Route
-                path="observation/attachments-sandbox"
-                element={
-                  <SuspensedView>
-                    <AttachmentForm observationID={2} />
-                  </SuspensedView>
-                }
-              />
+              path="observation/attachments-sandbox"
+              element={
+                <SuspensedView>
+                  <AttachmentForm observationID={2} />
+                </SuspensedView>
+              }
+            />
+
+            <Route
+              path="observation/details"
+              element={
+                <SuspensedView>
+                  <ObservationDetailsPage />
+                </SuspensedView>
+              }
+            />
             <Route
               path="*"
               element={
