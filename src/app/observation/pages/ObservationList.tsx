@@ -147,11 +147,11 @@ export default function ObservationList() {
             : undefined,
         dateFrom:
           hasFilters && filters.dateFrom
-            ? filters.dateFrom
+            ? dayjs(filters.dateFrom).format("YYYY-MM-DD")
             : undefined,
         dateTo:
           hasFilters && filters.dateTo
-            ? filters.dateTo
+            ? dayjs(filters.dateTo).format("YYYY-MM-DD")
             : undefined,
       })
     )
@@ -186,7 +186,15 @@ export default function ObservationList() {
 
 
   const handleSearch = () => {
-
+    fetchObservationList(
+      1,
+      10,
+      draftDefaultSortColumn,
+      draftDefaultSortDirection,
+      "",
+      true,
+      false
+    );
   };
 
   const onCellClick = () => { };
@@ -491,7 +499,7 @@ export default function ObservationList() {
               placeholder={intl.formatMessage({
                 id: "LABEL.FROM",
               })}
-              value={filters?.dateFrom}
+              value={filters?.dateFrom ? new Date(filters?.dateFrom!) : undefined}
               onDateChange={(newDate) =>
                 handleChange(newDate, "dateFrom")
               }
@@ -504,14 +512,14 @@ export default function ObservationList() {
               placeholder={intl.formatMessage({
                 id: "LABEL.TO",
               })}
-              value={filters?.dateTo}
+              value={filters?.dateTo ? new Date(filters?.dateTo!) : undefined}
               onDateChange={(newDate) => handleChange(newDate, "dateTo")}
               key={generateUUID()}
-              minDate={filters?.dateFrom}
+              minDate={filters?.dateFrom!? new Date(filters?.dateFrom!) : undefined}
               id={""}
             />
           </Col>
-        </Row>        
+        </Row>
         <Row className="row search-container1 py-4" hidden={!showAdvanced}>
           <Col className="d-flex gap-2 justify-content-end">
             <button
