@@ -2,7 +2,6 @@
   background-color: #F5F2EE;
   border-radius: 6px;
   overflow: hidden;
-  margin-bottom: 1rem;
   direction: rtl;
 }
 
@@ -12,12 +11,10 @@
 }
 
 .content-section-title {
-  flex: 0 0 200px;
+  flex: 0 0 120px;
   background-color: #F5F2EE;
   padding: 1rem 1.5rem;
   color: #000;
-   
-  border-left: 1px solid rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
 }

@@ -68,11 +68,11 @@ export const fetchObservationById = createAsyncThunk<
   any,
   { articleId: number }
 >(
-  'observation/fetchById',
+  'GetObservationDetails/Details',
   async ({ articleId }, thunkApi) => {
     try {
       return await requests.get<responseType>(
-        `/Observation/Get/${articleId}`
+        `/Observation/GetObservationDetails/Details/${articleId}`
       );
     } catch (error: any) {
       console.log(error);
