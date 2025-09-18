@@ -68,115 +68,122 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({
 
   return (
     <>
-      <Accordion 
+      <Accordion
         expanded={isExpanded}
         onChange={() => setIsExpanded(!isExpanded)}
         className={`mb-5 ${className}`}
         sx={{
-          border: '1px solid #8c87872e',
-          borderRadius: '6px',
-          overflow: 'hidden',
-          boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
-          '& .MuiAccordionSummary-root': {
-            direction: 'rtl',
-            borderBottom: '1px solid #E4E6EF',
-            backgroundColor: '#ffffff'
+          border: "1px solid #8c87872e",
+          borderRadius: "6px",
+          overflow: "hidden",
+          boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+          "& .MuiAccordionSummary-root": {
+            direction: "rtl",
+            borderBottom: "1px solid #E4E6EF",
+            backgroundColor: "#ffffff",
           },
-          '& .MuiAccordionDetails-root': {
-            direction: 'rtl',
+          "& .MuiAccordionDetails-root": {
+            direction: "rtl",
             padding: 0,
-            backgroundColor: '#ffffff'
-          }
-        }}
-      >
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel-content"
-        id="panel-header"
-        className="py-2"
-        sx={{
-          margin: '0 !important',
-          '&.MuiAccordionSummary-root': {
-            margin: '0 !important',
-            minHeight: '60px',
-            padding: '16px',
-            '&.Mui-expanded': {
-              minHeight: 'unset',
-            }
-            
+            backgroundColor: "#ffffff",
           },
-          '& .MuiAccordionSummary-content': {
-            margin: '0 !important',
-             padding: '8px 0',
-          }
         }}
       >
-        <div className="w-100 d-flex justify-content-between align-items-center">
-          <div className="d-flex flex-column">
-            <LabelTextSemibold2
-              text= {`${index} ${recommendation?.recommendationText || text}`}
-            />
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel-content"
+          id="panel-header"
+          className="py-2"
+          sx={{
+            margin: "0 !important",
+            "&.MuiAccordionSummary-root": {
+              margin: "0 !important",
+              minHeight: "60px",
+              padding: "16px",
+              "&.Mui-expanded": {
+                minHeight: "unset",
+              },
+            },
+            "& .MuiAccordionSummary-content": {
+              margin: "0 !important",
+              padding: "8px 0",
+            },
+          }}
+        >
+          <div className="w-100 d-flex justify-content-between align-items-center">
+            <div className="d-flex flex-column">
+              <LabelTextSemibold2
+                text={`${index} ${recommendation?.recommendationText || text}`}
+              />
               {isExpanded && (
                 <CardHeaderSubLabel
-                  text={`${recommendation?.level}  |  ${recommendation?.combatFunction}`}
-                  numericVal="4"
-                  style={{ marginTop: '8px' }}
-                />)}
-          </div>
-          <div className="d-flex align-items-center me-3" style={{ gap: '15px', borderLeft: '1px solid #E2E2E2',paddingLeft: '10px' }}>
-            <EditOutlinedIcon 
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent accordion toggle
-                console.log('Edit icon clicked in RecommendationDetails', { onEditClick, recommendationId });
-                if (onEditClick) {
-                  onEditClick();
-                }
+                  text={`${recommendation?.levelLookupNameAr}  |  ${recommendation?.combatFunctionLookupNameAr}`}
+                  numericVal=""
+                  style={{ marginTop: "8px" }}
+                />
+              )}
+            </div>
+            <div
+              className="d-flex align-items-center me-3"
+              style={{
+                gap: "15px",
+                borderLeft: "1px solid #E2E2E2",
+                paddingLeft: "10px",
               }}
-              sx={{ 
-                fontSize: 20, 
-               
-                cursor: 'pointer',
-                '&:hover': { color: 'primary.main' }
-              }} 
-            />
-            <ClearIcon 
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent accordion toggle
-                console.log('Delete icon clicked in RecommendationDetails', { onDeleteClick, recommendationId });
-                if (onDeleteClick) {
-                  onDeleteClick();
-                }
-              }}
-              sx={{ 
-                fontSize: 20, 
-                cursor: 'pointer',
-                '&:hover': { color: 'error.main' }
-              }} 
-            />
-          </div>
-        </div>
-      </AccordionSummary>
+            >
+              <EditOutlinedIcon
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent accordion toggle
+                  console.log("Edit icon clicked in RecommendationDetails", {
+                    onEditClick,
+                    recommendationId,
+                  });
+                  if (onEditClick) {
+                    onEditClick();
+                  }
+                }}
+                sx={{
+                  fontSize: 20,
 
-      <AccordionDetails>
-        {/* Main Content */}
-        <div className="p-4">
-          
-        
-          {/* Actions Display Component - Only render when accordion is expanded */}
-          {isExpanded && (
-            <div className="mb-4">
-              <ActionsDisplay 
-                recommendationId={recommendationId}
+                  cursor: "pointer",
+                  "&:hover": { color: "primary.main" },
+                }}
+              />
+              <ClearIcon
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent accordion toggle
+                  console.log("Delete icon clicked in RecommendationDetails", {
+                    onDeleteClick,
+                    recommendationId,
+                  });
+                  if (onDeleteClick) {
+                    onDeleteClick();
+                  }
+                }}
+                sx={{
+                  fontSize: 20,
+                  cursor: "pointer",
+                  "&:hover": { color: "error.main" },
+                }}
               />
             </div>
-          )}
-         
-          
-        </div>
-      </AccordionDetails>
-    </Accordion>
+          </div>
+        </AccordionSummary>
+
+        <AccordionDetails>
+          {/* Main Content */}
+          <div className="p-4">
+            {/* Actions Display Component - Only render when accordion is expanded */}
+            {isExpanded && (
+              <div className="mb-4">
+                <ActionsDisplay recommendationId={recommendationId} />
+              </div>
+            )}
+          </div>
+        </AccordionDetails>
+      </Accordion>
     </>
-  )
+  );
 }
 
 export default RecommendationDetails
