@@ -98,7 +98,7 @@ export const ObservationSteppers = () => {
       originatingType: values.originatingType || undefined,
       level: values.level || undefined,
       currentAssignment: values.currentAssignment || '',
-      status: isDraft ? ObservationStatus.Draft : values.status, // 1 for draft, otherwise use form status or default to 1
+      status: isDraft ? ObservationStatus.Draft : ObservationStatus.Submitted, // 1 for draft, otherwise use form status or default to 1
       combatFunction: values.combatFunction || 0,
       isActive: true,
     };
@@ -664,7 +664,7 @@ export const ObservationSteppers = () => {
                 <BtnLabeltxtMedium2
                   customClassName="MOD_btn2_Label"
                   isI18nKey={true}
-                  text={"BUTTON.LABEL.SAVE"}
+                  text={"BUTTON.LABEL.SUBMIT"}
                 />
 
               </button>
