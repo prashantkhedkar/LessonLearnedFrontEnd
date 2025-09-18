@@ -140,19 +140,19 @@ export default function ObservationList() {
         pageNumber: pageNumber ? pageNumber : 1,
         pageSize: pageSize ? pageSize : 10,
         observationType:
-          hasFilters && filters.observationType
+          hasFilters && !clearSearch && filters.observationType
             ? filters.observationType
             : undefined,
         status:
-          hasFilters && filters.status
+          hasFilters && !clearSearch && filters.status
             ? filters.status
             : undefined,
         dateFrom:
-          hasFilters && filters.dateFrom
+          hasFilters && !clearSearch && filters.dateFrom
             ? dayjs(filters.dateFrom).format("YYYY-MM-DD")
             : undefined,
         dateTo:
-          hasFilters && filters.dateTo
+          hasFilters && !clearSearch && filters.dateTo
             ? dayjs(filters.dateTo).format("YYYY-MM-DD")
             : undefined,
       })
@@ -560,7 +560,7 @@ export default function ObservationList() {
         </div>
         <div>
           
-          {rbac.hasAction(ActionType.ADD) && (
+          {/* {rbac.hasAction(ActionType.ADD) && ( */}
           <button
             onClick={handleAddNewObservation}
             className="btn MOD_btn btn-create min-w-75px w-100 align-self-end"
@@ -568,7 +568,7 @@ export default function ObservationList() {
             <FontAwesomeIcon color={""} size="1x" icon={faPlus} />
             {intl.formatMessage({ id: "BUTTON.LABEL.ADD" })}
           </button>
-          )}
+          {/* )} */}
         </div>
       </div>
 

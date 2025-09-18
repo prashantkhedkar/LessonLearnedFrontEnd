@@ -32,6 +32,7 @@ export interface ArticleCreateUpdateModel {
   currentAssignment?: string;
   status?: number;
   combatFunction?: number;
+  isActive?: boolean;
 }
 
 // Article List Model (for paginated responses)
