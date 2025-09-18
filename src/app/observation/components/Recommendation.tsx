@@ -425,333 +425,386 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
     };
 
     return (
-        <>
-            {/* Display the observationId on the page */}
-            {/* <Box sx={{ mb: 2, p: 2, backgroundColor: '#f5f5f5', borderRadius: 1 }}>
+      <>
+        {/* Display the observationId on the page */}
+        {/* <Box sx={{ mb: 2, p: 2, backgroundColor: '#f5f5f5', borderRadius: 1 }}>
                 <Typography variant="h6" color="primary">
                     🎯 Step 2 - Recommendations for Observation ID: {observationId}
                 </Typography>
             </Box>
              */}
-            {/* {console.log('Current recommendations array:', recommendations)} */}
-            <div className="">
-                <div className="row g-0">
-                    <div className="col-md-11">
-                    </div>
-                    <div className="col-md-1 d-flex justify-content-end align-items-center">
-                        <button
-                            id="kt_modal_new_target_create_new"
-                            className="btn MOD_btn btn-create w-10 pl-5"
-                            onClick={handleOpen}
-                        >
-                            <FontAwesomeIcon color={""} size="1x" icon={faPlus} />
-                            <BtnLabeltxtMedium2
-                                text={"BUTTON.LABEL.NEWSERVICE"}
-                                isI18nKey={true}
-                            />{" "}
-                        </button>
-                    </div>
-                </div>
+        {/* {console.log('Current recommendations array:', recommendations)} */}
+        <div className="">
+          <div className="row g-0">
+            <div className="col-md-11"></div>
+            <div className="col-md-1 d-flex justify-content-end align-items-center">
+              <button
+                id="kt_modal_new_target_create_new"
+                className="btn MOD_btn btn-create w-10 pl-5"
+                onClick={handleOpen}
+              >
+                <FontAwesomeIcon color={""} size="1x" icon={faPlus} />
+                <BtnLabeltxtMedium2
+                  text={"BUTTON.LABEL.NEWSERVICE"}
+                  isI18nKey={true}
+                />{" "}
+              </button>
             </div>
+          </div>
+        </div>
 
-            <Box sx={{ mt: 2 }}>
-                <Modal
-                    backdrop="static"
-                    keyboard={false}
-                    centered
-                    size="lg"
-                    animation={false}
-                    enforceFocus={false}
-                    restoreFocus={false}
-                    dialogClassName="modal-dialog-scrollable"
-                    aria-labelledby="contained-modal-title-vcenter"
-                    show={open}
-                    onHide={handleClose}
-
-                >
-                    <Modal.Header closeButton>
-                        <Modal.Title>
-                            <HeaderLabels
-                                text={
-                                    isEditMode ?
-                                        intl.formatMessage({ id: "LABEL.EDIT.RECOMMENDATION" }) :
-                                        intl.formatMessage({ id: "LABEL.ADD.NEW.RECOMMENDATION" })
-                                }
-                            />
-                        </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body  >
-                        {/* ObservationTitle Field */}
-                        <div className="col-12 mb-4">
-                            <div className="row">
-                                <div className="col-md-2">
-                                    <InfoLabels
-                                        style={{}}
-                                        text={intl.formatMessage({ id: "LABEL.RECOMMENDATION.TEXT" })}
-                                        isRequired={true}
-                                    />
-                                </div>
-                                <div className="col-md-10">
-                                    <input
-                                        type="text"
-                                        autoComplete='off'
-                                        className="form-control form-control-solid active input5 lbl-txt-medium-2"
-                                        placeholder={intl.formatMessage({ id: "PLACEHOLDER.TITLE" })}
-                                        value={observationTitle}
-                                        onChange={(e) => handleFieldChange('observationTitle', e.target.value)}
-                                        onBlur={(e) => handleFieldBlur('observationTitle', e.target.value)}
-                                        dir={lang === "ar" ? "rtl" : "ltr"}
-                                    />
-                                    {touched.observationTitle && errors.observationTitle && (
-                                        <div className="invalid-feedback d-block">{errors.observationTitle}</div>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Combat Function and Level Dropdowns */}
-                        <div className="col-12 mb-4">
-                            <div className="row">
-                                <div className="col-md-2">
-                                    <InfoLabels
-                                        style={{}}
-                                        text={intl.formatMessage({ id: "LABEL.COMBOT_FUNCTION" })}
-                                        isRequired={true}
-                                    />
-                                </div>
-                                <div className="col-md-4">
-                                    <DropdownListInModal
-                                        className="w-100"
-                                        dataKey="lookupId"
-                                        dataValue={lang === "ar" ? "lookupNameAr" : "lookupName"}
-                                        defaultText={intl.formatMessage({ id: "PLACEHOLDER.SELECT.COMBOT_FUNCTION" })}
-                                        value={combatFunction ? combatFunction.toString() : ""}
-                                        data={combotFunctionOptions || []}
-                                        setSelectedValue={(value) => {
-                                            console.log('Combat Function selected:', value);
-                                            handleFieldChange('combatFunction', value);
-                                            handleFieldBlur('combatFunction', value);
-                                        }}
-                                        isClearable={true}
-                                    />
-
-
-                                    {touched.combatFunction && errors.combatFunction && (
-                                        <div className="invalid-feedback d-block">{errors.combatFunction}</div>
-                                    )}
-                                </div>
-                                <div className="col-md-2">
-                                    <InfoLabels
-                                        style={{}}
-                                        text={intl.formatMessage({ id: "LABEL.LEVEL" })}
-                                        isRequired={true}
-                                    />
-                                </div>
-                                <div className="col-md-4">
-                                    <DropdownListInModal
-                                        className="w-100"
-                                        dataKey="lookupId"
-                                        dataValue={lang === "ar" ? "lookupNameAr" : "lookupName"}
-                                        defaultText={intl.formatMessage({ id: "PLACEHOLDER.SELECT.LEVEL" })}
-                                        value={level ? level.toString() : ""}
-                                        data={levelOptions || []}
-                                        setSelectedValue={(value) => {
-                                            console.log('Level selected:', value);
-                                            handleFieldChange('level', value);
-                                            handleFieldBlur('level', value);
-                                        }}
-                                        isClearable={true}
-                                    />
-                                    {touched.level && errors.level && (
-                                        <div className="invalid-feedback d-block">{errors.level}</div>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Conclusion Field */}
-                        <div className="col-12 mb-4">
-                            <div className="row">
-                                <div className="col-md-2">
-                                    <InfoLabels
-                                        style={{}}
-                                        text={intl.formatMessage({ id: "LABEL.CONCLUSION" })}
-                                        isRequired={true}
-                                    />
-                                </div>
-                                <div className="col-md-10">
-                                    <textarea
-                                        className="form-control"
-                                        placeholder={intl.formatMessage({ id: "PLACEHOLDER.CONCLUSION" })}
-                                        value={conclusion}
-                                        onChange={(e) => handleFieldChange('conclusion', e.target.value)}
-                                        onBlur={(e) => handleFieldBlur('conclusion', e.target.value)}
-                                        rows={3}
-                                        dir={lang === "ar" ? "rtl" : "ltr"}
-                                    />
-                                    {touched.conclusion && errors.conclusion && (
-                                        <div className="invalid-feedback d-block">{errors.conclusion}</div>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Recommendation Field */}
-                        <div className="col-12 mb-4">
-                            <div className="row">
-                                <div className="col-md-2">
-                                    <InfoLabels
-                                        style={{}}
-                                        text={intl.formatMessage({ id: "LABEL.RECOMMENDATION" })}
-                                        isRequired={true}
-                                    />
-                                </div>
-                                <div className="col-md-10">
-                                    <textarea
-                                        className="form-control"
-                                        placeholder={intl.formatMessage({ id: "PLACEHOLDER.RECOMMENDATION" })}
-                                        value={recommendationText}
-                                        onChange={(e) => handleFieldChange('recommendation', e.target.value)}
-                                        onBlur={(e) => handleFieldBlur('recommendation', e.target.value)}
-                                        rows={3}
-                                        dir={lang === "ar" ? "rtl" : "ltr"}
-                                    />
-                                    {touched.recommendation && errors.recommendation && (
-                                        <div className="invalid-feedback d-block">{errors.recommendation}</div>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Discussion Field */}
-                        <div className="col-12 mb-4">
-                            <div className="row">
-                                <div className="col-md-2">
-                                    <InfoLabels
-                                        style={{}}
-                                        text={intl.formatMessage({ id: "LABEL.DISCUSSION" })}
-                                        isRequired={true}
-                                    />
-                                </div>
-                                <div className="col-md-10">
-                                    <textarea
-                                        className="form-control"
-                                        placeholder={intl.formatMessage({ id: "PLACEHOLDER.DISCUSSION" })}
-                                        value={discussion}
-                                        onChange={(e) => handleFieldChange('discussion', e.target.value)}
-                                        onBlur={(e) => handleFieldBlur('discussion', e.target.value)}
-                                        rows={3}
-                                        dir={lang === "ar" ? "rtl" : "ltr"}
-                                    />
-                                    {touched.discussion && errors.discussion && (
-                                        <div className="invalid-feedback d-block">{errors.discussion}</div>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </Modal.Body>
-                    <Modal.Footer className="py-5 pt-4">
-                        <button
-                            type="button"
-                            className="btn MOD_btn btn-create w-10 pl-5 mx-3"
-                            onClick={handleAddRecommendation}
-                            disabled={loading}
-                        >
-                            <BtnLabeltxtMedium2
-                                text={isEditMode ? "BUTTON.LABEL.UPDATE" : "BUTTON.LABEL.SUBMIT"}
-                            />
-                            {loading && <span className="spinner-border spinner-border-sm ms-2" role="status"></span>}
-                        </button>
-                        <button
-                            type="button"
-                            className="btn btn-secondary mx-3"
-                            onClick={handleClose}
-                        >
-                            <BtnLabelCanceltxtMedium2 text={"BUTTON.LABEL.CANCEL"} />
-                        </button>
-                    </Modal.Footer>
-                </Modal>
-
-                <Box sx={{ mt: 3 }}>
-
-                    {error && (
-                        <Typography variant="body2" color="error" mb={2}>
-                            {error}
-                        </Typography>
-                    )}
-
-                    {loading && (
-                        <Box display="flex" justifyContent="center" my={2}>
-                            <div className="spinner-border" role="status">
-                                <span className="visually-hidden">{intl.formatMessage({ id: "LABEL.LOADING" })}</span>
-                            </div>
-                        </Box>
-                    )}
-
-                    {!loading && recommendations.length === 0 ? (
-
-                        <Box className="step-placeholder">
-                            <p> {intl.formatMessage({ id: "LABEL.NO.RECOMMENDATIONS.YET" })}</p>
-                        </Box>
-                    ) : (
-                        recommendations.map((rec, index) => {
-                            // console.log('Rendering RecommendationDetails for rec:', rec.id, 'with handleEditRecommendation function:', typeof handleEditRecommendation);
-                            // console.log('🗑️ Mapping recommendation:', rec);
-                            // console.log('🗑️ rec.id:', rec.id, 'type:', typeof rec.id);
-
-                            return (
-                                <RecommendationDetails
-                                    key={rec.recommendationId}
-                                    recommendation={rec}
-                                    text={`${rec.recommendationText}`}
-                                    timestamp={new Date(rec.createdDate)}
-                                    status="read"
-                                    direction="rtl"
-                                    observationId={rec.observationId}
-                                    index={index + 1}
-                                    recommendationId={rec.recommendationId}
-                                    onEditClick={() => {
-
-                                        console.log('onEditClick called for rec.recommendationId:', rec.recommendationId);
-                                        handleEditRecommendation(rec.recommendationId);
-                                    }}
-                                    onDeleteClick={() => {
-                                        handleDeleteRecommendation(rec.recommendationId);
-                                    }}
-                                />
-                            );
+        <Box sx={{ mt: 2 }}>
+          <Modal
+            backdrop="static"
+            keyboard={false}
+            centered
+            size="lg"
+            animation={false}
+            enforceFocus={false}
+            restoreFocus={false}
+            dialogClassName="modal-dialog-scrollable"
+            aria-labelledby="contained-modal-title-vcenter"
+            show={open}
+            onHide={handleClose}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>
+                <HeaderLabels
+                  text={
+                    isEditMode
+                      ? intl.formatMessage({ id: "LABEL.EDIT.RECOMMENDATION" })
+                      : intl.formatMessage({
+                          id: "LABEL.ADD.NEW.RECOMMENDATION",
                         })
-                    )}
-                </Box>
-            </Box>
-
-            {/* Delete Confirmation Modal */}
-            <Modal
-                show={showDeleteModal}
-                onHide={() => {
-                    console.log('🗑️ Modal onHide called - resetting state');
-                    setShowDeleteModal(false);
-                    setCurrentConfirmFunction(null);
-                }}
-                centered
-                backdrop="static"
-                keyboard={false}
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title>
-                        <HeaderLabels text={intl.formatMessage({ id: "LABEL.CONFIRM.DELETE" })} />
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <ConfirmDeleteModal
-                        setShow={setShowDeleteModal}
-                        onConfirm={confirmDelete}
+                  }
+                />
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {/* ObservationTitle Field */}
+              <div className="col-12 mb-4">
+                <div className="row">
+                  <div className="col-md-2">
+                    <InfoLabels
+                      style={{}}
+                      text={intl.formatMessage({
+                        id: "LABEL.RECOMMENDATION.TEXT",
+                      })}
+                      isRequired={true}
                     />
-                </Modal.Body>
-            </Modal>
-        </>
+                  </div>
+                  <div className="col-md-10">
+                    <input
+                      type="text"
+                      autoComplete="off"
+                      className="form-control form-control-solid active input5 lbl-txt-medium-2"
+                      placeholder={intl.formatMessage({
+                        id: "PLACEHOLDER.TITLE",
+                      })}
+                      value={observationTitle}
+                      onChange={(e) =>
+                        handleFieldChange("observationTitle", e.target.value)
+                      }
+                      onBlur={(e) =>
+                        handleFieldBlur("observationTitle", e.target.value)
+                      }
+                      dir={lang === "ar" ? "rtl" : "ltr"}
+                    />
+                    {touched.observationTitle && errors.observationTitle && (
+                      <div className="invalid-feedback d-block">
+                        {errors.observationTitle}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Combat Function and Level Dropdowns */}
+              <div className="col-12 mb-4">
+                <div className="row">
+                  <div className="col-md-2">
+                    <InfoLabels
+                      style={{}}
+                      text={intl.formatMessage({ id: "LABEL.COMBOT_FUNCTION" })}
+                      isRequired={true}
+                    />
+                  </div>
+                  <div className="col-md-4">
+                    <DropdownListInModal
+                      className="w-100"
+                      dataKey="id"
+                      dataValue={lang === "ar" ? "label" : "labelEn"}
+                      defaultText={intl.formatMessage({
+                        id: "PLACEHOLDER.SELECT.COMBOT_FUNCTION",
+                      })}
+                      value={combatFunction ? combatFunction.toString() : ""}
+                      data={combotFunctionOptions || []}
+                      setSelectedValue={(value) => {
+                        console.log("Combat Function selected:", value);
+                        handleFieldChange("combatFunction", value);
+                        handleFieldBlur("combatFunction", value);
+                      }}
+                      isClearable={true}
+                    />
+
+                    {touched.combatFunction && errors.combatFunction && (
+                      <div className="invalid-feedback d-block">
+                        {errors.combatFunction}
+                      </div>
+                    )}
+                  </div>
+                  <div className="col-md-2">
+                    <InfoLabels
+                      style={{}}
+                      text={intl.formatMessage({ id: "LABEL.LEVEL" })}
+                      isRequired={true}
+                    />
+                  </div>
+                  <div className="col-md-4">
+                    <DropdownListInModal
+                      className="w-100"
+                      dataKey="id"
+                      dataValue={lang === "ar" ? "label" : "labelEn"}
+                      defaultText={intl.formatMessage({
+                        id: "PLACEHOLDER.SELECT.LEVEL",
+                      })}
+                      value={level ? level.toString() : ""}
+                      data={levelOptions || []}
+                      setSelectedValue={(value) => {
+                        console.log("Level selected:", value);
+                        handleFieldChange("level", value);
+                        handleFieldBlur("level", value);
+                      }}
+                      isClearable={true}
+                    />
+                    {touched.level && errors.level && (
+                      <div className="invalid-feedback d-block">
+                        {errors.level}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Conclusion Field */}
+              <div className="col-12 mb-4">
+                <div className="row">
+                  <div className="col-md-2">
+                    <InfoLabels
+                      style={{}}
+                      text={intl.formatMessage({ id: "LABEL.CONCLUSION" })}
+                      isRequired={true}
+                    />
+                  </div>
+                  <div className="col-md-10">
+                    <textarea
+                      className="form-control"
+                      placeholder={intl.formatMessage({
+                        id: "PLACEHOLDER.CONCLUSION",
+                      })}
+                      value={conclusion}
+                      onChange={(e) =>
+                        handleFieldChange("conclusion", e.target.value)
+                      }
+                      onBlur={(e) =>
+                        handleFieldBlur("conclusion", e.target.value)
+                      }
+                      rows={3}
+                      dir={lang === "ar" ? "rtl" : "ltr"}
+                    />
+                    {touched.conclusion && errors.conclusion && (
+                      <div className="invalid-feedback d-block">
+                        {errors.conclusion}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Recommendation Field */}
+              <div className="col-12 mb-4">
+                <div className="row">
+                  <div className="col-md-2">
+                    <InfoLabels
+                      style={{}}
+                      text={intl.formatMessage({ id: "LABEL.RECOMMENDATION" })}
+                      isRequired={true}
+                    />
+                  </div>
+                  <div className="col-md-10">
+                    <textarea
+                      className="form-control"
+                      placeholder={intl.formatMessage({
+                        id: "PLACEHOLDER.RECOMMENDATION",
+                      })}
+                      value={recommendationText}
+                      onChange={(e) =>
+                        handleFieldChange("recommendation", e.target.value)
+                      }
+                      onBlur={(e) =>
+                        handleFieldBlur("recommendation", e.target.value)
+                      }
+                      rows={3}
+                      dir={lang === "ar" ? "rtl" : "ltr"}
+                    />
+                    {touched.recommendation && errors.recommendation && (
+                      <div className="invalid-feedback d-block">
+                        {errors.recommendation}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Discussion Field */}
+              <div className="col-12 mb-4">
+                <div className="row">
+                  <div className="col-md-2">
+                    <InfoLabels
+                      style={{}}
+                      text={intl.formatMessage({ id: "LABEL.DISCUSSION" })}
+                      isRequired={true}
+                    />
+                  </div>
+                  <div className="col-md-10">
+                    <textarea
+                      className="form-control"
+                      placeholder={intl.formatMessage({
+                        id: "PLACEHOLDER.DISCUSSION",
+                      })}
+                      value={discussion}
+                      onChange={(e) =>
+                        handleFieldChange("discussion", e.target.value)
+                      }
+                      onBlur={(e) =>
+                        handleFieldBlur("discussion", e.target.value)
+                      }
+                      rows={3}
+                      dir={lang === "ar" ? "rtl" : "ltr"}
+                    />
+                    {touched.discussion && errors.discussion && (
+                      <div className="invalid-feedback d-block">
+                        {errors.discussion}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </Modal.Body>
+            <Modal.Footer className="py-5 pt-4">
+              <button
+                type="button"
+                className="btn MOD_btn btn-create w-10 pl-5 mx-3"
+                onClick={handleAddRecommendation}
+                disabled={loading}
+              >
+                <BtnLabeltxtMedium2
+                  text={
+                    isEditMode ? "BUTTON.LABEL.UPDATE" : "BUTTON.LABEL.SUBMIT"
+                  }
+                />
+                {loading && (
+                  <span
+                    className="spinner-border spinner-border-sm ms-2"
+                    role="status"
+                  ></span>
+                )}
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary mx-3"
+                onClick={handleClose}
+              >
+                <BtnLabelCanceltxtMedium2 text={"BUTTON.LABEL.CANCEL"} />
+              </button>
+            </Modal.Footer>
+          </Modal>
+
+          <Box sx={{ mt: 3 }}>
+            {error && (
+              <Typography variant="body2" color="error" mb={2}>
+                {error}
+              </Typography>
+            )}
+
+            {loading && (
+              <Box display="flex" justifyContent="center" my={2}>
+                <div className="spinner-border" role="status">
+                  <span className="visually-hidden">
+                    {intl.formatMessage({ id: "LABEL.LOADING" })}
+                  </span>
+                </div>
+              </Box>
+            )}
+
+            {!loading && recommendations.length === 0 ? (
+              <Box className="step-placeholder">
+                <p>
+                  {" "}
+                  {intl.formatMessage({ id: "LABEL.NO.RECOMMENDATIONS.YET" })}
+                </p>
+              </Box>
+            ) : (
+              recommendations.map((rec, index) => {
+                // console.log('Rendering RecommendationDetails for rec:', rec.id, 'with handleEditRecommendation function:', typeof handleEditRecommendation);
+                // console.log('🗑️ Mapping recommendation:', rec);
+                // console.log('🗑️ rec.id:', rec.id, 'type:', typeof rec.id);
+
+                return (
+                  <RecommendationDetails
+                    key={rec.recommendationId}
+                    recommendation={rec}
+                    text={`${rec.recommendationText}`}
+                    timestamp={new Date(rec.createdDate)}
+                    status="read"
+                    direction="rtl"
+                    observationId={rec.observationId}
+                    index={index + 1}
+                    recommendationId={rec.recommendationId}
+                    onEditClick={() => {
+                      console.log(
+                        "onEditClick called for rec.recommendationId:",
+                        rec.recommendationId
+                      );
+                      handleEditRecommendation(rec.recommendationId);
+                    }}
+                    onDeleteClick={() => {
+                      handleDeleteRecommendation(rec.recommendationId);
+                    }}
+                  />
+                );
+              })
+            )}
+          </Box>
+        </Box>
+
+        {/* Delete Confirmation Modal */}
+        <Modal
+          show={showDeleteModal}
+          onHide={() => {
+            console.log("🗑️ Modal onHide called - resetting state");
+            setShowDeleteModal(false);
+            setCurrentConfirmFunction(null);
+          }}
+          centered
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>
+              <HeaderLabels
+                text={intl.formatMessage({ id: "LABEL.CONFIRM.DELETE" })}
+              />
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <ConfirmDeleteModal
+              setShow={setShowDeleteModal}
+              onConfirm={confirmDelete}
+            />
+          </Modal.Body>
+        </Modal>
+      </>
     );
 };
 

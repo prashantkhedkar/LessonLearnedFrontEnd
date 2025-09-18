@@ -28,12 +28,18 @@ import dayjs from "dayjs";
 import { MUIDatePicker } from "../../modules/components/datePicker/MUIDatePicker";
 import { toast } from "react-toastify";
 import { ArticleSearchModel } from "../models/observationModel";
-import { deleteObservation, fetchObservations } from "../../modules/services/observationSlice";
+import {
+  deleteObservation,
+  fetchObservations,
+  fetchStatusWidgets,
+} from "../../modules/services/observationSlice";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-
 import { ILookup } from "../../models/global/globalGeneric";
 import { StatusModel } from "../../models/global/statusModel";
-import { GetLookupValues, fetchStatuses } from "../../modules/services/globalSlice";
+import {
+  GetLookupValues,
+  fetchStatuses,
+} from "../../modules/services/globalSlice";
 import { ActionType } from "../../modules/auth/core/_rbacModels";
 import { useRBAC } from "../../modules/auth/core/rbac";
 
@@ -47,7 +53,9 @@ export default function ObservationList() {
   const [loading, setLoading] = useState<boolean>(true);
   const [showAdvanced, setShowAdvanced] = useState<boolean>(false);
   const [componentsList, setComponentsList] = useState<ComponentAndProps[]>([]);
-  const [componentsListMyRequest, setComponentsListMyRequest] = useState<ComponentAndProps[]>([]);
+  const [componentsListMyRequest, setComponentsListMyRequest] = useState<
+    ComponentAndProps[]
+  >([]);
   const [observationId, setObservationId] = useState<number>(0);
   const [typeOptions, setTypeOptions] = useState<ILookup[]>([]);
   const [statuses, setStatuses] = useState<StatusModel[]>([]);
@@ -59,6 +67,20 @@ export default function ObservationList() {
   const [tabInit, setTabInit] = useState(0);
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [filters, setFilters] = useState<ArticleSearchModel>();
+  const [statusWidgets, setStatusWidgets] = useState<any[]>([]);
+
+  type responseType = {
+    statusCode: number;
+    message: string;
+    data: {
+      draftCount: number;
+      completedCount: number;
+      rejectedCount: number;
+      inProgressCount: number;
+      totalCount: number;
+    };
+    isSuccess: boolean;
+  };
 
   useEffect(() => {
     setComponentsListMyRequest([
@@ -70,7 +92,7 @@ export default function ObservationList() {
       },
       {
         component: DeleteItem,
-      }
+      },
     ]);
 
     setComponentsList([
@@ -84,7 +106,6 @@ export default function ObservationList() {
         component: DeleteItem,
       },
     ]);
-
 
     dispatch(GetLookupValues({ lookupType: "ObservationType" }))
       .then(unwrapResult)
@@ -109,6 +130,49 @@ export default function ObservationList() {
       })
       .catch((rejectedValueOrSerializedError) => {
         writeToBrowserConsole(rejectedValueOrSerializedError);
+      });
+  }, []);
+
+  useEffect(() => {
+    dispatch(fetchStatusWidgets())
+      .then(unwrapResult)
+      .then((res) => {
+        if (res.statusCode === 200) {
+          const data = res.data;
+
+          // Now merge into 3 statuses
+          const widgetData = [
+            {
+              name: intl.formatMessage({ id: "LABEL.DRAFT" }),
+              count: data.draftCount,
+              statusId: [1],
+              iconName: "fa-file",
+              iconColor: "#F59E0B",
+              iconBgColor: "#FEF3C7",
+            },
+            {
+              name: intl.formatMessage({ id: "LABEL.INPROGRESS" }),
+              count: data.inProgressCount, // or calculate based on your logic
+              statusId: [2, 4, 5], // example; not 1 or 3
+              iconName: "fa-file",
+              iconColor: "#3B82F6",
+              iconBgColor: "#DBEAFE",
+            },
+            {
+              name: intl.formatMessage({ id: "LABEL.COMPLETED_REJECTED" }),
+              count: data.completedCount + data.rejectedCount,
+              statusId: [3],
+              iconName: "fa-file",
+              iconColor: "#10B981",
+              iconBgColor: "#D1FAE5",
+            },
+          ];
+
+          setStatusWidgets(widgetData);
+        }
+      })
+      .catch((err) => {
+        console.error("Error fetching status widgets", err);
       });
   }, []);
 
@@ -186,7 +250,6 @@ export default function ObservationList() {
       });
   };
 
-
   const handleSearch = () => {
     fetchObservationList(
       1,
@@ -199,7 +262,7 @@ export default function ObservationList() {
     );
   };
 
-  const onCellClick = () => { };
+  const onCellClick = () => {};
 
   const handleClear = () => {
     setFilters(undefined);
@@ -215,7 +278,6 @@ export default function ObservationList() {
   };
 
   const handleChange = (e: any, fieldName: string) => {
-
     const updatedItem: ArticleSearchModel = { ...filters! };
     if (fieldName == "observationType") updatedItem!.observationType = e;
     if (fieldName == "status") updatedItem!.status = e;
@@ -225,7 +287,6 @@ export default function ObservationList() {
     }
     if (fieldName == "dateTo") updatedItem!.dateTo = e;
     setFilters(updatedItem);
-
   };
 
   function EditItem(props: { row: DTRow }) {
@@ -254,7 +315,7 @@ export default function ObservationList() {
                       onClick={() =>
                         navigate("/observation/new", {
                           state: {
-                            observationId: props.row.id
+                            observationId: props.row.id,
                           },
                         })
                       }
@@ -281,7 +342,7 @@ export default function ObservationList() {
             {
               <>
                 {Number(props.row.status) == 1 && (
-              //  rbac.hasAction(ActionType.DELETE) && (
+                  //  rbac.hasAction(ActionType.DELETE) && (
                   <div className="col col-auto">
                     <OverlayTrigger
                       placement="top"
@@ -295,15 +356,13 @@ export default function ObservationList() {
                     >
                       <div
                         style={{ cursor: "pointer" }}
-                        onClick={() =>
-                          handleDelete(props.row)
-                        }
+                        onClick={() => handleDelete(props.row)}
                       >
                         <i className="2xl fa fa-light fa-trash fa-xl" />
                       </div>
                     </OverlayTrigger>
                   </div>
-                 // )
+                  // )
                 )}
               </>
             }
@@ -316,13 +375,13 @@ export default function ObservationList() {
   function ServiceName(props: { row: DTRow; editStatus: string }) {
     const navigate = useNavigate();
     const intl = useIntl();
-    
+
     return (
       <>
         {
           <div className="col col-auto">
             {
-              <>            
+              <>
                 <DetailLabels text={props.row.observationNumber!} />
                 <div
                   style={{
@@ -340,7 +399,6 @@ export default function ObservationList() {
       </>
     );
   }
-
 
   const TabStyle = {
     display: "inline-block",
@@ -411,25 +469,21 @@ export default function ObservationList() {
 
   const handleAddNewObservation = () => {
     navigate("/observation/new");
-  }
+  };
 
   const handleTabChange = (tabIndex: number) => {
     setTabInit(tabIndex);
     const updatedItem: ArticleSearchModel = { ...filters! };
-    if(tabIndex==0) updatedItem.status = 1;
-    if(tabIndex==1) updatedItem.status = 0;
-    if(tabIndex==2) updatedItem.status = 0;
+    if (tabIndex == 0) updatedItem.status = 1;
+    if (tabIndex == 1) updatedItem.status = 0;
+    if (tabIndex == 2) updatedItem.status = 0;
     setFilters(updatedItem);
-  }
+  };
   return (
     <>
       <Row className="mb-4">
         <Col>
-          <CountWidgetList
-            widgets={[]}
-            scrollable={false}
-          //filterByStatusId={handleFilterByStatusId}
-          ></CountWidgetList>
+          <CountWidgetList widgets={statusWidgets} scrollable={false} />
         </Col>
       </Row>
       <div className="search-container p-4">
@@ -440,7 +494,6 @@ export default function ObservationList() {
             ></AdminMetSearch>
           </Col>
           <Col className="col-md-1 ps-14">
-        
             <button
               type="button"
               className="btn-add-icon mt-2"
@@ -454,7 +507,6 @@ export default function ObservationList() {
                 className="fs-3 px-0 filter-icon-cus"
               />
             </button>
-          
           </Col>
         </Row>
         <Row className="row search-container1 py-4" hidden={!showAdvanced}>
@@ -462,7 +514,9 @@ export default function ObservationList() {
             <DropdownList
               dataKey="id"
               dataValue={lang === "ar" ? "label" : "labelEn"}
-              defaultText={intl.formatMessage({ id: "PLACEHOLDER.SELECT.TYPE" })}
+              defaultText={intl.formatMessage({
+                id: "PLACEHOLDER.SELECT.TYPE",
+              })}
               value={filters?.observationType ? filters?.observationType : 0}
               rtl={true}
               data={typeOptions}
@@ -488,10 +542,10 @@ export default function ObservationList() {
               placeholder={intl.formatMessage({
                 id: "LABEL.FROM",
               })}
-              value={filters?.dateFrom ? new Date(filters?.dateFrom!) : undefined}
-              onDateChange={(newDate) =>
-                handleChange(newDate, "dateFrom")
+              value={
+                filters?.dateFrom ? new Date(filters?.dateFrom!) : undefined
               }
+              onDateChange={(newDate) => handleChange(newDate, "dateFrom")}
               key={generateUUID()}
               id={""}
             />
@@ -504,7 +558,9 @@ export default function ObservationList() {
               value={filters?.dateTo ? new Date(filters?.dateTo!) : undefined}
               onDateChange={(newDate) => handleChange(newDate, "dateTo")}
               key={generateUUID()}
-              minDate={filters?.dateFrom!? new Date(filters?.dateFrom!) : undefined}
+              minDate={
+                filters?.dateFrom! ? new Date(filters?.dateFrom!) : undefined
+              }
               id={""}
             />
           </Col>
@@ -559,7 +615,6 @@ export default function ObservationList() {
           </button>
         </div>
         <div>
-          
           {/* {rbac.hasAction(ActionType.ADD) && ( */}
           <button
             onClick={handleAddNewObservation}

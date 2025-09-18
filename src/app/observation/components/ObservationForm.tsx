@@ -107,32 +107,60 @@ const ObservationForm: React.FC<ObservationFormProps> = ({ onSubmit, initialValu
 
   const validationSchema = Yup.object({
     observationTitle: Yup.string()
-      .required(intl.formatMessage({ id: 'VALIDATION.OBSERVATION.TITLE.REQUIRED' }))
-      .max(256, intl.formatMessage({ id: 'VALIDATION.OBSERVATION.TITLE.MAX_LENGTH' })),
+      .required(
+        intl.formatMessage({ id: "VALIDATION.OBSERVATION.TITLE.REQUIRED" })
+      )
+      .max(
+        256,
+        intl.formatMessage({ id: "VALIDATION.OBSERVATION.TITLE.MAX_LENGTH" })
+      ),
     observationSubject: Yup.string()
-      .required(intl.formatMessage({ id: 'VALIDATION.OBSERVATION.SUBJECT.REQUIRED' }))
-      .max(256, intl.formatMessage({ id: 'VALIDATION.OBSERVATION.SUBJECT.MAX_LENGTH' })),
+      .required(
+        intl.formatMessage({ id: "VALIDATION.OBSERVATION.SUBJECT.REQUIRED" })
+      )
+      .max(
+        256,
+        intl.formatMessage({ id: "VALIDATION.OBSERVATION.SUBJECT.MAX_LENGTH" })
+      ),
     discussion: Yup.string()
-      .required(intl.formatMessage({ id: 'VALIDATION.DISCUSSION.REQUIRED' }))
-      .max(50, intl.formatMessage({ id: 'VALIDATION.DISCUSSION.MAX_LENGTH' })),
+      .required(intl.formatMessage({ id: "VALIDATION.DISCUSSION.REQUIRED" }))
+      .max(550, intl.formatMessage({ id: "VALIDATION.DISCUSSION.MAX_LENGTH" })),
     conclusion: Yup.string()
-      .required(intl.formatMessage({ id: 'VALIDATION.CONCLUSION.REQUIRED' }))
-      .max(50, intl.formatMessage({ id: 'VALIDATION.CONCLUSION.MAX_LENGTH' })),
+      .required(intl.formatMessage({ id: "VALIDATION.CONCLUSION.REQUIRED" }))
+      .max(550, intl.formatMessage({ id: "VALIDATION.CONCLUSION.MAX_LENGTH" })),
     initialRecommendation: Yup.string()
-      .required(intl.formatMessage({ id: 'VALIDATION.INITIAL.RECOMMENDATION.REQUIRED' }))
-      .max(50, intl.formatMessage({ id: 'VALIDATION.INITIAL.RECOMMENDATION.MAX_LENGTH' })),
-    currentAssignment: Yup.string()
-      .max(128, intl.formatMessage({ id: 'VALIDATION.CURRENT.ASSIGNMENT.MAX_LENGTH' })),
+      .required(
+        intl.formatMessage({ id: "VALIDATION.INITIAL.RECOMMENDATION.REQUIRED" })
+      )
+      .max(
+        550,
+        intl.formatMessage({
+          id: "VALIDATION.INITIAL.RECOMMENDATION.MAX_LENGTH",
+        })
+      ),
+    currentAssignment: Yup.string().max(
+      128,
+      intl.formatMessage({ id: "VALIDATION.CURRENT.ASSIGNMENT.MAX_LENGTH" })
+    ),
     observationType: Yup.number()
       .nullable()
-      .required(intl.formatMessage({ id: 'VALIDATION.OBSERVATION.TYPE.REQUIRED' }))
-      .min(1, intl.formatMessage({ id: 'VALIDATION.OBSERVATION.TYPE.REQUIRED' })),
+      .required(
+        intl.formatMessage({ id: "VALIDATION.OBSERVATION.TYPE.REQUIRED" })
+      )
+      .min(
+        1,
+        intl.formatMessage({ id: "VALIDATION.OBSERVATION.TYPE.REQUIRED" })
+      ),
     level: Yup.number()
       .nullable()
-      .required(intl.formatMessage({ id: 'VALIDATION.OBSERVATION.LEVEL.REQUIRED' }))
-      .min(1, intl.formatMessage({ id: 'VALIDATION.OBSERVATION.LEVEL.REQUIRED' })),
-    combatFunction: Yup.number()
-      .nullable(),
+      .required(
+        intl.formatMessage({ id: "VALIDATION.OBSERVATION.LEVEL.REQUIRED" })
+      )
+      .min(
+        1,
+        intl.formatMessage({ id: "VALIDATION.OBSERVATION.LEVEL.REQUIRED" })
+      ),
+    combatFunction: Yup.number().nullable(),
   });
 
   const formik = useFormik({

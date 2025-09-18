@@ -15,6 +15,8 @@ export interface IRecommendation {
   createdBy: number;
   updatedBy: number | null;
   isActive: boolean | null;
+  combatFunctionLookupNameAr: string;
+  levelLookupNameAr: string;
 }
 
 // For creating new recommendations (without readonly fields)
@@ -56,6 +58,8 @@ export class Recommendation implements IRecommendation {
   createdBy: number;
   updatedBy: number | null;
   isActive: boolean | null;
+  combatFunctionLookupNameAr: string;
+  levelLookupNameAr: string;
 
   constructor(data: IRecommendation) {
     this.recommendationId = data.recommendationId;
@@ -72,6 +76,8 @@ export class Recommendation implements IRecommendation {
     this.createdBy = data.createdBy;
     this.updatedBy = data.updatedBy;
     this.isActive = data.isActive;
+    this.combatFunctionLookupNameAr=data.combatFunctionLookupNameAr;
+    this.levelLookupNameAr=data.levelLookupNameAr;
   }
 
   // Helper method to get formatted created date
@@ -127,6 +133,8 @@ export class Recommendation implements IRecommendation {
       createdBy: data.createdBy || 0,
       updatedBy: data.updatedBy || null,
       isActive: data.isActive,
+      combatFunctionLookupNameAr:data.combatFunctionLookupNameAr,
+      levelLookupNameAr:data.levelLookupNameAr
     });
   }
 

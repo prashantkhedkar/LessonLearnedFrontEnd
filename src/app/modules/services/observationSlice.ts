@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { requests } from "../../helper/axiosInterceptor";
-import { responseType } from "../../models/global/responseResult";
+import { responseType, StatusWidgetResponse } from "../../models/global/responseResult";
 import { 
   ObservationModel, 
   ArticleCreateUpdateModel, 
@@ -321,6 +321,21 @@ export const observationSlice = createSlice({
       );
   },
 });
+
+
+export const fetchStatusWidgets = createAsyncThunk(
+  "observation/GetStatusWidgets",
+  async (_, { rejectWithValue }) => {
+    try {
+      return await requests.get<StatusWidgetResponse>(
+        `/observation/GetStatusWidgets`
+      );
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 
 // Export actions
 export const { 
