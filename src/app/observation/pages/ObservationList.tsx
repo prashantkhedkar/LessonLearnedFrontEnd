@@ -146,25 +146,25 @@ export default function ObservationList() {
               name: intl.formatMessage({ id: "LABEL.DRAFT" }),
               count: data.draftCount,
               statusId: [1],
-              iconName: "fa-file",
-              iconColor: "#F59E0B",
-              iconBgColor: "#FEF3C7",
+              iconName:"faFile",
+              iconColor:"#f4a100",
+              iconBgColor:"#fff3cd"
             },
             {
               name: intl.formatMessage({ id: "LABEL.INPROGRESS" }),
               count: data.inProgressCount, // or calculate based on your logic
               statusId: [2, 4, 5], // example; not 1 or 3
-              iconName: "fa-file",
-              iconColor: "#3B82F6",
-              iconBgColor: "#DBEAFE",
+              iconName:"faFile",
+              iconColor:"#2d6cdf",
+              iconBgColor:"#e7f0ff"
             },
             {
-              name: intl.formatMessage({ id: "LABEL.COMPLETED_REJECTED" }),
+              name: intl.formatMessage({ id: "LABEL.COMPLETED" }),
               count: data.completedCount + data.rejectedCount,
               statusId: [3],
-              iconName: "fa-file",
-              iconColor: "#10B981",
-              iconBgColor: "#D1FAE5",
+              iconName: "faFile",
+              iconColor:"#16a34a",
+              iconBgColor:"#e9fdf1"
             },
           ];
 
@@ -262,7 +262,7 @@ export default function ObservationList() {
     );
   };
 
-  const onCellClick = () => {};
+  const onCellClick = () => { };
 
   const handleClear = () => {
     setFilters(undefined);
@@ -725,4 +725,3 @@ export default function ObservationList() {
     </>
   );
 }
- 
