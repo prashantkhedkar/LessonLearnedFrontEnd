@@ -100,6 +100,7 @@ export const ObservationSteppers = () => {
       currentAssignment: values.currentAssignment || '',
       status: isDraft ? ObservationStatus.Draft : values.status, // 1 for draft, otherwise use form status or default to 1
       combatFunction: values.combatFunction || 0,
+      isActive: true,
     };
 
     // Include id for update operations
@@ -226,7 +227,7 @@ export const ObservationSteppers = () => {
 
   // Common handler for Save, Save as Draft, and Next actions
   const handleFormAction = async (actionType: 'save' | 'saveAsDraft' | 'next') => {
-    debugger
+    
     if (currentStepId === 1) {
       if (!formikRef.current) {
         console.error('❌ FormikRef.current is null!');
@@ -237,7 +238,7 @@ export const ObservationSteppers = () => {
       console.log(`🔄 Handling ${actionType} action...`);
 
       // For Save as Draft, only validate observationTitle
-      if (actionType === 'saveAsDraft') {
+      if (actionType === 'saveAsDraft' || actionType === 'next')  {
         const currentValues = formikRef.current.values;
         console.log('💾 Saving as draft with values:', currentValues);
 
@@ -250,13 +251,16 @@ export const ObservationSteppers = () => {
 
           return;
         }
-
+        if (actionType === 'next' && currentStepId < steps.length) {
+          setCurrentStepId(currentStepId + 1);
+          setActiveStep(activeStep + 1);
+        }
         const isUpdate = !!createdObservationId;
         const data = convertToAPIModel(currentValues, true, isUpdate);
         return await saveObservationAPI(data, 'Draft', true);
       }
       // For Save and Next, validate all required fields
-      else if (actionType === 'save' || actionType === 'next') {
+      else if (actionType === 'save') {
         console.log('🔍 FormikRef current:', formikRef.current);
         console.log('🔍 Form values:', formikRef.current.values);
 
@@ -277,8 +281,9 @@ export const ObservationSteppers = () => {
 
         if (Object.keys(errors).length > 0) {
           // Show validation errors
-          const errorMessage = actionType === 'next' ?
-            intl.formatMessage({ id: "MESSAGE.FIX.ERRORS.BEFORE.PROCEEDING" }) :
+          const errorMessage = 
+          //actionType === 'next' ?
+          //  intl.formatMessage({ id: "MESSAGE.FIX.ERRORS.BEFORE.PROCEEDING" }) :
             intl.formatMessage({ id: "MESSAGE.FIX.ERRORS.BEFORE.SAVING" });
           toast.error(errorMessage);
           console.log('❌ Form validation errors:', errors);
@@ -294,7 +299,9 @@ export const ObservationSteppers = () => {
           // For Next action, navigation happens in handleFormSubmit
         } catch (error) {
           console.error('Form submission error:', error);
-          const errorMessage = actionType === 'next' ? 'Error submitting form' : 'Error saving form';
+          const errorMessage = 
+          //actionType === 'next' ? 'Error submitting form' : 
+          'Error saving form';
           toast.error(errorMessage);
         }
       }
