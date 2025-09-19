@@ -23,17 +23,25 @@ const Dashboard: React.FC = () => {
   });
   
   const menuItems = [
-    { icon: 'fa-light fa-building', title: 'معدات', link: '#' },
-    { icon: 'fa-light fa-microchip', title: 'تكنولوجيا', link: '#' },
-    { icon: 'fa-light fa-book-open', title: 'التدريب', link: '#' },
-    { icon: 'fa-light fa-users', title: 'موارد بشرية', link: '#' },
-    { icon: 'fa-light fa-list-check', title: 'عقلية', link: '#' },
-    { icon: 'fa-light fa-chart-pie', title: 'لوجستي', link: '#' },
-    { icon: 'fa-light fa-chart-line', title: 'ميزانية', link: '#' },
-    { icon: 'fa-light fa-phone', title: 'بنية تحتية', link: '#' },
-    { icon: 'fa-light fa-arrow-right', title: 'عمليات', link: '#' },
-    { icon: 'fa-light fa-newspaper', title: 'مقال جديد', link: '/article/new' },
-];
+    { icon: "fa-light fa-building", title: "معدات", link: "#" },
+    { icon: "fa-light fa-microchip", title: "تكنولوجيا", link: "#" },
+    { icon: "fa-light fa-book-open", title: "التدريب", link: "#" },
+    { icon: "fa-light fa-users", title: "موارد بشرية", link: "#" },
+    {
+      icon: "fa-light fa-list-check",
+      title: "عقلية",
+      link: "/observation/observation-list",
+    },
+    { icon: "fa-light fa-chart-pie", title: "لوجستي", link: "#" },
+    { icon: "fa-light fa-chart-line", title: "ميزانية", link: "#" },
+    { icon: "fa-light fa-phone", title: "بنية تحتية", link: "#" },
+    { icon: "fa-light fa-arrow-right", title: "عمليات", link: "#" },
+    {
+      icon: "fa-light fa-newspaper",
+      title: "مقال جديد",
+      link: "/observation/new",
+    },
+  ];
 
   const recentItems = [
     {
