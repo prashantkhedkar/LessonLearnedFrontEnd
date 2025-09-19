@@ -84,7 +84,7 @@ const SidebarLogo = (props: PropsType) => {
 } */}
 
       <div className="app-sidebar-logo px-9 py-15" id="kt_app_sidebar_logo">
-        <Link to="/fms-dashboard">
+        <Link to="/dashboard">
           {lang === "ar" ? (
             <>
               <img
