@@ -57,6 +57,7 @@ export interface ArticleSearchModel {
   pageSize?: number;
   sortBy?: string;
   sortDirection?: 'asc' | 'desc';
+  type?:number;
 }
 
 // Default search parameters

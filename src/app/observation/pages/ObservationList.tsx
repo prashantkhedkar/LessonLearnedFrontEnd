@@ -143,28 +143,28 @@ export default function ObservationList() {
           // Now merge into 3 statuses
           const widgetData = [
             {
-              name: intl.formatMessage({ id: "LABEL.DRAFT" }),
-              count: data.draftCount,
+              name: intl.formatMessage({ id: "LABEL.UNDERPROCESSING" }),
+              count: data.underProcessingCount,
               statusId: [1],
-              iconName:"faFile",
-              iconColor:"#f4a100",
-              iconBgColor:"#fff3cd"
+              iconName: "faFile",
+              iconColor: "#f4a100",
+              iconBgColor: "#fff3cd",
             },
             {
-              name: intl.formatMessage({ id: "LABEL.INPROGRESS" }),
-              count: data.inProgressCount, // or calculate based on your logic
+              name: intl.formatMessage({ id: "LABEL.ARCHIVED" }),
+              count: data.archivedCount, // or calculate based on your logic
               statusId: [2, 4, 5], // example; not 1 or 3
-              iconName:"faFile",
-              iconColor:"#2d6cdf",
-              iconBgColor:"#e7f0ff"
+              iconName: "faFile",
+              iconColor: "#2d6cdf",
+              iconBgColor: "#e7f0ff",
             },
             {
-              name: intl.formatMessage({ id: "LABEL.COMPLETED" }),
-              count: data.completedCount + data.rejectedCount,
+              name: intl.formatMessage({ id: "LABEL.PUBLISHED" }),
+              count: data.publishedCount,
               statusId: [3],
               iconName: "faFile",
-              iconColor:"#16a34a",
-              iconBgColor:"#e9fdf1"
+              iconColor: "#16a34a",
+              iconBgColor: "#e9fdf1",
             },
           ];
 
@@ -196,6 +196,8 @@ export default function ObservationList() {
     let formDataObject: ArticleSearchModel = {
       pageNumber: pageNumber ? pageNumber : 1,
       pageSize: pageSize ? pageSize : 10,
+
+      type: tabInit,
     };
     const hasFilters = filters != undefined || filters != null;
 
@@ -219,6 +221,7 @@ export default function ObservationList() {
           hasFilters && !clearSearch && filters.dateTo
             ? dayjs(filters.dateTo).format("YYYY-MM-DD")
             : undefined,
+        type: tabInit,
       })
     )
       .then(unwrapResult)
@@ -262,7 +265,7 @@ export default function ObservationList() {
     );
   };
 
-  const onCellClick = () => { };
+  const onCellClick = () => {};
 
   const handleClear = () => {
     setFilters(undefined);

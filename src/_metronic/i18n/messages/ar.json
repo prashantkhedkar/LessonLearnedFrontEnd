@@ -857,5 +857,8 @@
   "LABEL.UPLOAD": "تحميل",
   "LABEL.POPUP.ATTACHMENTS.SIZE.HIGHER": "الحجم الأقسى المسموح به هو 10 ميجابايت",
   "LABEL.ATTACHMENTS.TOOLTIP.VIEW": "عرض المرفق",
-  "LABEL.ATTACHMENTS.TOOLTIP.DELETE": "حذف المرفق"
+  "LABEL.ATTACHMENTS.TOOLTIP.DELETE": "حذف المرفق",
+  "LABEL.UNDERPROCESSING": "Under Processing",
+  "LABEL.ARCHIVED": "Archived",
+  "LABEL.PUBLISHED": "Published"
 }

@@ -8,10 +8,9 @@ export interface responseType {
 
 
 export interface StatusWidgetData {
-  draftCount: number;
-  completedCount: number;
-  rejectedCount: number;
-  inProgressCount: number;
+  underProcessingCount: number;
+  publishedCount: number;
+  archivedCount: number;
   totalCount: number;
 }
 
