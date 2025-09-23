@@ -9,6 +9,8 @@ import './ObservationSteppers.css';
 import { BtnLabeltxtMedium2 } from "../../modules/components/common/formsLabels/detailLabels";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CheckIcon from '@mui/icons-material/Check';
 import Recommendation from "./Recommendation";
 import { useAppDispatch, useAppSelector } from "../../../store";
 import { createObservation, fetchObservationById, updateObservation } from "../../modules/services/observationSlice";
@@ -471,19 +473,24 @@ export const ObservationSteppers = () => {
   > = (props) => {
     const { stepIndex, isActive } = props;
 
-    // Use stepIndex instead of icon for correct mapping
-    const step = typeof stepIndex === "number" ? currentStepId : undefined;
+    // Determine if this step is completed (previous step)
+    const isCompleted = typeof stepIndex === "number" && stepIndex < currentStepId;
 
     // Enhance: highlight current and previous step
     let iconColor = "#dfcfb6";
-    let stepbgColor = "#FFF";
+    let stepbgColor = "var(--bs-app-sidebar-light-menu-link-bg-color-active)";
     let borderColor = "1px solid #B7945A";
+
     if (isActive) {
       iconColor = "#FFF";
       stepbgColor = "var(--bs-app-sidebar-light-menu-link-bg-color-active)";
-      borderColor =
-        "1px solid var(--bs-app-sidebar-light-menu-link-bg-color-active)";
+      borderColor = "1px solid var(--bs-app-sidebar-light-menu-link-bg-color-active)";
+    } else if (isCompleted) {
+      iconColor = "#FFF";
+      stepbgColor = "var(--bs-app-sidebar-light-menu-link-bg-color-active)"; // background for completed steps
+      borderColor = "1px solid var(--bs-app-sidebar-light-menu-link-bg-color-active)";
     }
+
     return (
       <span
         style={{
@@ -505,12 +512,23 @@ export const ObservationSteppers = () => {
             height: "35px",
             zIndex: "999",
             marginTop: "5px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          {/* {stepIndex} */}
+          {isCompleted ? (
+            <CheckIcon
+              style={{
+                fontSize: "24px",
+                color: iconColor
+              }}
+            />
+          ) : (
+            ""
+          )}
           {isActive && (
             <span
-              //className="lbl-steps-semibold-1"
               style={{
                 color: iconColor,
                 backgroundColor: "#FFF",
