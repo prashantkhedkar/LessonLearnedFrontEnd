@@ -40,8 +40,9 @@ import {
   GetLookupValues,
   fetchStatuses,
 } from "../../modules/services/globalSlice";
-import { ActionType } from "../../modules/auth/core/_rbacModels";
+import { ActionType, UserRoles } from "../../modules/auth/core/_rbacModels";
 import { useRBAC } from "../../modules/auth/core/rbac";
+import { ObservationStatus } from "../../helper/_constant/status.constant";
 
 export default function ObservationList() {
   const intl = useIntl();
@@ -64,7 +65,7 @@ export default function ObservationList() {
   const state = location.state as {
     tab: number;
   };
-  const [tabInit, setTabInit] = useState(0);
+  const [tabInit, setTabInit] = useState(state?.tab ?? 0);
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [filters, setFilters] = useState<ArticleSearchModel>();
   const [statusWidgets, setStatusWidgets] = useState<any[]>([]);
@@ -83,30 +84,6 @@ export default function ObservationList() {
   };
 
   useEffect(() => {
-    setComponentsListMyRequest([
-      {
-        component: ServiceName,
-      },
-      {
-        component: EditItem,
-      },
-      {
-        component: DeleteItem,
-      },
-    ]);
-
-    setComponentsList([
-      {
-        component: ServiceName,
-      },
-      {
-        component: EditItem,
-      },
-      {
-        component: DeleteItem,
-      },
-    ]);
-
     dispatch(GetLookupValues({ lookupType: "ObservationType" }))
       .then(unwrapResult)
       .then((originalPromiseResult) => {
@@ -132,6 +109,28 @@ export default function ObservationList() {
         writeToBrowserConsole(rejectedValueOrSerializedError);
       });
   }, []);
+
+  // Update components list whenever tabInit changes
+  useEffect(() => {
+    const currentComponentsList = [
+      {
+        component: ServiceName,
+      },
+      {
+        component: ViewItem,
+      },
+      {
+        component: EditItem,
+      },
+      {
+        component: DeleteItem,
+      },
+    ];
+
+    setComponentsListMyRequest(currentComponentsList);
+    setComponentsList(currentComponentsList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tabInit]);
 
   useEffect(() => {
     dispatch(fetchStatusWidgets())
@@ -192,14 +191,12 @@ export default function ObservationList() {
     if (useSpinner && tableRef.current) tableRef.current.setIsLoading(true);
 
     setLoading(true);
-
-    let formDataObject: ArticleSearchModel = {
-      pageNumber: pageNumber ? pageNumber : 1,
-      pageSize: pageSize ? pageSize : 10,
-
-      type: tabInit,
-    };
+    debugger;
     const hasFilters = filters != undefined || filters != null;
+    let tabInitLocal = tabInit;
+    if (rbac.hasRoleByName(UserRoles.BATALLIONCOMMANDER)) {
+      tabInitLocal = 2;
+    }
 
     dispatch(
       fetchObservations({
@@ -221,7 +218,7 @@ export default function ObservationList() {
           hasFilters && !clearSearch && filters.dateTo
             ? dayjs(filters.dateTo).format("YYYY-MM-DD")
             : undefined,
-        type: tabInit,
+        type: tabInitLocal,
       })
     )
       .then(unwrapResult)
@@ -292,45 +289,95 @@ export default function ObservationList() {
     setFilters(updatedItem);
   };
 
-  function EditItem(props: { row: DTRow }) {
+  function ViewItem(props: { row: DTRow }) {
     const navigate = useNavigate();
     const intl = useIntl();
 
     return (
-      <>
-        {
-          <>
-            {
-              <>
-                <div className="col col-auto">
-                  <OverlayTrigger
-                    placement="top"
-                    overlay={
-                      <Tooltip id="tooltip">
-                        <div className="tooltip-text">
-                          {intl.formatMessage({ id: "LABEL.EDIT" })}
-                        </div>
-                      </Tooltip>
-                    }
-                  >
-                    <div
-                      style={{ cursor: "pointer" }}
-                      onClick={() =>
-                        navigate("/observation/new", {
-                          state: {
-                            observationId: props.row.id,
-                          },
-                        })
-                      }
-                    >
-                      <i className="2xl fa fa-light fa-edit fa-xl" />
-                    </div>
-                  </OverlayTrigger>
-                </div>
-              </>
+      <div className="col col-auto">
+        <OverlayTrigger
+          placement="top"
+          overlay={
+            <Tooltip id="tooltip">
+              <div className="tooltip-text">
+                {intl.formatMessage({ id: "LABEL.VIEW" })}
+              </div>
+            </Tooltip>
+          }
+        >
+          <div
+            style={{ cursor: "pointer" }}
+            onClick={() =>
+              navigate("/observation/details", {
+                state: {
+                  observationId: props.row.id,
+                  readOnly: true,
+                },
+              })
             }
-          </>
-        }
+          >
+            <i className="2xl fa fa-light fa-eye fa-xl" />
+          </div>
+        </OverlayTrigger>
+      </div>
+    );
+  }
+
+  function EditItem(props: { row: DTRow }) {
+    const navigate = useNavigate();
+    const intl = useIntl();
+
+    // Determine if edit icon should be shown based on tab and status
+    const shouldShowEdit = () => {
+      debugger;
+      const status = Number(props.row.status);
+
+      // Hide Edit icon if status is submitted and we're on In Progress tab (1)
+      if (tabInit === 1 && status === ObservationStatus.Submitted) {
+        return false;
+      }
+
+      // Show Edit icon on My Actions tab (2) when status is not approved by Batalian commander
+      if (tabInit === 2) {
+        return false;
+      }
+      if (rbac.hasRoleByName(UserRoles.BATALLIONCOMMANDER)) {
+        return false;
+      }
+
+      // Show edit icon for all other cases
+      return true;
+    };
+
+    return (
+      <>
+        {shouldShowEdit() && (
+          <div className="col col-auto">
+            <OverlayTrigger
+              placement="top"
+              overlay={
+                <Tooltip id="tooltip">
+                  <div className="tooltip-text">
+                    {intl.formatMessage({ id: "LABEL.EDIT" })}
+                  </div>
+                </Tooltip>
+              }
+            >
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() =>
+                  navigate("/observation/new", {
+                    state: {
+                      observationId: props.row.id,
+                    },
+                  })
+                }
+              >
+                <i className="2xl fa fa-light fa-edit fa-xl" />
+              </div>
+            </OverlayTrigger>
+          </div>
+        )}
       </>
     );
   }
@@ -344,7 +391,7 @@ export default function ObservationList() {
           <>
             {
               <>
-                {Number(props.row.status) == 1 && (
+                {Number(props.row.status) === 1 && (
                   //  rbac.hasAction(ActionType.DELETE) && (
                   <div className="col col-auto">
                     <OverlayTrigger
@@ -376,9 +423,6 @@ export default function ObservationList() {
   }
 
   function ServiceName(props: { row: DTRow; editStatus: string }) {
-    const navigate = useNavigate();
-    const intl = useIntl();
-
     return (
       <>
         {
@@ -475,6 +519,7 @@ export default function ObservationList() {
   };
 
   const handleTabChange = (tabIndex: number) => {
+    debugger;
     setTabInit(tabIndex);
     const updatedItem: ArticleSearchModel = { ...filters! };
     if (tabIndex == 0) updatedItem.status = 1;
@@ -596,43 +641,94 @@ export default function ObservationList() {
           </Col>
         </Row>{" "}
       </div>
-      <div className="d-flex justify-content-between align-items-center">
-        <div style={tabListStyle} className="mb-3 mt-5">
-          <button
-            onClick={() => handleTabChange(0)}
-            style={tabInit == 0 ? activeTabStyle : TabStyle}
-          >
-            {intl.formatMessage({ id: "LABEL.DRAFT" })}
-          </button>
-          <button
-            onClick={() => handleTabChange(1)}
-            style={tabInit == 1 ? activeTabStyle : TabStyle}
-          >
-            {intl.formatMessage({ id: "LABEL.INPROGRESS" })}
-          </button>
-          <button
-            onClick={() => handleTabChange(2)}
-            style={tabInit == 2 ? activeTabStyle : TabStyle}
-          >
-            {intl.formatMessage({ id: "LABEL.MYACTIONS" })}
-          </button>
-        </div>
-        <div>
-          {/* {rbac.hasAction(ActionType.ADD) && ( */}
-          <button
-            onClick={handleAddNewObservation}
-            className="btn MOD_btn btn-create min-w-75px w-100 align-self-end"
-          >
-            <FontAwesomeIcon color={""} size="1x" icon={faPlus} />
-            {intl.formatMessage({ id: "BUTTON.LABEL.ADD" })}
-          </button>
-          {/* )} */}
-        </div>
-      </div>
+      <div className="d-flex justify-content-between align-items-center pt-5">
+        {rbac.hasRoleByName(UserRoles.DATAENTRY) && (
+          <div style={tabListStyle} className="mb-3 mt-5">
+            <button
+              onClick={() => handleTabChange(0)}
+              style={tabInit == 0 ? activeTabStyle : TabStyle}
+            >
+              {intl.formatMessage({ id: "LABEL.DRAFT" })}
+            </button>
+            <button
+              onClick={() => handleTabChange(1)}
+              style={tabInit == 1 ? activeTabStyle : TabStyle}
+            >
+              {intl.formatMessage({ id: "LABEL.SUBMITTED" })}
+            </button>
+            <button
+              onClick={() => handleTabChange(2)}
+              style={tabInit == 2 ? activeTabStyle : TabStyle}
+            >
+              {intl.formatMessage({ id: "LABEL.MYACTIONS" })}
+            </button>
+          </div>
+        )}
 
-      <div style={{ display: tabInit === 0 ? "block" : "none" }}>
-        {JSON.stringify(fetchObservationList)}
-        {tabInit === 0 && (
+        <div>
+          {rbac.hasAction(ActionType.ADD) && (
+            <button
+              onClick={handleAddNewObservation}
+              className="btn MOD_btn btn-create min-w-75px w-100 align-self-end"
+            >
+              <FontAwesomeIcon color={""} size="1x" icon={faPlus} />
+              {intl.formatMessage({ id: "BUTTON.LABEL.ADD" })}
+            </button>
+          )}
+        </div>
+      </div>
+      {rbac.hasRoleByName(UserRoles.DATAENTRY) && (
+        <>
+          <div style={{ display: tabInit === 0 ? "block" : "none" }}>
+            {tabInit === 0 && (
+              <DataTableMain2
+                displaySearchBar={false}
+                lang={lang}
+                tableConfig={finalTableConfig}
+                onCellClick={onCellClick}
+                paginationServer
+                getData={fetchObservationList}
+                ref={tableRef}
+                componentsList={componentsList}
+                key={"table0"}
+              />
+            )}
+          </div>
+          <div style={{ display: tabInit === 1 ? "block" : "none" }}>
+            {tabInit === 1 && (
+              <DataTableMain2
+                displaySearchBar={false}
+                lang={lang}
+                tableConfig={finalTableConfig}
+                onCellClick={onCellClick}
+                paginationServer
+                getData={fetchObservationList}
+                ref={tableRef}
+                componentsList={componentsList}
+                key={"table1"}
+              />
+            )}
+          </div>
+          <div style={{ display: tabInit === 2 ? "block" : "none" }}>
+            {tabInit === 2 && (
+              <DataTableMain2
+                displaySearchBar={false}
+                lang={lang}
+                tableConfig={finalTableConfig}
+                onCellClick={onCellClick}
+                paginationServer
+                getData={fetchObservationList}
+                ref={tableRef}
+                componentsList={componentsList}
+                key={"table2"}
+              />
+            )}
+          </div>
+        </>
+      )}
+
+      {rbac.hasRoleByName(UserRoles.BATALLIONCOMMANDER) && (
+        <>
           <DataTableMain2
             displaySearchBar={false}
             lang={lang}
@@ -642,40 +738,10 @@ export default function ObservationList() {
             getData={fetchObservationList}
             ref={tableRef}
             componentsList={componentsList}
-            key={"table0"}
+            key={"table4"}
           />
-        )}
-      </div>
-      <div style={{ display: tabInit === 1 ? "block" : "none" }}>
-        {tabInit === 1 && (
-          <DataTableMain2
-            displaySearchBar={false}
-            lang={lang}
-            tableConfig={finalTableConfig}
-            onCellClick={onCellClick}
-            paginationServer
-            getData={fetchObservationList}
-            ref={tableRef}
-            componentsList={componentsList}
-            key={"table1"}
-          />
-        )}
-      </div>
-      <div style={{ display: tabInit === 2 ? "block" : "none" }}>
-        {tabInit === 2 && (
-          <DataTableMain2
-            displaySearchBar={false}
-            lang={lang}
-            tableConfig={finalTableConfig}
-            onCellClick={onCellClick}
-            paginationServer
-            getData={fetchObservationList}
-            ref={tableRef}
-            componentsList={componentsList}
-            key={"table2"}
-          />
-        )}
-      </div>
+        </>
+      )}
 
       <Modal
         show={showModalDelete}

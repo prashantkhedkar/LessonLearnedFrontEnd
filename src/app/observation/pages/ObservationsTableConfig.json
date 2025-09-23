@@ -1,80 +1,81 @@
 [
-    {
-        "columnName": "LABEL.OBSERVATION.TITLE",
-        "dataColumnName": "observationTitle",
-        "sortable": true,
-         "type": "components",
-        "className": "cellText",
-        "componentsIndexes": "0",
-        "fontAwesome": "",
-        "isSearchable": true,
-        "width": "30%",
-        "width-ar": "30%",
-        "style": {
-            "padding-right": "7px",
-            "padding-left": "7px"
-        }
-    },
-    {
-        "columnName": "LABEL.OBSERVATION.TYPE",
-        "dataColumnName": "observationTypeName",
-        "sortable": true,
-        "type": "",
-        "className": "cellText",
-        "fontAwesome": "",
-        "isSearchable": true,
-        "width": "15%",
-        "width-ar": "15%",
-        "style": {
-            "padding-right": "7px",
-            "padding-left": "7px"
-        }
-    },
-    {
-        "columnName": "LABEL.REQUESTDATE",
-        "dataColumnName": "createdDateString",
-        "sortable": true,
-        "type": "",
-        "className": "cellText",
-        "fontAwesome": "",
-        "isSearchable": true,
-        "width": "15%",
-        "width-ar": "15%",
-        "style": {
-            "padding-right": "7px",
-            "padding-left": "7px"
-        }
-    },
-    {
-        "columnName": "LABEL.STATUS",
-        "dataColumnName": "statusName",
-        "sortable": true,
-        "type": "",
-        "className": "cellText",
-        "fontAwesome": "",
-        "isSearchable": true,
-        "width": "25%",
-        "width-ar": "25%",
-        "style": {
-            "padding-right": "7px",
-            "padding-left": "7px"
-        }
-    },
-    {
-        "columnName": "LABEL.ACTIONS",
-        "dataColumnName": "",
-        "sortable": false,
-        "type": "components",
-        "className": "cellText",
-        "componentsIndexes": "1,2",
-        "showTooltip": "false",
-        "isSearchable": false,
-        "width": "15%",
-        "width-ar": "15%",
-        "style": {
-            "padding-right": "7px",
-            "padding-left": "7px",
-            "color": "grey"
-        }
+  {
+    "columnName": "LABEL.OBSERVATION.TITLE",
+    "dataColumnName": "observationTitle",
+    "sortable": true,
+    "type": "components",
+    "className": "cellText",
+    "componentsIndexes": "0",
+    "fontAwesome": "",
+    "isSearchable": true,
+    "width": "30%",
+    "width-ar": "30%",
+    "style": {
+      "padding-right": "7px",
+      "padding-left": "7px"
     }
+  },
+  {
+    "columnName": "LABEL.OBSERVATION.TYPE",
+    "dataColumnName": "observationTypeName",
+    "sortable": true,
+    "type": "",
+    "className": "cellText",
+    "fontAwesome": "",
+    "isSearchable": true,
+    "width": "25%",
+    "width-ar": "25%",
+    "style": {
+      "padding-right": "7px",
+      "padding-left": "7px"
+    }
+  },
+
+  {
+    "columnName": "LABEL.STATUS",
+    "dataColumnName": "statusName",
+    "sortable": true,
+    "type": "",
+    "className": "cellText",
+    "fontAwesome": "",
+    "isSearchable": true,
+    "width": "25%",
+    "width-ar": "25%",
+    "style": {
+      "padding-right": "7px",
+      "padding-left": "7px"
+    }
+  },
+  {
+    "columnName": "LABEL.REQUESTDATE",
+    "dataColumnName": "createdDateString",
+    "sortable": true,
+    "type": "",
+    "className": "cellText",
+    "fontAwesome": "",
+    "isSearchable": true,
+    "width": "15%",
+    "width-ar": "15%",
+    "style": {
+      "padding-right": "7px",
+      "padding-left": "7px"
+    }
+  },
+  {
+    "columnName": "LABEL.ACTIONS",
+    "dataColumnName": "",
+    "sortable": false,
+    "type": "components",
+    "className": "cellText",
+    "componentsIndexes": "1,2,3",
+    "showTooltip": "false",
+    "isSearchable": false,
+    "width": "5%",
+    "width-ar": "5%",
+    "style": {
+      "padding-right": "7px",
+      "padding-left": "7px",
+      "color": "grey"
+    }
+  }
 ]

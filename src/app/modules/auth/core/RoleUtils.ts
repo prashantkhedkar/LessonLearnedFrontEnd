@@ -32,7 +32,7 @@ export const hasRoleByName = (user: AuthModel | undefined, roleName: string): bo
  * Check if user has a specific action permission
  */
 export const hasAction = (user: AuthModel | undefined, actionId: string): boolean => {
-    debugger
+   
   if (!user?.roles || !Array.isArray(user.roles)) {
     return false;
   }

@@ -40,22 +40,27 @@ import ObservationDetailWidget from "../../modules/components/common/PageHeader/
    const [loading, setLoading] = useState<boolean>(true);
    const [tabInit, setTabInit] = useState(0);
    const [result, setResult] = useState<ObservationFormData>();
-
    const location = useLocation();
    const state = location.state as { tab: number };
-
+   const [observationId, setObservationId] = useState<number>(0);
    useEffect(() => {
-     dispatch(fetchObservationById({ articleId: 5 }))
-       .then(unwrapResult)
-       .then((originalPromiseResult) => {
-         if (originalPromiseResult.statusCode === 200) {
-           setResult(originalPromiseResult.data);
-         }
-       })
-       .catch((rejectedValueOrSerializedError) => {
-         writeToBrowserConsole(rejectedValueOrSerializedError);
-       });
-   }, [dispatch]);
+     if (location.state) {
+       var observationId = location.state
+         ? JSON.parse(JSON.stringify(location.state)).observationId
+         : 0;
+       setObservationId(observationId);
+       dispatch(fetchObservationById({ articleId: observationId }))
+         .then(unwrapResult)
+         .then((originalPromiseResult) => {
+           if (originalPromiseResult.statusCode === 200) {
+             setResult(originalPromiseResult.data);
+           }
+         })
+         .catch((rejectedValueOrSerializedError) => {
+           writeToBrowserConsole(rejectedValueOrSerializedError);
+         });
+     }
+   }, [dispatch, location.state]);
 
    const TabStyle: React.CSSProperties = {
      display: "inline-block",
@@ -124,9 +129,9 @@ import ObservationDetailWidget from "../../modules/components/common/PageHeader/
          />
        )}
 
-       {tabInit === 1 && <AttachmentForm observationID={5} />}
+       {tabInit === 1 && <AttachmentForm observationID={observationId} />}
 
-       {tabInit === 2 && <Recommendation observationId={5} />}
+       {tabInit === 2 && <Recommendation observationId={observationId} />}
      </>
    );
  }

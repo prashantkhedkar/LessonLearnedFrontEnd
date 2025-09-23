@@ -12,6 +12,7 @@ export interface Row {
   createdBy?: number;
   observationTitle?: string;
   progress: string;
+  status?: number
 }
 
 export interface MyObject {
