@@ -789,11 +789,12 @@
   "PLACEHOLDER.TITLE": "Enter title...",
   "LABEL.MANAGE.OBSERVATIONS": "Manage Observations",
   "LABEL.INPROGRESS": "In Progress",
-  "MENU.HEADER.OBSERVATION": "Observation",
+  "MENU.HEADER.OBSERVATION": "Manage Observation",
   "MENU.HEADER.OBSERVATION.NEW": "Observation Detail",
   "LABEL.ATTACHMENTS.TOOLTIP.VIEW": "View Attachment",
   "LABEL.ATTACHMENTS.TOOLTIP.DELETE": "Delete Attachment",
   "LABEL.UNDERPROCESSING": "Under Processing",
   "LABEL.ARCHIVED": "Archived",
-  "LABEL.PUBLISHED": "Published"
+  "LABEL.PUBLISHED": "Published",
+  "MENU.HEADER.OBSERVATION.OBSERVATIONLIST": "Observation List"
 }

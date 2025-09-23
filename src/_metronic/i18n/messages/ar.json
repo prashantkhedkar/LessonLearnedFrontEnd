@@ -847,7 +847,7 @@
   "PLACEHOLDER.TITLE": "أدخل العنوان...",
   "LABEL.MANAGE.OBSERVATIONS": "قائمة رئيسية",
   "LABEL.INPROGRESS": "In Progress",
-  "MENU.HEADER.OBSERVATION": "Observation",
+  "MENU.HEADER.OBSERVATION": "Manage Observation",
   "MENU.HEADER.OBSERVATION.NEW": "Observation Detail",
   "LABEL.FORM.ATTACHMENT.TAB.ATTACHMENT.TITLE": "الوصف",
   "LABEL.FORM.ATTACHMENT.TAB.FILENAME": "اسم الملف",
@@ -860,5 +860,6 @@
   "LABEL.ATTACHMENTS.TOOLTIP.DELETE": "حذف المرفق",
   "LABEL.UNDERPROCESSING": "Under Processing",
   "LABEL.ARCHIVED": "Archived",
-  "LABEL.PUBLISHED": "Published"
+  "LABEL.PUBLISHED": "Published",
+  "MENU.HEADER.OBSERVATION.OBSERVATIONLIST": "Observation List"
 }

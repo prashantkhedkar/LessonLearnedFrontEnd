@@ -478,7 +478,7 @@ export const ObservationSteppers = () => {
 
     // Enhance: highlight current and previous step
     let iconColor = "#dfcfb6";
-    let stepbgColor = "var(--bs-app-sidebar-light-menu-link-bg-color-active)";
+    let stepbgColor = "#FFF";
     let borderColor = "1px solid #B7945A";
 
     if (isActive) {
