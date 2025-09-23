@@ -183,8 +183,8 @@ export const ObservationSteppers = () => {
           const successMessage = isDraft
             ? intl.formatMessage({ id: "MESSAGE.DRAFT.SAVED.SUCCESS" })
             : isUpdateOperation
-            ? intl.formatMessage({ id: "MESSAGE.OBSERVATION.UPDATED.SUCCESS" })
-            : intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATED.SUCCESS" });
+              ? intl.formatMessage({ id: "MESSAGE.OBSERVATION.UPDATED.SUCCESS" })
+              : intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATED.SUCCESS" });
 
           if (isDraft) {
             toast.info(successMessage);
@@ -193,8 +193,7 @@ export const ObservationSteppers = () => {
           }
 
           console.log(
-            `✅ ${
-              isDraft ? "Draft" : isUpdateOperation ? "Update" : "Create"
+            `✅ ${isDraft ? "Draft" : isUpdateOperation ? "Update" : "Create"
             } completed successfully with ID:`,
             observationId
           );
@@ -211,12 +210,11 @@ export const ObservationSteppers = () => {
           const errorMessage = isDraft
             ? intl.formatMessage({ id: "MESSAGE.DRAFT.SAVE.FAILED" })
             : isUpdateOperation
-            ? intl.formatMessage({ id: "MESSAGE.OBSERVATION.UPDATE.FAILED" })
-            : intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATE.FAILED" });
+              ? intl.formatMessage({ id: "MESSAGE.OBSERVATION.UPDATE.FAILED" })
+              : intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATE.FAILED" });
           toast.error(errorMessage);
           console.error(
-            `❌ Failed to ${
-              isDraft ? "save draft" : isUpdateOperation ? "update" : "create"
+            `❌ Failed to ${isDraft ? "save draft" : isUpdateOperation ? "update" : "create"
             } observation:`,
             response
           );
@@ -226,8 +224,8 @@ export const ObservationSteppers = () => {
         const errorMessage = isDraft
           ? intl.formatMessage({ id: "MESSAGE.DRAFT.SAVE.FAILED" })
           : isUpdateOperation
-          ? intl.formatMessage({ id: "MESSAGE.OBSERVATION.UPDATE.FAILED" })
-          : intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATE.FAILED" });
+            ? intl.formatMessage({ id: "MESSAGE.OBSERVATION.UPDATE.FAILED" })
+            : intl.formatMessage({ id: "MESSAGE.ARTICLE.CREATE.FAILED" });
         toast.error(errorMessage);
         // console.error(`❌ Failed to ${isDraft ? 'save draft' : (isUpdateOperation ? 'update' : 'create')} observation:`, result.error);
         return null;
@@ -412,7 +410,7 @@ export const ObservationSteppers = () => {
           console.error("❌ Failed to fetch observation data:", response);
           toast.error(
             intl.formatMessage({ id: "MESSAGE.OBSERVATION.FETCH.FAILED" }) ||
-              "Failed to fetch observation data"
+            "Failed to fetch observation data"
           );
           return null;
         }
@@ -420,7 +418,7 @@ export const ObservationSteppers = () => {
         console.error("❌ Failed to fetch observation data:", result.error);
         toast.error(
           intl.formatMessage({ id: "MESSAGE.OBSERVATION.FETCH.FAILED" }) ||
-            "Failed to fetch observation data"
+          "Failed to fetch observation data"
         );
         return null;
       }
@@ -666,35 +664,8 @@ export const ObservationSteppers = () => {
 
           {/* Right side buttons */}
           <Stack direction="row" spacing={2} className="gap-8">
-            <button
-              type="button"
-              className="btn MOD_btn2 btn-cancel stepper-bottom-btn m-0"
-              style={{ minWidth: 120 }}
-              onClick={handleCancel}
-            >
-              <BtnLabeltxtMedium2
-                customClassName="MOD_btn2_Label"
-                isI18nKey={true}
-                text={"BUTTON.LABEL.CANCEL"}
-              />
-            </button>
-            {currentStepId > 1 && (
-              <button
-                type="button"
-                className="btn MOD_btn2 btn-cancel stepper-bottom-btn m-0"
-                style={{ minWidth: 120 }}
-                onClick={handlePrevious}
-              >
-                <BtnLabeltxtMedium2
-                  customClassName="MOD_btn2_Label"
-                  isI18nKey={true}
-                  text={"BUTTON.LABEL.BACK"}
-                />
-                <ArrowForwardIosIcon
-                  style={{ marginLeft: "4px", fontSize: "18px" }}
-                ></ArrowForwardIosIcon>
-              </button>
-            )}
+
+
 
             {currentStepId === 1 && (
               <button
@@ -711,7 +682,7 @@ export const ObservationSteppers = () => {
               </button>
             )}
 
-            {currentStepId === 1 && (
+            {currentStepId !== 1 && (
               <button
                 type="button"
                 className="btn MOD_btn2 btn-cancel stepper-bottom-btn m-0"
@@ -721,8 +692,26 @@ export const ObservationSteppers = () => {
                 <BtnLabeltxtMedium2
                   customClassName="MOD_btn2_Label"
                   isI18nKey={true}
-                  text={"BUTTON.LABEL.SUBMIT"}
+                  text={"BUTTON.LABEL.SUBMIT1"}
                 />
+              </button>
+            )}
+
+            {currentStepId > 1 && (
+              <button
+                type="button"
+                className="btn MOD_btn2 btn-cancel stepper-bottom-btn m-0"
+                style={{ minWidth: 120 }}
+                onClick={handlePrevious}
+              >
+                <BtnLabeltxtMedium2
+                  customClassName="MOD_btn2_Label"
+                  isI18nKey={true}
+                  text={"BUTTON.LABEL.BACK1`"}
+                />
+                <ArrowForwardIosIcon
+                  style={{ marginLeft: "4px", fontSize: "18px" }}
+                ></ArrowForwardIosIcon>
               </button>
             )}
 
@@ -736,13 +725,25 @@ export const ObservationSteppers = () => {
                 <BtnLabeltxtMedium2
                   customClassName="MOD_btn2_Label"
                   isI18nKey={true}
-                  text={"BUTTON.LABEL.NEXT"}
+                  text={"BUTTON.LABEL.NEXT1"}
                 />
                 <ArrowBackIosIcon
                   style={{ marginLeft: "4px", fontSize: "18px" }}
                 ></ArrowBackIosIcon>
               </button>
             )}
+            <button
+              type="button"
+              className="btn MOD_btn2 btn-cancel stepper-bottom-btn m-0"
+              style={{ minWidth: 120 }}
+              onClick={handleCancel}
+            >
+              <BtnLabeltxtMedium2
+                customClassName="MOD_btn2_Label"
+                isI18nKey={true}
+                text={"BUTTON.LABEL.CANCEL1"}
+              />
+            </button>
           </Stack>
         </Stack>
       </Box>

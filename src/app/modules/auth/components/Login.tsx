@@ -90,7 +90,7 @@ export function Login() {
 
         if (auth && auth.userName) {
           localStorage.setItem("oidc:tkn", userDetails.data.jwtToken);
-          
+
           // Extract and save user roles from userDetails
           const authWithRoles = {
             ...auth,
@@ -102,13 +102,13 @@ export function Login() {
           //   auth.jwtToken,
           //   auth.userName
           // );
-          
+
           // Also add roles to user object if not present
           // const userWithRoles = {
           //   ...user,
           //   roles: userDetails.data.roles || user.roles || []
           // };
-          
+
           setCurrentUser(authWithRoles);
           setIsValidLogin(true);
 
@@ -162,19 +162,19 @@ export function Login() {
             ...userDetails.data,
             roles: userDetails.data.roles || []
           };
-          
+
           saveAuth(authWithRoles);
           // const { data: user } = await getUserByToken(
           //   userDetails.data.jwtToken,
           //   userDetails.data.userName
           // );
-          
+
           // Add roles to user object
           const userWithRoles = {
             ...userDetails.data,
             roles: userDetails.data.roles || []
           };
-          
+
           setCurrentUser(userWithRoles);
           setStatus("");
           setIsValidLogin(true);
@@ -184,7 +184,7 @@ export function Login() {
             username: "",
           };
 
-       //   await dispatch(insertPageLog({ formDataObject }));
+          //   await dispatch(insertPageLog({ formDataObject }));
         } else {
           saveAuth(undefined);
           setSubmitting(false);
