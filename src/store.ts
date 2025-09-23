@@ -21,4 +21,5 @@ export type AppDispatch = typeof store.dispatch;
 
 //Create custom hooks for Dispatch and Selector
 export const useAppDispatch = () => useDispatch<AppDispatch>(); // to update store
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector; // to read from store
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector; // to read from store test
+
