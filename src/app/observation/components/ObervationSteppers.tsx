@@ -75,6 +75,7 @@ export const ObservationSteppers = () => {
   const [currentStepId, setCurrentStepId] = useState<number>(1); // Start with first step
   const [activeStep, setActiveStep] = useState<number>(0); // MUI Stepper is 0-indexed
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [shouldValidateOnStep1, setShouldValidateOnStep1] = useState<boolean>(false); // Flag to trigger validation when navigating back to step 1
 
   // Clear fetched observation data when moving to a new observation (step 1 without an existing observation)
   useEffect(() => {
@@ -90,6 +91,31 @@ export const ObservationSteppers = () => {
       fetchObservationData(observationId);
     }
   }, [currentStepId, createdObservationId]);
+
+  // Handle validation when navigating back to step 1 from other steps
+  useEffect(() => {
+    if (currentStepId === 1 && shouldValidateOnStep1 && formikRef.current) {
+      console.log("🔍 Applying validation errors on step 1...");
+
+      // Set all step 1 fields as touched to show validation errors
+      formikRef.current.setTouched({
+        observationTitle: true,
+        observationSubject: true,
+        discussion: true,
+        conclusion: true,
+        initialRecommendation: true,
+        observationType: true,
+        level: true,
+        currentAssignment: true,
+      });
+
+      // Force form validation to run again to show errors
+      formikRef.current.validateForm();
+
+      // Reset the flag
+      setShouldValidateOnStep1(false);
+    }
+  }, [currentStepId, shouldValidateOnStep1]);
 
   // Common function to convert form values to API model
   const convertToAPIModel = (
@@ -261,6 +287,46 @@ export const ObservationSteppers = () => {
     setActiveStep(stepId - 1); // MUI stepper is 0-indexed
   };
 
+  // Helper function to validate step 1 required fields (used for step 1 save action)
+  const validateStep1Fields = async (): Promise<boolean> => {
+    if (!formikRef.current) {
+      console.error("❌ FormikRef.current is null!");
+      toast.error("Form reference not available");
+      return false;
+    }
+
+    console.log("🔍 Validating step 1 required fields...");
+
+    // Validate all required fields from step 1
+    const errors = await formikRef.current.validateForm();
+    console.log("🔍 Validation errors:", errors);
+
+    // Set all step 1 fields as touched to show validation errors
+    formikRef.current.setTouched({
+      observationTitle: true,
+      observationSubject: true,
+      discussion: true,
+      conclusion: true,
+      initialRecommendation: true,
+      observationType: true,
+      level: true,
+      currentAssignment: true,
+    });
+
+    if (Object.keys(errors).length > 0) {
+      // Show validation errors
+      const errorMessage = intl.formatMessage({
+        id: "MESSAGE.FIX.ERRORS.BEFORE.SAVING"
+      });
+      toast.error(errorMessage);
+      console.log("❌ Form validation errors:", errors);
+      return false;
+    }
+
+    console.log("✅ Step 1 validation passed");
+    return true;
+  };
+
   // Common handler for Save, Save as Draft, and Next actions
   const handleFormAction = async (
     actionType: "save" | "saveAsDraft" | "next"
@@ -304,29 +370,9 @@ export const ObservationSteppers = () => {
         console.log("🔍 FormikRef current:", formikRef.current);
         console.log("🔍 Form values:", formikRef.current.values);
 
-        // Validate form for both Save and Next actions
-        const errors = await formikRef.current.validateForm();
-        console.log("🔍 Validation errors:", errors);
-
-        formikRef.current.setTouched({
-          observationTitle: true,
-          observationSubject: true,
-          discussion: true,
-          conclusion: true,
-          initialRecommendation: true,
-          observationType: true,
-          level: true,
-          currentAssignment: true,
-        });
-
-        if (Object.keys(errors).length > 0) {
-          // Show validation errors
-          const errorMessage =
-            //actionType === 'next' ?
-            //  intl.formatMessage({ id: "MESSAGE.FIX.ERRORS.BEFORE.PROCEEDING" }) :
-            intl.formatMessage({ id: "MESSAGE.FIX.ERRORS.BEFORE.SAVING" });
-          toast.error(errorMessage);
-          console.log("❌ Form validation errors:", errors);
+        // Validate step 1 fields
+        const isValid = await validateStep1Fields();
+        if (!isValid) {
           return;
         }
 
@@ -339,9 +385,7 @@ export const ObservationSteppers = () => {
           // For Next action, navigation happens in handleFormSubmit
         } catch (error) {
           console.error("Form submission error:", error);
-          const errorMessage =
-            //actionType === 'next' ? 'Error submitting form' :
-            "Error saving form";
+          const errorMessage = "Error saving form";
           toast.error(errorMessage);
         }
       }
@@ -351,10 +395,67 @@ export const ObservationSteppers = () => {
       setCurrentStepId(currentStepId + 1);
       setActiveStep(activeStep + 1);
     } else if (actionType === "save") {
-      if (currentStepId === 2) {
-        toast.success("Recommendations saved successfully");
+      // If handleSave is called from step 2 or 3, validate step 1 fields first
+      if (currentStepId > 1) {
+        console.log(`🔍 Validating step 1 fields from step ${currentStepId}...`);
+
+        if (!formikRef.current) {
+          console.error("❌ FormikRef.current is null!");
+          toast.error("Form reference not available");
+          return;
+        }
+
+        // Validate all required fields from step 1
+        const errors = await formikRef.current.validateForm();
+        console.log("🔍 Validation errors:", errors);
+
+        if (Object.keys(errors).length > 0) {
+          // Show validation errors and navigate back to step 1
+          const errorMessage = intl.formatMessage({
+            id: "MESSAGE.FIX.ERRORS.BEFORE.SAVING"
+          });
+          toast.error(errorMessage);
+          console.log("❌ Form validation errors found, navigating to step 1:", errors);
+
+          // Set flag to trigger validation when we navigate back to step 1
+          setShouldValidateOnStep1(true);
+
+          // Navigate back to step 1
+          setCurrentStepId(1);
+          setActiveStep(0);
+
+          return;
+        }
+
+        console.log("✅ Step 1 validation passed, proceeding with save...");
+
+        // If validation passes, submit the form
+        try {
+          const currentValues = formikRef.current.values;
+          const isUpdate = !!createdObservationId;
+          const data = convertToAPIModel(currentValues, false, isUpdate);
+
+          const result = await saveObservationAPI(data, "Submitted", false);
+
+          if (result) {
+            // Success message based on current step
+            if (currentStepId === 2) {
+              toast.success("Observation and recommendations saved successfully");
+            } else if (currentStepId === 3) {
+              toast.success("Observation with attachments saved successfully");
+            } else {
+              toast.success("Data saved successfully");
+            }
+          }
+        } catch (error) {
+          console.error("Save error:", error);
+          toast.error("Error saving observation");
+        }
       } else {
-        toast.success("Data saved successfully");
+        // Handle save from step 1 (this shouldn't normally happen as step 1 uses the form validation flow above)
+        if (currentStepId === 1) {
+          toast.success("Observation saved successfully");
+        }
       }
     } else if (actionType === "saveAsDraft") {
       toast.info("Draft saved successfully");

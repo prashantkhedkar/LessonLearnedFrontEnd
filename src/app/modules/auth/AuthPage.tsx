@@ -17,7 +17,7 @@ const AuthPage = () => (
           )
         }
 
-        {/* {
+        {
           // If ADFS is enabled then use OIDC Provider for authentication 
           process.env.REACT_APP_IS_ADFS_ENABLED === '1' && (
             <>
@@ -25,7 +25,7 @@ const AuthPage = () => (
               <Route index element={<LoginAdfs />} />
             </>
           )
-        } */}
+        }
       </Route>
     </Routes>
   </>

@@ -1,0 +1,570 @@
+Key,English Text,Arabic Text
+BUTTON.LABEL.BACK,Back,رجوع
+BUTTON.LABEL.SUBMIT,Submit,إرسال
+LABEL.ABOUT,About,عن الوحدة
+LABEL.ABSENT,Absent,خارج الطابور
+LABEL.ACCEPT,Accept,علم
+LABEL.ACCEPTED,Accepted,علم
+LABEL.ACTION,Action,الإجراء
+LABEL.ACTIONS,Actions,اجراء
+LABEL.ACTIVEENDDATE,Active End Date,تاريخ انتهاء التفعيل
+LABEL.ACTIVESTARTDATE,Active Start Date,تاريخ بدء التفعيل
+LABEL.ADDCOMMENT,Add Comment,إضافة ملاحظة
+LABEL.ADDEDAT,Added at,تم التحديث في
+LABEL.ADDMEMBER,Add Member,إضافة عضو
+LABEL.ADDUSER,Add Users,إضافة مستخدم
+LABEL.AED,AED,درهم
+LABEL.ALIASNAME,Alias Name,الإسم المستعار
+LABEL.ALL,All,الكل
+LABEL.ALLDAY,All day,طوال اليوم
+LABEL.ALLFOLDERS,All Folders,ملفاتي
+LABEL.NEW.ARTICLE,New Article,مقال جديد
+LABEL.EDIT.ARTICLE,Edit Article,تعديل المقال
+LABEL.ARTICLE.SUBTITLE,Please fill the following information,يرجى ملء المعلومات التالية
+LABEL.TITLE,Title,العنوان
+LABEL.SUBJECT,Subject,الموضوع
+LABEL.LEVEL,Level,المستوى
+LABEL.TYPE,Type,النوع
+LABEL.INSTITUTION,Institution,المؤسسة
+LABEL.FACULTY,Faculty,الكلية
+LABEL.RECOMMENDATIONS,Recommendations,التواصي
+LABEL.ALLOWANCES,Allowances,العلاوات
+LABEL.APPLY,Apply,عرض
+LABEL.APPROVE,Approve,إعتماد
+LABEL.APPROVED.MESSAGE,Approved,معتمد
+LABEL.APPROVER,Approver,المعتمد
+LABEL.APPROVERREQUIRED,Is Approver Required?,هل يتطلب الإعتماد؟
+LABEL.AREYOUSURE,Are you sure?,هل أنت متأكد؟
+LABEL.ASSIGNED,Received Tasks,مهام كلفت بها
+LABEL.ASSIGNEDTOGROUP,Assigned To Group,مسندة إلى مجموعة
+LABEL.ASSIGNEDTOUSER,Assigned To User,مسندة إلى مستخدم
+LABEL.ASSIGNEE,Assignee,المُكَلَّف
+LABEL.ASSIGNME,Assign to me,مسندة لي
+LABEL.ASSIGNTOOTHERS,Assign to others,تكليف الآخرين
+LABEL.ASTUPDATE,Last Update,آخر تحديث
+LABEL.ATTACHMENTS,Attachments,المرفقات
+LABEL.ATTEND,Attend,حضور
+LABEL.ATTENDED,Attended,حضر
+LABEL.ATTENDEETYPE,Attendee Type,فئة الحضور
+LABEL.AUDITFILE,Activity Log,سجل التحديثات
+LABEL.AVAILABLE,Available,متاحة
+LABEL.BENEFICIARY,Beneficiary,المستفيد
+LABEL.BOOKINGDATE,Booking Date,تاريخ الإجتماع أو الحجز
+LABEL.BOOKNUMBER,Book number,رقم الكتاب
+LABEL.BOTH,Both,الكل
+LABEL.BY,by,بواسطة
+LABEL.CALENDAR,Calendar,التقويم السنوي
+LABEL.CANCEL,Cancel,إلغاء
+LABEL.CANCELLATIONDATE,Cancellation Date,تاريخ الإلغاء
+LABEL.CARDS,Card,البطاقات
+LABEL.CARDVIEW,Card View,عرض البطاقة
+LABEL.CATEGORY,Category,الفئة
+LABEL.CHECKIN,Check-in Time,وقت الدخول
+LABEL.CHECKOUT,Check-out Time,وقت الخروج
+LABEL.CHOOSE,Choose,اختيار
+LABEL.CIVILIAN,Civilian,مدني
+LABEL.CLASSIFICATION,Classification,التصنيف
+LABEL.CLEAR,Clear,مسح
+LABEL.CLEARSEARCH,Clear Search,مسح
+LABEL.CLONE,Clone,نسخ
+LABEL.CLOSE,Close,إغلاق
+LABEL.COMMENT,Comment,التعليقات
+LABEL.COMMENTNEWSORT,Newest first,الأحدث أولاً
+LABEL.COMMENTOLDSORT,Oldest first,الأقدم أولاً
+LABEL.COMMENTS,Comments,ملاحظات
+LABEL.COMMENTS.DELETE,Delete Comment,حذف التعليق
+LABEL.COMMENTS.DELETE.MESSAGE,Comment deleted,تم حذف التعليق
+LABEL.COMPANYNAME,Company Name,اسم الشركة
+LABEL.COMPLETED,Completed,طلبات منجزة
+LABEL.COMPLETIONDATE,Completion Date,تاريخ الاكتمال
+LABEL.CONFIRM,Confirm,تأكيد
+LABEL.CONTINUE,Continue,تابع
+LABEL.COPYLINKTOCLIP,Copied to clipboard,تم النسخ
+LABEL.COUNTSELECTED,selected,تم إختيار
+LABEL.COURSES,Courses,الدورات
+LABEL.CREATE,Create,إنشاء
+LABEL.CREATED,Created,تم الإنشاء
+LABEL.CREATEDATE,Create Date,تاريخ الإنشاء
+LABEL.CREATEDBY,Createdby,أُنشئ بواسطة
+LABEL.CREATEDDATE,Created Date,تاريخ الإنشاء
+LABEL.CREATEDTIMESTAMP,CreatedDate,تاريخ الإنشاء
+LABEL.CREATEGROUP,Create Group,إنشاء مجموعة
+LABEL.CREATIONDATE,Creation Date,تاريخ الإنشاء
+LABEL.DAILY,Daily,يومي
+LABEL.DAILYTASKS,Daily Tasks,المهام اليومية
+LABEL.DASHBOARD,Dashboard,لوحة المؤشرات
+LABEL.DATE,Date,التاريخ
+LABEL.DAY,Day,يوم
+LABEL.DAY.VARIANT,Day(s),يوم/أيام
+LABEL.DAYS,Days,أيام
+LABEL.DECLINE,Decline,رفض
+LABEL.DECLINED,Declined,مرفوض
+LABEL.DEDUCTIONS,Deductions,الخصومات
+LABEL.DELETE,Delete,حذف
+LABEL.DELETESELECTED,Delete Selected,حذف
+LABEL.DEPENDENCIES,Dependencies,التبعيات
+LABEL.DESCRIPTION,Description,ملاحظات
+LABEL.DETAILS,Details,التفاصيل
+LABEL.DISMISS,Dismiss,إخفاء
+LABEL.DISPLAYORDER,Display Order,الرتيب
+LABEL.DOCUPLSUC,Document uploaded,تم تحميل الملف
+LABEL.DOWNLOAD,Download,تنزيل
+LABEL.DOWNLOADFILE,Download file,حفظ الملف
+LABEL.DUEDATE,Due Date,تاريخ الاستحقاق
+LABEL.DUETIME,Due Time,وقت الإستحقاق
+LABEL.EDIT,Edit,تحرير
+LABEL.EDITGROUP,Group List,قائمة المجموعات
+LABEL.EFFECTIVEDATE,Effective Date,تاريخ النفاذ
+LABEL.EMAIL,Email,البريد الإلكتروني
+LABEL.EMPLOYEENAME,Employee Name,الاسم
+LABEL.EMPTY,This folder is empty,المجلد بدون محتوى
+LABEL.ENDDATE,End Date,تاريخ النهاية
+LABEL.ENDDURATION,End Duration,إلى تاريخ
+LABEL.ENDTIME,End time,وقت النهاية
+LABEL.ENTER,Enter,إدخال
+LABEL.ENTERMEETINGSUBJECT,Subject,موضوع الإجتماع
+LABEL.ENTERNAME,Enter Name,إدخال الاسم
+LABEL.ENTERUNUMBER,Enter U Number,إدخال رقم المستخدم U
+LABEL.ERROR,Error,خطأ
+LABEL.EVENT,Event,حدث
+LABEL.EVENTCALENDAR,Event Calendar,الأحداث
+LABEL.EVERY,Every,كل
+LABEL.EVERYONE,Everyone,الكل
+LABEL.EVERYWEEKDAY,Every weekday,كل يوم عمل
+LABEL.EXPIREON,Expire on,ينتهي في:
+LABEL.EXPORT,Export,تصدير
+LABEL.EXPORTASPNG,PNG,PNG
+LABEL.EXPORTCSV,Export CSV,تصدير بصيغة CSV
+LABEL.EXTENSIONNUMBER,Extension Number,رقم التحويلة
+LABEL.EXTERNAL,External,خارجي
+LABEL.EXTERNALUNITS,External Units,وحدات وزارة الدفاع
+LABEL.FAVOURITE,Favourite,القائمة المفضلة
+LABEL.FILE,File,الملف
+LABEL.FILENAME,File Name,اسم المجلد/الملف
+LABEL.FILTER,Filter Options,خيارات التصفية
+LABEL.FILTERBYUSERS,Filter by users or groups,تصفية
+LABEL.FILTERUSERS,Filter Users,تصفية المستخدمين
+LABEL.FIRST,First,الأول
+LABEL.FIRSTJOIN,First join,وقت الدخول
+LABEL.FOLDER,Folder,مجلد
+LABEL.FOLDERS,Folders,المجلدات
+LABEL.FROMSTARTDATE,From date,من تاريخ
+LABEL.GROUP,Group,مجموعة
+LABEL.GROUPDETAILS,Group Details,تفاصيل المجموعة
+LABEL.GROUPNAME,Group Name,اسم المجموعة
+LABEL.GROUPS,Groups,المجموعات
+LABEL.HIDEDATA,Hide Data,إخفاء البيانات
+LABEL.HOVERTEXT,Suggestion,الإقتراحات
+LABEL.ID,Task ID,رقم المهمة
+LABEL.IMAGE,Image,صورة
+LABEL.IMPACT,Impact,التأثير
+LABEL.IMPACTDEFAULT,Select,عام
+LABEL.INACTIVE,Inactive,غير فعال
+LABEL.INFORMATION,Information,معلومات
+LABEL.INPERSON,In Person,داخل وزارة الدفاع
+LABEL.ISACTIVE,Is Active,هل هو مفعل
+LABEL.ISCURRENT,Current,الحالي
+LABEL.JOB,Job,المهنة
+LABEL.LANDLINE,Landline,الهاتف الارضي
+LABEL.LAST,Last,الاخير
+LABEL.LASTLEAVE,Last leave,وقت الخروج
+LABEL.LASTUPDATEDON,Last updated on ,آخر تحديث في:
+LABEL.LATE,Late,متأخر
+LABEL.LEFT,Left,متبقي
+LABEL.LETTER.HEADER,Bismillah,بسم الله الرحمن الرحيم
+LABEL.LIBRARY,Library,المكتبة الرقمية
+LABEL.LINKCOPY,Copy Link,نسخ الرابط
+LABEL.LISTVIEW,List View,عرض القائمة
+LABEL.LOAD.DEFAULT,Load default,تحميل الإعدادات الافتراضية
+LABEL.LOADING,Loading...,يرجى الإنتظار...
+LABEL.LOADINGMORE,Loading more..,جاري تحميل المزيد...
+LABEL.LOADMOREAPP,View More,عرض الكل
+LABEL.LOCATION,Location,الموقع
+LABEL.LOGOUT,Log Out,تسجيل خروج
+LABEL.MAINUNIT,Main Unit,الوحدة الرئيسية
+LABEL.MANAGEGROUP,Manage Group,إدارة المجموعات
+LABEL.MANAGESETTINGS,Settings,الإعدادات
+LABEL.MANAGEUSERGROUPS,Manage User Groups,إدارة مجموعات المستخدمين
+LABEL.MEETING,Meeting,اجتماع
+LABEL.MEETINGS,Meetings,الاجتماعات
+LABEL.MEMBERS,Members,الأعضاء
+LABEL.MESSAGE,Message,الرسالة
+LABEL.MILESTONES,Milestones,مراحل
+LABEL.MILITARY,Military,عسكري
+LABEL.MILITARYNUMBER,Military Number,الرقم العسكري
+LABEL.MILITARYTYPE,Military Type,Military Type
+LABEL.MINISTRY.OF.DEFENSE,Ministry of Defense,وزارة الدفاع
+LABEL.MOBILE,Mobile,الهاتف المتحرك
+LABEL.MOBILENUMBER,Mobile Number,رقم الهاتف المتحرك
+LABEL.MODULE,Module,القسم المرتبط بالمقترح
+LABEL.MONTH,Month,شهر
+LABEL.MONTHLY,Monthly,شهري
+LABEL.MONTHLYTASKS,Monthly Tasks,المهام الشهرية
+LABEL.MYUNITTASKS,My Unit Tasks,مهام وحداتي
+LABEL.NAME,Name,الاسم
+LABEL.NATIONALITY,Nationality,الجنسية
+LABEL.NEW,New,جديد
+LABEL.NEWCATEGORYLINK,New Link,رابط جديد
+LABEL.NEWGROUP,New Group,مجموعة جديدة
+LABEL.NEXT,Next,التالي
+LABEL.NEXTMONTH,Next Month,التالي
+LABEL.NO,No,لا
+LABEL.NOITEM,No Item Found,لم يتم العثور على ملفات
+LABEL.NORMAL,Normal,عادي
+LABEL.NOTAVAILABLE,Not Available,غير متاحة
+LABEL.NOTIFICATIONS,Notifications,التنبيهات
+LABEL.OCCURRENCE,Occurrence,الحدث
+LABEL.OFEVERY,Of every,من كل
+LABEL.OFMONTH,of the Month,من الشهر
+LABEL.OK,OK,حسناً
+LABEL.OLE,Role,الدور
+LABEL.ONHOLD.DATE,On Hold Date,تاريخ التوقف
+LABEL.ONLINE,Online,عن بعد
+LABEL.ONTHE,The,في
+LABEL.ONTIME,On-Time,في الوقت المحدد
+LABEL.OR,Or,Or
+LABEL.ORGANIZER,Organizer,الرئيس
+LABEL.OTHERS,Others,غير مؤكد
+LABEL.OUTSIDEUAE,Outside UAE,خارج دولة الإمارات
+LABEL.OVERDUE,Overdue,متأخر
+LABEL.OVERVIEW,Overview,نظرة عامة على الإعلانات / التعاميم
+LABEL.OWNER,Owner,المكلف
+LABEL.PAGE.INFO,Page Information,معلومات الصفحة
+LABEL.PARTICIPANT,Participant,مدعو
+LABEL.PARTICIPANTS,Participants,الحضور
+LABEL.PENDING,Pending,طلبات قيد الاجراء
+LABEL.PENDINGDECISION.MESSAGE,Pending Approval,قيد الإعتماد
+LABEL.PEOPLE,People,مشاركة مع
+LABEL.PHONE,Phone,رقم التواصل
+LABEL.PHONENO,Phone Numbers,أرقام الهواتف
+LABEL.PLEASEWAIT,Please wait,جاري تحميل الملف
+LABEL.POSITION,Position,المنصب
+LABEL.PRESENTSTATUS,Present,موجود
+LABEL.PREV,Prev,السابق
+LABEL.PREVIEW,Preview,عرض
+LABEL.PREVIOUS,Previous,السابق
+LABEL.PREVIOUSMONTH,Previous Month,السابق
+LABEL.PRINTPDF,Print/Export,طباعة/تصدير
+LABEL.PRIORITIES,Priorities,الأولويات
+LABEL.PRIORITY,Priority,الأولوية
+LABEL.PRIVATE,Private,خاص
+LABEL.PROGRESS,Progress,نسبة الإنجاز
+LABEL.PROJECT,Project,مشروع
+LABEL.PROJECTS,Projects,نطاق الأعمال
+LABEL.PUBLISH,Publish,نشر
+LABEL.QUARTER1,Quarter - 1 (Jan - Mar),الربع الأول (يناير - مارس)
+LABEL.QUARTER2,Quarter - 2 (Apr - Jun),الربع الثاني (إبريل - يونيو)
+LABEL.QUARTER3,Quarter - 3 (Jul - Sep),الربع الثالث (يوليو - سبتمبر)
+LABEL.QUARTER4,Quarter - 4 (Oct - Dec),الربع الرابع (أكتوبر - ديسمبر)    
+LABEL.QUARTERLYTASKS,Quarterly Tasks,المهام الربع سنوية
+LABEL.QUICKSEARCH,Quick Search,بحث سريع
+LABEL.RANK,Rank,الرتبة
+LABEL.READMORE,Read More,إقرأ المزيد
+LABEL.REASON,Reason,السبب
+LABEL.RECENTACTIVITY,Recent Activity,الأنشطة الحديثة
+LABEL.RECENTANNOUNCEMENTS,Recent Announcements,الإعلانات / التعاميم المنشورة حديثاً
+LABEL.RECENTLYADDED,Recently Added,الملفات المضافة حديثاً
+LABEL.RECIPIENT,Recipient,المرسل إليه
+LABEL.RECIPIENTS,Recipients,الوحدات المستفيدة
+LABEL.RECURRENCE,Recurrency,التكرار
+LABEL.REJECT,Reject,رفض
+LABEL.REJECTED.MESSAGE,Rejected,مرفوض
+LABEL.REMARKS,Remarks,ملاحظات
+LABEL.REPEAT,Task Frequency,تكرار كل
+LABEL.REPEATEVERY,Repeat Every,تكرار كل
+LABEL.REPEATEVERYDAY,Perform Task,تكرار كُل
+LABEL.REPLACEMENTPERSON,Replacement Person,الشخص البديل
+LABEL.REPORTNAME,Report Name,عنوان التقرير
+LABEL.REQUEST,Request,تقديم الطلب
+LABEL.REQUESTDATE,Requested Date,تاريخ الطلب
+LABEL.REQUIRED,Required,مطلوب
+LABEL.REQUIRED.FIELD,Required field,Required
+LABEL.RESCHEDULE,Reschedule,إعادة جدولة
+LABEL.RESET,Reset,إعادة تعيين
+LABEL.RESULTS,Result,النتيجة
+LABEL.RETURN,Return,إرجاع
+LABEL.RETURNED,Returned,إرجاع
+LABEL.REVIEWER,Reviewer,المُراجع
+LABEL.RISKS,Risks,المخاطر
+LABEL.SAVE,Save,حفظ
+LABEL.SAVEDEFAULT,Save default values,حفظ القيم الافتراضية
+LABEL.SAVEDRAFTCHANGES,Save as draft,حفظ كمسودة
+LABEL.SEACHEMP,Search Users,بحث المستخدمين
+LABEL.SEARCH,Search,بحث
+LABEL.SEARCHUNIT,Select Unit,تحديد الوحدة
+LABEL.SEARCHUSER,Select User,تحديد مستخدم
+LABEL.SECONDARYASSIGNEES,Secondary Assignees,المُكلفون الثانويون
+LABEL.SECRET,Secret,سري
+LABEL.SECRETARY,Secretary,السكرتير
+LABEL.SECTIONNAME,Section Name,اسم جهة التواصل
+LABEL.SEE.MORE,See More,شاهد المزيد
+LABEL.SELECTADATE,Select a Date,إختيار التاريخ
+LABEL.SELECTASSIGNEDTO,Assigned To,تعيين المُكلف
+LABEL.SELECTCATEGORY,Select Category,إختيار الفئة
+LABEL.SELECTDATE,Select Date,إختر التاريخ
+LABEL.SELECTEDUSERS,Selected Users,قائمة المستخدمين
+LABEL.SELECTENDDATE,Select End Date,إختيار تاريخ الانتهاء
+LABEL.SELECTGROUP,Select group,إختيار المجموعة
+LABEL.SELECTMEETINGROOM,Select Room,تحديد القاعة
+LABEL.SELECTQUARTER,Quarter,ربع سنة
+LABEL.SELECTRECURRENCE,Select Recurrence,إختيار التكرار
+LABEL.SELECTREVIEWER,Select Reviewer,إختيار المُراجع
+LABEL.SELECTSTATUS,Select Status,إختيار الحالة
+LABEL.SELECTSUBUNIT,Select Sub-Unit,إختيار الوحدة الفرعية
+LABEL.SELECTTEMPLATE,Select a template,إختيار القالب/النموذج
+LABEL.SELECTUNIT,Select Unit..,اختيار الوحدة..
+LABEL.SELECTUSER,Select User..,تعيين مستخدم
+LABEL.SELECTWEEKDAY,Week Day,يرجى إختيار اليوم
+LABEL.SELECTYEAR,Year,السنة
+LABEL.SENDBACK,Send Back,إرجاع
+LABEL.SERVICE.ACTIVE,Active,فعال
+LABEL.SERVICEDETAILS,Service Details,تفاصيل الخدمة
+LABEL.SET,Set,تعيين
+LABEL.SHARED,Shared,المشاركة
+LABEL.SHOW,Show,عرض
+LABEL.SHOWDATA,Show Data,إظهار البيانات
+LABEL.STARTANDENDTIME,Start and end time,وقت البداية والنهاية
+LABEL.STARTDATE,Start date,تاريخ البداية
+LABEL.STARTDURATION,Start Duration,من تاريخ
+LABEL.STARTTIME,Start Time,وقت البداية
+LABEL.STATUS,Status,الحالة
+LABEL.TAB,Tab,علامة التبويب
+LABEL.TARASULDATE,Book Date,تاريخ كتاب تراسل
+LABEL.TARGETDATE,Target Date,تاريخ الاستحقاق
+LABEL.TASK,Task,المهمة
+LABEL.TASKDESCRIPTION,Task Description,وصف المهمة
+LABEL.TASKNAME,Task Name,اسم المهمة
+LABEL.TASKS,Tasks,المهام
+LABEL.TASKTITLE,Task Title,أدخل عنوان المهمة
+LABEL.TEAM,Team,فريق العمل
+LABEL.TENTATIVE,Tentative,غير مُؤكد
+LABEL.TERMS,Terms,الشروط والأحكام
+LABEL.TERMSANDCONDITIONS,Terms & Conditions,الشروط والأحكام
+LABEL.TIMEPICKER.PLACEHOLDER,hh:mm aa,س س : د د
+LABEL.TODAY,Today,اليوم
+LABEL.TODAYSCHEDULE,Today Schedule,أجندة اليوم
+LABEL.TOENDDATE,To date,الى تاريخ
+LABEL.TOTAL,Total,الموجود
+LABEL.TYPEHERE,Type here,أكتب هنا
+LABEL.UNIT,Unit,الوحدة
+LABEL.UNITLOGO,Unit Logo,شعار الوحدة
+LABEL.UNITS,Units,الوحدات
+LABEL.UNPUBLISH,Unpublish,إلغاء النشر
+LABEL.UNSELECT,UnSelect,إلغاء التحديد
+LABEL.UNUMBER,U Number,اسم المستخدم
+LABEL.UPCOMINGTASK,Upcoming Task Due,المهام القادمة
+LABEL.UPDATEATTENDANCE,Update,تعديل
+LABEL.UPDATED,Updated ,تم التعديل
+LABEL.URGENT,Urgent,عاجل
+LABEL.URL,URL,رابط
+LABEL.USER,User,المستخدم
+LABEL.USERGROUPS,User Groups,مجموعات المستخدمين
+LABEL.USERS,Users,المستخدمون
+LABEL.VENUE,Venue,القاعة
+LABEL.VIEW,View,عرض
+LABEL.VIEWALL,View All,عرض الكل
+LABEL.WEEK,Week(s) on :,أسبوع
+LABEL.WEEKLY,Weekly,أسبوعي
+LABEL.WEEKLYTASKS,Weekly Tasks,المهام الأسبوعية
+LABEL.WORKFLOWACTIVITY,Workflow Activity,نشاط سير العمل
+LABEL.YEARLY,Yearly,سنوي
+LABEL.YEARLYTASKS,Yearly Tasks,المهام السنوية
+LABEL.YES,Yes,نعم
+MENU.HEADER.FMSDASHBOARD,Lession Learned,المعرفة المكتسبة
+MESSAGE.CONFIRMCONTINUE,Are you sure you want to continue?,هل أنت متأكد من الاستمرار؟
+MESSAGE.CREATEGROUPMEMBER,Please select at least one user,تحديد مستخدم واحد على الأقل
+MESSAGE.CREATEMEETINGERROR,An error occurred while processing the request. Please try again.,حدث خطأ خلال المعالجة، يرجى إعادة المحاولة مرة أخرى.
+MESSAGE.DELETED,{X} has been deleted.,تم حذف {X}.
+MESSAGE.DOCUPLFAIL,Document upload failed please try again,تعذر تحميل الملف، يرجى المحاولة مرة أخرى.
+MESSAGE.DOWNLOADINPROGRESS,Download in progress .....,جاري التحميل...
+MESSAGE.EDITMEETINGOPTIONSMESSAGE,Please proceed with the any of the following options,يرجى تحديد أحد الخيارات التالية 
+MESSAGE.ERROR.MESSAGE,Something went wrong. Please try again later.,حدث خطأ غير متوقع، يرجى المحاولة مرة أخرى في وقت لاحق.
+MESSAGE.FEEDBACK,Thank you for providing your valuable feedback.,تم ارسال بنجاح
+MESSAGE.FIELDVALIDATIONERRORSUMMARY,Please fill all required fields,يرجى تعبئة جميع الحقول الإجبارية
+MESSAGE.FILEDOWNLOAD.SUCCESS.MESSAGE,Document downloaded,تم تنزيل الملف
+MESSAGE.FILEDOWNLOAD.WAIT.MESSAGE,Downloading file {X} in progress. Please wait.,جاري تنزيل الملف {X}، يرجى الانتظار...
+MESSAGE.GROUPCREATED,Group has been created successfully,تم إنشاء المجموعة
+MESSAGE.NOALERTS,There are no alerts to display,لا توجد تنبيهات
+MESSAGE.NODATA,There is no data to display,لا توجد أي بيانات للعرض
+MESSAGE.NOOFUSERS,Number of users (X),قائمة المستخدمين (X)
+MESSAGE.NORECORDS,There are no records to display,لا توجد سجلات للعرض
+MESSAGE.UNAUTHORIZATION.MESSAGE,You are not authorized to access this page.,ليس لديك الصلاحيات اللازمة لعرض الصفحة
+MESSAGE.UNEXPECTEDERROR,An unexpected error occurred,حدث خطأ غير متوقع
+MESSAGE.USERNAME,Enter Military Number,إدخال الرقم العسكري
+PLACEHOLDER.TIMEPICKER.HOURS,hh,س س
+PLACEHOLDER.TIMEPICKER.MINUTES,mm,د د
+PLACEHOLDER.TIMEPICKER.SECONDS,ss,ث ث
+TABLE.COLUMN.CREATEDBY,Created by,أُنشئ بواسطة
+VALIDATION.ALERT.CONFIRM.TITLE,Confirm Project Approval?,هل ترغب بتأكيد الموافقة؟
+VALIDATION.DELETE.CONFIRM,Are you sure to delete?,هل انت متأكد من حذف طلب الخدمة؟
+VALIDATION.DOCREMSUC,Document removed,تم حذف الملف
+VALIDATION.ERR,Unexpected error occured please try again,حدث خطأ غير متوقع، يرجى المحاولة مرة أخرى.
+VALIDATION.EXPIREDIN,Already expired {X} day(s) ago,انتهت صلاحية اختبار اللياقة قبل {X} يوم
+VALIDATION.FILEUPLOAD.FILESIZE.INFOMESSAGE,Note: Maximum media size - {Z} MB | allowed media types include: {X},ملاحظة : الحد الأقصى لحجم الملف: {Z} ميغابايت | أنواع الملفات المسموح بتحميلها: {X}
+VALIDATION.FILEUPLOAD.FILESIZE.LOW.MESSAGE,File {X} contains no data and cannot be uploaded,الملف {X} لا يحتوي على بيانات ولا يمكن تحميله
+VALIDATION.FILEUPLOAD.FILESIZE.MESSAGE,File size should not be larger than {X},يجب ألا يكون حجم الملف أكبر من {X}
+VALIDATION.FILEUPLOAD.FILETYPE.INFOMESSAGE,Invalid file format. Only {X} are supported,نوع الملف غير صالح. الانواع {X} مسموحة فقط.
+VALIDATION.FILEUPLOAD.LITMITSINGLEFILE,It's not allow to upload more than one file,غير مسموح إضافة أكثر من ملف واحد
+VALIDATION.INVALIDDATERANGE,Invalid Date Range,النطاق الزمني غير مقبول
+VALIDATION.INVALIDNUMBERFORMAT,Only Numbers and '-/ \ +' are allowed,يسمح فقط بادخال الارقام والرموز التالية '-/ \ +'
+VALIDATION.INVALIDQUARTERDATERANGE,Invalid Date Range for the Selected Quarter,النطاق الزمني غير مقبول للربع السنوي المحدد
+VALIDATION.INVALIDSTARTENDTIME,Invalid Start and Due Time,توقيت البدء والإنتهاء غير مقبول
+VALIDATION.MAXALLOWEDUSERCOUNTFORSELECTION,Please select {0} or less users,يرجى اختيار {0} مستخدمين أو أقل.
+VALIDATION.MAXCHARLIMIT,Maximum character limit is ,الحد الأقصى لطول الحقل {X} حرف
+VALIDATION.PLEASECONFIRM,Do you want to Confirm?,هل ترغب بالتأكيد؟
+VALIDATION.REJECT.CONFIRM.MESSAGE,Please provide reason for rejection,يرجى إدخال سبب الرفض
+VALIDATION.REJECT.REASON.REQUIRED,Reason for rejection is required,سبب الرفض حقل إجباري
+VALIDATION.RETURN.CONFIRM.MESSAGE,Please provide reason for return,يرجى إدخال سبب الإرجاع
+VALIDATION.SEARCH.PARAMETER.MANDATORY,Atleast one search parameter is required,يرجى إدخال دالة واحدة على الأقل للبحث
+VALIDATION.SESSIONEXPIRED,Session expired. Kindly login,انتهى وقت الجلسة، يرجى تسجيل الدخول.
+VALIDATION.SPECIALCHARS,Special Characters are not allowed,لا يُسمح بإدخال أحرف خاصة
+VALIDATION.SUBMITERROR,An unexpected error occurred.,حدث خطأ غير متوقع
+VALIDATION.UNAUTHORIZATION.ACTION.MESSAGE,You are not authorized to perform this action.,لا تملك صلاحيات تنفيذ هذا الإجراء
+VALIDATION.WILLEXPIREDIN,Will expire in {X} day(s),سوف تنتهي صلاحية اختبار اللياقة في {X} يوم
+VALIDATION.WILLEXPIREDTODAY,Will expire today,سوف تنتهي صلاحية اختبار اللياقة اليوم
+VALIDATION.WITHINUNIT,Within Unit,داخل الوحدة
+LABEL.SERVICENAME,Service Name,اسم الخدمة
+LABEL.SERVICENAMEREQ,Service Name is Required,اسم الخدمة مطلوب
+LABEL.SERVICECATEGORY,Service Category,فئة الخدمة
+LABEL.SERVICECATEGORYREQ,Service Category is Required,فئة الخدمة مطلوبة
+BUTTON.LABEL.SAVE,Save,حفظ
+BUTTON.LABEL.CANCEL,Cancel,إلغاء
+VALIDATION.MINCHARLIMIT,Minimum character limit is ,الحد الأدنى لعدد الأحرف هو 
+VALIDATION.INVALID.EMAIL,Invalid Email,البريد الإلكتروني غير صحيح
+VALIDATION.MINLIMIT,Minimum limit is ,الحد الأدنى هو 
+VALIDATION.MAXLIMIT,Maximum limit is ,الحد الأقصى هو 
+LABEL.SERVICEACCESSUNITS,Service Access Units,وحدات الوصول الى الخدمة
+LABEL.SERVICEACCESSUNITSREQ,Service Access Units Required,وحدات الوصول الى الخدمة مطلوب
+LABEL.SERVICEDESCRIPTION,Service Description,وصف الخدمة 
+LABEL.SERVICEDESCRIPTIONREQ,Service Description Required,وصف الخدمة مطلوب
+BUTTON.LABEL.ADD,Add,إضافة
+BUTTON.LABEL.PREVIEW,Preview,عرض
+BUTTON.LABEL.CLOSE,Close,إغلاق
+BUTTON.LABEL.ADDFIELD,Add Field,إضافة حقل
+LABEL.FIELDTYPE,Field Type,نوع الحقل
+LABEL.FIELDTYPEREQ,Field Type is Required,نوع الحقل مطلوب
+LABEL.FIELDTITLE,Field Title,عنوان الحقل
+LABEL.FIELDTITLEREQ,Field Title is Required,عنوان الحقل مطلوب
+LABEL.FIELDDESCRIPTION,Field Description,وصف الحقل
+LABEL.NEXTSTATUS,Next Status,الحالة التالية
+LABEL.TO,To,إلى
+LABEL.RETURNPATH,Return Path,مسار العودة
+BUTTON.LABEL.ADDSTEP,Add Step,إضافة خطوة
+LABEL.STEPNAME,Step Name,إسم الخطوة
+LABEL.STEPNAMEREQ,Step Name is Required,إسم الخطوة مطلوب
+LABEL.FROM,From,من
+LABEL.FROMREQ,From is Required,من مطلوبة
+LABEL.CURRENTSTATUS,Current Status,الحالة الحالية
+LABEL.CURRENTSTATUSREQ,Current Status is Required,الحالة الحالية مطلوبة
+LABEL.STEPNAMEEXISTS,Step name already exists. Step Number(X),هذه الخطوة من سير العمل مطابقة لنفس الجهات والحالات مع خطوة رقم (X)
+LABEL.ACTIONREQ,Action is Required,الإجراء مطلوب
+LABEL.NEXTSTATUSREQ,Next Status is Required,الحالة التالية مطلوبة
+LABEL.RETURNPATHREQ,Return Path is Required,مسار العودة مطلوب
+LABEL.TOREQ,To is Required,إلى مطلوب
+MESSAGE.SAVE.SUCCESS,Request Saved,تم حفظ الخدمة بنجاح
+BUTTON.LABEL.YES,Yes,نعم
+BUTTON.LABEL.NO,No,لا
+MESSAGE.WORKFLOWSTEP.DELETED,Workflow step has been deleted.,تم حذف خطوة سير العمل بنجاح
+MESSAGE.CUSTOM.WORKFLOWSTEP.DELETED,Workflow step has been deleted. Please make sure to update all the related steps and actions., تم حذف خطوة سير العمل بنجاح، يرجى تحديث كل الإجراءات والخطوات المرتبطة 
+MESSAGE.WORKFLOWSTEP.DUPLICATE,A workflow step already exist with same entity and status,توجد خطوة في سير العمل بنفس الجهات والحالة
+MESSAGE.WORKFLOWSTEP.MISSINGSTEP,There is a missing step for the following combination ,توجد خطوة مفقودة للتركيبة التالية
+LABEL.OPTION,Dropdown Option,القائمة المنسدلة
+LABEL.OPTIONREQ,Dropdown Option is Required,القائمة المنسدلة مطلوبة
+LABEL.ADDOPTION,Add Dropdown Option,إضافة خيار للقائمة المنسدلة
+MESSAGE.WORKFLOWSTEP.MISSINGCOMPLETIONSTEP,There is no completed or closed action added,لا توجد إجراءات مضافة مغلقة او مكتملة
+MESSAGE.WORKFLOWSTEP.SAVECHANGES,Please save changes before proceeding,يرجى حفظ التغييرات قبل المتابعة
+LABEL.REQUESTINFO,Request Information,معلومات الخدمة
+LABEL.ACTIVITYLOG,ActivityLog,سجل التحديثات
+LABEL.TITLEREQ,Title is required,العنوان مطلوب
+LABEL.SUBMITTED,Submitted,مرسلة
+LABEL.DRAFT,Draft,مسودة
+BUTTON.LABEL.NEWSERVICE,New Service,خدمة جديدة
+LABEL.REQUESTID,Request Number,رقم الطلب
+MESSAGE.REQUEST.SUBMITTED,Request has been submitted.,تم تقديم الطلب بنجاح
+BUTTON.LABEL.SAVEASDRAFT,Save As Draft,حفظ كمسودة
+LABEL.OBSERVATION.TITLE,Title,العنوان
+LABEL.OBSERVATION.SUBJECT,Subject,الموضوع
+LABEL.OBSERVATION.TYPE,Type,النوع
+LABEL.OBSERVATION.LEVEL,Level,المستوى
+LABEL.DISCUSSION,Discussion,المناقشة
+LABEL.CONCLUSION,Conclusion,الخاتمة
+LABEL.INITIAL.RECOMMENDATION,Initial Recommendation,التوصية الأولية
+LABEL.ORIGINATING.MAIN.UNIT,Originating Main Unit,الوحدة الأساسية
+LABEL.ORIGINATING.SUBUNIT,Originating Subunit,الوحدة الفرعية
+LABEL.CURRENT.ASSIGNMENT,Current Assignment,التكليف الحالي
+LABEL.SELECT.TYPE,Select Type,النوع
+OPTION.ISSUE,Issue,مشكلة
+OPTION.GOOD_PRACTICE,Good Practice,ممارسة جيدة
+OPTION.SUGGESTION,Suggestion,اقتراح
+OPTION.RISK,Risk,مخاطرة
+OPTION.OPPORTUNITY,Opportunity,فرصة
+BUTTON.LABEL.SAVING,Saving...,جاري الحفظ...
+PLACEHOLDER.OBSERVATION.TITLE,Enter observation title...,أدخل عنوان الملاحظة...
+PLACEHOLDER.OBSERVATION.SUBJECT,Enter observation subject...,أدخل موضوع الملاحظة...
+PLACEHOLDER.DISCUSSION,Enter discussion details...,أدخل تفاصيل المناقشة...
+PLACEHOLDER.CONCLUSION,Enter conclusion...,أدخل الخلاصة...
+PLACEHOLDER.INITIAL.RECOMMENDATION,Enter initial recommendation...,أدخل التوصية الأولية...
+PLACEHOLDER.ORIGINATING.MAIN.UNIT,Enter originating main unit...,أدخل الوحدة الرئيسية المنشئة...
+PLACEHOLDER.SELECT.TYPE,Select Type...,اختر النوع...
+PLACEHOLDER.SELECT.LEVEL,Select Level...,اختر المستوى...
+LABEL.ACTION.NUMBER,Action {number},الإجراء {number}
+LABEL.NEW.ACTION,New action...,إجراء جديد...
+LABEL.STATUS.COMPLETED,Completed,تم التنفيذ
+LABEL.STATUS.PENDING,Pending,قيد التنفيذ
+LABEL.STATUS.CANCELLED,Cancelled,ملغي
+LABEL.STATUS.UNDEFINED,Undefined,غير محدد
+LABEL.LOADING.ACTIONS,Loading actions...,جاري تحميل الإجراءات...
+LABEL.NO.ACTIONS.AVAILABLE,No actions available,لا توجد إجراءات متاحة
+BUTTON.RETRY,Retry,إعادة المحاولة
+BUTTON.ADD.ACTION,Add Action,إضافة إجراء
+BUTTON.ADD.FIRST.ACTION,Add First Action,إضافة أول إجراء
+LABEL.ADD.NEW.ACTION,Add New Action,إضافة إجراء جديد
+LABEL.EDIT.ACTION.STATUS,Edit Action Status,تعديل حالة الاجراء
+LABEL.ACTION.DESCRIPTION,Action Description,وصف الإجراء
+LABEL.REASONS,Reasons,الاسباب
+PLACEHOLDER.ENTER.ACTION.DESCRIPTION,Enter action description,أدخل وصف الإجراء
+PLACEHOLDER.ENTER.REASONS,Enter reasons,ادخل الأسباب
+BUTTON.ADD,Add,إضافة
+BUTTON.SAVE,Save,حفظ
+BUTTON.CANCEL,Cancel,الغاء
+PAGE.TITLE.OBSERVATION,Observation Page - Component Showcase,صفحة المراقبة - عرض المكونات
+LABEL.OBSERVATION.PROCESS,Observation Process,عملية المراقبة
+MESSAGE.DRAFT.SAVED.SUCCESS,Draft saved successfully,تم حفظ المسودة بنجاح
+MESSAGE.ARTICLE.CREATED.SUCCESS,Article created successfully,تم إنشاء المقال بنجاح
+MESSAGE.DRAFT.SAVE.FAILED,Failed to save draft,فشل في حفظ المسودة
+MESSAGE.ARTICLE.CREATE.FAILED,Failed to create article,فشل في إنشاء المقال
+MESSAGE.FIX.ERRORS.BEFORE.PROCEEDING,Please fix form errors before proceeding,يرجى إصلاح أخطاء النموذج قبل المتابعة
+MESSAGE.FIX.ERRORS.BEFORE.SAVING,Please fix form errors before saving,يرجى إصلاح أخطاء النموذج قبل الحفظ
+STEP.NAME.THE.DETAILS,The Details,التفاصيل
+STEP.NAME.RECOMMENDATIONS.ACTIONS,Recommendations & Actions,التواصي والاجراءات
+STEP.NAME.ATTACHMENTS,Attachments,المرفقات
+LABEL.EDIT.RECOMMENDATION,Edit Recommendation,تعديل التوصية
+LABEL.ADD.NEW.RECOMMENDATION,Add New Recommendation,إضافة توصية جديدة
+LABEL.NO.RECOMMENDATIONS.YET,No recommendations yet.,لا توجد توصيات بعد.
+LABEL.RECOMMENDATION.TEXT,Recommendation Text,نص التوصية
+LABEL.COMBOT_FUNCTION,Combat Function,الوظيفة القتالية
+LABEL.RECOMMENDATION,Recommendation,التوصية
+PLACEHOLDER.SELECT.COMBOT_FUNCTION,Select Combat Function,اختر الوظيفة القتالية
+PLACEHOLDER.RECOMMENDATION,Enter recommendation...,أدخل التوصية...
+VALIDATION.COMBOT_FUNCTION.REQUIRED,Combat function is required,الوظيفة القتالية مطلوبة
+VALIDATION.RECOMMENDATION.REQUIRED,Recommendation is required,التوصية مطلوبة
+VALIDATION.TITLE.REQUIRED,Title is required,العنوان مطلوب
+VALIDATION.TITLE.MAX_LENGTH,Title must be less than 256 characters,يجب أن يكون العنوان أقل من 256 حرف
+PLACEHOLDER.TITLE,Enter title...,أدخل العنوان...
+LABEL.MANAGE.OBSERVATIONS,Manage Observations,قائمة رئيسية
+LABEL.INPROGRESS,In Progress,In Progress
+MENU.HEADER.OBSERVATION,Manage Observation,Manage Observation
+MENU.HEADER.OBSERVATION.NEW,Observation Detail,Observation Detail
+LABEL.FORM.ATTACHMENT.TAB.ATTACHMENT.TITLE,Attachment Description,الوصف
+LABEL.FORM.ATTACHMENT.TAB.FILENAME,File Name,اسم الملف
+LABEL.FORM.ATTACHMENT.TAB.ACTION,Action,الأدوات
+ATTACHMENT.NAME,Attachment Name,وصف المرفق
+LABEL.POPUP.ATTACHMENTS,Attachments,المرفقات
+LABEL.UPLOAD,Upload,تحميل
+LABEL.POPUP.ATTACHMENTS.SIZE.HIGHER,Maximum allowed size is 10 MB,الحجم الأقسى المسموح به هو 10 ميجابايت
+LABEL.ATTACHMENTS.TOOLTIP.VIEW,View Attachment,عرض المرفق
+LABEL.ATTACHMENTS.TOOLTIP.DELETE,Delete Attachment,حذف المرفق
+LABEL.UNDERPROCESSING,Under Processing,Under Processing
+LABEL.ARCHIVED,Archived,Archived
+LABEL.PUBLISHED,Published,Published
+MENU.HEADER.OBSERVATION.OBSERVATIONLIST,Observation List,Observation List

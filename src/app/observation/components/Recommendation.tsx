@@ -27,12 +27,13 @@ import ConfirmDeleteModal from '../../modules/components/confirmDialog/ConfirmDe
 import { GetLookupValues } from '../../modules/services/globalSlice';
 interface RecommendationProps {
   observationId: string | number;
+  readOnly?: boolean;
 }
 
 // Using the new comprehensive recommendation model
 // The old RecommendationItem interface is replaced by IRecommendation from models
 
-const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
+const Recommendation: React.FC<RecommendationProps> = ({ observationId, readOnly = false }) => {
   // Print the created observationId
   console.log('🎯 Step 2 Recommendation component - Received observationId:', observationId);
 
@@ -438,17 +439,19 @@ const Recommendation: React.FC<RecommendationProps> = ({ observationId }) => {
         <div className="row g-0">
           <div className="col-md-11"></div>
           <div className="col-md-1 d-flex justify-content-end align-items-center">
-            <button
-              id="kt_modal_new_target_create_new"
-              className="btn MOD_btn btn-create w-10 pl-5"
-              onClick={handleOpen}
-            >
-              <FontAwesomeIcon color={""} size="1x" icon={faPlus} />
-              <BtnLabeltxtMedium2
-                text={"BUTTON.LABEL.NEWSERVICE1"}
-                isI18nKey={true}
-              />{" "}
-            </button>
+            {!readOnly && (
+              <button
+                id="kt_modal_new_target_create_new"
+                className="btn MOD_btn btn-create w-10 pl-5"
+                onClick={handleOpen}
+              >
+                <FontAwesomeIcon color={""} size="1x" icon={faPlus} />
+                <BtnLabeltxtMedium2
+                  text={"BUTTON.LABEL.NEWSERVICE1"}
+                  isI18nKey={true}
+                />{" "}
+              </button>
+            )}
           </div>
         </div>
       </div>

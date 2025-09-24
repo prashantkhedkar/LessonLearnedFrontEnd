@@ -9,11 +9,13 @@ import { RequestAttachmentList } from "../../../app/models/attachment/Attachment
 type AttachmentFormProps = {
   /** Maps to API's `fatwaId` */
   observationID: number;
+  /** Controls whether upload functionality is hidden (read-only mode) */
+  readOnly?: boolean;
 };
 
 type FormValues = Record<string, any>;
 
-const AttachmentForm: React.FC<AttachmentFormProps> = ({ observationID }) => {
+const AttachmentForm: React.FC<AttachmentFormProps> = ({ observationID, readOnly = false }) => {
   const dispatch = useAppDispatch();
 
   // State
@@ -43,7 +45,7 @@ const AttachmentForm: React.FC<AttachmentFormProps> = ({ observationID }) => {
   const onDelete = (requestAttachmentId: number) => {
     setDeleteLoading(true);
     setLoadingIndex(requestAttachmentId);
-    dispatch(DeleteObservationAttachment({ observationAttachmentId : requestAttachmentId }))
+    dispatch(DeleteObservationAttachment({ observationAttachmentId: requestAttachmentId }))
       .then(unwrapResult)
       .then((res: any) => {
         if (res?.statusCode === 200) handleRefresh();
@@ -82,6 +84,8 @@ const AttachmentForm: React.FC<AttachmentFormProps> = ({ observationID }) => {
       setisViewLoading={setisViewLoading}
       loadingIndex={loadingIndex}
       setLoadingIndex={setLoadingIndex}
+      /** read-only mode control */
+      readOnly={readOnly}
     />
   );
 };

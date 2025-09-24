@@ -11,127 +11,131 @@ import { fetchObservationById } from "../../modules/services/observationSlice";
 import { writeToBrowserConsole } from "../../modules/utils/common";
 import ComponentShowcase from "../../modules/components/ComponentShowcase/ComponentShowcase";
 import ObservationDetailWidget from "../../modules/components/common/PageHeader/ObservationDetailWidget";
- import Recommendation from "../components/Recommendation";
+import Recommendation from "../components/Recommendation";
 
- export interface ObservationFormData {
-   observationTitle: string;
-   observationSubject?: string;
-   discussion?: string;
-   conclusion?: string;
-   initialRecommendation?: string;
-   observationType?: number | null;
-   originatingType?: number | null;
-   level?: number | null;
-   combatFunction?: number | null;
-   currentAssignment?: string;
-   status: number;
+export interface ObservationFormData {
+  observationTitle: string;
+  observationSubject?: string;
+  discussion?: string;
+  conclusion?: string;
+  initialRecommendation?: string;
+  observationType?: number | null;
+  originatingType?: number | null;
+  level?: number | null;
+  combatFunction?: number | null;
+  currentAssignment?: string;
+  status: number;
 
-   observationTypeLookupNameAr?: string;
-   originatingTypeLookupNameAr?: string;
-   combatFunctionLookupNameAr?: string;
-   LevelLookupNameAr?: string;
-   statusNameAr?: string;
- }
+  observationTypeLookupNameAr?: string;
+  originatingTypeLookupNameAr?: string;
+  combatFunctionLookupNameAr?: string;
+  LevelLookupNameAr?: string;
+  statusNameAr?: string;
+}
 
- export default function ObservationDetailsPage() {
-   const intl = useIntl();
-   const dispatch = useAppDispatch();
+export default function ObservationDetailsPage() {
+  const intl = useIntl();
+  const dispatch = useAppDispatch();
 
-   const [loading, setLoading] = useState<boolean>(true);
-   const [tabInit, setTabInit] = useState(0);
-   const [result, setResult] = useState<ObservationFormData>();
-   const location = useLocation();
-   const state = location.state as { tab: number };
-   const [observationId, setObservationId] = useState<number>(0);
-   useEffect(() => {
-     if (location.state) {
-       var observationId = location.state
-         ? JSON.parse(JSON.stringify(location.state)).observationId
-         : 0;
-       setObservationId(observationId);
-       dispatch(fetchObservationById({ articleId: observationId }))
-         .then(unwrapResult)
-         .then((originalPromiseResult) => {
-           if (originalPromiseResult.statusCode === 200) {
-             setResult(originalPromiseResult.data);
-           }
-         })
-         .catch((rejectedValueOrSerializedError) => {
-           writeToBrowserConsole(rejectedValueOrSerializedError);
-         });
-     }
-   }, [dispatch, location.state]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [tabInit, setTabInit] = useState(0);
+  const [result, setResult] = useState<ObservationFormData>();
+  const location = useLocation();
+  const state = location.state as { tab: number; observationId: number; readOnly?: boolean };
+  const [observationId, setObservationId] = useState<number>(0);
+  const [isReadOnly, setIsReadOnly] = useState<boolean>(false);
+  useEffect(() => {
+    if (location.state) {
+      const locationState = JSON.parse(JSON.stringify(location.state));
+      const observationId = locationState.observationId || 0;
+      const readOnly = locationState.readOnly || false;
 
-   const TabStyle: React.CSSProperties = {
-     display: "inline-block",
-     padding: "12px 24px",
-     cursor: "pointer",
-     border: "none",
-     outline: "none",
-     background: "transparent",
-     color: "#555",
-     transition: "color 0.2s",
-     fontFamily: "FrutigerLTArabic-Roman_0",
-     fontSize: "0.875rem",
-     fontWeight: "bold",
-     borderBottom: "none",
-   };
+      setObservationId(observationId);
+      setIsReadOnly(readOnly);
 
-   const activeTabStyle: React.CSSProperties = {
-     ...TabStyle,
-     color: "rgb(107, 114, 128)",
-     borderBottom: "solid #ccc 1px",
-     fontWeight: 600,
-     boxShadow: "0px 2px 0px 0px #B7945A",
-   };
+      dispatch(fetchObservationById({ articleId: observationId }))
+        .then(unwrapResult)
+        .then((originalPromiseResult) => {
+          if (originalPromiseResult.statusCode === 200) {
+            setResult(originalPromiseResult.data);
+          }
+        })
+        .catch((rejectedValueOrSerializedError) => {
+          writeToBrowserConsole(rejectedValueOrSerializedError);
+        });
+    }
+  }, [dispatch, location.state]);
 
-   const tabListStyle: React.CSSProperties = {
-     display: "flex",
-     borderBottom: "1px solid #e0e0e0",
-     gap: 2,
-     marginBottom: "2rem",
-   };
+  const TabStyle: React.CSSProperties = {
+    display: "inline-block",
+    padding: "12px 24px",
+    cursor: "pointer",
+    border: "none",
+    outline: "none",
+    background: "transparent",
+    color: "#555",
+    transition: "color 0.2s",
+    fontFamily: "FrutigerLTArabic-Roman_0",
+    fontSize: "0.875rem",
+    fontWeight: "bold",
+    borderBottom: "none",
+  };
 
-   return (
-     <>
-       <ObservationDetailWidget
-         observationData={result}
-         showBackButton={true}
-       />
-       <div style={tabListStyle} className="mb-3 mt-5">
-         <button
-           onClick={() => setTabInit(0)}
-           style={tabInit === 0 ? activeTabStyle : TabStyle}
-         >
-           {intl.formatMessage({ id: "LABEL.DETAILS" })}
-         </button>
-         <button
-           onClick={() => setTabInit(1)}
-           style={tabInit === 1 ? activeTabStyle : TabStyle}
-         >
-           {intl.formatMessage({ id: "LABEL.ATTACHMENTS" })}
-         </button>
-         <button
-           onClick={() => setTabInit(2)}
-           style={tabInit === 1 ? activeTabStyle : TabStyle}
-         >
-           {intl.formatMessage({ id: "LABEL.FIXINGPROCEDURES" })}
-         </button>
-       </div>
+  const activeTabStyle: React.CSSProperties = {
+    ...TabStyle,
+    color: "rgb(107, 114, 128)",
+    borderBottom: "solid #ccc 1px",
+    fontWeight: 600,
+    boxShadow: "0px 2px 0px 0px #B7945A",
+  };
 
-       {tabInit === 0 && (
-         <ObservationBody
-           values={{
-             discussion: result?.discussion ?? "",
-             conclusion: result?.conclusion ?? "",
-             initialRecommendation: result?.initialRecommendation ?? "",
-           }}
-         />
-       )}
+  const tabListStyle: React.CSSProperties = {
+    display: "flex",
+    borderBottom: "1px solid #e0e0e0",
+    gap: 2,
+    marginBottom: "2rem",
+  };
 
-       {tabInit === 1 && <AttachmentForm observationID={observationId} />}
+  return (
+    <>
+      <ObservationDetailWidget
+        observationData={result}
+        showBackButton={true}
+      />
+      <div style={tabListStyle} className="mb-3 mt-5">
+        <button
+          onClick={() => setTabInit(0)}
+          style={tabInit === 0 ? activeTabStyle : TabStyle}
+        >
+          {intl.formatMessage({ id: "LABEL.DETAILS" })}
+        </button>
+        <button
+          onClick={() => setTabInit(1)}
+          style={tabInit === 1 ? activeTabStyle : TabStyle}
+        >
+          {intl.formatMessage({ id: "LABEL.ATTACHMENTS" })}
+        </button>
+        <button
+          onClick={() => setTabInit(2)}
+          style={tabInit === 1 ? activeTabStyle : TabStyle}
+        >
+          {intl.formatMessage({ id: "LABEL.FIXINGPROCEDURES" })}
+        </button>
+      </div>
 
-       {tabInit === 2 && <Recommendation observationId={observationId} />}
-     </>
-   );
- }
+      {tabInit === 0 && (
+        <ObservationBody
+          values={{
+            discussion: result?.discussion ?? "",
+            conclusion: result?.conclusion ?? "",
+            initialRecommendation: result?.initialRecommendation ?? "",
+          }}
+        />
+      )}
+
+      {tabInit === 1 && <AttachmentForm observationID={observationId} readOnly={isReadOnly} />}
+
+      {tabInit === 2 && <Recommendation observationId={observationId} readOnly={isReadOnly} />}
+    </>
+  );
+}

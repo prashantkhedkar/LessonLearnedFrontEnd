@@ -18,30 +18,33 @@ import "../components/UserAttachments.css";
 type FormValues = Record<string, any>;
 
 type AttachmentManagerProps = {
-    observationID: number;
+  observationID: number;
 
-    /** loading & spinners */
-    isLoading: boolean;
-    isFileUploading: boolean;
-    setisFileUploading: (v: boolean) => void;
+  /** loading & spinners */
+  isLoading: boolean;
+  isFileUploading: boolean;
+  setisFileUploading: (v: boolean) => void;
 
-    /** react-hook-form bits used here and in the file uploader */
-    register: UseFormRegister<FormValues>;
-    setValue: UseFormSetValue<FormValues>;
-    getValues: UseFormGetValues<FormValues>;
+  /** react-hook-form bits used here and in the file uploader */
+  register: UseFormRegister<FormValues>;
+  setValue: UseFormSetValue<FormValues>;
+  getValues: UseFormGetValues<FormValues>;
 
-    /** data & actions */
-    AttachmentList: RequestAttachmentList[];
-    refresh: () => void;
-    OnDeleteCallBack: (id: number) => void;
+  /** data & actions */
+  AttachmentList: RequestAttachmentList[];
+  refresh: () => void;
+  OnDeleteCallBack: (id: number) => void;
 
-    /** row action spinners */
-    isDeleteLoading: boolean;
-    setDeleteLoading: (v: boolean) => void;
-    isViewLoading: boolean;
-    setisViewLoading: (v: boolean) => void;
-    loadingIndex: number | null;
-    setLoadingIndex: (v: number | null) => void;
+  /** row action spinners */
+  isDeleteLoading: boolean;
+  setDeleteLoading: (v: boolean) => void;
+  isViewLoading: boolean;
+  setisViewLoading: (v: boolean) => void;
+  loadingIndex: number | null;
+  setLoadingIndex: (v: number | null) => void;
+
+  /** Controls whether upload functionality is hidden (read-only mode) */
+  readOnly?: boolean;
 };
 
 export const AttachmentManager: React.FC<AttachmentManagerProps> = ({
@@ -64,6 +67,8 @@ export const AttachmentManager: React.FC<AttachmentManagerProps> = ({
   setisViewLoading,
   loadingIndex,
   setLoadingIndex,
+
+  readOnly = false,
 }) => {
   const intl = useIntl();
   const lang = useLang();
@@ -269,162 +274,167 @@ export const AttachmentManager: React.FC<AttachmentManagerProps> = ({
 
   return (
     <>
-      <div className="row mb-4 p-2 align-items-center">
-        {/* File input */}
-        <div className="col-12 pt-4">
-          <div className="row align-items-center mx-0 px-0 ">
-            <div className="col-md-2 mx-0 px-2 form-field-label-wrapper">
-              <InfoLabels
-                text={intl.formatMessage({
-                  id: "LABEL.POPUP.ATTACHMENTS",
-                })}
-                isRequired
-                isI18nKey
-              />
-            </div>
-            <div className="col-md-10 mx-0 px-0 ">
-              <UserAttachmentUpload
-                title={intl.formatMessage({
-                  id: "LABEL.POPUP.ATTACHMENTS",
-                })}
-                tempguid="attachment_file"
-                register={register}
-                showUpload
-                required
-                fileTypes={MIMEConstantALL}
-                perFileMaxAllowedSizeInMb={perFileMaxAllowedSizeInMb}
-                isAttachmentEmpty={isAttachmentEmpty}
-                isAttachmentSizeError={isAttachmentSizeError}
-                isAttachmentTypeError={isAttachmentTypeError}
-                setCurrentFile={setCurrentFile}
-              />
-
-              <div className="error">{attachmentErrorMsg}</div>
-              <div className="error">{attachmentErrorSizeMsg}</div>
-              <div className="error">{attachmentErrorTypeMsg}</div>
-              <div className="info pt-2">
+      {!readOnly && (
+        <div className="row mb-4 p-2 align-items-center">
+          {/* File input */}
+          <div className="col-12 pt-4">
+            <div className="row align-items-center mx-0 px-0 ">
+              <div className="col-md-2 mx-0 px-2 form-field-label-wrapper">
                 <InfoLabels
-                  text={
-                    getAllowedMimeTypes(
-                      true,
-                      MIMEConstantALL!,
-                      intl.formatMessage({
-                        id: "MOD.GLOBAL.FILEUPLOAD.FILESIZE.INFOMESSAGE",
-                      }),
-                      perFileMaxAllowedSizeInMb
-                    ).generalMsg
-                  }
+                  text={intl.formatMessage({
+                    id: "LABEL.POPUP.ATTACHMENTS",
+                  })}
                   isRequired
+                  isI18nKey
                 />
+              </div>
+              <div className="col-md-10 mx-0 px-0 ">
+                <UserAttachmentUpload
+                  title={intl.formatMessage({
+                    id: "LABEL.POPUP.ATTACHMENTS",
+                  })}
+                  tempguid="attachment_file"
+                  register={register}
+                  showUpload
+                  required
+                  fileTypes={MIMEConstantALL}
+                  perFileMaxAllowedSizeInMb={perFileMaxAllowedSizeInMb}
+                  isAttachmentEmpty={isAttachmentEmpty}
+                  isAttachmentSizeError={isAttachmentSizeError}
+                  isAttachmentTypeError={isAttachmentTypeError}
+                  setCurrentFile={setCurrentFile}
+                />
+
+                <div className="error">{attachmentErrorMsg}</div>
+                <div className="error">{attachmentErrorSizeMsg}</div>
+                <div className="error">{attachmentErrorTypeMsg}</div>
+                <div className="info pt-2">
+                  <InfoLabels
+                    text={
+                      getAllowedMimeTypes(
+                        true,
+                        MIMEConstantALL!,
+                        intl.formatMessage({
+                          id: "MOD.GLOBAL.FILEUPLOAD.FILESIZE.INFOMESSAGE",
+                        }),
+                        perFileMaxAllowedSizeInMb
+                      ).generalMsg
+                    }
+                    isRequired
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* Title input */}
+          <div className="col-12 pt-4 pe-0">
+            <div className="row align-items-center mx-0 px-0 ">
+              <div className="col-md-2 mx-0 px-2 form-field-label-wrapper">
+                <InfoLabels text={"ATTACHMENT.NAME"} isRequired isI18nKey />
+              </div>
+              <div className="col-md-9 mx-0 px-0 ">
+                <input
+                  type="text"
+                  value={title}
+                  autoComplete="off"
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                    setTitleErrorMsg("");
+                    setValue("attachment_title", e.target.value);
+                  }}
+                  className="form-control form-control-solid input5 lbl-txt-medium-2 p-2"
+                  placeholder={intl.formatMessage({ id: "ATTACHMENT.NAME" })}
+                  name="attachment_title"
+                />
+                <div className="error">{titleErrorMsg}</div>
+              </div>
+              <div className="col-md-1 align-items-center d-flex justify-content-end">
+                {" "}
+                <button
+                  type="button"
+                  className="btn MOD_btn btn-create"
+                  onClick={handleAdd}
+                  disabled={isFileUploading}
+                >
+                  <span className="detailLabels_btn-lbl-txt-medium-2-ar__H+GFf">
+                    {intl.formatMessage({ id: "LABEL.UPLOAD" })}
+                  </span>
+
+                  {GetAttachmentLoaderStatus("fatwa") === "true" && (
+                    <span style={{ display: "block" }}>
+                      <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
+                  )}
+                </button>
               </div>
             </div>
           </div>
         </div>
-        {/* Title input */}
-        <div className="col-12 pt-4 pe-0">
-          <div className="row align-items-center mx-0 px-0 ">
-            <div className="col-md-2 mx-0 px-2 form-field-label-wrapper">
-              <InfoLabels text={"ATTACHMENT.NAME"} isRequired isI18nKey />
-            </div>
-            <div className="col-md-9 mx-0 px-0 ">
-              <input
-                type="text"
-                value={title}
-                autoComplete="off"
-                onChange={(e) => {
-                  setTitle(e.target.value);
-                  setTitleErrorMsg("");
-                  setValue("attachment_title", e.target.value);
-                }}
-                className="form-control form-control-solid input5 lbl-txt-medium-2 p-2"
-                placeholder={intl.formatMessage({ id: "ATTACHMENT.NAME" })}
-                name="attachment_title"
-              />
-              <div className="error">{titleErrorMsg}</div>
-            </div>
-            <div className="col-md-1 align-items-center d-flex justify-content-end">
-              {" "}
-              <button
-                type="button"
-                className="btn MOD_btn btn-create"
-                onClick={handleAdd}
-                disabled={isFileUploading}
-              >
-                <span className="detailLabels_btn-lbl-txt-medium-2-ar__H+GFf">
-                  {intl.formatMessage({ id: "LABEL.UPLOAD" })}
-                </span>
+      )}
 
-                {GetAttachmentLoaderStatus("fatwa") === "true" && (
-                  <span style={{ display: "block" }}>
-                    <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-                  </span>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-        {/* Grid */}
-        <div className="col-12 pt-4">
-          {AttachmentList && AttachmentList.length === 0 && isLoading ? (
-            <NoRecordsAvailable />
-          ) : null}
+      {/* Grid */}
+      <div className="col-12 pt-4">
+        {AttachmentList && AttachmentList.length === 0 && isLoading ? (
+          <NoRecordsAvailable />
+        ) : null}
 
-          {AttachmentList && AttachmentList.length > 0 ? (
-            <div className="row py-5 attachment-table-header">
-              <div className="col">
+        {AttachmentList && AttachmentList.length > 0 ? (
+          <div className="row py-5 attachment-table-header">
+            <div className="col">
+              <span>
+                {intl.formatMessage({
+                  id: "LABEL.FORM.ATTACHMENT.TAB.ATTACHMENT.TITLE",
+                })}
+              </span>
+            </div>
+            <div
+              className="col"
+              style={{
+                paddingRight: lang === "ar" ? "300px" : "0px",
+                paddingLeft: lang === "en" ? "300px" : "0px",
+              }}
+            >
+              <div className="text-start">
                 <span>
                   {intl.formatMessage({
-                    id: "LABEL.FORM.ATTACHMENT.TAB.ATTACHMENT.TITLE",
+                    id: "LABEL.FORM.ATTACHMENT.TAB.FILENAME",
                   })}
                 </span>
               </div>
-              <div
-                className="col"
-                style={{
-                  paddingRight: lang === "ar" ? "300px" : "0px",
-                  paddingLeft: lang === "en" ? "300px" : "0px",
-                }}
-              >
-                <div className="text-start">
-                  <span>
-                    {intl.formatMessage({
-                      id: "LABEL.FORM.ATTACHMENT.TAB.FILENAME",
-                    })}
-                  </span>
-                </div>
-              </div>
-              <div className="col">
-                <div className="text-end">
-                  <span>
-                    {intl.formatMessage({
-                      id: "LABEL.FORM.ATTACHMENT.TAB.ACTION",
-                    })}
-                  </span>
-                </div>
+            </div>
+            <div className="col">
+              <div className="text-end">
+                <span>
+                  {intl.formatMessage({
+                    id: "LABEL.FORM.ATTACHMENT.TAB.ACTION",
+                  })}
+                </span>
               </div>
             </div>
-          ) : null}
+          </div>
+        ) : null}
 
-          {AttachmentList?.map((item) => (
-            <div key={item.id} className="row py-5 attachment-table-border-row">
-              <div className="col">
-                <div>
-                  <span>{String(item.title ?? "")}</span>
-                </div>
+        {AttachmentList?.map((item) => (
+          <div key={item.id} className="row py-5 attachment-table-border-row">
+            <div className="col">
+              <div>
+                <span>{String(item.title ?? "")}</span>
               </div>
-              <div
-                className="col"
-                style={{
-                  paddingRight: lang === "ar" ? "300px" : "0px",
-                  paddingLeft: lang === "en" ? "300px" : "0px",
-                }}
-              >
-                <div>
-                  <span>{String(item.fileName ?? "")}</span>
-                </div>
+            </div>
+            <div
+              className="col"
+              style={{
+                paddingRight: lang === "ar" ? "300px" : "0px",
+                paddingLeft: lang === "en" ? "300px" : "0px",
+              }}
+            >
+              <div>
+                <span>{String(item.fileName ?? "")}</span>
               </div>
-              <div className="col">
-                <div className="d-flex gap-5 flex-end">
+            </div>
+            <div className="col">
+              <div className="d-flex gap-5 flex-end">
+                {!readOnly && (
                   <div>
                     {!isDeleteLoading && loadingIndex == null ? (
                       <Tooltip
@@ -453,18 +463,19 @@ export const AttachmentManager: React.FC<AttachmentManagerProps> = ({
                       </span>
                     )}
                   </div>
+                )}
 
-                  <div>
-                    <AttachmentDownloader item={item} attchmentType="Fatwa" />
-                  </div>
+                <div>
+                  <AttachmentDownloader item={item} attchmentType="Fatwa" />
                 </div>
               </div>
             </div>
-          ))}
+          </div>
+        ))}
 
-          {isLoading ? <div className="my-2" /> : null}
-        </div>
+
       </div>
+
     </>
   );
 };
