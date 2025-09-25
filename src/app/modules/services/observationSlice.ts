@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { requests } from "../../helper/axiosInterceptor";
 import { responseType, StatusWidgetResponse } from "../../models/global/responseResult";
-import { 
-  ObservationModel, 
-  ArticleCreateUpdateModel, 
+import {
+  ObservationModel,
+  ArticleCreateUpdateModel,
   ArticleSearchModel,
-  ArticleApiResponse 
+  ArticleApiResponse
 } from "../../observation/models/observationModel";
 
 // Initial state for observation slice
@@ -83,7 +83,7 @@ export const fetchObservationById = createAsyncThunk<
 
 export const createObservation = createAsyncThunk<
   any,
-  { 
+  {
     observationData: ArticleCreateUpdateModel,
     submissionStatus?: string
   }
@@ -104,7 +104,7 @@ export const createObservation = createAsyncThunk<
 
 export const updateObservation = createAsyncThunk<
   any,
-  { 
+  {
     articleId: number,
     observationData: ArticleCreateUpdateModel
   }
@@ -142,7 +142,7 @@ export const deleteObservation = createAsyncThunk<
 
 export const submitObservation = createAsyncThunk<
   any,
-  { 
+  {
     articleId: number,
     notes?: string
   }
@@ -161,19 +161,25 @@ export const submitObservation = createAsyncThunk<
   }
 );
 
-export const approveObservation = createAsyncThunk<
+// Update observation status with remarks - single API for Approve, Reject, Return
+export const updateObservationStatus = createAsyncThunk<
   any,
-  { 
-    articleId: number,
-    notes?: string
+  {
+    observationId: number,
+    statusId: number,
+    remarks?: string
   }
 >(
-  'observation/approve',
-  async ({ articleId, notes }, thunkApi) => {
+  'observation/updateStatus',
+  async ({ observationId, statusId, remarks }, thunkApi) => {
     try {
       return await requests.post<responseType>(
-        `/Observation/${articleId}/Approve`,
-        { notes }
+        `/Observation/UpdateStatus`,
+        {
+          observationId,
+          statusId,
+          remarks
+        }
       );
     } catch (error: any) {
       console.log(error);
@@ -182,20 +188,19 @@ export const approveObservation = createAsyncThunk<
   }
 );
 
-export const rejectObservation = createAsyncThunk<
+export const cancelObservation = createAsyncThunk<
   any,
-  { 
+  {
     articleId: number,
-    reason: string,
     notes?: string
   }
 >(
-  'observation/reject',
-  async ({ articleId, reason, notes }, thunkApi) => {
+  'observation/cancel',
+  async ({ articleId, notes }, thunkApi) => {
     try {
       return await requests.post<responseType>(
-        `/Observation/${articleId}/Reject`,
-        { reason, notes }
+        `/Observation/${articleId}/Cancel`,
+        { notes }
       );
     } catch (error: any) {
       console.log(error);
@@ -206,7 +211,7 @@ export const rejectObservation = createAsyncThunk<
 
 export const archiveObservation = createAsyncThunk<
   any,
-  { 
+  {
     articleId: number,
     reason: string
   }
@@ -260,7 +265,7 @@ export const checkObservationTitleAvailability = createAsyncThunk<
   'observation/checkTitleAvailability',
   async ({ title, excludeId }, thunkApi) => {
     try {
-      const url = excludeId 
+      const url = excludeId
         ? `/Observation/CheckTitleAvailability?title=${encodeURIComponent(title)}&excludeId=${excludeId}`
         : `/Observation/CheckTitleAvailability?title=${encodeURIComponent(title)}`;
       return await requests.get<responseType>(url);
@@ -338,11 +343,11 @@ export const fetchStatusWidgets = createAsyncThunk(
 
 
 // Export actions
-export const { 
-  clearError, 
+export const {
+  clearError,
   setLoading,
   setError,
-  setObservations, 
+  setObservations,
   setCurrentObservation,
   clearObservations,
 } = observationSlice.actions;

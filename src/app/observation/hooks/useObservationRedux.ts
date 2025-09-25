@@ -7,8 +7,8 @@ import {
   updateObservation,
   deleteObservation,
   submitObservation,
-  approveObservation,
-  rejectObservation,
+  updateObservationStatus,
+  cancelObservation,
   archiveObservation,
   fetchObservationStats,
   fetchObservationLookupData,
@@ -33,63 +33,64 @@ export const useObservationRedux = () => {
   // Action creators wrapped in dispatch
   const actions = {
     // Fetch operations
-    loadObservations: (searchParams: ArticleSearchModel) => 
+    loadObservations: (searchParams: ArticleSearchModel) =>
       dispatch(fetchObservations(searchParams)),
-    
-    loadAllObservations: () => 
+
+    loadAllObservations: () =>
       dispatch(fetchAllObservations()),
-    
-    loadObservationById: (articleId: number) => 
+
+    loadObservationById: (articleId: number) =>
       dispatch(fetchObservationById({ articleId })),
-    
+
     // CRUD operations
-    createObservation: (observationData: ArticleCreateUpdateModel, submissionStatus = 'Draft') => 
+    createObservation: (observationData: ArticleCreateUpdateModel, submissionStatus = 'Draft') =>
       dispatch(createObservation({ observationData, submissionStatus })),
-    
-    updateObservation: (articleId: number, observationData: ArticleCreateUpdateModel) => 
+
+    updateObservation: (articleId: number, observationData: ArticleCreateUpdateModel) =>
       dispatch(updateObservation({ articleId, observationData })),
-    
-    deleteObservation: (articleId: number) => 
+
+    deleteObservation: (articleId: number) =>
       dispatch(deleteObservation({ articleId })),
-    
+
     // Workflow operations
-    submitObservation: (articleId: number, notes?: string) => 
+    submitObservation: (articleId: number, notes?: string) =>
       dispatch(submitObservation({ articleId, notes })),
-    
-    approveObservation: (articleId: number, notes?: string) => 
-      dispatch(approveObservation({ articleId, notes })),
-    
-    rejectObservation: (articleId: number, reason: string, notes?: string) => 
-      dispatch(rejectObservation({ articleId, reason, notes })),
-    
-    archiveObservation: (articleId: number, reason: string) => 
+
+    // Unified status update for Approve, Reject, Return
+    updateObservationStatus: (observationId: number, statusId: number, remarks?: string) =>
+      dispatch(updateObservationStatus({ observationId, statusId, remarks })),
+
+    cancelObservation: (articleId: number, notes?: string) =>
+      dispatch(cancelObservation({ articleId, notes })),
+
+    archiveObservation: (articleId: number, reason: string) =>
       dispatch(archiveObservation({ articleId, reason })),
-    
+
     // Utility operations
-    getObservationStats: () => 
+    getObservationStats: () =>
       dispatch(fetchObservationStats()),
-    
-    getLookupData: () => 
+
+    getLookupData: () =>
       dispatch(fetchObservationLookupData()),
-    
-    checkTitleAvailability: (title: string, excludeId?: number) => 
+
+    checkTitleAvailability: (title: string, excludeId?: number) =>
       dispatch(checkObservationTitleAvailability({ title, excludeId })),
-    
+
     // State management
-    clearError: () => 
+    clearError: () =>
       dispatch(clearError()),
-    
-    setCurrentObservation: (observation: any) => 
+
+    setCurrentObservation: (observation: any) =>
       dispatch(setCurrentObservation(observation)),
-    
-    clearObservations: () => 
+
+    clearObservations: () =>
       dispatch(clearObservations()),
   };
 
   return {
     // State
     ...observationState,
-    
+
     // Actions
     ...actions,
   };

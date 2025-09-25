@@ -40,5 +40,5 @@ export enum ActionType {
 
 export enum UserRoles {
   DATAENTRY = 'Data Entry',
-  BATALLIONCOMMANDER = 'Batallion Commander',
+  BATTALIONCOMMANDER = 'Battalion Commander',
 }

@@ -194,7 +194,7 @@ export default function ObservationList() {
     debugger;
     const hasFilters = filters != undefined || filters != null;
     let tabInitLocal = tabInit;
-    if (rbac.hasRoleByName(UserRoles.BATALLIONCOMMANDER)) {
+    if (rbac.hasRoleByName(UserRoles.BATTALIONCOMMANDER)) {
       tabInitLocal = 2;
     }
 
@@ -262,7 +262,7 @@ export default function ObservationList() {
     );
   };
 
-  const onCellClick = () => {};
+  const onCellClick = () => { };
 
   const handleClear = () => {
     setFilters(undefined);
@@ -341,7 +341,7 @@ export default function ObservationList() {
       if (tabInit === 2) {
         return false;
       }
-      if (rbac.hasRoleByName(UserRoles.BATALLIONCOMMANDER)) {
+      if (rbac.hasRoleByName(UserRoles.BATTALIONCOMMANDER)) {
         return false;
       }
 
@@ -727,7 +727,7 @@ export default function ObservationList() {
         </>
       )}
 
-      {rbac.hasRoleByName(UserRoles.BATALLIONCOMMANDER) && (
+      {rbac.hasRoleByName(UserRoles.BATTALIONCOMMANDER) && (
         <>
           <DataTableMain2
             displaySearchBar={false}
