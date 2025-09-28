@@ -13,12 +13,14 @@ import { writeToBrowserConsole } from "../../modules/utils/common";
 import ComponentShowcase from "../../modules/components/ComponentShowcase/ComponentShowcase";
 import ObservationDetailWidget from "../../modules/components/common/PageHeader/ObservationDetailWidget";
 import Recommendation from "../components/Recommendation";
+import Comments from "../components/Comments";
 import { useObservationRedux } from "../hooks/useObservationRedux";
 import { useRBAC } from "../../modules/auth/core/rbac";
 import { UserRoles } from "../../modules/auth/core/_rbacModels";
 import { ObservationStatus } from "../../helper/_constant/status.constant";
 import StatusUpdateModal from "../components/StatusUpdateModal";
 import { BtnLabeltxtMedium2 } from "../../modules/components/common/formsLabels/detailLabels";
+import { IComment } from "../models/commentModel";
 
 export interface ObservationFormData {
   observationTitle: string;
@@ -38,6 +40,7 @@ export interface ObservationFormData {
   combatFunctionLookupNameAr?: string;
   LevelLookupNameAr?: string;
   statusNameAr?: string;
+  lastComment?: IComment; // Changed from IComment[] to IComment since API returns single object
 }
 
 export default function ObservationDetailsPage() {
@@ -217,6 +220,14 @@ export default function ObservationDetailsPage() {
         observationData={result}
         showBackButton={true}
       />
+
+      {/* Latest Comment Display */}
+      <Comments
+        observationId={observationId}
+        comment={result?.lastComment}
+        showLatestOnly={true}
+      />
+
       <div style={tabListStyle} className="mb-3 mt-5">
         <button
           onClick={() => setTabInit(0)}
@@ -232,7 +243,7 @@ export default function ObservationDetailsPage() {
         </button>
         <button
           onClick={() => setTabInit(2)}
-          style={tabInit === 1 ? activeTabStyle : TabStyle}
+          style={tabInit === 2 ? activeTabStyle : TabStyle}
         >
           {intl.formatMessage({ id: "LABEL.FIXINGPROCEDURES" })}
         </button>

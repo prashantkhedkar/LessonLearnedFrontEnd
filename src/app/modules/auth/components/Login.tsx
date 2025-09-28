@@ -73,7 +73,7 @@ export function Login() {
   });
 
   useEffect(() => {
-    LoginUser("U00002", "testtest");
+    LoginUser("U00003", "testtest");
   }, [isValidLogin]);
 
   async function LoginUser(username, password) {
