@@ -3,11 +3,11 @@ import { AuthModel } from "./_models";
 const AUTH_LOCAL_STORAGE_KEY = "kt-auth-react-v";
 
 export const getAuth = (): AuthModel | undefined => {
-  if (!localStorage) {
+  if (!sessionStorage) {
     return;
   }
 
-  const lsValue: string | null = localStorage.getItem(AUTH_LOCAL_STORAGE_KEY);
+  const lsValue: string | null = sessionStorage.getItem(AUTH_LOCAL_STORAGE_KEY);
   if (!lsValue) {
     return;
   }
@@ -24,36 +24,36 @@ export const getAuth = (): AuthModel | undefined => {
 };
 
 export const setAuth = (auth: AuthModel) => {
-  if (!localStorage) {
+  if (!sessionStorage) {
     return;
   }
 
   try {
     const lsValue = JSON.stringify(auth);
-    localStorage.setItem(AUTH_LOCAL_STORAGE_KEY, lsValue);
+    sessionStorage.setItem(AUTH_LOCAL_STORAGE_KEY, lsValue);
   } catch (error) {
     console.error("AUTH LOCAL STORAGE SAVE ERROR", error);
   }
 };
 
 export const removeAuth = () => {
-  if (!localStorage) {
+  if (!sessionStorage) {
     return;
   }
 
   try {
-    localStorage.removeItem(AUTH_LOCAL_STORAGE_KEY);
+    sessionStorage.removeItem(AUTH_LOCAL_STORAGE_KEY);
   } catch (error) {
     console.error("AUTH LOCAL STORAGE REMOVE ERROR", error);
   }
 };
 
 export const isAdfsTokenExpired = () => {
-  if (!localStorage) {
+  if (!sessionStorage) {
     return 2;
   }
 
-  const lsValue: string | null = localStorage.getItem(`oidc.user:${process.env.REACT_APP_AUTHORITY}:${process.env.REACT_APP_CLIENTID}`);
+  const lsValue: string | null = sessionStorage.getItem(`oidc.user:${process.env.REACT_APP_AUTHORITY}:${process.env.REACT_APP_CLIENTID}`);
   if (!lsValue) {
     return 2;
   }
@@ -78,12 +78,12 @@ export const isAdfsTokenExpired = () => {
 };
 
 export const getAdfsTokenNew = () => {
-  if (!localStorage) {
+  if (!sessionStorage) {
     return "";
   }
 
- 
-  const lsValue: string | null = localStorage.getItem("oidc:tkn");
+
+  const lsValue: string | null = sessionStorage.getItem("oidc:tkn");
   if (lsValue) {
     //const output = JSON.parse(lsValue);
     //// Mod ADFS
@@ -97,12 +97,12 @@ export const getAdfsTokenNew = () => {
 };
 
 export const getAdfsToken = () => {
-  if (!localStorage) {
+  if (!sessionStorage) {
     return "";
   }
 
- 
-  const lsValue: string | null = localStorage.getItem(`oidc.user:${process.env.REACT_APP_AUTHORITY}:${process.env.REACT_APP_CLIENTID}`);
+
+  const lsValue: string | null = sessionStorage.getItem(`oidc.user:${process.env.REACT_APP_AUTHORITY}:${process.env.REACT_APP_CLIENTID}`);
   if (lsValue) {
     const output = JSON.parse(lsValue);
     //// Mod ADFS
@@ -116,11 +116,11 @@ export const getAdfsToken = () => {
 };
 
 export const getUserRole = () => {
-  if (!localStorage) {
+  if (!sessionStorage) {
     return "";
   }
 
-  const lsValue: string | null = localStorage.getItem(`oidc.user:${process.env.REACT_APP_AUTHORITY}:${process.env.REACT_APP_CLIENTID}`);
+  const lsValue: string | null = sessionStorage.getItem(`oidc.user:${process.env.REACT_APP_AUTHORITY}:${process.env.REACT_APP_CLIENTID}`);
   if (lsValue) {
     const output = JSON.parse(lsValue);
     //// Mod ADFS

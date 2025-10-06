@@ -1,0 +1,347 @@
+/* RecommendationActionsModal.css */
+
+.recommendation-actions-modal .modal-dialog {
+    max-width: 1400px !important;
+    width: 95vw !important;
+    max-height: 1600px !important;
+}
+
+.modal-xxl {
+    max-width: 1400px !important;
+    width: 95vw !important;
+    max-height: 1600px !important;
+
+}
+
+.recommendation-actions-modal .modal-content {
+    border-radius: 12px !important;
+    border: none !important;
+    box-shadow: 0 24px 38px 3px rgba(0, 0, 0, 0.14),
+        0 9px 46px 8px rgba(0, 0, 0, 0.12),
+        0 11px 15px -7px rgba(0, 0, 0, 0.2) !important;
+}
+
+.recommendation-actions-modal .modal-header {
+
+
+    padding: 24px 8px 18px 0px !important;
+}
+
+.recommendation-actions-modal .modal-title {
+    font-weight: 600 !important;
+    color: #1a1a1a !important;
+    font-size: 1.5rem !important;
+}
+
+.recommendation-actions-modal .modal-body {
+    padding: 0 !important;
+    max-height: 85vh;
+    overflow: hidden;
+}
+
+/* Panel Styles */
+.left-panel {
+    border-right: 1px solid #e5e7eb;
+
+
+}
+
+.right-panel {
+    background: white;
+
+}
+
+.form-panel,
+.actions-panel {
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+}
+
+.panel-title {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 24px !important;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+/* Form Styles */
+.form-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+/* .form-content .MuiTextField-root,
+.form-content .MuiFormControl-root {
+    margin-bottom: 20px;
+} */
+
+.form-actions {
+    margin-top: auto;
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    border-top: 1px solid #e5e7eb;
+    justify-content: flex-end;
+}
+
+.save-button {
+    background: #b8860b !important;
+    color: white !important;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-transform: none;
+    font-size: 1rem;
+    min-width: 120px;
+}
+
+.save-button:hover {
+    background: #9d7209 !important;
+}
+
+.save-button:disabled {
+    background: #d1d5db !important;
+    color: #9ca3af !important;
+}
+
+.cancel-button {
+    border-color: #d1d5db !important;
+    color: #6b7280 !important;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-transform: none;
+    font-size: 1rem;
+    min-width: 120px;
+}
+
+/* Actions List Styles */
+.actions-list {
+    flex: 1;
+    overflow-y: auto;
+
+}
+
+.actions-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.actions-list::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 3px;
+}
+
+.actions-list::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.actions-list::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    text-align: center;
+    color: #9ca3af;
+}
+
+.action-card {
+    margin-bottom: 16px;
+    border-radius: 12px !important;
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s ease;
+    direction: rtl;
+}
+
+.action-card:hover {
+    border-color: #d1d5db;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.action-card .MuiCardContent-root {
+    padding: 20px !important;
+}
+
+.action-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.action-title {
+    font-weight: 600 !important;
+    color: #1f2937;
+    flex: 1;
+    margin-right: 16px;
+    line-height: 1.4;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.edit-btn {
+    color: #059669 !important;
+    transition: all 0.2s ease;
+}
+
+.edit-btn:hover {
+    background: rgba(5, 150, 105, 0.1) !important;
+    color: #047857 !important;
+}
+
+.delete-btn {
+    color: #dc2626 !important;
+    transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+    background: rgba(220, 38, 38, 0.1) !important;
+    color: #b91c1c !important;
+}
+
+.action-description {
+    color: #6b7280 !important;
+    margin-bottom: 16px !important;
+    line-height: 1.5;
+}
+
+.action-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.meta-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #6b7280;
+}
+
+.meta-item svg {
+    font-size: 16px !important;
+}
+
+.meta-item .MuiTypography-caption {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Chip Customizations */
+.MuiChip-root {
+    font-weight: 600 !important;
+    font-size: 0.75rem !important;
+    height: 24px !important;
+}
+
+.MuiChip-colorSuccess {
+    background-color: #dcfce7 !important;
+    color: #166534 !important;
+}
+
+.MuiChip-colorPrimary {
+    background-color: #dbeafe !important;
+    color: #1e40af !important;
+}
+
+.MuiChip-colorWarning {
+    background-color: #fef3c7 !important;
+    color: #92400e !important;
+}
+
+.MuiChip-colorError {
+    background-color: #fee2e2 !important;
+    color: #991b1b !important;
+}
+
+.MuiChip-colorInfo {
+    background-color: #e0f2fe !important;
+    color: #0369a1 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-content-wrapper {
+        width: 95vw;
+        height: 95vh;
+        max-height: none;
+    }
+
+    .modal-body .MuiGrid-container {
+        flex-direction: column;
+    }
+
+    .left-panel {
+        border-right: none;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .form-panel,
+    .actions-panel {
+        padding: 16px;
+    }
+
+    .modal-header {
+        padding: 16px 20px;
+    }
+
+    .modal-title {
+        font-size: 1.25rem;
+    }
+}
+
+/* RTL Support */
+[dir="rtl"] .modal-content-wrapper {
+    direction: rtl;
+}
+
+[dir="rtl"] .left-panel {
+    border-right: none;
+    border-left: 1px solid #e5e7eb;
+}
+
+[dir="rtl"] .action-title {
+    margin-right: 0;
+    margin-left: 16px;
+}
+
+[dir="rtl"] .meta-item {
+    flex-direction: row-reverse;
+}
+
+/* Animation */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-content-wrapper {
+    animation: modalFadeIn 0.2s ease-out;
+}

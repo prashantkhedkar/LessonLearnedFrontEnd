@@ -84,19 +84,19 @@ export default class AdfsAuthService {
     };
 
     //createSigninRequest = () => {
-        //return this.userManager.createSigninRequest();
+    //return this.userManager.createSigninRequest();
     //};
 
     logout = () => {
         this.userManager.signoutRedirect({
-            id_token_hint: localStorage.getItem("id_token") || "",
+            id_token_hint: sessionStorage.getItem("id_token") || "",
         });
         this.userManager.clearStaleState();
     };
 
     signoutRedirectCallback = () => {
         this.userManager.signoutRedirectCallback().then(() => {
-            localStorage.clear();
+            sessionStorage.clear();
             window.location.replace(process.env.REACT_APP_PUBLIC_URL || "");
         });
         this.userManager.clearStaleState();

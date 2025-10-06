@@ -27,7 +27,7 @@ const PrivateRoutes = () => {
         const { data: authTkn } = await getUserToken();
         // Assuming DDD contains the token directly or you extract it from DDD
         if (authTkn.statusCode === 200) {
-          localStorage.setItem("oidc:tkn", authTkn.message); // Set the token to localStorage
+          sessionStorage.setItem("oidc:tkn", authTkn.message); // Set the token to sessionStorage
         } else {
         }
       } catch (error) {
@@ -95,7 +95,7 @@ const PrivateRoutes = () => {
                 </SuspensedView>
               }
             />
-           
+
             <Route
               path="notifications"
               element={

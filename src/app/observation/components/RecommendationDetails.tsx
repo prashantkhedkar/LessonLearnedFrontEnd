@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback, useMemo, useEffect } from 'react'
 import Recommendation from './Recommendation'
 import ActionsDisplay from './ActionsDisplay'
 import dayjs from 'dayjs'
@@ -31,6 +31,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import './RecommendationDetails.css'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import ClearIcon from '@mui/icons-material/Clear';
+import RecommendationActionsModal from './RecommendationActionsModal';
 interface RecommendationDetailsProps {
   recommendation?: IRecommendation // New prop for the full recommendation object
   text: string
@@ -59,16 +60,166 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({
   onDeleteClick,
 }) => {
   const [isExpanded, setIsExpanded] = useState(true) // Always expanded
+  const [isActionsModalOpen, setIsActionsModalOpen] = useState(false)
+
+  // Validation states
+  const [errors, setErrors] = useState({
+    observationTitle: '',
+    conclusion: '',
+    discussion: '',
+    combatFunction: '',
+    level: ''
+  });
+
   const intl = useIntl()
   const lang = useLang()
 
-  // Debug logging
+  // Action handlers for the modal
+  const handleSaveAction = (action: any) => {
+    console.log('Save action:', action);
+    // TODO: Integrate with your API/state management
+  };
+
+  const handleUpdateAction = (actionId: number, action: any) => {
+    console.log('Update action:', actionId, action);
+    // TODO: Integrate with your API/state management
+  };
+
+  const handleDeleteAction = (actionId: number) => {
+    console.log('Delete action:', actionId);
+    // TODO: Integrate with your API/state management
+  };
+
+  // Validation functions
+  const validateField = useCallback((fieldName: string, value: string | number) => {
+    let error = '';
+
+    switch (fieldName) {
+      case 'observationTitle':
+        if (!value || (typeof value === 'string' && !value.trim())) {
+          error = intl.formatMessage({ id: 'VALIDATION.TITLE.REQUIRED' });
+        } else if (typeof value === 'string' && value.length > 256) {
+          error = intl.formatMessage({ id: 'VALIDATION.TITLE.MAX_LENGTH' });
+        }
+        break;
+      case 'conclusion':
+        if (!value || (typeof value === 'string' && !value.trim())) {
+          error = intl.formatMessage({ id: 'VALIDATION.CONCLUSION.REQUIRED' });
+        } else if (typeof value === 'string' && value.length > 1000) {
+          error = 'Conclusion must be less than 1000 characters';
+        }
+        break;
+      case 'discussion':
+        if (!value || (typeof value === 'string' && !value.trim())) {
+          error = intl.formatMessage({ id: 'VALIDATION.DISCUSSION.REQUIRED' });
+        } else if (typeof value === 'string' && value.length > 1000) {
+          error = 'Discussion must be less than 1000 characters';
+        }
+        break;
+      case 'combatFunction':
+        if (!value || value === 0) {
+          error = intl.formatMessage({ id: 'VALIDATION.COMBOT_FUNCTION.REQUIRED' });
+        }
+        break;
+      case 'level':
+        if (!value || value === 0) {
+          error = intl.formatMessage({ id: 'VALIDATION.LEVEL.REQUIRED' });
+        }
+        break;
+    }
+
+    setErrors(prev => ({ ...prev, [fieldName]: error }));
+    return error === '';
+  }, [intl]);
+
+  const validateAllFields = useCallback(() => {
+    if (!recommendation) return false;
+
+    const fields = ['observationTitle', 'conclusion', 'discussion', 'combatFunction', 'level'];
+    const values = {
+      observationTitle: recommendation?.observationTitle || '',
+      conclusion: recommendation?.conclusion || '',
+      discussion: recommendation?.discussion || '',
+      combatFunction: recommendation?.combatFunction || 0,
+      level: recommendation?.level || 0
+    };
+
+    let isValid = true;
+    const newErrors = { ...errors };
+
+    fields.forEach(field => {
+      const value = values[field as keyof typeof values];
+      let error = '';
+
+      switch (field) {
+        case 'observationTitle':
+          if (!value || (typeof value === 'string' && !value.trim())) {
+            error = intl.formatMessage({ id: 'VALIDATION.TITLE.REQUIRED' });
+          } else if (typeof value === 'string' && value.length > 256) {
+            error = intl.formatMessage({ id: 'VALIDATION.TITLE.MAX_LENGTH' });
+          }
+          break;
+        case 'conclusion':
+          if (!value || (typeof value === 'string' && !value.trim())) {
+            error = intl.formatMessage({ id: 'VALIDATION.CONCLUSION.REQUIRED' });
+          } else if (typeof value === 'string' && value.length > 1000) {
+            error = 'Conclusion must be less than 1000 characters';
+          }
+          break;
+        case 'discussion':
+          if (!value || (typeof value === 'string' && !value.trim())) {
+            error = intl.formatMessage({ id: 'VALIDATION.DISCUSSION.REQUIRED' });
+          } else if (typeof value === 'string' && value.length > 1000) {
+            error = 'Discussion must be less than 1000 characters';
+          }
+          break;
+        case 'combatFunction':
+          if (!value || value === 0) {
+            error = intl.formatMessage({ id: 'VALIDATION.COMBOT_FUNCTION.REQUIRED' });
+          }
+          break;
+        case 'level':
+          if (!value || value === 0) {
+            error = intl.formatMessage({ id: 'VALIDATION.LEVEL.REQUIRED' });
+          }
+          break;
+      }
+
+      newErrors[field] = error;
+      if (error) {
+        isValid = false;
+      }
+    });
+
+    // Only update errors if they actually changed
+    const errorsChanged = Object.keys(newErrors).some(key => newErrors[key] !== errors[key]);
+    if (errorsChanged) {
+      setErrors(newErrors);
+    }
+
+    return isValid;
+  }, [recommendation, intl, errors]);
+
+  // Check if recommendation has validation errors
+  const hasValidationErrors = useMemo(() => {
+    return Object.values(errors).some(error => error !== '');
+  }, [errors]);
+
+  // Validate recommendation data when component mounts or recommendation changes
+  useEffect(() => {
+    if (recommendation) {
+      validateAllFields();
+    }
+  }, [recommendation, validateAllFields]);
+
+  // Debug logging (removed getValidationStatus to prevent infinite re-renders)
   console.log('RecommendationDetails rendered with:', {
-    recommendation,
+    recommendation: recommendation ? 'present' : 'missing',
     recommendationId,
     onEditClick: !!onEditClick,
     onDeleteClick: !!onDeleteClick,
-    text: text.substring(0, 50) + '...'
+    text: text.substring(0, 50) + '...',
+    isActionsModalOpen: isActionsModalOpen
   });
 
   return (
@@ -135,6 +286,20 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({
                 numericVal=""
                 style={{ marginTop: "8px" }}
               />
+              {/* Validation Status Indicator */}
+              {hasValidationErrors && (
+                <Box sx={{
+                  mt: 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  color: 'error.main',
+                  fontSize: '0.75rem'
+                }}>
+                  <Typography variant="caption" color="error">
+                    ⚠️ يحتوي على أخطاء في التحقق
+                  </Typography>
+                </Box>
+              )}
             </div>
             <div
               className="d-flex align-items-center me-3"
@@ -256,7 +421,16 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({
                       </Typography>
                       <Box className="action-footer-center">
                         <IconButton
-                          // onClick={() => handleEditAction(action.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            console.log("Edit action button clicked", {
+                              recommendationId,
+                              currentModalState: isActionsModalOpen
+                            });
+                            alert("Button clicked! Opening modal...");
+                            setIsActionsModalOpen(true);
+                            console.log("Modal state set to true");
+                          }}
                           size="small"
                           className="action-footer-edit-button"
                         >
@@ -290,6 +464,17 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({
           </div>
         </AccordionDetails>
       </Accordion>
+
+      {/* Recommendation Actions Modal */}
+      <RecommendationActionsModal
+        open={isActionsModalOpen}
+        onClose={() => setIsActionsModalOpen(false)}
+        recommendationId={recommendationId}
+        recommendationTitle={`إدارة إجراءات التوصية: ${recommendation?.observationTitle || text}`}
+        onSaveAction={handleSaveAction}
+        onUpdateAction={handleUpdateAction}
+        onDeleteAction={handleDeleteAction}
+      />
     </>
   );
 }

@@ -73,11 +73,13 @@ export function Login() {
   });
 
   useEffect(() => {
-    LoginUser("U00003", "testtest");
+
+    LoginUser("U00002", "testtest");
   }, [isValidLogin]);
 
   async function LoginUser(username, password) {
     try {
+
       const userDetails = await login(username, "ssss");
 
       if (userDetails) {
@@ -89,7 +91,7 @@ export function Login() {
         );
 
         if (auth && auth.userName) {
-          localStorage.setItem("oidc:tkn", userDetails.data.jwtToken);
+          sessionStorage.setItem("oidc:tkn", userDetails.data.jwtToken);
 
           // Extract and save user roles from userDetails
           const authWithRoles = {

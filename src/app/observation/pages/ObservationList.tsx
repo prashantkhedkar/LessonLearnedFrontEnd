@@ -191,7 +191,7 @@ export default function ObservationList() {
     if (useSpinner && tableRef.current) tableRef.current.setIsLoading(true);
 
     setLoading(true);
-    debugger;
+
     const hasFilters = filters != undefined || filters != null;
     let tabInitLocal = tabInit;
     if (rbac.hasRoleByName(UserRoles.BATTALIONCOMMANDER)) {
@@ -329,12 +329,22 @@ export default function ObservationList() {
 
     // Determine if edit icon should be shown based on tab and status
     const shouldShowEdit = () => {
-      debugger;
+
       const status = Number(props.row.status);
 
-      // Hide Edit icon if status is submitted and we're on In Progress tab (1)
-      if (tabInit === 1 && status === ObservationStatus.Submitted) {
+      // Hide Edit icon if status is Submitted
+      if (status === ObservationStatus.Submitted) {
         return false;
+      }
+
+      // Hide Edit icon if status is ApprovedByCommander or RejectedByCommander
+      if (status === ObservationStatus.ApprovedByCommander || status === ObservationStatus.RejectedByCommander) {
+        return false;
+      }
+
+      // Show Edit icon for ReturnedByCommander status only for Data Entry role
+      if (status === ObservationStatus.ReturnedByCommander) {
+        return rbac.hasRoleByName(UserRoles.DATAENTRY);
       }
 
       // Show Edit icon on My Actions tab (2) when status is not approved by Batalian commander
@@ -519,7 +529,7 @@ export default function ObservationList() {
   };
 
   const handleTabChange = (tabIndex: number) => {
-    debugger;
+
     setTabInit(tabIndex);
     const updatedItem: ArticleSearchModel = { ...filters! };
     if (tabIndex == 0) updatedItem.status = 1;
