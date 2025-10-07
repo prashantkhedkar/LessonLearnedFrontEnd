@@ -456,6 +456,48 @@
     transform: rotate(180deg);
 }
 
-.loginButton{
+.loginButton {
     background-color: #af8848 !important;
+}
+
+/* Custom Modal Backdrop Styles */
+.modal-backdrop-custom {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    opacity: 1 !important;
+    z-index: 9 !important;
+}
+
+/* Ensure sticky modals have proper backdrop */
+.modal-sticky .modal-backdrop,
+.modal-backdrop-custom {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    opacity: 1 !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 1050 !important;
+}
+
+/* Fade parent modal when child modal is open */
+.modal.show.recommendation-actions-modal:has(+ .modal.show) .modal-dialog,
+.modal.show.recommendation-actions-modal.modal-faded .modal-dialog {
+
+    pointer-events: none !important;
+    transition: opacity 0.15s ease-in-out !important;
+}
+
+/* Child modal z-index should be higher */
+.modal-sticky {
+    z-index: 1060 !important;
+}
+
+.modal-sticky .modal-dialog {
+    z-index: 1061 !important;
+}
+
+/* Ensure child modal backdrop is above parent modal */
+.modal-backdrop.modal-backdrop-custom {
+    z-index: 1055 !important;
 }

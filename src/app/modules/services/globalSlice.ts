@@ -21,6 +21,7 @@ import {
 
 import {
   AddUpdatePersonModel,
+  IUserSearchPersonModel,
 } from "../../models/global/personModel";
 import {
   IUnitSearchModel,
@@ -636,6 +637,17 @@ export const addUpdateAssignee = createAsyncThunk<
     return thunkApi.rejectWithValue({ error: JSON.stringify(error) });
   }
 });
+
+export const fetchUserListAsync = createAsyncThunk<any, { formDataObject: IUserSearchPersonModel }>(
+  'integration/fetchUserListAsync',
+  async ({ formDataObject }, thunkApi) => {
+    try {
+      return await requests.post<responseType>('/integration/GetPersonUserDetail', { ...formDataObject })
+    } catch (error: any) {
+      return thunkApi.rejectWithValue({ error: JSON.stringify(error) });
+    }
+  }
+);
 
 export const getEmployeePhotoFromMod = createAsyncThunk<any>(
   "fetchEmployeePhotoFromMod",

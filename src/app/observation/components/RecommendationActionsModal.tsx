@@ -32,6 +32,7 @@ import { MUIDatePicker } from '../../modules/components/datePicker/MUIDatePicker
 import { generateUUID } from '../../modules/utils/common';
 import DropdownListInModal from '../../modules/components/dropdown/DropdownListInModal';
 import { useAppDispatch, useAppSelector } from '../../../store';
+import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import {
     fetchActionsByRecommendationId,
     saveActionForRecommendation,
@@ -41,6 +42,8 @@ import {
     loadSampleActions
 } from '../../modules/services/actionSlice';
 import './RecommendationActionsModal.css';
+import GlobalUserSearch from '../../modules/components/globalUserSearch/GlobalUserSearch';
+import { PersonModel } from '../../models/global/personModel';
 
 interface RecommendationActionsModalProps {
     isOpen?: boolean;
@@ -68,6 +71,7 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
     useSampleData = false
 }) => {
     const dispatch = useAppDispatch();
+    const [showUserPopup, setShowUserPopup] = useState(false);
     const { actions, loading, error } = useAppSelector((state) => state.actions);
     const [isEditing, setIsEditing] = useState(false);
     const [editingActionId, setEditingActionId] = useState<string | null>(null);
@@ -461,7 +465,31 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
         }
     };
 
-    return (
+    // Event Listener
+    const handleOnAdd = (pModel: PersonModel[]) => {
+        let userList: PersonModel[];
+        // if (personModel && personModel.length > 0) {
+        //     // Check for duplicates and filter out
+        //     const filteredModel = pModel.filter(newPerson =>
+        //         !personModel.some(person => person.personId === newPerson.personId)
+        //     );
+        //     userList = [...personModel, ...filteredModel];
+        // } else {
+        //     userList = [...personModel, ...pModel];
+        // }
+        // setPersonModel(userList);
+        // userList.map((obj) => {
+        //     //const currentuserObj = { "userId": obj.personId, "unitId": auth?.unitId!, "userName": obj.userName, "displayName": (lang == "ar" ? obj.name.ar : obj.name.en), "type": "User" }
+        //     const currentuserObj = { "value": obj.personId, "label": (lang == "ar" ? obj.name.ar : obj.name.en), "typeId": 1 }
+        //     if (attendees.find((item) => item.value === obj.personId) == undefined)
+        //         attendees.push(currentuserObj);
+
+        // });
+        setShowUserPopup(false);
+
+    };
+
+    return (<>
         <Modal
             show={modalIsOpen}
             onHide={onClose}
@@ -953,7 +981,7 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
                                                             />
                                                         </div>
                                                         <div className="col-md-10">
-                                                            <div className="d-flex gap-4" dir="rtl">
+                                                            <div className="d-flex gap-4 align-items-center" dir="rtl">
                                                                 <label className="d-flex align-items-center">
                                                                     <input
                                                                         type="radio"
@@ -988,6 +1016,33 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
                                                                         {intl.formatMessage({ id: 'ACTION_MODAL.RESPONSIBLE_TYPE.UNITS' })}
                                                                     </span>
                                                                 </label>
+
+                                                                {/* User/Unit Selection Button - Only show when type is selected */}
+                                                                {formData.responsibleType && (
+                                                                    <button
+                                                                        type="button"
+                                                                        className="btn btn-sm p-0 ms-2"
+                                                                        onClick={() => { setShowUserPopup(true); }}
+                                                                        title={formData.responsibleType === 'individuals' ? 'Select Individuals' : 'Select Units'}
+                                                                    >
+                                                                        {formData.responsibleType === 'individuals' ? (
+                                                                            <PersonAddAltOutlinedIcon style={{ color: '#6b7280' }} />
+                                                                        ) : (
+                                                                            <svg
+                                                                                width="24"
+                                                                                height="24"
+                                                                                viewBox="0 0 24 24"
+                                                                                fill="none"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                style={{ color: '#6b7280' }}
+                                                                            >
+                                                                                <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" fill="currentColor" />
+                                                                                <path d="M19 15L20 18L23 19L20 20L19 23L18 20L15 19L18 18L19 15Z" fill="currentColor" />
+                                                                                <path d="M6 15L7 18L10 19L7 20L6 23L5 20L2 19L5 18L6 15Z" fill="currentColor" />
+                                                                            </svg>
+                                                                        )}
+                                                                    </button>
+                                                                )}
                                                             </div>
                                                             {touched.responsibleType && errors.responsibleType && (
                                                                 <div className="invalid-feedback d-block" style={{
@@ -1149,6 +1204,27 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
                 </Box>
             </Modal.Body>
         </Modal>
+
+        {/* Global Search Users */}
+        <Modal
+            className='modal-sticky modal-sticky-lg modal-sticky-bottom-right'
+            size="lg"
+            backdrop="static"
+            show={showUserPopup}
+            onHide={() => setShowUserPopup(false)}
+
+            backdropClassName="modal-backdrop-custom">
+            <Modal.Header closeButton>
+                <Modal.Title>
+                    <HeaderLabels text={"MOD.GLOBAL.MODAL.TITLE.SEARCHUSER"} />
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <GlobalUserSearch onUsersAdd={handleOnAdd} />
+            </Modal.Body>
+        </Modal>
+    </>
+
     );
 };
 

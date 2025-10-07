@@ -1,0 +1,11 @@
+.user-list-row {
+    cursor: pointer;    
+}
+
+.user-list-row:hover {
+    background-color: #f8f1e3 !important;  
+}
+
+.user-list-row > td > label {
+    cursor: pointer;    
+}
