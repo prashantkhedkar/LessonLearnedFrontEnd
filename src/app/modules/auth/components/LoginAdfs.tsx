@@ -19,18 +19,25 @@ export function LoginAdfs() {
   const navigate = useNavigate();
   const [status, setStatus] = useState('')
   const [isValidLogin, setIsValidLogin] = useState(true);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const adfsAuth = adfsUseAuth();
 
   useEffect(() => {
-    if (adfsAuth.isAuthenticated === false && adfsAuth.isLoading === false) {
+    // Check if user is logging out by checking if auth was recently cleared
+    if (!auth && sessionStorage.length === 0) {
+      setIsLoggingOut(true);
+      return;
+    }
+
+    if (adfsAuth.isAuthenticated === false && adfsAuth.isLoading === false && !isLoggingOut) {
       adfsAuth.signinRedirect();
     }
 
-    if (adfsAuth.isAuthenticated === true) {
+    if (adfsAuth.isAuthenticated === true && !isLoggingOut) {
       fetchData();
     }
-  }, [adfsAuth.isAuthenticated, adfsAuth.isLoading]);
+  }, [adfsAuth.isAuthenticated, adfsAuth.isLoading, auth, isLoggingOut]);
 
   const fetchData = async () => {
     try {
@@ -48,7 +55,7 @@ export function LoginAdfs() {
         writeToBrowserConsole("fetchData from db");
 
         saveAuth(auth);
-       // const { data: user } = await getUserByToken(auth.jwtToken, auth.userName);
+        // const { data: user } = await getUserByToken(auth.jwtToken, auth.userName);
         setCurrentUser(auth);
         setStatus('');
         setIsValidLogin(true);
