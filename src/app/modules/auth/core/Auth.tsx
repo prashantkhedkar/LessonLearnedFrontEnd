@@ -35,10 +35,10 @@ type AuthContextProps = {
 
 const initAuthContextPropsState = {
   auth: authHelper.getAuth(),
-  saveAuth: () => {},
+  saveAuth: () => { },
   currentUser: undefined,
-  setCurrentUser: () => {},
-  logout: () => {},
+  setCurrentUser: () => { },
+  logout: () => { },
   checkTokenExpiration: () => 2,
 };
 
@@ -83,7 +83,7 @@ const AuthProvider: FC<WithChildren> = ({ children }) => {
     //removeLocalStorage("ReturnURL");
 
     sessionStorage.clear(); // Clears all session storage data
-    
+
     // if (adfsAuth) {
     //   adfsAuth.removeUser();
     //   adfsAuth.signoutRedirect();
@@ -97,7 +97,7 @@ const AuthProvider: FC<WithChildren> = ({ children }) => {
         post_logout_redirect_uri:
           process.env.REACT_APP_POST_LOGOUT_REDIRECT_URI,
       });
-      adfsAuth.signinRedirect();
+      // Removed adfsAuth.signinRedirect() to prevent immediate re-authentication during logout
     }
   };
 
@@ -132,9 +132,9 @@ const AuthProvider: FC<WithChildren> = ({ children }) => {
         //   auth.jwtToken,
         //   auth.userName
         // );
-          if (auth && auth.userName) {
-            setCurrentUser(auth);
-          }
+        if (auth && auth.userName) {
+          setCurrentUser(auth);
+        }
         //setCurrentUser(user);
       } else {
         saveAuth(undefined);
@@ -172,7 +172,7 @@ const AuthInit: FC<WithChildren> = ({ children }) => {
     const requestUser = async (apiToken: string, email: string) => {
       try {
         if (!didRequest.current) {
-        //  const { data } = await getUserByToken(apiToken, email);
+          //  const { data } = await getUserByToken(apiToken, email);
           if (auth && auth.userName) {
             setCurrentUser(auth);
           }

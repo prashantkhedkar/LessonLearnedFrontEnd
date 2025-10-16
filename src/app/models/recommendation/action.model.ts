@@ -15,6 +15,7 @@ export interface IRecommendationAction {
     responsibleType?: string; // Additional field for modal - individuals or units
     implementation?: string; // Additional field for modal
     coordination?: string; // Additional field for modal
+    progress?: number; // Progress percentage (0-100)
     priority?: 'high' | 'medium' | 'low';
     status?: 'pending' | 'in-progress' | 'completed' | 'cancelled' | 'active' | 'deleted';
     timestamp?: string;
@@ -50,6 +51,7 @@ export interface IActionFormData {
     responsibleType?: string;
     implementation?: string;
     coordination?: string;
+    progress?: number;
     priority?: 'high' | 'medium' | 'low';
     status?: 'pending' | 'in-progress' | 'completed' | 'cancelled';
 }

@@ -45,6 +45,8 @@ import './RecommendationActionsModal.css';
 import GlobalUserSearch from '../../modules/components/globalUserSearch/GlobalUserSearch';
 import { PersonModel } from '../../models/global/personModel';
 
+import { Slider } from '@mui/material';
+
 interface RecommendationActionsModalProps {
     isOpen?: boolean;
     open?: boolean;
@@ -83,7 +85,8 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
         responsibleBy: '',
         responsibleType: '',
         implementation: '',
-        coordination: ''
+        coordination: '',
+        progress: 0
     });
 
     // Validation states
@@ -95,7 +98,8 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
         responsibleBy: '',
         responsibleType: '',
         implementation: '',
-        coordination: ''
+        coordination: '',
+        progress: ''
     });
 
     const [touched, setTouched] = useState({
@@ -106,7 +110,8 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
         responsibleBy: false,
         responsibleType: false,
         implementation: false,
-        coordination: false
+        coordination: false,
+        progress: false
     });
 
     const intl = useIntl();
@@ -188,8 +193,8 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
         }
     }, [modalIsOpen, recommendationId, useSampleData, dispatch]); const displayActions = actions.filter(action => action.status !== 'deleted');
 
-    const handleInputChange = (field: keyof IActionFormData, value: string | Date | undefined) => {
-        let processedValue: string = '';
+    const handleInputChange = (field: keyof IActionFormData, value: string | Date | number | undefined) => {
+        let processedValue: any = '';
 
         if (field === 'fromDate' || field === 'toDate') {
             // Handle Date objects from MUIDatePicker
@@ -198,6 +203,9 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
             } else if (typeof value === 'string') {
                 processedValue = value;
             }
+        } else if (field === 'progress') {
+            // Handle number values for progress
+            processedValue = typeof value === 'number' ? value : 0;
         } else {
             // Handle string values
             processedValue = typeof value === 'string' ? value : '';
@@ -218,7 +226,8 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
             responsibleBy: '',
             responsibleType: '',
             implementation: '',
-            coordination: ''
+            coordination: '',
+            progress: 0
         });
         setErrors({
             title: '',
@@ -228,7 +237,8 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
             responsibleBy: '',
             responsibleType: '',
             implementation: '',
-            coordination: ''
+            coordination: '',
+            progress: ''
         });
         setTouched({
             title: false,
@@ -238,7 +248,8 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
             responsibleBy: false,
             responsibleType: false,
             implementation: false,
-            coordination: false
+            coordination: false,
+            progress: false
         });
         setIsEditing(false);
         setEditingActionId(null);
@@ -254,7 +265,8 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
             responsibleBy: true,
             responsibleType: true,
             implementation: true,
-            coordination: true
+            coordination: true,
+            progress: true
         });
 
         // Validate required fields
@@ -350,6 +362,7 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
                     responsibleType: formData.responsibleType,
                     implementation: formData.implementation,
                     coordination: formData.coordination,
+                    progress: formData.progress || 0,
                     priority: 'medium' as const,
                     status: 'active' as const,
                     description: '',
@@ -383,7 +396,8 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
             responsibleBy: action.responsibleBy,
             responsibleType: action.responsibleType || '',
             implementation: action.implementation,
-            coordination: action.coordination
+            coordination: action.coordination,
+            progress: (action as any).progress || 0
         });
 
         // Reset validation state when editing
@@ -395,7 +409,8 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
             responsibleBy: '',
             responsibleType: '',
             implementation: '',
-            coordination: ''
+            coordination: '',
+            progress: ''
         });
 
         setTouched({
@@ -406,7 +421,8 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
             responsibleBy: false,
             responsibleType: false,
             implementation: false,
-            coordination: false
+            coordination: false,
+            progress: false
         });
 
         setIsEditing(true);
@@ -1156,6 +1172,56 @@ const RecommendationActionsModal: React.FC<RecommendationActionsModalProps> = ({
                                                                     {errors.coordination}
                                                                 </div>
                                                             )}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {/* Progress Field */}
+                                                <div className="col-12 mb-4">
+                                                    <div className="row">
+                                                        <div className="col-md-2">
+                                                            <InfoLabels
+                                                                style={{}}
+                                                                text={intl.formatMessage({ id: 'ACTION_MODAL.FIELDS.PROGRESS', defaultMessage: 'Progress' })}
+                                                                isRequired={false}
+                                                            />
+                                                        </div>
+                                                        <div className="col-md-10">
+                                                            <Slider
+                                                                value={formData.progress || 0}
+                                                                onChange={(event, newValue) => {
+                                                                    handleInputChange('progress', newValue as number);
+                                                                }}
+                                                                min={0}
+                                                                max={100}
+                                                                step={1}
+                                                                valueLabelDisplay="auto"
+                                                                aria-label="Progress percentage"
+                                                                sx={{
+                                                                    color: '#c4945c',
+                                                                    '& .MuiSlider-thumb': {
+                                                                        backgroundColor: '#c4945c',
+                                                                    },
+                                                                    '& .MuiSlider-track': {
+                                                                        backgroundColor: '#c4945c',
+                                                                    },
+                                                                    '& .MuiSlider-rail': {
+                                                                        backgroundColor: '#e5e7eb',
+                                                                    },
+                                                                    '& .MuiSlider-valueLabel': {
+                                                                        backgroundColor: '#c4945c',
+                                                                        color: '#ffffff',
+                                                                        '&:before': {
+                                                                            borderTopColor: '#c4945c',
+                                                                        }
+                                                                    }
+                                                                }}
+                                                            />
+                                                            <div className="mt-2 text-center">
+                                                                <Typography variant="body2" sx={{ color: '#6b7280', fontSize: '0.875rem' }}>
+                                                                    {formData.progress || 0}% {intl.formatMessage({ id: 'ACTION_MODAL.LABELS.COMPLETE', defaultMessage: 'Complete' })}
+                                                                </Typography>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
