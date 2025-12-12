@@ -1,0 +1,41 @@
+{
+  "MultiServerConfiguration": {
+    "Server1": {
+      "Name": "Production Server 1",
+      "BaseUrl": "http://server1-hostname-or-ip",
+      "Services": {
+        "ApiGateway": ":5551/health",
+        "AuthenticationApiService": ":5209/health",
+        "ProjectApiService": ":5059/health",
+        "WatiraApiService": ":5010/health",
+        "MeetingCalendarApiService": ":5015/health",
+        "HRAdminApiService": ":5002/health",
+        "AnnouncementApiService": ":5136/health",
+        "IntegrationApiService": ":5005/health",
+        "NotificationApiService": ":5100/health",
+        "DepartmentWebsiteApiService": ":5075/health"
+      }
+    },
+    "Server2": {
+      "Name": "Production Server 2",
+      "BaseUrl": "http://localhost",
+      "Services": {
+        "ApiGateway": ":5551/health",
+        "AuthenticationApiService": ":5209/health",
+        "ProjectApiService": ":5059/health",
+        "WatiraApiService": ":5010/health",
+        "MeetingCalendarApiService": ":5015/health",
+        "HRAdminApiService": ":5002/health",
+        "AnnouncementApiService": ":5136/health",
+        "IntegrationApiService": ":5005/health",
+        "NotificationApiService": ":5100/health",
+        "DepartmentWebsiteApiService": ":5075/health"
+      }
+    }
+  },
+  "HealthCheckSettings": {
+    "TimeoutSeconds": 60,
+    "RefreshIntervalSeconds": 30,
+    "EnableMultiServerMode": true
+  }
+}

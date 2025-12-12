@@ -1,0 +1,122 @@
+[
+  {
+    "ContainingType": "STApplicationHealthCheck.Controllers.HealthController",
+    "Method": "Get",
+    "RelativePath": "api/Health",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "STApplicationHealthCheck.Controllers.HealthController",
+    "Method": "GetServices",
+    "RelativePath": "api/Health/services",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "STApplicationHealthCheck.Controllers.HealthController",
+    "Method": "GetSummary",
+    "RelativePath": "api/Health/summary",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "STApplicationHealthCheck.Controllers.StatusController",
+    "Method": "CheckAllServices",
+    "RelativePath": "api/Status/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "STApplicationHealthCheck.Controllers.StatusController",
+    "Method": "CheckAllServicesAndExternalApis",
+    "RelativePath": "api/Status/all-with-external",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "STApplicationHealthCheck.Controllers.StatusController",
+    "Method": "GetConfiguration",
+    "RelativePath": "api/Status/config",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "STApplicationHealthCheck.Controllers.StatusController",
+    "Method": "DebugAuthHealth",
+    "RelativePath": "api/Status/debug-auth-health",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "STApplicationHealthCheck.Controllers.StatusController",
+    "Method": "DebugTest",
+    "RelativePath": "api/Status/debug-test",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "STApplicationHealthCheck.Controllers.StatusController",
+    "Method": "GetExternalApis",
+    "RelativePath": "api/Status/external-apis",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "STApplicationHealthCheck.Controllers.StatusController",
+    "Method": "CheckExternalApisOnly",
+    "RelativePath": "api/Status/external-only",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "STApplicationHealthCheck.Controllers.StatusController",
+    "Method": "CheckMultiServerHealth",
+    "RelativePath": "api/Status/multi-server",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "STApplicationHealthCheck.Controllers.StatusController",
+    "Method": "GetServices",
+    "RelativePath": "api/Status/services",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]
